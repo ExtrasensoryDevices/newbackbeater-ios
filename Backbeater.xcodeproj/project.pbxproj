@@ -110,7 +110,6 @@
 				C7E77A841B1D07210058523B /* MainViewController.swift */,
 				C7E77A861B1D07210058523B /* Main.storyboard */,
 				C7E77A891B1D07210058523B /* Images.xcassets */,
-				C7E77A8B1B1D07210058523B /* LaunchScreen.xib */,
 				C7E77A801B1D07210058523B /* Supporting Files */,
 			);
 			path = Backbeater;
@@ -128,6 +127,7 @@
 		C7E77AA21B1E3D800058523B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C7E77A8B1B1D07210058523B /* LaunchScreen.xib */,
 				C7E77AA31B1E3DCC0058523B /* SensitivitySlider.swift */,
 				C7E77AA51B1E3DDF0058523B /* SensitivitySlider.xib */,
 				C7E77AAE1B1FD37B0058523B /* Sidebar.xib */,
