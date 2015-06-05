@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <scenes>
+        <!--Main View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="Backbeater" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WFx-zl-RVz" userLabel="SideBar" customClass="Sidebar" customModule="Backbeater" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="260" height="600"/>
+                                <color key="backgroundColor" red="0.91764705879999997" green="0.91764705879999997" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="260" id="gau-uU-uL4"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="snK-fl-aQa" userLabel="ContainerView">
+                                <rect key="frame" x="260" y="0.0" width="600" height="600"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="syQ-P2-MNj">
+                                        <rect key="frame" x="8" y="28" width="28" height="28"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="28" id="37a-vE-LTn"/>
+                                            <constraint firstAttribute="width" constant="28" id="MZJ-4b-vpH"/>
+                                        </constraints>
+                                        <state key="normal" image="settings">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="selected" image="close"/>
+                                        <connections>
+                                            <action selector="didTapSettingsButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KBf-Ko-l9A"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.14901960784313725" green="0.14901960784313725" blue="0.14901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstItem="syQ-P2-MNj" firstAttribute="leading" secondItem="snK-fl-aQa" secondAttribute="leading" constant="8" id="gbn-qe-NR0"/>
+                                    <constraint firstItem="syQ-P2-MNj" firstAttribute="top" secondItem="snK-fl-aQa" secondAttribute="top" constant="8" id="pQW-CG-DN8"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="pQW-CG-DN8"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="Ak8-WG-sRr" appends="YES" id="lZS-8c-acm"/>
+                                </connections>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.8666666666666667" green="0.18431372549019609" blue="0.26666666666666666" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="WFx-zl-RVz" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="0eL-xy-a2z"/>
+                            <constraint firstAttribute="centerY" secondItem="snK-fl-aQa" secondAttribute="centerY" id="8tm-Jg-8x3"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="WFx-zl-RVz" secondAttribute="bottom" id="BC9-Ef-6vG"/>
+                            <constraint firstItem="snK-fl-aQa" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" id="T0M-yK-8sI"/>
+                            <constraint firstItem="snK-fl-aQa" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="aEE-Eo-Olf"/>
+                            <constraint firstItem="WFx-zl-RVz" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="c7i-I6-CfT"/>
+                            <constraint firstItem="syQ-P2-MNj" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="dGk-qL-hUW"/>
+                            <constraint firstAttribute="centerX" secondItem="snK-fl-aQa" secondAttribute="centerX" constant="-260" id="zti-u3-blu"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="containerCenterXConstraint" destination="zti-u3-blu" id="spa-lK-Xv5"/>
+                        <outlet property="containerView" destination="snK-fl-aQa" id="hEZ-fv-clh"/>
+                        <outlet property="settingsButton" destination="syQ-P2-MNj" id="dZc-SV-vaI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="Ak8-WG-sRr">
+                    <connections>
+                        <action selector="didPanContainerView:" destination="BYZ-38-t0r" id="fk4-fB-MuY"/>
+                    </connections>
+                </panGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="469" y="327"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="dwd-wn-xoT">
+            <objects>
+                <viewController id="ri4-d8-4RD" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="WG6-xU-VjA"/>
+                        <viewControllerLayoutGuide type="bottom" id="kYO-4H-tYr"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="FFV-Bp-Hpm">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="142" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vEw-IH-tx5">
+                                <rect key="frame" x="131" y="138" width="339" height="323"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="339" id="f8i-pc-bAA"/>
+                                    <constraint firstAttribute="height" constant="323" id="qho-vy-5JL"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="142"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerY" secondItem="vEw-IH-tx5" secondAttribute="centerY" id="1DD-GL-8tS"/>
+                            <constraint firstAttribute="centerX" secondItem="vEw-IH-tx5" secondAttribute="centerX" id="r7A-1f-rqi"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="51M-Jy-04m" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1227" y="327"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="close" width="57" height="57"/>
+        <image name="settings" width="57" height="57"/>
+    </resources>
+</document>
