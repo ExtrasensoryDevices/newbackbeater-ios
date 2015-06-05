@@ -18,6 +18,8 @@ class SensitivitySlider: UIControlNibDesignable{
     @IBOutlet weak var thumbView: UIView!
     @IBOutlet weak var thumbLabel: UILabel!
     
+    @IBOutlet weak var thumbCenterConstraint: NSLayoutConstraint!
+    
     var MIN_VALUE:Int = 0 {
         didSet {
             updateThumb(animated: true)
@@ -30,7 +32,7 @@ class SensitivitySlider: UIControlNibDesignable{
     }
     let BORDER_WIDTH:CGFloat = 2.5
     
-    private(set) var value:Int = 50 {
+    private(set) var value:Int = 10 {
         didSet {
             if (value != oldValue) {
                 self.sendActionsForControlEvents(UIControlEvents.ValueChanged)
@@ -41,18 +43,32 @@ class SensitivitySlider: UIControlNibDesignable{
     // TODO: var continuousUpdates = true
     
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        setup()
-    }
-    
-    func setup() {
+    override func setup() {
+        thumbView.addObserver(self, forKeyPath: "center", options: nil, context: nil)
+        thumbView.backgroundColor = ColorPalette.Pink.color()
         thumbView.layer.cornerRadius = thumbView.frame.size.height / 2 - 1.5 * BORDER_WIDTH
         thumbView.layer.borderWidth = BORDER_WIDTH
         thumbView.layer.borderColor = UIColor.whiteColor().CGColor
+        thumbView.removeConstraint(thumbCenterConstraint)
         updateThumb(animated: false)
         setupGestures()
+        
+        
     }
+    
+    deinit {
+        thumbView.removeObserver(self, forKeyPath: "center")
+    }
+    
+    
+    override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
+        println(keyPath)
+        if (object as! NSObject == thumbView && keyPath == "center") {
+            println("frame: \(thumbView.frame)")
+        }
+    }
+    
+
     
     func updateThumb(#animated: Bool) {
         thumbLabel.text = String(value)
@@ -66,9 +82,11 @@ class SensitivitySlider: UIControlNibDesignable{
         if animated {
             UIView.animateWithDuration(0.3) {[weak self] in
                 self?.thumbView.center = point
+                println("frame: \(self?.thumbView.frame)")
             }
         } else {
             thumbView.center = point
+            println("frame: \(thumbView.frame), point : \(point)")
         }
     }
     

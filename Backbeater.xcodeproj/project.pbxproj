@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		A723985D35709AD09E064D67 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BD97D472B88826767A07A992 /* libPods.a */; };
 		C75DAA941B212787008FDB43 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7E77ABB1B20F4E00058523B /* Foundation.framework */; };
+		C75DAA971B223D66008FDB43 /* SegmentedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75DAA961B223D66008FDB43 /* SegmentedButton.swift */; };
+		C75DAA991B223D9B008FDB43 /* SegmentedButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = C75DAA981B223D9B008FDB43 /* SegmentedButton.xib */; };
+		C7B9C7E61B225D2700250686 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B9C7E41B225D2700250686 /* Fabric.framework */; };
+		C7B9C7E71B225D2700250686 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B9C7E51B225D2700250686 /* Crashlytics.framework */; };
 		C7E77A831B1D07210058523B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E77A821B1D07210058523B /* AppDelegate.swift */; };
 		C7E77A851B1D07210058523B /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E77A841B1D07210058523B /* MainViewController.swift */; };
 		C7E77A881B1D07210058523B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7E77A861B1D07210058523B /* Main.storyboard */; };
@@ -17,7 +21,7 @@
 		C7E77AA41B1E3DCC0058523B /* SensitivitySlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E77AA31B1E3DCC0058523B /* SensitivitySlider.swift */; };
 		C7E77AA61B1E3DDF0058523B /* SensitivitySlider.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7E77AA51B1E3DDF0058523B /* SensitivitySlider.xib */; };
 		C7E77AA81B1E7FEB0058523B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7E77AA71B1E7FEB0058523B /* QuartzCore.framework */; };
-		C7E77AAB1B1F81170058523B /* UIViewNibDesignable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E77AAA1B1F81170058523B /* UIViewNibDesignable.swift */; };
+		C7E77AAB1B1F81170058523B /* NibDesignable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E77AAA1B1F81170058523B /* NibDesignable.swift */; };
 		C7E77AAD1B1FBFBC0058523B /* UIControlNibDesignable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E77AAC1B1FBFBC0058523B /* UIControlNibDesignable.swift */; };
 		C7E77AAF1B1FD37B0058523B /* Sidebar.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7E77AAE1B1FD37B0058523B /* Sidebar.xib */; };
 		C7E77AB11B1FD7820058523B /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E77AB01B1FD7820058523B /* Sidebar.swift */; };
@@ -27,6 +31,10 @@
 /* Begin PBXFileReference section */
 		4D1B896F03FB6BA784900274 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		BD97D472B88826767A07A992 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C75DAA961B223D66008FDB43 /* SegmentedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SegmentedButton.swift; path = Views/SegmentedButton.swift; sourceTree = "<group>"; };
+		C75DAA981B223D9B008FDB43 /* SegmentedButton.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SegmentedButton.xib; path = Views/SegmentedButton.xib; sourceTree = "<group>"; };
+		C7B9C7E41B225D2700250686 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		C7B9C7E51B225D2700250686 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		C7E77A7D1B1D07210058523B /* Backbeater.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Backbeater.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7E77A811B1D07210058523B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C7E77A821B1D07210058523B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -37,7 +45,7 @@
 		C7E77AA31B1E3DCC0058523B /* SensitivitySlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SensitivitySlider.swift; path = Views/SensitivitySlider.swift; sourceTree = "<group>"; };
 		C7E77AA51B1E3DDF0058523B /* SensitivitySlider.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SensitivitySlider.xib; path = Views/SensitivitySlider.xib; sourceTree = "<group>"; };
 		C7E77AA71B1E7FEB0058523B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		C7E77AAA1B1F81170058523B /* UIViewNibDesignable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewNibDesignable.swift; sourceTree = "<group>"; };
+		C7E77AAA1B1F81170058523B /* NibDesignable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NibDesignable.swift; sourceTree = "<group>"; };
 		C7E77AAC1B1FBFBC0058523B /* UIControlNibDesignable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIControlNibDesignable.swift; sourceTree = "<group>"; };
 		C7E77AAE1B1FD37B0058523B /* Sidebar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = Sidebar.xib; path = Views/Sidebar.xib; sourceTree = "<group>"; };
 		C7E77AB01B1FD7820058523B /* Sidebar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Sidebar.swift; path = Views/Sidebar.swift; sourceTree = "<group>"; };
@@ -54,8 +62,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				C75DAA941B212787008FDB43 /* Foundation.framework in Frameworks */,
+				C7B9C7E71B225D2700250686 /* Crashlytics.framework in Frameworks */,
 				C7E77AA81B1E7FEB0058523B /* QuartzCore.framework in Frameworks */,
 				A723985D35709AD09E064D67 /* libPods.a in Frameworks */,
+				C7B9C7E61B225D2700250686 /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +75,8 @@
 		550D132ADA81F391F4746002 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C7B9C7E41B225D2700250686 /* Fabric.framework */,
+				C7B9C7E51B225D2700250686 /* Crashlytics.framework */,
 				C7E77ABB1B20F4E00058523B /* Foundation.framework */,
 				C7E77AB91B20F4C90058523B /* UIKit.framework */,
 				C7E77AA71B1E7FEB0058523B /* QuartzCore.framework */,
@@ -132,6 +144,8 @@
 				C7E77AA51B1E3DDF0058523B /* SensitivitySlider.xib */,
 				C7E77AAE1B1FD37B0058523B /* Sidebar.xib */,
 				C7E77AB01B1FD7820058523B /* Sidebar.swift */,
+				C75DAA961B223D66008FDB43 /* SegmentedButton.swift */,
+				C75DAA981B223D9B008FDB43 /* SegmentedButton.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -140,7 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				C7E77AAC1B1FBFBC0058523B /* UIControlNibDesignable.swift */,
-				C7E77AAA1B1F81170058523B /* UIViewNibDesignable.swift */,
+				C7E77AAA1B1F81170058523B /* NibDesignable.swift */,
 			);
 			path = Libs;
 			sourceTree = "<group>";
@@ -157,6 +171,8 @@
 				C7E77A7A1B1D07210058523B /* Frameworks */,
 				C7E77A7B1B1D07210058523B /* Resources */,
 				55559B364CFB884141B5E10B /* Copy Pods Resources */,
+				C75DAA951B221C77008FDB43 /* ShellScript */,
+				C7B9C7E31B225CD200250686 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -178,7 +194,7 @@
 				TargetAttributes = {
 					C7E77A7C1B1D07210058523B = {
 						CreatedOnToolsVersion = 6.3.2;
-						DevelopmentTeam = ALU4YZQ649;
+						DevelopmentTeam = 52RQYE3ZLS;
 					};
 				};
 			};
@@ -205,6 +221,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C75DAA991B223D9B008FDB43 /* SegmentedButton.xib in Resources */,
 				C7E77AA61B1E3DDF0058523B /* SensitivitySlider.xib in Resources */,
 				C7E77A881B1D07210058523B /* Main.storyboard in Resources */,
 				C7E77A8D1B1D07210058523B /* LaunchScreen.xib in Resources */,
@@ -246,6 +263,32 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		C75DAA951B221C77008FDB43 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "buildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"$INFOPLIST_FILE\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"$INFOPLIST_FILE\"";
+		};
+		C7B9C7E31B225CD200250686 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run 2005672959a305e58471f44a4dc2d921baa415aa 5eed7f1a8bcbd18d2739d66f7c54c30fec116dbbfe6b8b6343506bb3b917693b";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -253,8 +296,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C75DAA971B223D66008FDB43 /* SegmentedButton.swift in Sources */,
 				C7E77A851B1D07210058523B /* MainViewController.swift in Sources */,
-				C7E77AAB1B1F81170058523B /* UIViewNibDesignable.swift in Sources */,
+				C7E77AAB1B1F81170058523B /* NibDesignable.swift in Sources */,
 				C7E77AAD1B1FBFBC0058523B /* UIControlNibDesignable.swift in Sources */,
 				C7E77AA41B1E3DCC0058523B /* SensitivitySlider.swift in Sources */,
 				C7E77AB31B20EBB20058523B /* Constants.swift in Sources */,
@@ -321,7 +365,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -360,7 +404,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -374,6 +418,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_NO_COMMON_BLOCKS = NO;
 				INFOPLIST_FILE = Backbeater/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -388,6 +436,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_NO_COMMON_BLOCKS = NO;
 				INFOPLIST_FILE = Backbeater/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

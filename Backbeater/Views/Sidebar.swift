@@ -9,9 +9,14 @@
 import UIKit
 
 @IBDesignable
-class Sidebar: UIViewNibDesignable {
+class Sidebar: NibDesignable {
 
     @IBOutlet weak var sensitivitySlider: SensitivitySlider!
+    
+    
+    override func setup() {
+        self.backgroundColor = ColorPalette.Pink.color()
+    }
 
     @IBAction func sensitivityValueChanged(sender: SensitivitySlider) {
     }

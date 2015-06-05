@@ -29,12 +29,14 @@ public class UIControlNibDesignable: UIControl {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setupNib()
+        self.setup()
     }
     
     // MARK: - NSCoding
     required public init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.setupNib()
+        self.setup()
     }
     
     // MARK: - Nib loading
@@ -67,5 +69,12 @@ public class UIControlNibDesignable: UIControl {
     */
     public func nibName() -> String {
         return self.dynamicType.description().componentsSeparatedByString(".").last!
+    }
+    
+    /**
+    Called in init(frame:) and init(aDecoder:). Override in children.
+    */
+    func setup() {
+        // override in children
     }
 }
