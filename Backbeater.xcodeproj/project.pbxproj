@@ -9,10 +9,9 @@
 /* Begin PBXBuildFile section */
 		A723985D35709AD09E064D67 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BD97D472B88826767A07A992 /* libPods.a */; };
 		C75DAA941B212787008FDB43 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7E77ABB1B20F4E00058523B /* Foundation.framework */; };
-		C75DAA971B223D66008FDB43 /* SegmentedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75DAA961B223D66008FDB43 /* SegmentedButton.swift */; };
-		C75DAA991B223D9B008FDB43 /* SegmentedButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = C75DAA981B223D9B008FDB43 /* SegmentedButton.xib */; };
 		C7B9C7E61B225D2700250686 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B9C7E41B225D2700250686 /* Fabric.framework */; };
 		C7B9C7E71B225D2700250686 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B9C7E51B225D2700250686 /* Crashlytics.framework */; };
+		C7B9C7FC1B2281E400250686 /* ADVSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B9C7FB1B2281E400250686 /* ADVSegmentedControl.swift */; };
 		C7E77A831B1D07210058523B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E77A821B1D07210058523B /* AppDelegate.swift */; };
 		C7E77A851B1D07210058523B /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E77A841B1D07210058523B /* MainViewController.swift */; };
 		C7E77A881B1D07210058523B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7E77A861B1D07210058523B /* Main.storyboard */; };
@@ -31,10 +30,9 @@
 /* Begin PBXFileReference section */
 		4D1B896F03FB6BA784900274 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		BD97D472B88826767A07A992 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		C75DAA961B223D66008FDB43 /* SegmentedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SegmentedButton.swift; path = Views/SegmentedButton.swift; sourceTree = "<group>"; };
-		C75DAA981B223D9B008FDB43 /* SegmentedButton.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SegmentedButton.xib; path = Views/SegmentedButton.xib; sourceTree = "<group>"; };
 		C7B9C7E41B225D2700250686 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		C7B9C7E51B225D2700250686 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		C7B9C7FB1B2281E400250686 /* ADVSegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ADVSegmentedControl.swift; sourceTree = "<group>"; };
 		C7E77A7D1B1D07210058523B /* Backbeater.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Backbeater.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7E77A811B1D07210058523B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C7E77A821B1D07210058523B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -144,8 +142,7 @@
 				C7E77AA51B1E3DDF0058523B /* SensitivitySlider.xib */,
 				C7E77AAE1B1FD37B0058523B /* Sidebar.xib */,
 				C7E77AB01B1FD7820058523B /* Sidebar.swift */,
-				C75DAA961B223D66008FDB43 /* SegmentedButton.swift */,
-				C75DAA981B223D9B008FDB43 /* SegmentedButton.xib */,
+				C7B9C7FB1B2281E400250686 /* ADVSegmentedControl.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -221,7 +218,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C75DAA991B223D9B008FDB43 /* SegmentedButton.xib in Resources */,
 				C7E77AA61B1E3DDF0058523B /* SensitivitySlider.xib in Resources */,
 				C7E77A881B1D07210058523B /* Main.storyboard in Resources */,
 				C7E77A8D1B1D07210058523B /* LaunchScreen.xib in Resources */,
@@ -296,7 +292,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C75DAA971B223D66008FDB43 /* SegmentedButton.swift in Sources */,
+				C7B9C7FC1B2281E400250686 /* ADVSegmentedControl.swift in Sources */,
 				C7E77A851B1D07210058523B /* MainViewController.swift in Sources */,
 				C7E77AAB1B1F81170058523B /* NibDesignable.swift in Sources */,
 				C7E77AAD1B1FBFBC0058523B /* UIControlNibDesignable.swift in Sources */,
@@ -417,6 +413,8 @@
 			baseConfigurationReference = E1F2B6BBD07481EDD7189370 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				BUNDLE_DISPLAY_NAME_SUFFIX = Debug;
+				BUNDLE_ID_SUFFIX = .debug;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -435,6 +433,8 @@
 			baseConfigurationReference = 4D1B896F03FB6BA784900274 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				BUNDLE_DISPLAY_NAME_SUFFIX = "";
+				BUNDLE_ID_SUFFIX = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

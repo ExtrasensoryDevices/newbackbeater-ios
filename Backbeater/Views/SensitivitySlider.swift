@@ -30,7 +30,7 @@ class SensitivitySlider: UIControlNibDesignable{
             updateThumb(animated: true)
         }
     }
-    let BORDER_WIDTH:CGFloat = 2.5
+    
     
     private(set) var value:Int = 10 {
         didSet {
@@ -44,28 +44,20 @@ class SensitivitySlider: UIControlNibDesignable{
     
     
     override func setup() {
-        thumbView.addObserver(self, forKeyPath: "center", options: nil, context: nil)
         thumbView.backgroundColor = ColorPalette.Pink.color()
-        thumbView.layer.cornerRadius = thumbView.frame.size.height / 2 - 1.5 * BORDER_WIDTH
+        thumbView.layer.cornerRadius = thumbView.frame.size.height / 2 - BORDER_WIDTH * 1.5 
         thumbView.layer.borderWidth = BORDER_WIDTH
         thumbView.layer.borderColor = UIColor.whiteColor().CGColor
         thumbView.removeConstraint(thumbCenterConstraint)
-        updateThumb(animated: false)
+//        updateThumb(animated: false)
         setupGestures()
         
         
     }
     
-    deinit {
-        thumbView.removeObserver(self, forKeyPath: "center")
-    }
-    
-    
-    override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
-        println(keyPath)
-        if (object as! NSObject == thumbView && keyPath == "center") {
-            println("frame: \(thumbView.frame)")
-        }
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        updateThumb(animated: false)
     }
     
 

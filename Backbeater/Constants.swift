@@ -31,3 +31,5 @@ enum Font: String {
         return UIFont(name: self.rawValue, size: size)!
     }
 }
+
+let BORDER_WIDTH:CGFloat = 2.5
