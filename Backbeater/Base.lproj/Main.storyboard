@@ -41,20 +41,10 @@
                                             <action selector="didTapSettingsButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KBf-Ko-l9A"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HELLO WORLD!!!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LbC-Mo-Jbh">
-                                        <rect key="frame" x="0.0" y="56" width="600" height="544"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.14901960784313725" green="0.14901960784313725" blue="0.14901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <gestureRecognizers/>
                                 <constraints>
-                                    <constraint firstItem="LbC-Mo-Jbh" firstAttribute="top" secondItem="syQ-P2-MNj" secondAttribute="bottom" id="BWj-hz-xQe"/>
-                                    <constraint firstAttribute="trailing" secondItem="LbC-Mo-Jbh" secondAttribute="trailing" id="BpJ-Ne-NAD"/>
-                                    <constraint firstItem="LbC-Mo-Jbh" firstAttribute="leading" secondItem="snK-fl-aQa" secondAttribute="leading" id="ZET-qa-mnv"/>
-                                    <constraint firstAttribute="bottom" secondItem="LbC-Mo-Jbh" secondAttribute="bottom" id="chL-VL-FGo"/>
                                     <constraint firstItem="syQ-P2-MNj" firstAttribute="leading" secondItem="snK-fl-aQa" secondAttribute="leading" constant="8" id="gbn-qe-NR0"/>
                                     <constraint firstItem="syQ-P2-MNj" firstAttribute="top" secondItem="snK-fl-aQa" secondAttribute="top" constant="8" id="pQW-CG-DN8"/>
                                 </constraints>
@@ -95,10 +85,10 @@
             </objects>
             <point key="canvasLocation" x="469" y="327"/>
         </scene>
-        <!--View Controller-->
+        <!--Display View Controller-->
         <scene sceneID="dwd-wn-xoT">
             <objects>
-                <viewController id="ri4-d8-4RD" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DisplayViewController" id="ri4-d8-4RD" customClass="DisplayViewController" customModule="Backbeater" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="WG6-xU-VjA"/>
                         <viewControllerLayoutGuide type="bottom" id="kYO-4H-tYr"/>
@@ -117,10 +107,6 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SKm-Ou-DVp" customClass="ADVSegmentedControl" customModule="Backbeater" customModuleProvider="target">
-                                <rect key="frame" x="43" y="28" width="406" height="80"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>

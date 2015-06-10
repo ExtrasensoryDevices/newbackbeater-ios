@@ -1,14 +1,13 @@
 //
-//  ADVSegmentedControl.swift
-//  Mega
+//  SegmentedControl.swift
+//  Backbeater
 //
-//  Created by Tope Abayomi on 01/12/2014.
-//  Copyright (c) 2014 App Design Vault. All rights reserved.
+//  Created by Alina on 2015-06-02.
 //
 
 import UIKit
 
-@IBDesignable class ADVSegmentedControl: UIControl {
+@IBDesignable class SegmentedControl: UIControl {
     
     private var labels = [UILabel]()
     var thumbView = UIView()

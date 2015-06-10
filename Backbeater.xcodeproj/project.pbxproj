@@ -8,12 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		A723985D35709AD09E064D67 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BD97D472B88826767A07A992 /* libPods.a */; };
+		C71C55781B28C390007EDF51 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C71C55771B28C390007EDF51 /* AudioToolbox.framework */; };
+		C71C557A1B28C5C9007EDF51 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C71C55791B28C5C9007EDF51 /* Accelerate.framework */; };
+		C71C557C1B28C61F007EDF51 /* DisplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71C557B1B28C61F007EDF51 /* DisplayViewController.swift */; };
 		C75DAA941B212787008FDB43 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7E77ABB1B20F4E00058523B /* Foundation.framework */; };
 		C7B9C7E61B225D2700250686 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B9C7E41B225D2700250686 /* Fabric.framework */; };
 		C7B9C7E71B225D2700250686 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B9C7E51B225D2700250686 /* Crashlytics.framework */; };
-		C7B9C7FC1B2281E400250686 /* ADVSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B9C7FB1B2281E400250686 /* ADVSegmentedControl.swift */; };
-		C7E77A831B1D07210058523B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E77A821B1D07210058523B /* AppDelegate.swift */; };
-		C7E77A851B1D07210058523B /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E77A841B1D07210058523B /* MainViewController.swift */; };
+		C7B9C8011B27828F00250686 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B9C7FE1B27828F00250686 /* AppDelegate.swift */; };
+		C7B9C8021B27828F00250686 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B9C8001B27828F00250686 /* Constants.swift */; };
+		C7B9C8041B2782A600250686 /* SegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B9C8031B2782A600250686 /* SegmentedControl.swift */; };
+		C7B9C8071B2782B600250686 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B9C8061B2782B600250686 /* MainViewController.swift */; };
+		C7B9C80C1B2782F400250686 /* FuturaRound-Book.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7B9C80A1B2782F400250686 /* FuturaRound-Book.ttf */; };
+		C7B9C80D1B2782F400250686 /* FuturaRound-Demi.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7B9C80B1B2782F400250686 /* FuturaRound-Demi.ttf */; };
+		C7B9C8201B27836C00250686 /* libAUtype1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B9C8141B27836C00250686 /* libAUtype1.a */; };
+		C7B9C8211B27836C00250686 /* CADebugMacros.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C7B9C8171B27836C00250686 /* CADebugMacros.cpp */; };
+		C7B9C8221B27836C00250686 /* CAHostTimeBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C7B9C8191B27836C00250686 /* CAHostTimeBase.cpp */; };
+		C7B9C8231B27836C00250686 /* CAStreamBasicDescription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C7B9C81C1B27836C00250686 /* CAStreamBasicDescription.cpp */; };
+		C7B9C8241B27836C00250686 /* CAXException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C7B9C81E1B27836C00250686 /* CAXException.cpp */; };
+		C7B9C8271B2789B900250686 /* CADebugPrintf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C7B9C8251B2789B900250686 /* CADebugPrintf.cpp */; };
 		C7E77A881B1D07210058523B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7E77A861B1D07210058523B /* Main.storyboard */; };
 		C7E77A8A1B1D07210058523B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7E77A891B1D07210058523B /* Images.xcassets */; };
 		C7E77A8D1B1D07210058523B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7E77A8B1B1D07210058523B /* LaunchScreen.xib */; };
@@ -24,19 +36,43 @@
 		C7E77AAD1B1FBFBC0058523B /* UIControlNibDesignable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E77AAC1B1FBFBC0058523B /* UIControlNibDesignable.swift */; };
 		C7E77AAF1B1FD37B0058523B /* Sidebar.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7E77AAE1B1FD37B0058523B /* Sidebar.xib */; };
 		C7E77AB11B1FD7820058523B /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E77AB01B1FD7820058523B /* Sidebar.swift */; };
-		C7E77AB31B20EBB20058523B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E77AB21B20EBB20058523B /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		4D1B896F03FB6BA784900274 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		BD97D472B88826767A07A992 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C71C55751B28C308007EDF51 /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
+		C71C55771B28C390007EDF51 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		C71C55791B28C5C9007EDF51 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		C71C557B1B28C61F007EDF51 /* DisplayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayViewController.swift; sourceTree = "<group>"; };
 		C7B9C7E41B225D2700250686 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		C7B9C7E51B225D2700250686 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
-		C7B9C7FB1B2281E400250686 /* ADVSegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ADVSegmentedControl.swift; sourceTree = "<group>"; };
+		C7B9C7FE1B27828F00250686 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		C7B9C7FF1B27828F00250686 /* Backbeater-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Backbeater-Bridging-Header.h"; sourceTree = "<group>"; };
+		C7B9C8001B27828F00250686 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		C7B9C8031B2782A600250686 /* SegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SegmentedControl.swift; path = Views/SegmentedControl.swift; sourceTree = "<group>"; };
+		C7B9C8061B2782B600250686 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		C7B9C80A1B2782F400250686 /* FuturaRound-Book.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FuturaRound-Book.ttf"; sourceTree = "<group>"; };
+		C7B9C80B1B2782F400250686 /* FuturaRound-Demi.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FuturaRound-Demi.ttf"; sourceTree = "<group>"; };
+		C7B9C8101B27836C00250686 /* aurioType1_helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aurioType1_helper.h; sourceTree = "<group>"; };
+		C7B9C8111B27836C00250686 /* AUtype1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AUtype1.h; sourceTree = "<group>"; };
+		C7B9C8121B27836C00250686 /* AUtype1Delegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AUtype1Delegate.h; sourceTree = "<group>"; };
+		C7B9C8131B27836C00250686 /* BBSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSetting.h; sourceTree = "<group>"; };
+		C7B9C8141B27836C00250686 /* libAUtype1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAUtype1.a; sourceTree = "<group>"; };
+		C7B9C8161B27836C00250686 /* CABitOperations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CABitOperations.h; sourceTree = "<group>"; };
+		C7B9C8171B27836C00250686 /* CADebugMacros.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CADebugMacros.cpp; sourceTree = "<group>"; };
+		C7B9C8181B27836C00250686 /* CADebugMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADebugMacros.h; sourceTree = "<group>"; };
+		C7B9C8191B27836C00250686 /* CAHostTimeBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CAHostTimeBase.cpp; sourceTree = "<group>"; };
+		C7B9C81A1B27836C00250686 /* CAHostTimeBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAHostTimeBase.h; sourceTree = "<group>"; };
+		C7B9C81B1B27836C00250686 /* CAMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAMath.h; sourceTree = "<group>"; };
+		C7B9C81C1B27836C00250686 /* CAStreamBasicDescription.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CAStreamBasicDescription.cpp; sourceTree = "<group>"; };
+		C7B9C81D1B27836C00250686 /* CAStreamBasicDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAStreamBasicDescription.h; sourceTree = "<group>"; };
+		C7B9C81E1B27836C00250686 /* CAXException.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CAXException.cpp; sourceTree = "<group>"; };
+		C7B9C81F1B27836C00250686 /* CAXException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAXException.h; sourceTree = "<group>"; };
+		C7B9C8251B2789B900250686 /* CADebugPrintf.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CADebugPrintf.cpp; sourceTree = "<group>"; };
+		C7B9C8261B2789B900250686 /* CADebugPrintf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADebugPrintf.h; sourceTree = "<group>"; };
 		C7E77A7D1B1D07210058523B /* Backbeater.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Backbeater.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7E77A811B1D07210058523B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C7E77A821B1D07210058523B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C7E77A841B1D07210058523B /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		C7E77A871B1D07210058523B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C7E77A891B1D07210058523B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C7E77A8C1B1D07210058523B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -47,8 +83,6 @@
 		C7E77AAC1B1FBFBC0058523B /* UIControlNibDesignable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIControlNibDesignable.swift; sourceTree = "<group>"; };
 		C7E77AAE1B1FD37B0058523B /* Sidebar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = Sidebar.xib; path = Views/Sidebar.xib; sourceTree = "<group>"; };
 		C7E77AB01B1FD7820058523B /* Sidebar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Sidebar.swift; path = Views/Sidebar.swift; sourceTree = "<group>"; };
-		C7E77AB21B20EBB20058523B /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		C7E77AB81B20F2B80058523B /* Backbeater-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Backbeater-Bridging-Header.h"; sourceTree = "<group>"; };
 		C7E77AB91B20F4C90058523B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C7E77ABB1B20F4E00058523B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E1F2B6BBD07481EDD7189370 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -59,9 +93,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C71C557A1B28C5C9007EDF51 /* Accelerate.framework in Frameworks */,
+				C71C55781B28C390007EDF51 /* AudioToolbox.framework in Frameworks */,
 				C75DAA941B212787008FDB43 /* Foundation.framework in Frameworks */,
 				C7B9C7E71B225D2700250686 /* Crashlytics.framework in Frameworks */,
 				C7E77AA81B1E7FEB0058523B /* QuartzCore.framework in Frameworks */,
+				C7B9C8201B27836C00250686 /* libAUtype1.a in Frameworks */,
 				A723985D35709AD09E064D67 /* libPods.a in Frameworks */,
 				C7B9C7E61B225D2700250686 /* Fabric.framework in Frameworks */,
 			);
@@ -73,6 +110,9 @@
 		550D132ADA81F391F4746002 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C71C55791B28C5C9007EDF51 /* Accelerate.framework */,
+				C71C55771B28C390007EDF51 /* AudioToolbox.framework */,
+				C71C55751B28C308007EDF51 /* AudioUnit.framework */,
 				C7B9C7E41B225D2700250686 /* Fabric.framework */,
 				C7B9C7E51B225D2700250686 /* Crashlytics.framework */,
 				C7E77ABB1B20F4E00058523B /* Foundation.framework */,
@@ -90,6 +130,83 @@
 				4D1B896F03FB6BA784900274 /* Pods.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		C7B9C7FD1B27828F00250686 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				C7B9C7FE1B27828F00250686 /* AppDelegate.swift */,
+				C7B9C7FF1B27828F00250686 /* Backbeater-Bridging-Header.h */,
+				C7B9C8001B27828F00250686 /* Constants.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		C7B9C8051B2782B600250686 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C7E77A861B1D07210058523B /* Main.storyboard */,
+				C7B9C8061B2782B600250686 /* MainViewController.swift */,
+				C71C557B1B28C61F007EDF51 /* DisplayViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		C7B9C8081B2782F300250686 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C7B9C8091B2782F400250686 /* Fonts */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		C7B9C8091B2782F400250686 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				C7B9C80A1B2782F400250686 /* FuturaRound-Book.ttf */,
+				C7B9C80B1B2782F400250686 /* FuturaRound-Demi.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		C7B9C80E1B27836C00250686 /* SoundLib */ = {
+			isa = PBXGroup;
+			children = (
+				C7B9C80F1B27836C00250686 /* AU */,
+				C7B9C8151B27836C00250686 /* iPublicUtility */,
+			);
+			path = SoundLib;
+			sourceTree = "<group>";
+		};
+		C7B9C80F1B27836C00250686 /* AU */ = {
+			isa = PBXGroup;
+			children = (
+				C7B9C8101B27836C00250686 /* aurioType1_helper.h */,
+				C7B9C8111B27836C00250686 /* AUtype1.h */,
+				C7B9C8121B27836C00250686 /* AUtype1Delegate.h */,
+				C7B9C8131B27836C00250686 /* BBSetting.h */,
+				C7B9C8141B27836C00250686 /* libAUtype1.a */,
+			);
+			path = AU;
+			sourceTree = "<group>";
+		};
+		C7B9C8151B27836C00250686 /* iPublicUtility */ = {
+			isa = PBXGroup;
+			children = (
+				C7B9C8251B2789B900250686 /* CADebugPrintf.cpp */,
+				C7B9C8261B2789B900250686 /* CADebugPrintf.h */,
+				C7B9C8161B27836C00250686 /* CABitOperations.h */,
+				C7B9C8171B27836C00250686 /* CADebugMacros.cpp */,
+				C7B9C8181B27836C00250686 /* CADebugMacros.h */,
+				C7B9C8191B27836C00250686 /* CAHostTimeBase.cpp */,
+				C7B9C81A1B27836C00250686 /* CAHostTimeBase.h */,
+				C7B9C81B1B27836C00250686 /* CAMath.h */,
+				C7B9C81C1B27836C00250686 /* CAStreamBasicDescription.cpp */,
+				C7B9C81D1B27836C00250686 /* CAStreamBasicDescription.h */,
+				C7B9C81E1B27836C00250686 /* CAXException.cpp */,
+				C7B9C81F1B27836C00250686 /* CAXException.h */,
+			);
+			path = iPublicUtility;
 			sourceTree = "<group>";
 		};
 		C7E77A741B1D07210058523B = {
@@ -113,13 +230,13 @@
 		C7E77A7F1B1D07210058523B /* Backbeater */ = {
 			isa = PBXGroup;
 			children = (
-				C7E77AB21B20EBB20058523B /* Constants.swift */,
+				C7B9C7FD1B27828F00250686 /* App */,
 				C7E77AA91B1F81170058523B /* Libs */,
 				C7E77AA21B1E3D800058523B /* Views */,
-				C7E77A821B1D07210058523B /* AppDelegate.swift */,
-				C7E77A841B1D07210058523B /* MainViewController.swift */,
-				C7E77A861B1D07210058523B /* Main.storyboard */,
+				C7B9C8051B2782B600250686 /* Controllers */,
 				C7E77A891B1D07210058523B /* Images.xcassets */,
+				C7B9C80E1B27836C00250686 /* SoundLib */,
+				C7B9C8081B2782F300250686 /* Resources */,
 				C7E77A801B1D07210058523B /* Supporting Files */,
 			);
 			path = Backbeater;
@@ -128,7 +245,6 @@
 		C7E77A801B1D07210058523B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				C7E77AB81B20F2B80058523B /* Backbeater-Bridging-Header.h */,
 				C7E77A811B1D07210058523B /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -142,7 +258,7 @@
 				C7E77AA51B1E3DDF0058523B /* SensitivitySlider.xib */,
 				C7E77AAE1B1FD37B0058523B /* Sidebar.xib */,
 				C7E77AB01B1FD7820058523B /* Sidebar.swift */,
-				C7B9C7FB1B2281E400250686 /* ADVSegmentedControl.swift */,
+				C7B9C8031B2782A600250686 /* SegmentedControl.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -221,8 +337,10 @@
 				C7E77AA61B1E3DDF0058523B /* SensitivitySlider.xib in Resources */,
 				C7E77A881B1D07210058523B /* Main.storyboard in Resources */,
 				C7E77A8D1B1D07210058523B /* LaunchScreen.xib in Resources */,
+				C7B9C80C1B2782F400250686 /* FuturaRound-Book.ttf in Resources */,
 				C7E77A8A1B1D07210058523B /* Images.xcassets in Resources */,
 				C7E77AAF1B1FD37B0058523B /* Sidebar.xib in Resources */,
+				C7B9C80D1B2782F400250686 /* FuturaRound-Demi.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -292,14 +410,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C7B9C7FC1B2281E400250686 /* ADVSegmentedControl.swift in Sources */,
-				C7E77A851B1D07210058523B /* MainViewController.swift in Sources */,
+				C7B9C8241B27836C00250686 /* CAXException.cpp in Sources */,
+				C71C557C1B28C61F007EDF51 /* DisplayViewController.swift in Sources */,
+				C7B9C8011B27828F00250686 /* AppDelegate.swift in Sources */,
+				C7B9C8041B2782A600250686 /* SegmentedControl.swift in Sources */,
 				C7E77AAB1B1F81170058523B /* NibDesignable.swift in Sources */,
 				C7E77AAD1B1FBFBC0058523B /* UIControlNibDesignable.swift in Sources */,
+				C7B9C8231B27836C00250686 /* CAStreamBasicDescription.cpp in Sources */,
 				C7E77AA41B1E3DCC0058523B /* SensitivitySlider.swift in Sources */,
-				C7E77AB31B20EBB20058523B /* Constants.swift in Sources */,
+				C7B9C8221B27836C00250686 /* CAHostTimeBase.cpp in Sources */,
 				C7E77AB11B1FD7820058523B /* Sidebar.swift in Sources */,
-				C7E77A831B1D07210058523B /* AppDelegate.swift in Sources */,
+				C7B9C8021B27828F00250686 /* Constants.swift in Sources */,
+				C7B9C8271B2789B900250686 /* CADebugPrintf.cpp in Sources */,
+				C7B9C8211B27836C00250686 /* CADebugMacros.cpp in Sources */,
+				C7B9C8071B2782B600250686 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -312,6 +436,7 @@
 				C7E77A871B1D07210058523B /* Base */,
 			);
 			name = Main.storyboard;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		C7E77A8B1B1D07210058523B /* LaunchScreen.xib */ = {
@@ -423,8 +548,13 @@
 				GCC_NO_COMMON_BLOCKS = NO;
 				INFOPLIST_FILE = Backbeater/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Backbeater/SoundLib/AU",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/Backbeater/Backbeater-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/Backbeater/App/Backbeater-Bridging-Header.h";
+				USER_HEADER_SEARCH_PATHS = "${PROJECT_DIR}/SoundLib/**";
 			};
 			name = Debug;
 		};
@@ -443,8 +573,13 @@
 				GCC_NO_COMMON_BLOCKS = NO;
 				INFOPLIST_FILE = Backbeater/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Backbeater/SoundLib/AU",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/Backbeater/Backbeater-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/Backbeater/App/Backbeater-Bridging-Header.h";
+				USER_HEADER_SEARCH_PATHS = "${PROJECT_DIR}/SoundLib/**";
 			};
 			name = Release;
 		};

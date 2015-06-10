@@ -8,3 +8,5 @@
 
 #import <UIKit/UIKit.h> 
 #import <HexColors/HexColor.h>
+
+#import "BBSetting.h"

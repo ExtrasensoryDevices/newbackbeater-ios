@@ -11,19 +11,33 @@ import UIKit
 class MainViewController: UIViewController {
 
     @IBOutlet weak var containerView: UIView!
-    weak var mainView: UIView!
+    weak var displayVC:DisplayViewController!
     
     @IBOutlet weak var settingsButton: UIButton!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         containerCenterXConstraint.constant = 0
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        setupDisplayViewController()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    
+    func setupDisplayViewController() {
+        displayVC = storyboard?.instantiateViewControllerWithIdentifier("DisplayViewController") as? DisplayViewController
+        
+        addChildViewController(displayVC)
+        displayVC.view.autoresizingMask = .FlexibleWidth | .FlexibleHeight
+        displayVC.view.frame = containerView.bounds
+        containerView.insertSubview(displayVC.view, atIndex: 0)
+        displayVC.didMoveToParentViewController(self)
+        
     }
     
     
@@ -43,7 +57,7 @@ class MainViewController: UIViewController {
         didSet {
             showShadow(currentState == .Expanded)
             settingsButton.selected = (currentState == .Expanded)
-            mainView?.userInteractionEnabled = (currentState == .Collapsed)
+            displayVC?.view.userInteractionEnabled = (currentState == .Collapsed)
         }
     }
     
