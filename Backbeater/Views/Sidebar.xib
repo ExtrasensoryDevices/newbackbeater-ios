@@ -8,11 +8,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="Sidebar" customModule="Backbeater" customModuleProvider="target">
             <connections>
-                <outlet property="bangButton" destination="yLu-PE-aXK" id="YUc-a9-jbm"/>
+                <outlet property="bangButton" destination="tgE-Fo-Hcs" id="5mN-ne-MPI"/>
                 <outlet property="beatSegmentedControl" destination="J23-eY-XOo" id="AGS-YH-ozC"/>
-                <outlet property="clapButton" destination="tgE-Fo-Hcs" id="VUt-cS-Qlk"/>
                 <outlet property="dingButton" destination="nvU-mV-gsJ" id="Ufc-f6-fsU"/>
                 <outlet property="sensitivitySlider" destination="Ngt-p1-cqv" id="8BR-yG-j17"/>
+                <outlet property="stickButton" destination="yLu-PE-aXK" id="iNw-qf-Fkx"/>
                 <outlet property="windowSegmentedControl" destination="LQS-dh-hCe" id="vmD-64-zy7"/>
             </connections>
         </placeholder>
@@ -65,7 +65,7 @@
                     <constraints>
                         <constraint firstAttribute="width" secondItem="yLu-PE-aXK" secondAttribute="height" multiplier="1:1" id="UcI-Er-A9H"/>
                     </constraints>
-                    <state key="normal" title="Bang">
+                    <state key="normal" title="Stick">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <variation key="widthClass=compact" fixedFrame="YES">
@@ -93,7 +93,7 @@
                     <constraints>
                         <constraint firstAttribute="width" secondItem="tgE-Fo-Hcs" secondAttribute="height" multiplier="1:1" id="gb7-vB-pLW"/>
                     </constraints>
-                    <state key="normal" title="Clap">
+                    <state key="normal" title="Bang">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <variation key="widthClass=compact" fixedFrame="YES">

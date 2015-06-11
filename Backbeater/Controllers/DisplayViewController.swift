@@ -10,20 +10,52 @@ import UIKit
 
 class DisplayViewController: UIViewController {
 
+    @IBOutlet weak var logView: UITextView!
+    
+    let settings = BBSetting.sharedInstance()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        logView.text = ""
+        
+        view.backgroundColor = ColorPalette.Black.color()
 
-        // Do any additional setup after loading the view.
+        registerForNotifications()
     }
-
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
     
-    override func viewDidAppear(animated: Bool) {
-        print("appear")
+    func registerForNotifications() {
+        settings.addObserver(self, forKeyPath: "sensitivity", options: .allZeros, context: nil)
+        settings.addObserver(self, forKeyPath: "bpm", options: .allZeros, context: nil)
+        
+//        settings.addObserver(self.rioUnit, forKeyPath:"mute", options: .allZeros, context: nil)
+        
+        settings.addObserver(self, forKeyPath: "mute", options: .allZeros, context: nil)
+        settings.addObserver(self, forKeyPath: "sensorIn", options: .allZeros, context: nil)
+        
+        settings.addObserver(self, forKeyPath: "foundBPMf", options: .allZeros, context: nil)
+        settings.addObserver(self, forKeyPath: "sensitivityFlash", options: .allZeros, context: nil)
+        
+//        settings.addObserver(self.rioUnitDelegate, forKeyPath:"bpm", options: .allZeros, context: nil)
+//        settings.addObserver(self.rioUnitDelegate, forKeyPath:"sensitivity", options: .allZeros, context: nil)
+//        settings.addObserver(self.rioUnitDelegate, forKeyPath:"metSound", options: .allZeros, context: nil)
+        
+        settings.addObserver(self, forKeyPath: "strikesFilter", options: .allZeros, context: nil)
+        
+        settings.addObserver(self, forKeyPath: "timeSignature", options: .allZeros, context: nil)
+    }
+    
+    override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
+        let updateStr = "\(keyPath): \(object.valueForKey(keyPath))"
+        logView.text = logView.text + "\n" + updateStr
+        logView.scrollRangeToVisible(NSMakeRange(count(logView.text)-1, 1))
     }
 
     /*

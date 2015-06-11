@@ -8,8 +8,9 @@
 
 import UIKit
 
-class MainViewController: UIViewController {
+class MainViewController: UIViewController, SidebarDelegate {
 
+    @IBOutlet weak var sidebar: Sidebar!
     @IBOutlet weak var containerView: UIView!
     weak var displayVC:DisplayViewController!
     
@@ -19,7 +20,7 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         containerCenterXConstraint.constant = 0
-        
+        setupSidebar()
         setupDisplayViewController()
     }
 
@@ -28,6 +29,9 @@ class MainViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func setupSidebar() {
+        sidebar.delegate = self
+    }
     
     func setupDisplayViewController() {
         displayVC = storyboard?.instantiateViewControllerWithIdentifier("DisplayViewController") as? DisplayViewController
@@ -117,6 +121,13 @@ class MainViewController: UIViewController {
     }
     
     
-    
+    // MARK: SidebarDelegate
+    func didTapHelp() {
+        // present help
+        let helpVC = storyboard?.instantiateViewControllerWithIdentifier("HelpViewController") as! HelpViewController
+        self.presentViewController(helpVC, animated: true) {
+            self.toggleMenuPanel(false)
+        }
+    }
 }
 

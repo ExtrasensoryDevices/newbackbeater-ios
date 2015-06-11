@@ -11,6 +11,11 @@
 		C71C55781B28C390007EDF51 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C71C55771B28C390007EDF51 /* AudioToolbox.framework */; };
 		C71C557A1B28C5C9007EDF51 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C71C55791B28C5C9007EDF51 /* Accelerate.framework */; };
 		C71C557C1B28C61F007EDF51 /* DisplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71C557B1B28C61F007EDF51 /* DisplayViewController.swift */; };
+		C71C55811B28FF71007EDF51 /* BBSettingsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71C55801B28FF71007EDF51 /* BBSettingsExtension.swift */; };
+		C71C55881B290539007EDF51 /* beep.aiff in Resources */ = {isa = PBXBuildFile; fileRef = C71C55851B290539007EDF51 /* beep.aiff */; };
+		C71C55891B290539007EDF51 /* clap.aiff in Resources */ = {isa = PBXBuildFile; fileRef = C71C55861B290539007EDF51 /* clap.aiff */; };
+		C71C558A1B290539007EDF51 /* stick.aiff in Resources */ = {isa = PBXBuildFile; fileRef = C71C55871B290539007EDF51 /* stick.aiff */; };
+		C71C558C1B2909E9007EDF51 /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71C558B1B2909E9007EDF51 /* HelpViewController.swift */; };
 		C75DAA941B212787008FDB43 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7E77ABB1B20F4E00058523B /* Foundation.framework */; };
 		C7B9C7E61B225D2700250686 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B9C7E41B225D2700250686 /* Fabric.framework */; };
 		C7B9C7E71B225D2700250686 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B9C7E51B225D2700250686 /* Crashlytics.framework */; };
@@ -45,6 +50,11 @@
 		C71C55771B28C390007EDF51 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		C71C55791B28C5C9007EDF51 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		C71C557B1B28C61F007EDF51 /* DisplayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayViewController.swift; sourceTree = "<group>"; };
+		C71C55801B28FF71007EDF51 /* BBSettingsExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BBSettingsExtension.swift; sourceTree = "<group>"; };
+		C71C55851B290539007EDF51 /* beep.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = beep.aiff; sourceTree = "<group>"; };
+		C71C55861B290539007EDF51 /* clap.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = clap.aiff; sourceTree = "<group>"; };
+		C71C55871B290539007EDF51 /* stick.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = stick.aiff; sourceTree = "<group>"; };
+		C71C558B1B2909E9007EDF51 /* HelpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		C7B9C7E41B225D2700250686 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		C7B9C7E51B225D2700250686 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		C7B9C7FE1B27828F00250686 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -132,6 +142,24 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		C71C557F1B28FF71007EDF51 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C71C55801B28FF71007EDF51 /* BBSettingsExtension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		C71C55841B290539007EDF51 /* Sound */ = {
+			isa = PBXGroup;
+			children = (
+				C71C55851B290539007EDF51 /* beep.aiff */,
+				C71C55861B290539007EDF51 /* clap.aiff */,
+				C71C55871B290539007EDF51 /* stick.aiff */,
+			);
+			path = Sound;
+			sourceTree = "<group>";
+		};
 		C7B9C7FD1B27828F00250686 /* App */ = {
 			isa = PBXGroup;
 			children = (
@@ -148,6 +176,7 @@
 				C7E77A861B1D07210058523B /* Main.storyboard */,
 				C7B9C8061B2782B600250686 /* MainViewController.swift */,
 				C71C557B1B28C61F007EDF51 /* DisplayViewController.swift */,
+				C71C558B1B2909E9007EDF51 /* HelpViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -155,6 +184,7 @@
 		C7B9C8081B2782F300250686 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C71C55841B290539007EDF51 /* Sound */,
 				C7B9C8091B2782F400250686 /* Fonts */,
 			);
 			path = Resources;
@@ -230,6 +260,7 @@
 		C7E77A7F1B1D07210058523B /* Backbeater */ = {
 			isa = PBXGroup;
 			children = (
+				C71C557F1B28FF71007EDF51 /* Extensions */,
 				C7B9C7FD1B27828F00250686 /* App */,
 				C7E77AA91B1F81170058523B /* Libs */,
 				C7E77AA21B1E3D800058523B /* Views */,
@@ -334,8 +365,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C71C55891B290539007EDF51 /* clap.aiff in Resources */,
 				C7E77AA61B1E3DDF0058523B /* SensitivitySlider.xib in Resources */,
+				C71C55881B290539007EDF51 /* beep.aiff in Resources */,
 				C7E77A881B1D07210058523B /* Main.storyboard in Resources */,
+				C71C558A1B290539007EDF51 /* stick.aiff in Resources */,
 				C7E77A8D1B1D07210058523B /* LaunchScreen.xib in Resources */,
 				C7B9C80C1B2782F400250686 /* FuturaRound-Book.ttf in Resources */,
 				C7E77A8A1B1D07210058523B /* Images.xcassets in Resources */,
@@ -410,6 +444,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C71C55811B28FF71007EDF51 /* BBSettingsExtension.swift in Sources */,
 				C7B9C8241B27836C00250686 /* CAXException.cpp in Sources */,
 				C71C557C1B28C61F007EDF51 /* DisplayViewController.swift in Sources */,
 				C7B9C8011B27828F00250686 /* AppDelegate.swift in Sources */,
@@ -420,6 +455,7 @@
 				C7E77AA41B1E3DCC0058523B /* SensitivitySlider.swift in Sources */,
 				C7B9C8221B27836C00250686 /* CAHostTimeBase.cpp in Sources */,
 				C7E77AB11B1FD7820058523B /* Sidebar.swift in Sources */,
+				C71C558C1B2909E9007EDF51 /* HelpViewController.swift in Sources */,
 				C7B9C8021B27828F00250686 /* Constants.swift in Sources */,
 				C7B9C8271B2789B900250686 /* CADebugPrintf.cpp in Sources */,
 				C7B9C8211B27836C00250686 /* CADebugMacros.cpp in Sources */,
