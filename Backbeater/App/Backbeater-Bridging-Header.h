@@ -7,6 +7,13 @@
 //
 
 #import <UIKit/UIKit.h> 
-#import <HexColors/HexColor.h>
 
-#import "BBSetting.h"
+#import "BBSettingsWrapper.h"
+//#import "AUtype1.h"
+//#import "AUtype1Delegate.h"
+//    #import "CADebugPrintf.h"
+//    #import "CABitOperations.h"
+//    #import "CADebugMacros.h"
+//    #import "CAMath.h"
+//    #import "CAStreamBasicDescription.h"
+//    #import "CAXException.h"

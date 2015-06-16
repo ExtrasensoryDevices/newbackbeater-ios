@@ -8,15 +8,22 @@
 
 import UIKit
 
+struct SongTempo {
+    var songName:String
+    var tempoValue:Int
+}
 
-enum ColorPalette: String {
+let DEFAULT_TEMPO = 120
+
+
+enum ColorPalette: Int {
     case
-    Black = "262626",
-    Pink = "#DD2F44",
-    Grey = "#4C4C4C"
+    Black = 0x262626,
+    Pink = 0xDD2F44,
+    Grey = 0x4C4C4C
     
     func color() -> UIColor {
-        return UIColor(hexString: self.rawValue)
+        return UIColor(hex: self.rawValue)
     }
     
 }

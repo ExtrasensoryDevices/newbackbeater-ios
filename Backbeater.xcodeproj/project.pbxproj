@@ -7,16 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A723985D35709AD09E064D67 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BD97D472B88826767A07A992 /* libPods.a */; };
 		C71C55781B28C390007EDF51 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C71C55771B28C390007EDF51 /* AudioToolbox.framework */; };
 		C71C557A1B28C5C9007EDF51 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C71C55791B28C5C9007EDF51 /* Accelerate.framework */; };
 		C71C557C1B28C61F007EDF51 /* DisplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71C557B1B28C61F007EDF51 /* DisplayViewController.swift */; };
-		C71C55811B28FF71007EDF51 /* BBSettingsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71C55801B28FF71007EDF51 /* BBSettingsExtension.swift */; };
 		C71C55881B290539007EDF51 /* beep.aiff in Resources */ = {isa = PBXBuildFile; fileRef = C71C55851B290539007EDF51 /* beep.aiff */; };
 		C71C55891B290539007EDF51 /* clap.aiff in Resources */ = {isa = PBXBuildFile; fileRef = C71C55861B290539007EDF51 /* clap.aiff */; };
 		C71C558A1B290539007EDF51 /* stick.aiff in Resources */ = {isa = PBXBuildFile; fileRef = C71C55871B290539007EDF51 /* stick.aiff */; };
 		C71C558C1B2909E9007EDF51 /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71C558B1B2909E9007EDF51 /* HelpViewController.swift */; };
+		C71C559D1B2A43D0007EDF51 /* BBSettingsWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = C71C559C1B2A43D0007EDF51 /* BBSettingsWrapper.mm */; };
+		C71C55A11B2B5D75007EDF51 /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71C55A01B2B5D75007EDF51 /* UIColorExtensions.swift */; };
 		C75DAA941B212787008FDB43 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7E77ABB1B20F4E00058523B /* Foundation.framework */; };
+		C774B16C1B2BB0E3007625B3 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C774B16B1B2BB0E3007625B3 /* UIViewExtension.swift */; };
+		C774B1711B2F7224007625B3 /* SongListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C774B1701B2F7224007625B3 /* SongListViewController.swift */; };
 		C7B9C7E61B225D2700250686 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B9C7E41B225D2700250686 /* Fabric.framework */; };
 		C7B9C7E71B225D2700250686 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B9C7E51B225D2700250686 /* Crashlytics.framework */; };
 		C7B9C8011B27828F00250686 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B9C7FE1B27828F00250686 /* AppDelegate.swift */; };
@@ -50,11 +52,16 @@
 		C71C55771B28C390007EDF51 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		C71C55791B28C5C9007EDF51 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		C71C557B1B28C61F007EDF51 /* DisplayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayViewController.swift; sourceTree = "<group>"; };
-		C71C55801B28FF71007EDF51 /* BBSettingsExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BBSettingsExtension.swift; sourceTree = "<group>"; };
 		C71C55851B290539007EDF51 /* beep.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = beep.aiff; sourceTree = "<group>"; };
 		C71C55861B290539007EDF51 /* clap.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = clap.aiff; sourceTree = "<group>"; };
 		C71C55871B290539007EDF51 /* stick.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = stick.aiff; sourceTree = "<group>"; };
 		C71C558B1B2909E9007EDF51 /* HelpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
+		C71C55991B2A19A8007EDF51 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		C71C559B1B2A43D0007EDF51 /* BBSettingsWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSettingsWrapper.h; sourceTree = "<group>"; };
+		C71C559C1B2A43D0007EDF51 /* BBSettingsWrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BBSettingsWrapper.mm; sourceTree = "<group>"; };
+		C71C55A01B2B5D75007EDF51 /* UIColorExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
+		C774B16B1B2BB0E3007625B3 /* UIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
+		C774B1701B2F7224007625B3 /* SongListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongListViewController.swift; sourceTree = "<group>"; };
 		C7B9C7E41B225D2700250686 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		C7B9C7E51B225D2700250686 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		C7B9C7FE1B27828F00250686 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -109,7 +116,6 @@
 				C7B9C7E71B225D2700250686 /* Crashlytics.framework in Frameworks */,
 				C7E77AA81B1E7FEB0058523B /* QuartzCore.framework in Frameworks */,
 				C7B9C8201B27836C00250686 /* libAUtype1.a in Frameworks */,
-				A723985D35709AD09E064D67 /* libPods.a in Frameworks */,
 				C7B9C7E61B225D2700250686 /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -120,6 +126,7 @@
 		550D132ADA81F391F4746002 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C71C55991B2A19A8007EDF51 /* CoreAudio.framework */,
 				C71C55791B28C5C9007EDF51 /* Accelerate.framework */,
 				C71C55771B28C390007EDF51 /* AudioToolbox.framework */,
 				C71C55751B28C308007EDF51 /* AudioUnit.framework */,
@@ -145,7 +152,8 @@
 		C71C557F1B28FF71007EDF51 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				C71C55801B28FF71007EDF51 /* BBSettingsExtension.swift */,
+				C71C55A01B2B5D75007EDF51 /* UIColorExtensions.swift */,
+				C774B16B1B2BB0E3007625B3 /* UIViewExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -177,6 +185,7 @@
 				C7B9C8061B2782B600250686 /* MainViewController.swift */,
 				C71C557B1B28C61F007EDF51 /* DisplayViewController.swift */,
 				C71C558B1B2909E9007EDF51 /* HelpViewController.swift */,
+				C774B1701B2F7224007625B3 /* SongListViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -204,6 +213,8 @@
 			children = (
 				C7B9C80F1B27836C00250686 /* AU */,
 				C7B9C8151B27836C00250686 /* iPublicUtility */,
+				C71C559B1B2A43D0007EDF51 /* BBSettingsWrapper.h */,
+				C71C559C1B2A43D0007EDF51 /* BBSettingsWrapper.mm */,
 			);
 			path = SoundLib;
 			sourceTree = "<group>";
@@ -310,11 +321,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C7E77A9C1B1D07210058523B /* Build configuration list for PBXNativeTarget "Backbeater" */;
 			buildPhases = (
-				18E8A916F5245C71CF1F7579 /* Check Pods Manifest.lock */,
 				C7E77A791B1D07210058523B /* Sources */,
 				C7E77A7A1B1D07210058523B /* Frameworks */,
 				C7E77A7B1B1D07210058523B /* Resources */,
-				55559B364CFB884141B5E10B /* Copy Pods Resources */,
 				C75DAA951B221C77008FDB43 /* ShellScript */,
 				C7B9C7E31B225CD200250686 /* ShellScript */,
 			);
@@ -381,36 +390,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		18E8A916F5245C71CF1F7579 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		55559B364CFB884141B5E10B /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		C75DAA951B221C77008FDB43 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -444,13 +423,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C71C55811B28FF71007EDF51 /* BBSettingsExtension.swift in Sources */,
 				C7B9C8241B27836C00250686 /* CAXException.cpp in Sources */,
 				C71C557C1B28C61F007EDF51 /* DisplayViewController.swift in Sources */,
+				C774B1711B2F7224007625B3 /* SongListViewController.swift in Sources */,
 				C7B9C8011B27828F00250686 /* AppDelegate.swift in Sources */,
 				C7B9C8041B2782A600250686 /* SegmentedControl.swift in Sources */,
 				C7E77AAB1B1F81170058523B /* NibDesignable.swift in Sources */,
 				C7E77AAD1B1FBFBC0058523B /* UIControlNibDesignable.swift in Sources */,
+				C774B16C1B2BB0E3007625B3 /* UIViewExtension.swift in Sources */,
 				C7B9C8231B27836C00250686 /* CAStreamBasicDescription.cpp in Sources */,
 				C7E77AA41B1E3DCC0058523B /* SensitivitySlider.swift in Sources */,
 				C7B9C8221B27836C00250686 /* CAHostTimeBase.cpp in Sources */,
@@ -459,6 +439,8 @@
 				C7B9C8021B27828F00250686 /* Constants.swift in Sources */,
 				C7B9C8271B2789B900250686 /* CADebugPrintf.cpp in Sources */,
 				C7B9C8211B27836C00250686 /* CADebugMacros.cpp in Sources */,
+				C71C559D1B2A43D0007EDF51 /* BBSettingsWrapper.mm in Sources */,
+				C71C55A11B2B5D75007EDF51 /* UIColorExtensions.swift in Sources */,
 				C7B9C8071B2782B600250686 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -571,8 +553,8 @@
 		};
 		C7E77A9D1B1D07210058523B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E1F2B6BBD07481EDD7189370 /* Pods.debug.xcconfig */;
 			buildSettings = {
+				ARCHS = armv7;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				BUNDLE_DISPLAY_NAME_SUFFIX = Debug;
 				BUNDLE_ID_SUFFIX = .debug;
@@ -588,16 +570,26 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Backbeater/SoundLib/AU",
 				);
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-x",
+					"objective-c++",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/Backbeater/App/Backbeater-Bridging-Header.h";
 				USER_HEADER_SEARCH_PATHS = "${PROJECT_DIR}/SoundLib/**";
+				VALID_ARCHS = armv7;
 			};
 			name = Debug;
 		};
 		C7E77A9E1B1D07210058523B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4D1B896F03FB6BA784900274 /* Pods.release.xcconfig */;
 			buildSettings = {
+				ARCHS = armv7;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				BUNDLE_DISPLAY_NAME_SUFFIX = "";
 				BUNDLE_ID_SUFFIX = "";
@@ -607,15 +599,26 @@
 					"$(PROJECT_DIR)",
 				);
 				GCC_NO_COMMON_BLOCKS = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = Backbeater/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Backbeater/SoundLib/AU",
 				);
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-x",
+					"objective-c++",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/Backbeater/App/Backbeater-Bridging-Header.h";
 				USER_HEADER_SEARCH_PATHS = "${PROJECT_DIR}/SoundLib/**";
+				VALID_ARCHS = armv7;
 			};
 			name = Release;
 		};

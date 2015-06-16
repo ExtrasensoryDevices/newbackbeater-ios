@@ -17,8 +17,6 @@ class SensitivitySlider: UIControlNibDesignable{
     @IBOutlet weak var thumbView: UIView!
     @IBOutlet weak var thumbLabel: UILabel!
     
-    @IBOutlet weak var thumbCenterConstraint: NSLayoutConstraint!
-    
     var MIN_VALUE:Int = 0 {
         didSet {
             updateThumb(animated: true)
@@ -43,22 +41,32 @@ class SensitivitySlider: UIControlNibDesignable{
     
     
     override func setup() {
-        thumbView.backgroundColor = ColorPalette.Pink.color()
-        thumbView.layer.cornerRadius = thumbView.frame.size.height / 2 - BORDER_WIDTH * 1.5 
-        thumbView.layer.borderWidth = BORDER_WIDTH
-        thumbView.layer.borderColor = UIColor.whiteColor().CGColor
-        thumbView.removeConstraint(thumbCenterConstraint)
-//        updateThumb(animated: false)
         setupGestures()
-        
-        
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        updateThumb(animated: false)
+        setupThumb()
     }
     
+    func setupThumb() {
+        thumbView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        var thumbViewFrame = thumbView.bounds
+        thumbViewFrame.size.width = thumbViewFrame.size.height
+        thumbView.frame = thumbViewFrame
+        thumbView.backgroundColor = ColorPalette.Pink.color()
+        thumbView.layer.cornerRadius = thumbView.frame.size.height / 2 - BORDER_WIDTH * 1.5
+        thumbView.layer.borderWidth = BORDER_WIDTH
+        thumbView.layer.borderColor = UIColor.whiteColor().CGColor
+        thumbLabel.font = thumbLabel.font.fontWithSize(10)
+        updateThumb(animated: false)
+        
+        println("setupThumb: \(thumbView.center)")
+        
+        
+    }
+    
+
 
     
     func updateThumb(#animated: Bool) {
@@ -70,15 +78,16 @@ class SensitivitySlider: UIControlNibDesignable{
         if thumbView == nil {
             return
         }
+        println("move to point: \(point) animated: \(animated)")
+        println("\t\t\tb/f: \(thumbView.frame)")
         if animated {
             UIView.animateWithDuration(0.3) {[weak self] in
                 self?.thumbView.center = point
-                println("frame: \(self?.thumbView.frame)")
             }
         } else {
             thumbView.center = point
-            println("frame: \(thumbView.frame), point : \(point)")
         }
+        println("\t\t\tafter: \(thumbView.frame)")
     }
     
     private func getCenterPointForValue() -> CGPoint {
@@ -151,7 +160,6 @@ class SensitivitySlider: UIControlNibDesignable{
     
     func didPanThumbView(gestureRecognizer:UIPanGestureRecognizer) {
         let point = gestureRecognizer.translationInView(self)
-        println("state: \(gestureRecognizer.state.rawValue), point \(point)")
         switch gestureRecognizer.state {
         case .Began :
             dragging = true

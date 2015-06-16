@@ -28,9 +28,10 @@ class Sidebar: NibDesignable {
     var soundButtonCollection: [UIButton]!
     
     
+    @IBOutlet weak var helpButton: UIButton!
     
     
-    let settings = BBSetting.sharedInstance()
+    let settings = BBSettingsWrapper.sharedInstance()
     
     let strikes = [2, 4, 8, 16] // WINDOW
     let timeSignature = [1, 2, 3, 4] // BEAT
@@ -40,8 +41,13 @@ class Sidebar: NibDesignable {
         self.backgroundColor = ColorPalette.Pink.color()
         soundButtonCollection = [stickButton, dingButton, bangButton]
         
+        // TODO: save user settings between sessions
+        soundButtonCollection.first?.selected = true
+        
         windowSegmentedControl.items = toStringArray(strikes)
         beatSegmentedControl.items = toStringArray(timeSignature)
+        
+        helpButton.titleLabel?.font = Font.FuturaDemi.get(16)
     }
     
     
@@ -49,13 +55,11 @@ class Sidebar: NibDesignable {
         for (index, button) in enumerate(soundButtonCollection) {
             if sender == button {
                 if sender.selected {
-                    // mute
-                    settings.mute = true
+                    return
                 } else {
                     // set new sound
                     settings.metSound = index
-                    settings.mute = false
-                }
+                 }
                 sender.selected = !sender.selected
             } else {
                 button.selected = false

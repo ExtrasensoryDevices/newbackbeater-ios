@@ -79,9 +79,7 @@ import UIKit
             label.textAlignment = .Center
             label.font = label.font.fontWithSize(height - BORDER_WIDTH * 2 - 8)
             label.textColor = index == selectedIndex ? selectedLabelColor : unselectedLabelColor
-            label.layer.cornerRadius = height / 2
-            label.layer.borderWidth = BORDER_WIDTH
-            label.layer.borderColor = unselectedLabelColor.CGColor
+            label.drawBorderWithColor(unselectedLabelColor)
             label.setTranslatesAutoresizingMaskIntoConstraints(false)
             self.addSubview(label)
             labels.append(label)
@@ -92,15 +90,16 @@ import UIKit
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
+        setupThumb()
+        displayNewSelectedIndex()
+    }
+    
+    func setupThumb() {
         var selectFrame = self.bounds
         selectFrame.size.width = selectFrame.size.height
         thumbView.frame = selectFrame
         thumbView.backgroundColor = thumbColor
         thumbView.layer.cornerRadius = thumbView.frame.height / 2
-        
-        displayNewSelectedIndex()
-        
     }
     
     override func beginTrackingWithTouch(touch: UITouch, withEvent event: UIEvent) -> Bool {
@@ -144,7 +143,6 @@ import UIKit
         
         for (index, button) in enumerate(items) {
             
-            println("index: \(index) - \(CGFloat(2*index+2)/CGFloat(items.count+1))")
             var heightConstraint = NSLayoutConstraint(item: button, attribute: .Height, relatedBy: .Equal, toItem: mainView, attribute: .Height, multiplier: 1, constant: 0)
             var ratioConstraint = NSLayoutConstraint(item: button, attribute: .Width, relatedBy: .Equal, toItem: button, attribute: .Height, multiplier: 1, constant: 0)
             var centerVConstraint = NSLayoutConstraint(item: button, attribute: .CenterY, relatedBy: .Equal, toItem: mainView, attribute: .CenterY, multiplier: 1.0, constant: 0)

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
@@ -9,7 +10,6 @@
             <connections>
                 <outlet property="leftImage" destination="Wgh-hk-iuP" id="5Up-2F-boG"/>
                 <outlet property="rightImage" destination="ybe-I9-Y08" id="gXX-KS-RW9"/>
-                <outlet property="thumbCenterConstraint" destination="RMc-tH-IX6" id="RZI-Fg-vRe"/>
                 <outlet property="thumbLabel" destination="dkB-fW-Hxk" id="D83-8n-cjZ"/>
                 <outlet property="thumbView" destination="B0i-nx-BHs" id="3Ll-4c-oRN"/>
                 <outlet property="trackView" destination="Daf-PR-JEN" id="ybZ-1E-wF3"/>
@@ -67,7 +67,7 @@
                 <constraint firstItem="Wgh-hk-iuP" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="7aJ-kH-MFE"/>
                 <constraint firstItem="Wgh-hk-iuP" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="89L-5w-M2Q"/>
                 <constraint firstAttribute="centerY" secondItem="Daf-PR-JEN" secondAttribute="centerY" id="EBf-nM-BHw"/>
-                <constraint firstAttribute="centerX" secondItem="B0i-nx-BHs" secondAttribute="centerX" id="RMc-tH-IX6"/>
+                <constraint firstAttribute="centerX" secondItem="B0i-nx-BHs" secondAttribute="centerX" placeholder="YES" id="RMc-tH-IX6"/>
                 <constraint firstAttribute="bottom" secondItem="Wgh-hk-iuP" secondAttribute="bottom" id="YS5-ty-Wbe"/>
                 <constraint firstItem="Daf-PR-JEN" firstAttribute="leading" secondItem="Wgh-hk-iuP" secondAttribute="trailing" id="aTR-nE-DEG"/>
                 <constraint firstAttribute="trailing" secondItem="ybe-I9-Y08" secondAttribute="trailing" id="bz5-4v-3La"/>

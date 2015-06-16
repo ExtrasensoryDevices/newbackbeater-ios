@@ -21,8 +21,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Fabric.with([Crashlytics()])
         
+        setupAppearance()
+        
         return true
     }
+    
+    func setupAppearance() {
+        let button = UIButton.appearance()
+        button.backgroundColor = .clearColor()
+        button.tintColor = .whiteColor()
+        button.titleLabel?.font = Font.FuturaDemi.get(16)
+        button.titleLabel?.textColor = .whiteColor()
+        
+        let label = UILabel.appearance()
+        label.font = Font.FuturaDemi.get(16)
+        label.tintColor = .whiteColor()
+        label.textColor = .whiteColor()
+        
+        let textField = UITextField.appearance()
+        textField.font = Font.FuturaDemi.get(16)
+        textField.tintColor = .whiteColor()
+        textField.textColor = .whiteColor()
+    }
+    
+    
+    
+    
+    
 
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

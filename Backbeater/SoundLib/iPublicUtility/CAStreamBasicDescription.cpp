@@ -160,11 +160,11 @@ void	CAStreamBasicDescription::NormalizeLinearPCMFormat(AudioStreamBasicDescript
 	if((ioDescription.mFormatID == kAudioFormatLinearPCM) && ((ioDescription.mFormatFlags & kIsNonMixableFlag) == 0))
 	{
 		//  the canonical linear PCM format
-		ioDescription.mFormatFlags = kAudioFormatFlagsCanonical;
-		ioDescription.mBytesPerPacket = sizeof(AudioSampleType) * ioDescription.mChannelsPerFrame;
+		ioDescription.mFormatFlags = kAudioFormatFlagsNativeFloatPacked;
+		ioDescription.mBytesPerPacket = sizeof(SInt16) * ioDescription.mChannelsPerFrame;
 		ioDescription.mFramesPerPacket = 1;
-		ioDescription.mBytesPerFrame = sizeof(AudioSampleType) * ioDescription.mChannelsPerFrame;
-		ioDescription.mBitsPerChannel = 8 * sizeof(AudioSampleType);
+		ioDescription.mBytesPerFrame = sizeof(SInt16) * ioDescription.mChannelsPerFrame;
+		ioDescription.mBitsPerChannel = 8 * sizeof(SInt16);
 	}
 }
 

@@ -101,10 +101,24 @@ class MainViewController: UIViewController, SidebarDelegate {
         }, completion: completion)
     }
     
+
+    
+    
+    func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if let recognizer = gestureRecognizer as? UIPanGestureRecognizer {
+            let leftToRight = (recognizer.velocityInView(view).x > 0)
+            let collapsed = currentState == .Collapsed
+            return (leftToRight && collapsed) || (!leftToRight && !collapsed)
+        }
+        
+        return true
+    }
+
+    
     @IBAction func didPanContainerView(recognizer: UIPanGestureRecognizer) {
         switch(recognizer.state) {
         case .Began:
-            if (currentState == .Collapsed) {
+            if currentState == .Collapsed  {
                 showShadow(true)
             }
         case .Changed:
