@@ -3,7 +3,6 @@
 //  Backbeater
 //
 //  Created by Alina on 2015-06-10.
-//  Copyright (c) 2015 Samsung Accelerator. All rights reserved.
 //
 
 import UIKit
@@ -115,7 +114,7 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate {
     // MARK: - Song list
     
     @IBAction func didTapPrevButton(sender: AnyObject) {
-        selectedIndex  = selectedIndex > 1 ? selectedIndex-1 : songList!.count-1
+        selectedIndex  = selectedIndex >= 1 ? selectedIndex-1 : songList!.count-1
     }
 
     @IBAction func didTapNextButton(sender: AnyObject) {
@@ -128,9 +127,11 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate {
         }
     }
     
-    func songListViewControllerDidReturnSongList(songList: [SongTempo]) {
-        self.songList = songList
-        selectedIndex = 0
+    func songListViewControllerDidReturnSongList(songList: [SongTempo]?, updated: Bool) {
+        if updated {
+            self.songList = songList
+            selectedIndex = 0
+        }
     }
     
 }

@@ -3,7 +3,6 @@
 //  Backbeater
 //
 //  Created by Alina on 2015-06-01.
-//  Copyright (c) 2015 Samsung Accelerator. All rights reserved.
 //
 
 import UIKit
@@ -14,6 +13,11 @@ import Crashlytics
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    
+    
+    var updater: Updater!
+    var lastUpdateCheck: NSDate!
+
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
@@ -21,6 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Fabric.with([Crashlytics()])
         
+        setupUpdates()
         setupAppearance()
         
         return true
@@ -42,8 +47,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         textField.font = Font.FuturaDemi.get(16)
         textField.tintColor = .whiteColor()
         textField.textColor = .whiteColor()
+        
+        let barButton = UIBarButtonItem.appearance()
+        barButton.setTitleTextAttributes([
+            NSFontAttributeName: Font.FuturaBook.get(13.0),
+            ], forState: .Normal)
     }
     
+    func setupUpdates() {
+        updater = Updater(plistUrl: PLIST_URL)
+        lastUpdateCheck = NSDate()
+        updater.checkForUpdate()
+    }
     
     
     
@@ -61,6 +76,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillEnterForeground(application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+        
+        if NSDate().timeIntervalSinceDate(lastUpdateCheck) > CHECK_INTERVAL_SECONDS {
+            lastUpdateCheck = NSDate()
+            updater?.checkForUpdate()
+        }
     }
 
     func applicationDidBecomeActive(application: UIApplication) {

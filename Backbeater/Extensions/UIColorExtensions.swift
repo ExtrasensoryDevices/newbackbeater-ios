@@ -2,8 +2,7 @@
 //  UIColor+Extensions.swift
 //  Canvas
 //
-//  Created by Jim Matteson on 11/24/14.
-//  Copyright (c) 2014 Samsung. All rights reserved.
+//  Created by Alina on 11/24/14.
 //
 
 import Foundation
