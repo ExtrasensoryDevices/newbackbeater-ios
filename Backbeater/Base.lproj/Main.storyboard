@@ -484,6 +484,7 @@ SENSOR</string>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="bottomConstraint" destination="IV9-u7-hXv" id="bpK-qk-FyU"/>
                         <outlet property="tableView" destination="J2i-Fe-j4C" id="ARx-7D-cKr"/>
                     </connections>
                 </viewController>

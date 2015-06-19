@@ -16,15 +16,27 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
     weak var delegate:SongListViewControllerDelegate?
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     
     
-    weak var currentTextField:UITextField?
+    weak var selectedTextField:UITextField?
+    var selectedIndexPath: NSIndexPath? {
+        didSet {
+            if oldValue != nil {
+                tableView.deselectRowAtIndexPath(oldValue!, animated: false)
+            }
+            if selectedIndexPath != nil {
+                tableView.selectRowAtIndexPath(selectedIndexPath, animated: true, scrollPosition: UITableViewScrollPosition.Middle)
+            }
+        }
+    }
     
     var keyboardToolbar:UIToolbar!
     var nextButton: UIBarButtonItem!
     var prevButton: UIBarButtonItem!
 
-    
+    let songNameTextFieldTag = 1
+    let tempoValueTextFieldTag = 2
     
     
     override func viewDidLoad() {
@@ -33,6 +45,12 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
         tableView.backgroundColor = ColorPalette.Black.color()
         tableView.backgroundView = nil
         tableView.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: "tableViewLongPress:"))
+        
+        setupKeyboardAceessory()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
+        
     }
     
     var songList:[SongTempo]? = [SongTempo(songName:"Song #1", tempoValue: 120),
@@ -54,14 +72,14 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
         nextButton = UIBarButtonItem(title: "❯", style: UIBarButtonItemStyle.Plain, target: self, action: "didTapNextButton")
         prevButton = UIBarButtonItem(title: "❮", style: UIBarButtonItemStyle.Plain, target: self, action: "didTapPrevButton")
         
-        let frame = CGRectMake(0, 0, 320, 40)
+        let frame = CGRectMake(0, 0, 320, 50)
         
         keyboardToolbar = UIToolbar(frame: frame)
         keyboardToolbar.barTintColor = ColorPalette.KeyboardBg.color()
         keyboardToolbar.items = [prevButton, nextButton, flexibleSpace, submitButton]
         
         // create bottom line
-        let borderView = UIView(frame: CGRectMake(0, 39, 320, 1))
+        let borderView = UIView(frame: CGRectMake(0, 49, 320, 1))
         borderView.backgroundColor = ColorPalette.KeyboardBorder.color()
         borderView.userInteractionEnabled = false
         keyboardToolbar.addSubview(borderView)
@@ -83,6 +101,11 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
         cell.backgroundColor = ColorPalette.Black.color()
         cell.songNameTextField.text = songList![indexPath.row].songName.uppercaseString
         cell.tempoValueTextField.text = "\(songList![indexPath.row].tempoValue)"
+        cell.songNameTextField.inputAccessoryView = keyboardToolbar
+        cell.tempoValueTextField.inputAccessoryView = keyboardToolbar
+        cell.songNameTextField.tag = songNameTextFieldTag
+        cell.tempoValueTextField.tag = tempoValueTextFieldTag
+        
         return cell
     }
     
@@ -100,51 +123,124 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
             
             // reorder cells
             
-//            if let cell = self.tableView.cellForRowAtIndexPath(indexPath) as? SongListCell {
-//                let pointInCell = cell.convertPoint(p, fromView:self.tableView)
-//                
+            if let cell = self.tableView.cellForRowAtIndexPath(indexPath) as? SongListCell {
+                let pointInCell = cell.convertPoint(p, fromView:self.tableView)
+//
 //                if CGRectContainsPoint(cell.songNameLabel.frame, pointInCell) {
 //                    println("longpress in song name")
 //                } else if CGRectContainsPoint(cell.tempoValueLabel.frame, pointInCell) {
 //                    println("longpress in tempo value")
 //                }
-//            }
+            }
         }
     }
+    
+    
+    
+    func getCellForView(aView:UIView) -> NSIndexPath? {
+        //println("viewCenter: \(aView.center), converted point \(tableView.convertPoint(aView.center, fromView: aView.superview))")
+        return tableView.indexPathForRowAtPoint(tableView.convertPoint(aView.center, fromView: aView.superview))
+    }
         
-        // MARK: - Keyboard
-        
-        func didTapDoneButton() {
-            currentTextField?.resignFirstResponder()
-            currentTextField = nil
+    // MARK: - Keyboard
+    
+    func didTapDoneButton() {
+        selectedTextField?.resignFirstResponder()
+        selectedTextField = nil
+        selectedIndexPath = nil
+    }
+    
+    func didTapNextButton() {
+        println(selectedTextField)
+        println(selectedIndexPath)
+        if selectedTextField == nil || selectedIndexPath == nil {
+            return
         }
-        
-        func didTapNextButton() {
-//            if currentTextField == songNameTextField {
-//                tempoValueTextField.becomeFirstResponder()
-//                currentTextField = tempoValueTextField
-//            }
+        let selectedCell = tableView.cellForRowAtIndexPath(selectedIndexPath!)
+        if selectedTextField!.tag == songNameTextFieldTag {
+            let nextTextField = selectedCell!.viewWithTag(tempoValueTextFieldTag)!
+            nextTextField.becomeFirstResponder()
+        } else {
+            let newIndexPath = NSIndexPath(forRow: selectedIndexPath!.row+1, inSection: selectedIndexPath!.section)
+            let cell = tableView.cellForRowAtIndexPath(newIndexPath)
+            if let tf = cell?.viewWithTag(songNameTextFieldTag) as? UITextField {
+                selectedTextField = tf
+                selectedTextField?.becomeFirstResponder()
+            }
         }
-        
-        func didTapPrevButton() {
-//            if currentTextField == tempoValueTextField {
-//                songNameTextField.becomeFirstResponder()
-//                currentTextField = songNameTextField
-//            }
+    }
+    
+    func didTapPrevButton() {
+        if selectedTextField == nil || selectedIndexPath == nil {
+            return
         }
-        
-        func textFieldDidBeginEditing(textField: UITextField) {
-//            currentTextField = textField
-//            nextButton.enabled = currentTextField == songNameTextField
-//            prevButton.enabled = currentTextField == tempoValueTextField
+        let selectedCell = tableView.cellForRowAtIndexPath(selectedIndexPath!)
+        if selectedTextField!.tag == tempoValueTextFieldTag {
+            let prevTextField = selectedCell!.viewWithTag(songNameTextFieldTag)!
+            prevTextField.becomeFirstResponder()
+        } else {
+            let newIndexPath = NSIndexPath(forRow: selectedIndexPath!.row-1, inSection: selectedIndexPath!.section)
+            let cell = tableView.cellForRowAtIndexPath(newIndexPath)
+            if let tf = cell?.viewWithTag(tempoValueTextFieldTag) as? UITextField {
+                selectedTextField = tf
+                selectedTextField?.becomeFirstResponder()
+            }
         }
+    }
+    
+    func textFieldDidBeginEditing(textField: UITextField) {
+        selectedTextField = textField
         
-        
-        func textFieldShouldReturn(textField: UITextField) -> Bool {
-            textField.resignFirstResponder()
-            currentTextField = nil
-            return true
+        if let cellIndexPath = getCellForView(textField) {
+            selectedIndexPath = cellIndexPath
+            println("row: \(selectedIndexPath!.row), tag: \(selectedTextField!.tag)")
+            nextButton.enabled = selectedIndexPath!.row < tableView.numberOfRowsInSection(0)-1 || selectedTextField!.tag != tempoValueTextFieldTag
+            prevButton.enabled = selectedIndexPath!.row > 0 || selectedTextField!.tag != songNameTextFieldTag
         }
+    }
+    
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        selectedTextField = nil
+        return true
+    }
+    
+    
+    func keyboardWillHide(notification: NSNotification!) {
+        adjustViewForKeyboardNotification(false, notification: notification)
+    }
+    
+    func keyboardWillShow(notification: NSNotification!) {
+        adjustViewForKeyboardNotification(true, notification: notification)
+    }
+    
+    func adjustViewForKeyboardNotification(hide: Bool, notification: NSNotification!) {
+        var userInfo = notification.userInfo!
         
+        var kbSize = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue().size
+        var durationValue = userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber
+        var animationDuration = durationValue.doubleValue
+        var curveValue = userInfo[UIKeyboardAnimationCurveUserInfoKey] as! NSNumber
+        var animationCurve = curveValue.integerValue
+        
+        let window = UIApplication.sharedApplication().keyWindow!
+        let keyboardTop = CGPoint(x: 0, y: window.bounds.height - kbSize.height)
+        let keyboardTopInView = window.convertPoint(keyboardTop, toView: self.view)
+        let keyboardHeightInView = self.view.frame.height - keyboardTopInView.y
+        
+        let constant = (hide ? keyboardHeightInView : 0)
+        UIView.animateWithDuration(animationDuration, delay: 0.0, options: UIViewAnimationOptions(UInt(animationCurve << 16)), animations: {
+            self.bottomConstraint.constant = constant
+            self.view.layoutIfNeeded()
+        }){ (completed:Bool) in
+            if let selectedRow = self.tableView.indexPathForSelectedRow() {
+                self.tableView.scrollToRowAtIndexPath(selectedRow, atScrollPosition: UITableViewScrollPosition.Middle, animated: true)
+            } else {
+                println("no row selected")
+            }
+        }
+    }
+
 
 }
