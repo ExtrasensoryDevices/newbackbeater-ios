@@ -7,14 +7,16 @@
 
 import UIKit
 
-class HelpViewController: UIViewController, UIWebViewDelegate {
+class WebViewController: UIViewController, UIWebViewDelegate {
 
     @IBOutlet weak var webView: UIWebView!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
+    
+    var url = HELP_URL
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        webView.loadRequest(NSURLRequest(URL: NSURL(string: HELP_URL)!))
+        webView.loadRequest(NSURLRequest(URL: NSURL(string: url)!))
     }
     
     
@@ -25,15 +27,15 @@ class HelpViewController: UIViewController, UIWebViewDelegate {
 
     // MARK: - UIWebViewDelegate
     func webViewDidStartLoad(webView: UIWebView) {
-        activityIndicator.startAnimating()
+        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
     }
     
     func webViewDidFinishLoad(webView: UIWebView) {
-        activityIndicator.stopAnimating()
+        MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
     }
     
     func webView(webView: UIWebView, didFailLoadWithError error: NSError) {
-        activityIndicator.stopAnimating()
+        MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
         let alertVC = UIAlertController(title: nil, message: "Please check your internet connection or try again later.", preferredStyle: .Alert)
         let okAction = UIAlertAction(title: "OK", style: .Default, handler: { (action) -> Void in})
         

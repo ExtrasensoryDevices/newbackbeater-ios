@@ -137,7 +137,8 @@ class MainViewController: UIViewController, SidebarDelegate {
     // MARK: SidebarDelegate
     func didTapHelp() {
         // present help
-        let helpVC = storyboard?.instantiateViewControllerWithIdentifier("HelpViewController") as! HelpViewController
+        let helpVC = storyboard?.instantiateViewControllerWithIdentifier("WebViewController") as! WebViewController
+        helpVC.url = HELP_URL
         self.presentViewController(helpVC, animated: true) {
             self.toggleMenuPanel(false)
         }

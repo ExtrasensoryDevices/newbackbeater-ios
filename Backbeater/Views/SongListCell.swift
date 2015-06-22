@@ -12,6 +12,7 @@ class SongListCell: UITableViewCell {
     @IBOutlet weak var songNameTextField: UITextField!
     @IBOutlet weak var tempoValueTextField: UITextField!
     
+    @IBOutlet weak var deleteButton: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -32,10 +33,11 @@ class SongListCell: UITableViewCell {
         
     }
     
-    @IBAction func didTapDelete(sender: AnyObject) {
-        println("didTapDelete")
+    override func prepareForReuse() {
+        songNameTextField.font = Font.FuturaDemi.get(13)
+        tempoValueTextField.font = Font.FuturaBook.get(14)
+        songNameTextField.minimumFontSize = 13
+        tempoValueTextField.minimumFontSize = 14
     }
-    
-    
     
 }

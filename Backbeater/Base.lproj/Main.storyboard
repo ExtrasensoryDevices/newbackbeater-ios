@@ -6,6 +6,14 @@
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="FuturaRound-Book.ttf">
+            <string>FuturaRound-Book</string>
+        </mutableArray>
+        <mutableArray key="FuturaRound-Demi.ttf">
+            <string>FuturaRound-Demi</string>
+        </mutableArray>
+    </customFonts>
     <scenes>
         <!--Main View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -221,7 +229,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="QJn-dF-3EQ" userLabel="GET SENSOR">
+                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="QJn-dF-3EQ" userLabel="GET SENSOR">
                                 <rect key="frame" x="16" y="441" width="64" height="64"/>
                                 <color key="backgroundColor" red="0.8666666666666667" green="0.18431372549019609" blue="0.26666666666666666" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -295,16 +303,16 @@ SENSOR</string>
                 <tapGestureRecognizer id="60N-Ku-2jr" userLabel="SetTempo Tap Gesture Recognizer"/>
                 <tapGestureRecognizer id="Eh1-Gb-B1S" userLabel="GetSensor Tap Gesture Recognizer">
                     <connections>
-                        <segue destination="dH9-CO-D53" kind="presentation" id="bKt-Mg-PCl"/>
+                        <segue destination="dH9-CO-D53" kind="presentation" id="FRw-VP-Csb"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1227" y="327"/>
         </scene>
-        <!--Help View Controller-->
+        <!--Web View Controller-->
         <scene sceneID="cRA-Se-Riv">
             <objects>
-                <viewController storyboardIdentifier="HelpViewController" id="dH9-CO-D53" customClass="HelpViewController" customModule="Backbeater" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WebViewController" id="dH9-CO-D53" customClass="WebViewController" customModule="Backbeater" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="sQw-bI-1GT"/>
                         <viewControllerLayoutGuide type="bottom" id="50w-eZ-RBj"/>
@@ -333,9 +341,6 @@ SENSOR</string>
                                     <action selector="didTapClose" destination="dH9-CO-D53" eventType="touchUpInside" id="cp1-Gg-1Wg"/>
                                 </connections>
                             </button>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="uqY-EW-9ol">
-                                <rect key="frame" x="282" y="281" width="37" height="37"/>
-                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -343,8 +348,6 @@ SENSOR</string>
                             <constraint firstItem="eqQ-o4-OsR" firstAttribute="leading" secondItem="661-oL-OY7" secondAttribute="leading" id="7LS-uY-gRz"/>
                             <constraint firstItem="50w-eZ-RBj" firstAttribute="top" secondItem="eqQ-o4-OsR" secondAttribute="bottom" id="FZ0-ms-KzI"/>
                             <constraint firstItem="Cgc-be-cKy" firstAttribute="leading" secondItem="661-oL-OY7" secondAttribute="leading" constant="16" id="UKf-WN-pe5"/>
-                            <constraint firstAttribute="centerY" secondItem="uqY-EW-9ol" secondAttribute="centerY" id="ZaT-OH-Bi3"/>
-                            <constraint firstAttribute="centerX" secondItem="uqY-EW-9ol" secondAttribute="centerX" id="bcs-ar-pqd"/>
                             <constraint firstAttribute="trailing" secondItem="eqQ-o4-OsR" secondAttribute="trailing" id="hAp-EF-68J"/>
                             <constraint firstItem="eqQ-o4-OsR" firstAttribute="top" secondItem="661-oL-OY7" secondAttribute="top" id="iSR-vs-Ixg"/>
                             <constraint firstItem="Cgc-be-cKy" firstAttribute="top" secondItem="sQw-bI-1GT" secondAttribute="bottom" constant="8" id="kOk-WM-RiC"/>
@@ -356,7 +359,6 @@ SENSOR</string>
                         </variation>
                     </view>
                     <connections>
-                        <outlet property="activityIndicator" destination="uqY-EW-9ol" id="I1M-dT-7WE"/>
                         <outlet property="webView" destination="eqQ-o4-OsR" id="vOJ-MA-Atj"/>
                     </connections>
                 </viewController>
@@ -389,27 +391,40 @@ SENSOR</string>
                                     </mask>
                                 </variation>
                             </imageView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="55" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="J2i-Fe-j4C">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ron-SF-VKE">
+                                <rect key="frame" x="16" y="47" width="37" height="37"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="37" id="R0E-8R-Qas"/>
+                                    <constraint firstAttribute="width" constant="37" id="V1C-5d-S9L"/>
+                                </constraints>
+                                <state key="normal" image="down">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="didTapClose:" destination="0VI-mf-dU7" eventType="touchUpInside" id="1VR-j2-sGG"/>
+                                </connections>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="55" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="J2i-Fe-j4C">
                                 <rect key="frame" x="0.0" y="112" width="600" height="488"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="SongListCellReuseID" rowHeight="55" id="6Xt-pD-VMK" customClass="SongListCell" customModule="Backbeater" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="SongListCellReuseID" rowHeight="50" id="6Xt-pD-VMK" customClass="SongListCell" customModule="Backbeater" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6Xt-pD-VMK" id="aoi-oP-37Y">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Song #1" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Cpf-qD-4wz">
-                                                    <rect key="frame" x="8" y="9" width="486" height="37"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <rect key="frame" x="16" y="7" width="478" height="37"/>
+                                                    <fontDescription key="fontDescription" name="FuturaRound-Demi" family="Futura Round Demi" pointSize="13"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                                                     <connections>
                                                         <outlet property="delegate" destination="0VI-mf-dU7" id="4ml-y9-qKA"/>
                                                     </connections>
                                                 </textField>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rSJ-TT-uJl" userLabel="DeleteButton">
-                                                    <rect key="frame" x="547" y="9" width="37" height="37"/>
+                                                    <rect key="frame" x="547" y="7" width="37" height="37"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="rSJ-TT-uJl" secondAttribute="height" multiplier="1:1" id="Onp-Sn-F4R"/>
                                                         <constraint firstAttribute="height" constant="37" id="zIH-kx-L88"/>
@@ -417,13 +432,10 @@ SENSOR</string>
                                                     <state key="normal" image="close">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
-                                                    <connections>
-                                                        <action selector="didTapDelete:" destination="6Xt-pD-VMK" eventType="touchUpInside" id="LDS-42-lku"/>
-                                                    </connections>
                                                 </button>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="120" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vQA-y0-wZd">
-                                                    <rect key="frame" x="502" y="9" width="37" height="37"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <rect key="frame" x="502" y="7" width="37" height="37"/>
+                                                    <fontDescription key="fontDescription" name="FuturaRound-Book" family="Futura Round" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                     <connections>
                                                         <outlet property="delegate" destination="0VI-mf-dU7" id="5cZ-d4-nsa"/>
@@ -441,14 +453,39 @@ SENSOR</string>
                                                 <constraint firstAttribute="centerY" secondItem="Cpf-qD-4wz" secondAttribute="centerY" id="lka-yg-YIG"/>
                                                 <constraint firstItem="vQA-y0-wZd" firstAttribute="height" secondItem="rSJ-TT-uJl" secondAttribute="height" id="sJN-bE-bK9"/>
                                                 <constraint firstItem="Cpf-qD-4wz" firstAttribute="height" secondItem="rSJ-TT-uJl" secondAttribute="height" id="uGd-n7-5RM"/>
-                                                <constraint firstItem="Cpf-qD-4wz" firstAttribute="leading" secondItem="aoi-oP-37Y" secondAttribute="leading" constant="8" id="vcN-1f-EcX"/>
+                                                <constraint firstItem="Cpf-qD-4wz" firstAttribute="leading" secondItem="aoi-oP-37Y" secondAttribute="leading" constant="16" id="vcN-1f-EcX"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.14901960784313725" green="0.14901960784313725" blue="0.14901960784313725" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
+                                            <outlet property="deleteButton" destination="rSJ-TT-uJl" id="ifF-6F-kdy"/>
                                             <outlet property="songNameTextField" destination="Cpf-qD-4wz" id="31c-Sm-7s4"/>
                                             <outlet property="tempoValueTextField" destination="vQA-y0-wZd" id="R1q-7G-gh1"/>
                                         </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddSongCellReuseID" rowHeight="50" id="azQ-Ie-a6U">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="azQ-Ie-a6U" id="CWj-7Y-zg9">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="seN-3I-0oG">
+                                                    <rect key="frame" x="16" y="7" width="37" height="37"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="37" id="Bxk-vd-brT"/>
+                                                        <constraint firstAttribute="width" secondItem="seN-3I-0oG" secondAttribute="height" multiplier="1:1" id="nUN-aG-lXF"/>
+                                                    </constraints>
+                                                    <state key="normal" image="add">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                </button>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstItem="seN-3I-0oG" firstAttribute="leading" secondItem="CWj-7Y-zg9" secondAttribute="leading" constant="16" id="HZe-st-TXR"/>
+                                                <constraint firstAttribute="centerY" secondItem="seN-3I-0oG" secondAttribute="centerY" id="RUz-rw-1GT"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -456,19 +493,6 @@ SENSOR</string>
                                     <outlet property="delegate" destination="0VI-mf-dU7" id="soB-z7-XKn"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ron-SF-VKE">
-                                <rect key="frame" x="16" y="47" width="37" height="37"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="37" id="R0E-8R-Qas"/>
-                                    <constraint firstAttribute="width" constant="37" id="V1C-5d-S9L"/>
-                                </constraints>
-                                <state key="normal" image="down">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="didTapClose:" destination="0VI-mf-dU7" eventType="touchUpInside" id="1VR-j2-sGG"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.14901960784313725" green="0.14901960784313725" blue="0.14901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -494,6 +518,7 @@ SENSOR</string>
         </scene>
     </scenes>
     <resources>
+        <image name="add" width="57" height="57"/>
         <image name="close" width="57" height="57"/>
         <image name="down" width="57" height="57"/>
         <image name="next" width="57" height="57"/>

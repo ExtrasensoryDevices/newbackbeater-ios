@@ -14,7 +14,7 @@
 		C71C55881B290539007EDF51 /* beep.aiff in Resources */ = {isa = PBXBuildFile; fileRef = C71C55851B290539007EDF51 /* beep.aiff */; };
 		C71C55891B290539007EDF51 /* clap.aiff in Resources */ = {isa = PBXBuildFile; fileRef = C71C55861B290539007EDF51 /* clap.aiff */; };
 		C71C558A1B290539007EDF51 /* stick.aiff in Resources */ = {isa = PBXBuildFile; fileRef = C71C55871B290539007EDF51 /* stick.aiff */; };
-		C71C558C1B2909E9007EDF51 /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71C558B1B2909E9007EDF51 /* HelpViewController.swift */; };
+		C71C558C1B2909E9007EDF51 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71C558B1B2909E9007EDF51 /* WebViewController.swift */; };
 		C71C559D1B2A43D0007EDF51 /* BBSettingsWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = C71C559C1B2A43D0007EDF51 /* BBSettingsWrapper.mm */; };
 		C71C55A11B2B5D75007EDF51 /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71C55A01B2B5D75007EDF51 /* UIColorExtensions.swift */; };
 		C75DAA941B212787008FDB43 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7E77ABB1B20F4E00058523B /* Foundation.framework */; };
@@ -23,6 +23,7 @@
 		C774B17A1B30F195007625B3 /* SongListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C774B1791B30F195007625B3 /* SongListCell.swift */; };
 		C774B17E1B338067007625B3 /* Updater.m in Sources */ = {isa = PBXBuildFile; fileRef = C774B17D1B338067007625B3 /* Updater.m */; };
 		C774B1801B338136007625B3 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = C774B17F1B338136007625B3 /* Podfile */; };
+		C774B1821B34B240007625B3 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C774B1811B34B240007625B3 /* StringExtension.swift */; };
 		C7B9C7E61B225D2700250686 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B9C7E41B225D2700250686 /* Fabric.framework */; };
 		C7B9C7E71B225D2700250686 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B9C7E51B225D2700250686 /* Crashlytics.framework */; };
 		C7B9C8011B27828F00250686 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B9C7FE1B27828F00250686 /* AppDelegate.swift */; };
@@ -31,7 +32,6 @@
 		C7B9C8071B2782B600250686 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B9C8061B2782B600250686 /* MainViewController.swift */; };
 		C7B9C80C1B2782F400250686 /* FuturaRound-Book.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7B9C80A1B2782F400250686 /* FuturaRound-Book.ttf */; };
 		C7B9C80D1B2782F400250686 /* FuturaRound-Demi.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7B9C80B1B2782F400250686 /* FuturaRound-Demi.ttf */; };
-		C7B9C8201B27836C00250686 /* libAUtype1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B9C8141B27836C00250686 /* libAUtype1.a */; };
 		C7B9C8211B27836C00250686 /* CADebugMacros.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C7B9C8171B27836C00250686 /* CADebugMacros.cpp */; };
 		C7B9C8221B27836C00250686 /* CAHostTimeBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C7B9C8191B27836C00250686 /* CAHostTimeBase.cpp */; };
 		C7B9C8231B27836C00250686 /* CAStreamBasicDescription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C7B9C81C1B27836C00250686 /* CAStreamBasicDescription.cpp */; };
@@ -59,7 +59,7 @@
 		C71C55851B290539007EDF51 /* beep.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = beep.aiff; sourceTree = "<group>"; };
 		C71C55861B290539007EDF51 /* clap.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = clap.aiff; sourceTree = "<group>"; };
 		C71C55871B290539007EDF51 /* stick.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = stick.aiff; sourceTree = "<group>"; };
-		C71C558B1B2909E9007EDF51 /* HelpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
+		C71C558B1B2909E9007EDF51 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		C71C55991B2A19A8007EDF51 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		C71C559B1B2A43D0007EDF51 /* BBSettingsWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSettingsWrapper.h; sourceTree = "<group>"; };
 		C71C559C1B2A43D0007EDF51 /* BBSettingsWrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BBSettingsWrapper.mm; sourceTree = "<group>"; };
@@ -70,6 +70,7 @@
 		C774B17C1B338067007625B3 /* Updater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Updater.h; sourceTree = "<group>"; };
 		C774B17D1B338067007625B3 /* Updater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Updater.m; sourceTree = "<group>"; };
 		C774B17F1B338136007625B3 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		C774B1811B34B240007625B3 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		C7B9C7E41B225D2700250686 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		C7B9C7E51B225D2700250686 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		C7B9C7FE1B27828F00250686 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -79,11 +80,6 @@
 		C7B9C8061B2782B600250686 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		C7B9C80A1B2782F400250686 /* FuturaRound-Book.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FuturaRound-Book.ttf"; sourceTree = "<group>"; };
 		C7B9C80B1B2782F400250686 /* FuturaRound-Demi.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FuturaRound-Demi.ttf"; sourceTree = "<group>"; };
-		C7B9C8101B27836C00250686 /* aurioType1_helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aurioType1_helper.h; sourceTree = "<group>"; };
-		C7B9C8111B27836C00250686 /* AUtype1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AUtype1.h; sourceTree = "<group>"; };
-		C7B9C8121B27836C00250686 /* AUtype1Delegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AUtype1Delegate.h; sourceTree = "<group>"; };
-		C7B9C8131B27836C00250686 /* BBSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSetting.h; sourceTree = "<group>"; };
-		C7B9C8141B27836C00250686 /* libAUtype1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAUtype1.a; sourceTree = "<group>"; };
 		C7B9C8161B27836C00250686 /* CABitOperations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CABitOperations.h; sourceTree = "<group>"; };
 		C7B9C8171B27836C00250686 /* CADebugMacros.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CADebugMacros.cpp; sourceTree = "<group>"; };
 		C7B9C8181B27836C00250686 /* CADebugMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADebugMacros.h; sourceTree = "<group>"; };
@@ -123,7 +119,6 @@
 				C75DAA941B212787008FDB43 /* Foundation.framework in Frameworks */,
 				C7B9C7E71B225D2700250686 /* Crashlytics.framework in Frameworks */,
 				C7E77AA81B1E7FEB0058523B /* QuartzCore.framework in Frameworks */,
-				C7B9C8201B27836C00250686 /* libAUtype1.a in Frameworks */,
 				C7B9C7E61B225D2700250686 /* Fabric.framework in Frameworks */,
 				BA37BB4BC9F84D143B5D9689 /* libPods.a in Frameworks */,
 			);
@@ -163,6 +158,7 @@
 			children = (
 				C71C55A01B2B5D75007EDF51 /* UIColorExtensions.swift */,
 				C774B16B1B2BB0E3007625B3 /* UIViewExtension.swift */,
+				C774B1811B34B240007625B3 /* StringExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -190,8 +186,8 @@
 			isa = PBXGroup;
 			children = (
 				C7B9C7FE1B27828F00250686 /* AppDelegate.swift */,
-				C7B9C7FF1B27828F00250686 /* Backbeater-Bridging-Header.h */,
 				C7B9C8001B27828F00250686 /* Constants.swift */,
+				C7B9C7FF1B27828F00250686 /* Backbeater-Bridging-Header.h */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -202,7 +198,7 @@
 				C7E77A861B1D07210058523B /* Main.storyboard */,
 				C7B9C8061B2782B600250686 /* MainViewController.swift */,
 				C71C557B1B28C61F007EDF51 /* DisplayViewController.swift */,
-				C71C558B1B2909E9007EDF51 /* HelpViewController.swift */,
+				C71C558B1B2909E9007EDF51 /* WebViewController.swift */,
 				C774B1701B2F7224007625B3 /* SongListViewController.swift */,
 			);
 			path = Controllers;
@@ -240,11 +236,6 @@
 		C7B9C80F1B27836C00250686 /* AU */ = {
 			isa = PBXGroup;
 			children = (
-				C7B9C8101B27836C00250686 /* aurioType1_helper.h */,
-				C7B9C8111B27836C00250686 /* AUtype1.h */,
-				C7B9C8121B27836C00250686 /* AUtype1Delegate.h */,
-				C7B9C8131B27836C00250686 /* BBSetting.h */,
-				C7B9C8141B27836C00250686 /* libAUtype1.a */,
 			);
 			path = AU;
 			sourceTree = "<group>";
@@ -272,10 +263,10 @@
 			isa = PBXGroup;
 			children = (
 				C7E77A7F1B1D07210058523B /* Backbeater */,
-				C774B17F1B338136007625B3 /* Podfile */,
 				C7E77A7E1B1D07210058523B /* Products */,
 				550D132ADA81F391F4746002 /* Frameworks */,
 				8A9AA71583F779872616846C /* Pods */,
+				C774B17F1B338136007625B3 /* Podfile */,
 			);
 			sourceTree = "<group>";
 		};
@@ -490,13 +481,14 @@
 				C7E77AA41B1E3DCC0058523B /* SensitivitySlider.swift in Sources */,
 				C7B9C8221B27836C00250686 /* CAHostTimeBase.cpp in Sources */,
 				C7E77AB11B1FD7820058523B /* Sidebar.swift in Sources */,
-				C71C558C1B2909E9007EDF51 /* HelpViewController.swift in Sources */,
+				C71C558C1B2909E9007EDF51 /* WebViewController.swift in Sources */,
 				C7B9C8021B27828F00250686 /* Constants.swift in Sources */,
 				C7B9C8271B2789B900250686 /* CADebugPrintf.cpp in Sources */,
 				C7B9C8211B27836C00250686 /* CADebugMacros.cpp in Sources */,
 				C71C559D1B2A43D0007EDF51 /* BBSettingsWrapper.mm in Sources */,
 				C71C55A11B2B5D75007EDF51 /* UIColorExtensions.swift in Sources */,
 				C774B17E1B338067007625B3 /* Updater.m in Sources */,
+				C774B1821B34B240007625B3 /* StringExtension.swift in Sources */,
 				C7B9C8071B2782B600250686 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -611,7 +603,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FEA891A245A8A2058FE6E340 /* Pods.debug.xcconfig */;
 			buildSettings = {
-				ARCHS = armv7;
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				BUNDLE_DISPLAY_NAME_SUFFIX = Debug;
 				BUNDLE_ID_SUFFIX = .debug;
@@ -640,7 +632,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/Backbeater/App/Backbeater-Bridging-Header.h";
 				USER_HEADER_SEARCH_PATHS = "${PROJECT_DIR}/SoundLib/**";
-				VALID_ARCHS = armv7;
+				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Debug;
 		};
@@ -648,7 +640,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A7EE4D57B300F74DA2ED6A9B /* Pods.release.xcconfig */;
 			buildSettings = {
-				ARCHS = armv7;
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				BUNDLE_DISPLAY_NAME_SUFFIX = "";
 				BUNDLE_ID_SUFFIX = "";
@@ -677,7 +669,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/Backbeater/App/Backbeater-Bridging-Header.h";
 				USER_HEADER_SEARCH_PATHS = "${PROJECT_DIR}/SoundLib/**";
-				VALID_ARCHS = armv7;
+				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Release;
 		};

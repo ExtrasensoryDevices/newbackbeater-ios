@@ -7,13 +7,21 @@
 
 import UIKit
 
-struct SongTempo {
+struct SongTempo: Equatable {
     var songName:String
     var tempoValue:Int
 }
+func ==(lhs: SongTempo, rhs: SongTempo) -> Bool {
+    return lhs.songName == rhs.songName && lhs.tempoValue == rhs.tempoValue
+}
+
+
 
 let DEFAULT_TEMPO = 120
+let MAX_TEMPO = 221
+let MIN_TEMPO = 20
 let HELP_URL = "http://www.google.com"
+let BUY_SENSOR_URL = "http://www.backbeater.com"
 
 
 enum ColorPalette: Int {
@@ -44,4 +52,4 @@ enum Font: String {
 let BORDER_WIDTH:CGFloat = 2.5
 
 let CHECK_INTERVAL_SECONDS = 60.0 * 15
-let PLIST_URL = "https://tm9.io/sticki/Sticki.plist"
+let PLIST_URL = "https://backbeater.com/app/backbeater.plist"

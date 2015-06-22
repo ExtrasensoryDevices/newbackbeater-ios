@@ -9,3 +9,4 @@
 
 #import "BBSettingsWrapper.h"
 #import "Updater.h"
+#import "MBProgressHUD.h"

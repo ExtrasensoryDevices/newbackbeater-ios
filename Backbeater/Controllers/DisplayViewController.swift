@@ -36,6 +36,7 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate {
     
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         
         setupUI()
@@ -84,6 +85,24 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate {
         logView.scrollRangeToVisible(NSMakeRange(count(logView.text)-1, 1))
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let songListVC = segue.destinationViewController as? SongListViewController {
+            songListVC.delegate = self
+            songListVC.setSongList(songList ?? [SongTempo(songName:"Song #1", tempoValue: 120),
+                SongTempo(songName:"Song #2", tempoValue: 60),
+                SongTempo(songName:"Song #3", tempoValue: 90),
+                SongTempo(songName:"Song #4", tempoValue: 120),
+                SongTempo(songName:"Song #5", tempoValue: 60)])
+        } else if let webVC = segue.destinationViewController as? WebViewController {
+            webVC.url = BUY_SENSOR_URL
+        }
+    }
+    
+   
+    
+    
+    
+    // MARK: - Song list
     
     func updateSongListView() {
         
@@ -111,20 +130,14 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate {
     }
     
 
-    // MARK: - Song list
-    
     @IBAction func didTapPrevButton(sender: AnyObject) {
+        println("didTapPrevButton")
         selectedIndex  = selectedIndex >= 1 ? selectedIndex-1 : songList!.count-1
     }
 
     @IBAction func didTapNextButton(sender: AnyObject) {
+        println("didTapNextButton")
         selectedIndex  = selectedIndex < songList!.count-1 ? selectedIndex+1 : 0
-    }
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let songListVC = segue.destinationViewController as? SongListViewController {
-            songListVC.delegate = self
-        }
     }
     
     func songListViewControllerDidReturnSongList(songList: [SongTempo]?, updated: Bool) {
@@ -133,5 +146,7 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate {
             selectedIndex = 0
         }
     }
+    
+    
     
 }

@@ -11,17 +11,33 @@
 
 + (BBSettingsWrapper*)sharedInstance;
 
-   @property (nonatomic) BOOL mute;
-    @property (nonatomic, readonly) BOOL sensorIn;
-    @property (nonatomic, readonly) NSInteger bpm;
-   @property (nonatomic) float sensitivity;
-   @property (nonatomic) NSInteger strikesFilter;
-   @property (nonatomic) NSInteger timeSignature;
-   @property (nonatomic) NSInteger metSound;
 
-@property (nonatomic, readonly) float foundBPM;
-@property (nonatomic, readonly) float foundBPMf;
-@property (nonatomic, readonly) BOOL sensitivityFlash;
+
+
+@property (nonatomic) BOOL mute;
+@property (nonatomic) BOOL sensorIn;
+@property (nonatomic) NSInteger bpm;
+@property (nonatomic) float sensitivity;
+@property (nonatomic) NSInteger strikesFilter;
+@property (nonatomic) NSInteger timeSignature;
+@property (nonatomic) NSInteger metSound;
+
+@property (nonatomic) float foundBPM;
+@property (nonatomic) float foundBPMf;
+@property (nonatomic) BOOL sensitivityFlash;
+
+
+//@property (nonatomic) BOOL mute;
+//@property (nonatomic, readonly) BOOL sensorIn;
+//@property (nonatomic, readonly) NSInteger bpm;
+//@property (nonatomic) float sensitivity;
+//@property (nonatomic) NSInteger strikesFilter;
+//@property (nonatomic) NSInteger timeSignature;
+//@property (nonatomic) NSInteger metSound;
+//
+//@property (nonatomic, readonly) float foundBPM;
+//@property (nonatomic, readonly) float foundBPMf;
+//@property (nonatomic, readonly) BOOL sensitivityFlash;
 
 
 @end
