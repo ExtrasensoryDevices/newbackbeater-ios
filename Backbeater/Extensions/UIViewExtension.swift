@@ -22,5 +22,6 @@ extension UIView {
         layer.borderColor = color.CGColor
         layer.borderWidth = width
         layer.cornerRadius = self.bounds.size.height / 2
+        self.clipsToBounds = true
     }
 }

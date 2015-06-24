@@ -45,6 +45,7 @@ class SensitivitySlider: UIControlNibDesignable{
     }
     
     override func layoutSubviews() {
+        println("layoutSubviews")
         super.layoutSubviews()
         setupThumb()
     }

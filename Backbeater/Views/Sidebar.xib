@@ -5,6 +5,11 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="FuturaRound-Demi.ttf">
+            <string>FuturaRound-Demi</string>
+        </mutableArray>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="Sidebar" customModule="Backbeater" customModuleProvider="target">
             <connections>
@@ -14,6 +19,7 @@
                 <outlet property="helpButton" destination="cX9-Tu-Ylt" id="Ht6-iL-JqR"/>
                 <outlet property="sensitivitySlider" destination="Ngt-p1-cqv" id="8BR-yG-j17"/>
                 <outlet property="stickButton" destination="yLu-PE-aXK" id="iNw-qf-Fkx"/>
+                <outlet property="versionLabel" destination="XED-ML-FH5" id="7mc-KY-rMP"/>
                 <outlet property="windowSegmentedControl" destination="LQS-dh-hCe" id="vmD-64-zy7"/>
             </connections>
         </placeholder>
@@ -151,14 +157,13 @@
                         <action selector="windowValueChanged:" destination="-1" eventType="valueChanged" id="LM8-t1-qSf"/>
                     </connections>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cX9-Tu-Ylt">
-                    <rect key="frame" x="120" y="355" width="60" height="27"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cX9-Tu-Ylt">
+                    <rect key="frame" x="132" y="535" width="37" height="37"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="60" id="OBr-Xe-05c"/>
-                        <constraint firstAttribute="height" constant="27" id="p4k-yY-rw0"/>
+                        <constraint firstAttribute="width" constant="37" id="OBr-Xe-05c"/>
+                        <constraint firstAttribute="height" constant="37" id="p4k-yY-rw0"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                    <state key="normal" title="HELP">
+                    <state key="normal" image="help">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -169,6 +174,15 @@
                         <action selector="didTapHelp:" destination="-1" eventType="touchUpInside" id="qJs-ko-mDf"/>
                     </connections>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="V 1.0 (123)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XED-ML-FH5">
+                    <rect key="frame" x="0.0" y="575" width="300" height="17"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="17" id="rsK-uM-dwv"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="FuturaRound-Demi" family="Futura Round Demi" pointSize="10"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="0.8666666666666667" green="0.18431372549019609" blue="0.26666666666666666" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -179,21 +193,25 @@
                 <constraint firstItem="2pf-lL-cEf" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="9o8-sT-P76"/>
                 <constraint firstAttribute="trailing" secondItem="J23-eY-XOo" secondAttribute="trailing" id="AEP-aa-Rwm"/>
                 <constraint firstAttribute="trailing" secondItem="1mw-Bo-w6h" secondAttribute="trailing" constant="8" id="Byn-LL-hYN"/>
+                <constraint firstAttribute="trailing" secondItem="XED-ML-FH5" secondAttribute="trailing" id="C5J-P1-5iF"/>
                 <constraint firstItem="nvU-mV-gsJ" firstAttribute="width" secondItem="yLu-PE-aXK" secondAttribute="width" id="DZY-qk-B0Y"/>
                 <constraint firstAttribute="centerX" secondItem="nvU-mV-gsJ" secondAttribute="centerX" id="E6e-j7-jTA"/>
                 <constraint firstItem="2pf-lL-cEf" firstAttribute="height" secondItem="FZR-9P-Sk9" secondAttribute="height" id="EB8-3B-Ba1"/>
+                <constraint firstAttribute="bottom" secondItem="XED-ML-FH5" secondAttribute="bottom" constant="8" id="EmV-3e-e72"/>
                 <constraint firstItem="1mw-Bo-w6h" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="FCp-Sa-IT7"/>
                 <constraint firstItem="nvU-mV-gsJ" firstAttribute="leading" secondItem="yLu-PE-aXK" secondAttribute="trailing" constant="18" id="Jig-p1-vpZ"/>
                 <constraint firstItem="2pf-lL-cEf" firstAttribute="top" secondItem="Ngt-p1-cqv" secondAttribute="bottom" constant="16" id="LPV-E7-d4L"/>
                 <constraint firstAttribute="trailing" secondItem="kL1-CA-mOY" secondAttribute="trailing" constant="8" id="MZY-op-Jxe"/>
                 <constraint firstItem="J23-eY-XOo" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Nkd-u8-FpP"/>
                 <constraint firstItem="kL1-CA-mOY" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="R9B-Iq-m6o"/>
+                <constraint firstItem="XED-ML-FH5" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="XSd-92-sbO"/>
                 <constraint firstAttribute="centerX" secondItem="cX9-Tu-Ylt" secondAttribute="centerX" id="aU5-wn-vT2"/>
                 <constraint firstItem="tgE-Fo-Hcs" firstAttribute="leading" secondItem="nvU-mV-gsJ" secondAttribute="trailing" constant="18" id="ang-1b-u1m"/>
                 <constraint firstAttribute="trailing" secondItem="Ngt-p1-cqv" secondAttribute="trailing" constant="8" id="c8z-bQ-15S"/>
                 <constraint firstItem="LQS-dh-hCe" firstAttribute="top" secondItem="kL1-CA-mOY" secondAttribute="bottom" constant="8" id="cMz-XJ-Z3n"/>
                 <constraint firstAttribute="trailing" secondItem="kL1-CA-mOY" secondAttribute="trailing" constant="4" id="cXF-CP-Llp"/>
                 <constraint firstItem="J23-eY-XOo" firstAttribute="top" secondItem="1mw-Bo-w6h" secondAttribute="bottom" constant="8" id="cta-on-fBa"/>
+                <constraint firstItem="XED-ML-FH5" firstAttribute="top" secondItem="cX9-Tu-Ylt" secondAttribute="bottom" constant="3" id="dS9-Wa-Zxx"/>
                 <constraint firstItem="1mw-Bo-w6h" firstAttribute="top" secondItem="LQS-dh-hCe" secondAttribute="bottom" constant="16" id="gAK-Cc-Wdz"/>
                 <constraint firstItem="FZR-9P-Sk9" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="35" id="hfX-Ih-3hG"/>
                 <constraint firstItem="nvU-mV-gsJ" firstAttribute="top" secondItem="tgE-Fo-Hcs" secondAttribute="top" id="hqG-R8-W7z"/>
@@ -218,8 +236,12 @@
                     <exclude reference="tqz-iT-pny"/>
                     <exclude reference="kN9-cp-LRw"/>
                     <exclude reference="qft-kp-hAt"/>
+                    <exclude reference="6wg-hr-g74"/>
                 </mask>
             </variation>
         </view>
     </objects>
+    <resources>
+        <image name="help" width="75" height="75"/>
+    </resources>
 </document>

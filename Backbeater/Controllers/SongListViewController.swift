@@ -77,7 +77,11 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
         let borderView = UIView(frame: CGRectMake(0, 49, 320, 1))
         borderView.backgroundColor = ColorPalette.KeyboardBorder.color()
         borderView.userInteractionEnabled = false
+        borderView.setTranslatesAutoresizingMaskIntoConstraints(false)
         keyboardToolbar.addSubview(borderView)
+        keyboardToolbar.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[borderView]|", options: NSLayoutFormatOptions.allZeros, metrics: nil, views: ["borderView": borderView]))
+        keyboardToolbar.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[borderView(==1)]|", options: NSLayoutFormatOptions.allZeros, metrics: nil, views: ["borderView": borderView]))
+        keyboardToolbar.layoutIfNeeded()
     }
     
     

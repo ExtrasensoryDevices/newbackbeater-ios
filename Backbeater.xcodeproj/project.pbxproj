@@ -37,6 +37,9 @@
 		C7B9C8231B27836C00250686 /* CAStreamBasicDescription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C7B9C81C1B27836C00250686 /* CAStreamBasicDescription.cpp */; };
 		C7B9C8241B27836C00250686 /* CAXException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C7B9C81E1B27836C00250686 /* CAXException.cpp */; };
 		C7B9C8271B2789B900250686 /* CADebugPrintf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C7B9C8251B2789B900250686 /* CADebugPrintf.cpp */; };
+		C7C0BA3E1B38C420005B8D6D /* NumericStepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C0BA3D1B38C420005B8D6D /* NumericStepper.swift */; };
+		C7C0BA401B38C445005B8D6D /* NumericStepper.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7C0BA3F1B38C445005B8D6D /* NumericStepper.xib */; };
+		C7C0BA421B38CD17005B8D6D /* UILabelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C0BA411B38CD17005B8D6D /* UILabelExtension.swift */; };
 		C7E77A881B1D07210058523B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7E77A861B1D07210058523B /* Main.storyboard */; };
 		C7E77A8A1B1D07210058523B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7E77A891B1D07210058523B /* Images.xcassets */; };
 		C7E77A8D1B1D07210058523B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7E77A8B1B1D07210058523B /* LaunchScreen.xib */; };
@@ -92,6 +95,9 @@
 		C7B9C81F1B27836C00250686 /* CAXException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAXException.h; sourceTree = "<group>"; };
 		C7B9C8251B2789B900250686 /* CADebugPrintf.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CADebugPrintf.cpp; sourceTree = "<group>"; };
 		C7B9C8261B2789B900250686 /* CADebugPrintf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADebugPrintf.h; sourceTree = "<group>"; };
+		C7C0BA3D1B38C420005B8D6D /* NumericStepper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NumericStepper.swift; path = Views/NumericStepper.swift; sourceTree = "<group>"; };
+		C7C0BA3F1B38C445005B8D6D /* NumericStepper.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = NumericStepper.xib; path = Views/NumericStepper.xib; sourceTree = "<group>"; };
+		C7C0BA411B38CD17005B8D6D /* UILabelExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UILabelExtension.swift; sourceTree = "<group>"; };
 		C7E77A7D1B1D07210058523B /* Backbeater.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Backbeater.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7E77A811B1D07210058523B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C7E77A871B1D07210058523B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -159,6 +165,7 @@
 				C71C55A01B2B5D75007EDF51 /* UIColorExtensions.swift */,
 				C774B16B1B2BB0E3007625B3 /* UIViewExtension.swift */,
 				C774B1811B34B240007625B3 /* StringExtension.swift */,
+				C7C0BA411B38CD17005B8D6D /* UILabelExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -312,6 +319,8 @@
 				C7E77AB01B1FD7820058523B /* Sidebar.swift */,
 				C7B9C8031B2782A600250686 /* SegmentedControl.swift */,
 				C774B1791B30F195007625B3 /* SongListCell.swift */,
+				C7C0BA3D1B38C420005B8D6D /* NumericStepper.swift */,
+				C7C0BA3F1B38C445005B8D6D /* NumericStepper.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -389,6 +398,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C71C55891B290539007EDF51 /* clap.aiff in Resources */,
+				C7C0BA401B38C445005B8D6D /* NumericStepper.xib in Resources */,
 				C7E77AA61B1E3DDF0058523B /* SensitivitySlider.xib in Resources */,
 				C71C55881B290539007EDF51 /* beep.aiff in Resources */,
 				C7E77A881B1D07210058523B /* Main.storyboard in Resources */,
@@ -472,11 +482,13 @@
 				C71C557C1B28C61F007EDF51 /* DisplayViewController.swift in Sources */,
 				C774B1711B2F7224007625B3 /* SongListViewController.swift in Sources */,
 				C7B9C8011B27828F00250686 /* AppDelegate.swift in Sources */,
+				C7C0BA421B38CD17005B8D6D /* UILabelExtension.swift in Sources */,
 				C7B9C8041B2782A600250686 /* SegmentedControl.swift in Sources */,
 				C7E77AAB1B1F81170058523B /* NibDesignable.swift in Sources */,
 				C7E77AAD1B1FBFBC0058523B /* UIControlNibDesignable.swift in Sources */,
 				C774B16C1B2BB0E3007625B3 /* UIViewExtension.swift in Sources */,
 				C774B17A1B30F195007625B3 /* SongListCell.swift in Sources */,
+				C7C0BA3E1B38C420005B8D6D /* NumericStepper.swift in Sources */,
 				C7B9C8231B27836C00250686 /* CAStreamBasicDescription.cpp in Sources */,
 				C7E77AA41B1E3DCC0058523B /* SensitivitySlider.swift in Sources */,
 				C7B9C8221B27836C00250686 /* CAHostTimeBase.cpp in Sources */,

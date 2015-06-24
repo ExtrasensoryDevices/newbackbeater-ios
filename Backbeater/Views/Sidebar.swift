@@ -30,6 +30,7 @@ class Sidebar: NibDesignable {
     
     @IBOutlet weak var helpButton: UIButton!
     
+    @IBOutlet weak var versionLabel: UILabel!
     
     let settings = BBSettingsWrapper.sharedInstance()
     
@@ -47,9 +48,16 @@ class Sidebar: NibDesignable {
         windowSegmentedControl.items = toStringArray(strikes)
         beatSegmentedControl.items = toStringArray(timeSignature)
         
-        helpButton.titleLabel?.font = Font.FuturaDemi.get(16)
+        setupVersionLabel()
     }
     
+    func setupVersionLabel() {
+        if let versionNumber = NSBundle.mainBundle().infoDictionary!["CFBundleShortVersionString"] as? String {
+            if let buldNumber = NSBundle.mainBundle().infoDictionary!["CFBundleVersion"] as? String {
+                versionLabel.text = String(format:"Version %@ (%@)", versionNumber, buldNumber)
+            }
+        }
+    }
     
     @IBAction func didTapSoundButton(sender: UIButton) {
         for (index, button) in enumerate(soundButtonCollection) {
@@ -68,7 +76,12 @@ class Sidebar: NibDesignable {
         
     }
     
-
+    override func didMoveToWindow() {
+        super.didMoveToWindow()
+        versionLabel.font = Font.FuturaDemi.get(10)
+    }
+    
+    
     @IBAction func sensitivityValueChanged(sender: SensitivitySlider) {
         settings.sensitivity = Float(sender.value) / 100
     }

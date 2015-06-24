@@ -16,9 +16,10 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate {
     
     @IBOutlet weak var getSensorView: UILabel!
     @IBOutlet weak var setTempoView: UIView!
-    @IBOutlet weak var tempoView: UILabel!
     
-    
+    @IBOutlet weak var tempoView: NumericStepper!
+    @IBOutlet weak var tempoViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var tempoViewBottomConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var prevSongButton: UIButton!
     @IBOutlet weak var nextSongButton: UIButton!
@@ -57,12 +58,15 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate {
         setTempoView.drawBorder()
         tempoView.drawBorder()
         
+        tempoView.topConstraint = tempoViewTopConstraint
+        tempoView.bottomConstraint = tempoViewBottomConstraint
+        tempoView.font = Font.FuturaBook.get(33)
+        tempoView.backgroundColor = ColorPalette.Black.color()
+                
         getSensorView.clipsToBounds = true
         getSensorView.backgroundColor = ColorPalette.Pink.color()
         getSensorView.font = Font.FuturaDemi.get(14)
         getSensorView.textColor = ColorPalette.Black.color()
-        
-        tempoView.font = Font.FuturaBook.get(33)
         
         updateSensorView()
         
@@ -120,7 +124,7 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate {
         songNameLabel.hidden = hideLabel
         
         songNameLabel.text = songList?[selectedIndex].songName ?? ""
-        tempoView.text = "\(songList?[selectedIndex].tempoValue ?? DEFAULT_TEMPO)"
+        tempoView.value = songList?[selectedIndex].tempoValue ?? DEFAULT_TEMPO
     }
     
     func updateSensorView() {

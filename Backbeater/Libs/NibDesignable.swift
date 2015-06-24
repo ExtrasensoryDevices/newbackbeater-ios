@@ -25,6 +25,9 @@ import UIKit
 
 public class NibDesignable: UIView {
     
+    
+    var nibView:UIView!
+    
     // MARK: - Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -45,10 +48,10 @@ public class NibDesignable: UIView {
     Called in init(frame:) and init(aDecoder:) to load the nib and add it as a subview.
     */
     private func setupNib() {
-        var view = self.loadNib()
-        view.frame = self.bounds
-        view.autoresizingMask = .FlexibleWidth | .FlexibleHeight
-        self.addSubview(view)
+        nibView = self.loadNib()
+        nibView.frame = self.bounds
+        nibView.autoresizingMask = .FlexibleWidth | .FlexibleHeight
+        self.addSubview(nibView)
     }
     
     /**

@@ -19,6 +19,7 @@ class MainViewController: UIViewController, SidebarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         containerCenterXConstraint.constant = 0
+        self.view.backgroundColor = ColorPalette.Black.color()
         setupSidebar()
         setupDisplayViewController()
     }
@@ -98,6 +99,11 @@ class MainViewController: UIViewController, SidebarDelegate {
             self.containerCenterXConstraint.constant = targetPosition
             self.view.layoutIfNeeded()
         }, completion: completion)
+        
+        UIView.animateWithDuration(0.5, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: { () -> Void in
+            self.containerCenterXConstraint.constant = targetPosition
+            self.view.layoutIfNeeded()
+        }, completion: completion)
     }
     
 
@@ -122,7 +128,8 @@ class MainViewController: UIViewController, SidebarDelegate {
             }
         case .Changed:
             let point = recognizer.translationInView(view)
-            containerCenterXConstraint.constant = self.containerCenterXConstraint.constant - point.x
+            let newConstant = self.containerCenterXConstraint.constant - point.x
+            containerCenterXConstraint.constant = newConstant < 0 ? newConstant : 0
             containerView.setNeedsLayout()
             recognizer.setTranslation(CGPointZero, inView: recognizer.view)
         case .Ended:
