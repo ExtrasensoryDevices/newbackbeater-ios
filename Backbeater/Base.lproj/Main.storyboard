@@ -219,12 +219,8 @@
                                     <constraint firstAttribute="trailing" secondItem="k2V-zZ-Agb" secondAttribute="trailing" constant="16" id="vtX-Zt-Wlf"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tQT-Vc-gGK" customClass="NumericStepper" customModule="Backbeater" customModuleProvider="target">
-                                <rect key="frame" x="520" y="441" width="64" height="64"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
                             <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="QJn-dF-3EQ" userLabel="GET SENSOR">
-                                <rect key="frame" x="16" y="441" width="64" height="64"/>
+                                <rect key="frame" x="16" y="435" width="64" height="64"/>
                                 <color key="backgroundColor" red="0.8666666666666667" green="0.18431372549019609" blue="0.26666666666666666" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="64" id="LCm-fi-5mj"/>
@@ -240,7 +236,7 @@ SENSOR</string>
                                 </connections>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qeG-nt-Ow3" userLabel="SetTempoView">
-                                <rect key="frame" x="16" y="441" width="64" height="64"/>
+                                <rect key="frame" x="16" y="435" width="64" height="64"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="set_tempo" translatesAutoresizingMaskIntoConstraints="NO" id="iNG-QI-zbf">
                                         <rect key="frame" x="12" y="12" width="40" height="40"/>
@@ -260,26 +256,32 @@ SENSOR</string>
                                     <outletCollection property="gestureRecognizers" destination="60N-Ku-2jr" appends="YES" id="4VW-tV-ZJs"/>
                                 </connections>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tQT-Vc-gGK" customClass="NumericStepper" customModule="Backbeater" customModuleProvider="target">
+                                <rect key="frame" x="520" y="391" width="64" height="152"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="tQT-Vc-gGK" secondAttribute="height" multiplier="16:27" constant="-26.074074074074076" id="kZ7-Uk-YOC"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.14901960784313725" green="0.14901960784313725" blue="0.14901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="HD3-4I-VRj" secondAttribute="centerX" id="1Ns-wa-GjR"/>
                             <constraint firstAttribute="trailing" secondItem="tQT-Vc-gGK" secondAttribute="trailing" constant="16" id="8db-Qm-gDG"/>
-                            <constraint firstItem="QJn-dF-3EQ" firstAttribute="bottom" secondItem="tQT-Vc-gGK" secondAttribute="bottom" id="Cap-XO-UX1"/>
                             <constraint firstAttribute="trailing" secondItem="ZVW-OY-ljc" secondAttribute="trailing" id="Cqp-2j-OEz"/>
                             <constraint firstItem="QJn-dF-3EQ" firstAttribute="width" secondItem="qeG-nt-Ow3" secondAttribute="width" id="ERR-wb-7Q7"/>
                             <constraint firstItem="kYO-4H-tYr" firstAttribute="top" secondItem="ZVW-OY-ljc" secondAttribute="bottom" id="ESO-Kr-YQ0"/>
                             <constraint firstItem="QJn-dF-3EQ" firstAttribute="centerX" secondItem="qeG-nt-Ow3" secondAttribute="centerX" id="NTG-tK-rEQ"/>
                             <constraint firstItem="wvu-d9-Ke6" firstAttribute="top" secondItem="HD3-4I-VRj" secondAttribute="bottom" constant="50" id="b2F-EJ-rc4"/>
-                            <constraint firstItem="QJn-dF-3EQ" firstAttribute="top" secondItem="tQT-Vc-gGK" secondAttribute="top" id="b3z-22-843"/>
                             <constraint firstItem="QJn-dF-3EQ" firstAttribute="leading" secondItem="FFV-Bp-Hpm" secondAttribute="leading" constant="16" id="cKf-dU-x94"/>
                             <constraint firstItem="QJn-dF-3EQ" firstAttribute="centerY" secondItem="qeG-nt-Ow3" secondAttribute="centerY" id="g8A-5D-AVh"/>
                             <constraint firstItem="HD3-4I-VRj" firstAttribute="top" secondItem="WG6-xU-VjA" secondAttribute="bottom" constant="8" id="izT-tZ-7p1"/>
                             <constraint firstItem="ZVW-OY-ljc" firstAttribute="leading" secondItem="FFV-Bp-Hpm" secondAttribute="leading" id="mHb-w8-FXS"/>
                             <constraint firstItem="QJn-dF-3EQ" firstAttribute="width" secondItem="tQT-Vc-gGK" secondAttribute="width" id="tKM-bC-h1A"/>
                             <constraint firstAttribute="centerX" secondItem="wvu-d9-Ke6" secondAttribute="centerX" id="taA-eS-LSE"/>
-                            <constraint firstItem="kYO-4H-tYr" firstAttribute="top" secondItem="QJn-dF-3EQ" secondAttribute="bottom" constant="95" id="trp-Am-ymW"/>
+                            <constraint firstItem="kYO-4H-tYr" firstAttribute="top" secondItem="QJn-dF-3EQ" secondAttribute="bottom" constant="101" id="trp-Am-ymW"/>
                             <constraint firstItem="QJn-dF-3EQ" firstAttribute="height" secondItem="qeG-nt-Ow3" secondAttribute="height" id="ySO-hz-PPw"/>
+                            <constraint firstItem="QJn-dF-3EQ" firstAttribute="centerY" secondItem="tQT-Vc-gGK" secondAttribute="centerY" id="yuq-2C-uTm"/>
                         </constraints>
                     </view>
                     <connections>
@@ -293,8 +295,6 @@ SENSOR</string>
                         <outlet property="songListView" destination="ZVW-OY-ljc" id="rIr-Hz-8TH"/>
                         <outlet property="songNameLabel" destination="yDh-T4-4gI" id="QSs-oA-d6C"/>
                         <outlet property="tempoView" destination="tQT-Vc-gGK" id="VdY-Wf-pyx"/>
-                        <outlet property="tempoViewBottomConstraint" destination="Cap-XO-UX1" id="hkS-cO-eyS"/>
-                        <outlet property="tempoViewTopConstraint" destination="b3z-22-843" id="xMI-3I-YOq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="51M-Jy-04m" userLabel="First Responder" sceneMemberID="firstResponder"/>
