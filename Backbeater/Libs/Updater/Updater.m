@@ -53,10 +53,16 @@
                 NSString *currentBuildNumber = [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleVersion"];
                 
                 if ([currentBuildNumber caseInsensitiveCompare:buildNumber] != NSOrderedSame){
+                    
+                    // TODO: REMOVE BEFORE PUSHING
+                    if (currentBuildNumber.integerValue > buildNumber.integerValue) {
+                        return;
+                    }
+                    
                     [self askUserToUpdate];
                 }
                 
-                break;
+//                break;
             }
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
