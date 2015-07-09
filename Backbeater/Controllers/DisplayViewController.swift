@@ -6,7 +6,6 @@
 //
 
 import UIKit
-//import AUtype1.h
 
 
 class DisplayViewController: UIViewController, SongListViewControllerDelegate {
@@ -41,8 +40,24 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate {
         setupUI()
 
         registerForNotifications()
+        
+        
+        
     }
     
+    @IBAction func test(sender: UIButton) {
+        var error:NSError? = nil
+        if sender.selected {
+            sender.selected = false
+            SoundProcessor.sharedInstance().stopSoundProcessing(&error)
+        } else {
+            sender.selected = true
+            SoundProcessor.sharedInstance().startSoundProcessing(&error)
+        }
+        if let err = error {
+            println(err)
+        }
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

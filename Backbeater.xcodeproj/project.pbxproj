@@ -24,6 +24,10 @@
 		C774B17E1B338067007625B3 /* Updater.m in Sources */ = {isa = PBXBuildFile; fileRef = C774B17D1B338067007625B3 /* Updater.m */; };
 		C774B1801B338136007625B3 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = C774B17F1B338136007625B3 /* Podfile */; };
 		C774B1821B34B240007625B3 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C774B1811B34B240007625B3 /* StringExtension.swift */; };
+		C7A90B591B4DACAE00E4719A /* ATDCRejectionFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C7A90B551B4DACAE00E4719A /* ATDCRejectionFilter.m */; };
+		C7A90B5A1B4DACAE00E4719A /* ATSoundSessionIO.m in Sources */ = {isa = PBXBuildFile; fileRef = C7A90B581B4DACAE00E4719A /* ATSoundSessionIO.m */; };
+		C7A90B621B4DB84D00E4719A /* SoundProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = C7A90B611B4DB84D00E4719A /* SoundProcessor.m */; };
+		C7A90B641B4DCB9600E4719A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7A90B631B4DCB9600E4719A /* AVFoundation.framework */; };
 		C7B9C7E61B225D2700250686 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B9C7E41B225D2700250686 /* Fabric.framework */; };
 		C7B9C7E71B225D2700250686 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B9C7E51B225D2700250686 /* Crashlytics.framework */; };
 		C7B9C8011B27828F00250686 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B9C7FE1B27828F00250686 /* AppDelegate.swift */; };
@@ -32,11 +36,6 @@
 		C7B9C8071B2782B600250686 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B9C8061B2782B600250686 /* MainViewController.swift */; };
 		C7B9C80C1B2782F400250686 /* FuturaRound-Book.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7B9C80A1B2782F400250686 /* FuturaRound-Book.ttf */; };
 		C7B9C80D1B2782F400250686 /* FuturaRound-Demi.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7B9C80B1B2782F400250686 /* FuturaRound-Demi.ttf */; };
-		C7B9C8211B27836C00250686 /* CADebugMacros.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C7B9C8171B27836C00250686 /* CADebugMacros.cpp */; };
-		C7B9C8221B27836C00250686 /* CAHostTimeBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C7B9C8191B27836C00250686 /* CAHostTimeBase.cpp */; };
-		C7B9C8231B27836C00250686 /* CAStreamBasicDescription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C7B9C81C1B27836C00250686 /* CAStreamBasicDescription.cpp */; };
-		C7B9C8241B27836C00250686 /* CAXException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C7B9C81E1B27836C00250686 /* CAXException.cpp */; };
-		C7B9C8271B2789B900250686 /* CADebugPrintf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C7B9C8251B2789B900250686 /* CADebugPrintf.cpp */; };
 		C7C0BA3E1B38C420005B8D6D /* NumericStepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C0BA3D1B38C420005B8D6D /* NumericStepper.swift */; };
 		C7C0BA401B38C445005B8D6D /* NumericStepper.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7C0BA3F1B38C445005B8D6D /* NumericStepper.xib */; };
 		C7C0BA421B38CD17005B8D6D /* UILabelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C0BA411B38CD17005B8D6D /* UILabelExtension.swift */; };
@@ -50,6 +49,7 @@
 		C7E77AAD1B1FBFBC0058523B /* UIControlNibDesignable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E77AAC1B1FBFBC0058523B /* UIControlNibDesignable.swift */; };
 		C7E77AAF1B1FD37B0058523B /* Sidebar.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7E77AAE1B1FD37B0058523B /* Sidebar.xib */; };
 		C7E77AB11B1FD7820058523B /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E77AB01B1FD7820058523B /* Sidebar.swift */; };
+		C7F34E331B4E40CF00B60D29 /* EnergyFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C7F34E321B4E40CF00B60D29 /* EnergyFilter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -74,6 +74,14 @@
 		C774B17D1B338067007625B3 /* Updater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Updater.m; sourceTree = "<group>"; };
 		C774B17F1B338136007625B3 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		C774B1811B34B240007625B3 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		C7A90B541B4DACAE00E4719A /* ATDCRejectionFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATDCRejectionFilter.h; sourceTree = "<group>"; };
+		C7A90B551B4DACAE00E4719A /* ATDCRejectionFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATDCRejectionFilter.m; sourceTree = "<group>"; };
+		C7A90B561B4DACAE00E4719A /* ATOSSErrorHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATOSSErrorHelpers.h; sourceTree = "<group>"; };
+		C7A90B571B4DACAE00E4719A /* ATSoundSessionIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATSoundSessionIO.h; sourceTree = "<group>"; };
+		C7A90B581B4DACAE00E4719A /* ATSoundSessionIO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATSoundSessionIO.m; sourceTree = "<group>"; };
+		C7A90B601B4DB84D00E4719A /* SoundProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundProcessor.h; sourceTree = "<group>"; };
+		C7A90B611B4DB84D00E4719A /* SoundProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundProcessor.m; sourceTree = "<group>"; };
+		C7A90B631B4DCB9600E4719A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		C7B9C7E41B225D2700250686 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		C7B9C7E51B225D2700250686 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		C7B9C7FE1B27828F00250686 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -83,18 +91,6 @@
 		C7B9C8061B2782B600250686 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		C7B9C80A1B2782F400250686 /* FuturaRound-Book.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FuturaRound-Book.ttf"; sourceTree = "<group>"; };
 		C7B9C80B1B2782F400250686 /* FuturaRound-Demi.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FuturaRound-Demi.ttf"; sourceTree = "<group>"; };
-		C7B9C8161B27836C00250686 /* CABitOperations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CABitOperations.h; sourceTree = "<group>"; };
-		C7B9C8171B27836C00250686 /* CADebugMacros.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CADebugMacros.cpp; sourceTree = "<group>"; };
-		C7B9C8181B27836C00250686 /* CADebugMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADebugMacros.h; sourceTree = "<group>"; };
-		C7B9C8191B27836C00250686 /* CAHostTimeBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CAHostTimeBase.cpp; sourceTree = "<group>"; };
-		C7B9C81A1B27836C00250686 /* CAHostTimeBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAHostTimeBase.h; sourceTree = "<group>"; };
-		C7B9C81B1B27836C00250686 /* CAMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAMath.h; sourceTree = "<group>"; };
-		C7B9C81C1B27836C00250686 /* CAStreamBasicDescription.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CAStreamBasicDescription.cpp; sourceTree = "<group>"; };
-		C7B9C81D1B27836C00250686 /* CAStreamBasicDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAStreamBasicDescription.h; sourceTree = "<group>"; };
-		C7B9C81E1B27836C00250686 /* CAXException.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CAXException.cpp; sourceTree = "<group>"; };
-		C7B9C81F1B27836C00250686 /* CAXException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAXException.h; sourceTree = "<group>"; };
-		C7B9C8251B2789B900250686 /* CADebugPrintf.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CADebugPrintf.cpp; sourceTree = "<group>"; };
-		C7B9C8261B2789B900250686 /* CADebugPrintf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADebugPrintf.h; sourceTree = "<group>"; };
 		C7C0BA3D1B38C420005B8D6D /* NumericStepper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NumericStepper.swift; path = Views/NumericStepper.swift; sourceTree = "<group>"; };
 		C7C0BA3F1B38C445005B8D6D /* NumericStepper.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = NumericStepper.xib; path = Views/NumericStepper.xib; sourceTree = "<group>"; };
 		C7C0BA411B38CD17005B8D6D /* UILabelExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UILabelExtension.swift; sourceTree = "<group>"; };
@@ -112,6 +108,8 @@
 		C7E77AB01B1FD7820058523B /* Sidebar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Sidebar.swift; path = Views/Sidebar.swift; sourceTree = "<group>"; };
 		C7E77AB91B20F4C90058523B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C7E77ABB1B20F4E00058523B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		C7F34E311B4E40CF00B60D29 /* EnergyFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnergyFilter.h; sourceTree = "<group>"; };
+		C7F34E321B4E40CF00B60D29 /* EnergyFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnergyFilter.m; sourceTree = "<group>"; };
 		FEA891A245A8A2058FE6E340 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -120,6 +118,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7A90B641B4DCB9600E4719A /* AVFoundation.framework in Frameworks */,
 				C71C557A1B28C5C9007EDF51 /* Accelerate.framework in Frameworks */,
 				C71C55781B28C390007EDF51 /* AudioToolbox.framework in Frameworks */,
 				C75DAA941B212787008FDB43 /* Foundation.framework in Frameworks */,
@@ -136,6 +135,7 @@
 		550D132ADA81F391F4746002 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C7A90B631B4DCB9600E4719A /* AVFoundation.framework */,
 				C71C55991B2A19A8007EDF51 /* CoreAudio.framework */,
 				C71C55791B28C5C9007EDF51 /* Accelerate.framework */,
 				C71C55771B28C390007EDF51 /* AudioToolbox.framework */,
@@ -189,6 +189,26 @@
 			path = Updater;
 			sourceTree = "<group>";
 		};
+		C7A90B521B4DACAE00E4719A /* SoundWaveVisualiser */ = {
+			isa = PBXGroup;
+			children = (
+				C7A90B531B4DACAE00E4719A /* sound session */,
+			);
+			path = SoundWaveVisualiser;
+			sourceTree = "<group>";
+		};
+		C7A90B531B4DACAE00E4719A /* sound session */ = {
+			isa = PBXGroup;
+			children = (
+				C7A90B541B4DACAE00E4719A /* ATDCRejectionFilter.h */,
+				C7A90B551B4DACAE00E4719A /* ATDCRejectionFilter.m */,
+				C7A90B561B4DACAE00E4719A /* ATOSSErrorHelpers.h */,
+				C7A90B571B4DACAE00E4719A /* ATSoundSessionIO.h */,
+				C7A90B581B4DACAE00E4719A /* ATSoundSessionIO.m */,
+			);
+			path = "sound session";
+			sourceTree = "<group>";
+		};
 		C7B9C7FD1B27828F00250686 /* App */ = {
 			isa = PBXGroup;
 			children = (
@@ -232,38 +252,14 @@
 		C7B9C80E1B27836C00250686 /* SoundLib */ = {
 			isa = PBXGroup;
 			children = (
-				C7B9C80F1B27836C00250686 /* AU */,
-				C7B9C8151B27836C00250686 /* iPublicUtility */,
 				C71C559B1B2A43D0007EDF51 /* BBSettingsWrapper.h */,
 				C71C559C1B2A43D0007EDF51 /* BBSettingsWrapper.mm */,
+				C7A90B601B4DB84D00E4719A /* SoundProcessor.h */,
+				C7A90B611B4DB84D00E4719A /* SoundProcessor.m */,
+				C7F34E311B4E40CF00B60D29 /* EnergyFilter.h */,
+				C7F34E321B4E40CF00B60D29 /* EnergyFilter.m */,
 			);
 			path = SoundLib;
-			sourceTree = "<group>";
-		};
-		C7B9C80F1B27836C00250686 /* AU */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = AU;
-			sourceTree = "<group>";
-		};
-		C7B9C8151B27836C00250686 /* iPublicUtility */ = {
-			isa = PBXGroup;
-			children = (
-				C7B9C8251B2789B900250686 /* CADebugPrintf.cpp */,
-				C7B9C8261B2789B900250686 /* CADebugPrintf.h */,
-				C7B9C8161B27836C00250686 /* CABitOperations.h */,
-				C7B9C8171B27836C00250686 /* CADebugMacros.cpp */,
-				C7B9C8181B27836C00250686 /* CADebugMacros.h */,
-				C7B9C8191B27836C00250686 /* CAHostTimeBase.cpp */,
-				C7B9C81A1B27836C00250686 /* CAHostTimeBase.h */,
-				C7B9C81B1B27836C00250686 /* CAMath.h */,
-				C7B9C81C1B27836C00250686 /* CAStreamBasicDescription.cpp */,
-				C7B9C81D1B27836C00250686 /* CAStreamBasicDescription.h */,
-				C7B9C81E1B27836C00250686 /* CAXException.cpp */,
-				C7B9C81F1B27836C00250686 /* CAXException.h */,
-			);
-			path = iPublicUtility;
 			sourceTree = "<group>";
 		};
 		C7E77A741B1D07210058523B = {
@@ -330,6 +326,7 @@
 			children = (
 				C7E77AAC1B1FBFBC0058523B /* UIControlNibDesignable.swift */,
 				C7E77AAA1B1F81170058523B /* NibDesignable.swift */,
+				C7A90B521B4DACAE00E4719A /* SoundWaveVisualiser */,
 				C774B17B1B338067007625B3 /* Updater */,
 			);
 			path = Libs;
@@ -365,7 +362,7 @@
 		C7E77A751B1D07210058523B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0630;
+				LastUpgradeCheck = 0640;
 				ORGANIZATIONNAME = "Samsung Accelerator";
 				TargetAttributes = {
 					C7E77A7C1B1D07210058523B = {
@@ -478,7 +475,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C7B9C8241B27836C00250686 /* CAXException.cpp in Sources */,
+				C7A90B5A1B4DACAE00E4719A /* ATSoundSessionIO.m in Sources */,
 				C71C557C1B28C61F007EDF51 /* DisplayViewController.swift in Sources */,
 				C774B1711B2F7224007625B3 /* SongListViewController.swift in Sources */,
 				C7B9C8011B27828F00250686 /* AppDelegate.swift in Sources */,
@@ -486,17 +483,16 @@
 				C7B9C8041B2782A600250686 /* SegmentedControl.swift in Sources */,
 				C7E77AAB1B1F81170058523B /* NibDesignable.swift in Sources */,
 				C7E77AAD1B1FBFBC0058523B /* UIControlNibDesignable.swift in Sources */,
+				C7A90B621B4DB84D00E4719A /* SoundProcessor.m in Sources */,
+				C7F34E331B4E40CF00B60D29 /* EnergyFilter.m in Sources */,
 				C774B16C1B2BB0E3007625B3 /* UIViewExtension.swift in Sources */,
 				C774B17A1B30F195007625B3 /* SongListCell.swift in Sources */,
 				C7C0BA3E1B38C420005B8D6D /* NumericStepper.swift in Sources */,
-				C7B9C8231B27836C00250686 /* CAStreamBasicDescription.cpp in Sources */,
 				C7E77AA41B1E3DCC0058523B /* SensitivitySlider.swift in Sources */,
-				C7B9C8221B27836C00250686 /* CAHostTimeBase.cpp in Sources */,
 				C7E77AB11B1FD7820058523B /* Sidebar.swift in Sources */,
 				C71C558C1B2909E9007EDF51 /* WebViewController.swift in Sources */,
+				C7A90B591B4DACAE00E4719A /* ATDCRejectionFilter.m in Sources */,
 				C7B9C8021B27828F00250686 /* Constants.swift in Sources */,
-				C7B9C8271B2789B900250686 /* CADebugPrintf.cpp in Sources */,
-				C7B9C8211B27836C00250686 /* CADebugMacros.cpp in Sources */,
 				C71C559D1B2A43D0007EDF51 /* BBSettingsWrapper.mm in Sources */,
 				C71C55A11B2B5D75007EDF51 /* UIColorExtensions.swift in Sources */,
 				C774B17E1B338067007625B3 /* Updater.m in Sources */,
@@ -615,7 +611,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FEA891A245A8A2058FE6E340 /* Pods.debug.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				BUNDLE_DISPLAY_NAME_SUFFIX = Debug;
 				BUNDLE_ID_SUFFIX = .debug;
@@ -652,7 +647,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A7EE4D57B300F74DA2ED6A9B /* Pods.release.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				BUNDLE_DISPLAY_NAME_SUFFIX = "";
 				BUNDLE_ID_SUFFIX = "";
