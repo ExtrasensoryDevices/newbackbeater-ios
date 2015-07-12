@@ -8,20 +8,30 @@
 
 #import "SoundProcessor.h"
 #import "ATSoundSessionIO.h"
-
-@interface SoundProcessor ()
-
-@property (nonatomic) ATSoundSessionIO *soundSessionIO;
-
-@property (nonatomic,copy) OSStatus(^inBlock)(Float32* left, Float32*right, UInt32 inNumberFrames);
+#import "EnergyFunctionQueue.h"
 
 
-@end
+
+#define kStartThreshold 1.6
+#define kEndThreshold 0.6
 
 
 
 @implementation SoundProcessor
 
+ATSoundSessionIO *_soundSessionIO;
+EnergyFunctionQueue *_energyFunctionQueue;
+
+NSString *_logStringRaw;
+NSString *_logStringEnergy;
+NSString *_logStringEnergySpikes;
+
+Float32 _maxEnergy;
+Float32 _maxEnergyTotal;
+
+int _strikeCount;
+
+BOOL _strikeState;
 
 +(instancetype)sharedInstance {
     static dispatch_once_t once;
@@ -36,12 +46,23 @@
     
     self = [super init];
     if (self != nil) {
-        self.soundSessionIO = [[ATSoundSessionIO alloc] init];
+        
+        _startTheshold = kStartThreshold;
+        _endTheshold = kEndThreshold;
+        
+        _strikeState = NO;
+        
+        _energyFunctionQueue = [[EnergyFunctionQueue alloc] init];
+        
+        _soundSessionIO = [[ATSoundSessionIO alloc] init];
         __block SoundProcessor *blocksafeSelf = self;
-        self.soundSessionIO.inBlock = ^OSStatus(Float32* left, Float32*right, UInt32 inNumberFrames){
+        _soundSessionIO.inBlock = ^OSStatus(Float32* left, Float32*right, UInt32 inNumberFrames){
             [blocksafeSelf processData:left right:right numFrames:inNumberFrames];
             return noErr;
         };
+        
+        [_soundSessionIO prepareSoundProcessingGraph:nil];
+
         [self addObservers];
     }
     return self;
@@ -50,7 +71,7 @@
 - (void)dealloc
 {
     [self removeObservers];
-    [self.soundSessionIO disposeSoundProcessingGraph:nil];
+    [_soundSessionIO disposeSoundProcessingGraph:nil];
 
 }
 
@@ -59,29 +80,108 @@
 {
     Float32 *data = left;
     int i;
-    Float32  lcnt = 0;
+    _logStringRaw = @"";
+    _logStringEnergy = @"";
+    _logStringEnergySpikes = @"";
+    _maxEnergy = 0.0;
+    __block SoundProcessor *blocksafeSelf = self;
     for (i=0; i<numFrames; i++)
     {
-        lcnt += data[0];
+//        _logStringRaw = [_logStringRaw stringByAppendingFormat:@"%f, ", data[0]];
+        [_energyFunctionQueue push:data[0] resultHandler:^(BOOL success, Float32 value) {
+            if (success) {
+                [blocksafeSelf processEnergyLevel:value];
+                if (_maxEnergy < value) {
+                    _maxEnergy = value;
+                    if (_maxEnergyTotal < _maxEnergy) {
+                        _maxEnergyTotal = _maxEnergy;
+                    }
+                }
+            }
+        }];
+
         data += 1;
     }
-    NSLog(@"left: %f", lcnt);
+    
+//    NSLog(@"\n---------------------------\n\n%@\n\n%@\n\n%@\n\n\n-----------%f----------------", _logStringRaw, _logStringEnergy, _logStringEnergySpikes, _maxEnergy);
+//    NSLog(@"-----------%f----------------", _maxEnergy);
 }
 
 -(BOOL)startSoundProcessing:(NSError**)error
 {
-    if ([self.soundSessionIO prepareSoundProcessingGraph:error]){
-        [self.soundSessionIO startSoundProcessing:error];
-    }
+    //TODO: uncomment
+//    if (!_sensorIn){
+//        return NO;
+//    }
+    _maxEnergyTotal = 0.0;
+    _strikeState = NO;
+    _strikeCount = 0;
+    [_energyFunctionQueue clear];
+    [_soundSessionIO startSoundProcessing:error];
+    
+    [self updateInputChannel];
+    
+    
     return error == nil;
 }
 
 -(BOOL)stopSoundProcessing:(NSError**)error
 {
-    if (self.soundSessionIO.isProcessingSound) {
-        [self.soundSessionIO stopSoundProcessing:error];
+    if (_soundSessionIO.isProcessingSound) {
+        [_soundSessionIO stopSoundProcessing:error];
     }
+    NSLog(@"Strikes total: %i,    Max energy: %f", _strikeCount, _maxEnergyTotal);
+    _strikeState = NO;
+    _strikeCount = 0;
+    _maxEnergyTotal = 0.0;
+    [_energyFunctionQueue clear];
     return error == nil;
+}
+
+
+
+-(void) processEnergyLevel: (Float32) value
+{
+    
+//    _logStringEnergy = [_logStringEnergy stringByAppendingFormat:@"%f, ", value];
+    
+    if (value > 0) {
+//         _logStringEnergySpikes = [_logStringEnergySpikes stringByAppendingFormat:@"%f, ", value];
+    }
+    if (value > 0) {
+        //NSLog(@"strike state: %@, value: %f ", (strikeState?@"YES":@"NO"), value);
+    }
+    if (_strikeState == NO && value >= _startTheshold) {
+        //NSLog(@" ----------------------- Started ----------------------- ");
+        NSLog(@"Strike start, value: %f ", value);
+        _strikeState = YES;
+        //[self.delegate soundProcessorDidDetectStrikeStart: @{@"energyLevel": [NSNumber numberWithFloat:value]}];
+        _strikeCount++;
+    } else if (_strikeState == YES && value <= _endTheshold) {
+        //NSLog(@" ------------------------ Ended ------------------------ ");
+        NSLog(@"Strike end, value: %f ", value);
+        _strikeState = NO;
+        //[self.delegate soundProcessorDidDetectStrikeEnd:@{@"energyLevel": [NSNumber numberWithFloat:value]}];
+    }
+}
+
+#pragma mark - Properties
+
+-(void)setSensorPluggedIn:(BOOL) sensorIn {
+    if (_sensorIn != sensorIn) {
+        _sensorIn = sensorIn;
+        [self.delegate soundProcessorDidDetectSensorIn: self.sensorIn];
+        //TODO: uncomment
+//        if (_sensorIn) {
+//            NSError *error
+//            [self startSoundProcessing:&error];
+//            if (error) {
+//                NSLog(@"Cannot start sound processing: %@", error);
+//            }
+//        } else {
+//            [self stopSoundProcessing:nil];
+//        }
+    }
 }
 
 
@@ -134,7 +234,7 @@
         if (reason == AVAudioSessionInterruptionTypeBegan) {
             //       Audio has stopped, already inactive
             //       Change state of UI, etc., to reflect non-playing state
-            if(self.soundSessionIO.isProcessingSound)[self.soundSessionIO stopSoundProcessing:nil];
+            if(_soundSessionIO.isProcessingSound)[_soundSessionIO stopSoundProcessing:nil];
         }
         
         if (reason == AVAudioSessionInterruptionTypeEnded) {
@@ -154,7 +254,7 @@
         
         
         if ([notification.name isEqualToString:@"AVAudioSessionDidBeginInterruptionNotification"]) {
-            if (self.soundSessionIO.isProcessingSound) {
+            if (_soundSessionIO.isProcessingSound) {
                 
             }
             //      Posted after an interruption in your audio session occurs.
@@ -178,40 +278,53 @@
 }
 
 -(void)handleRouteChange:(NSNotification*)notification{
-    AVAudioSession *session = [ AVAudioSession sharedInstance ];
-    NSString* seccReason = @"";
-    NSInteger  reason = [[[notification userInfo] objectForKey:AVAudioSessionRouteChangeReasonKey] integerValue];
-    //  AVAudioSessionRouteDescription* prevRoute = [[notification userInfo] objectForKey:AVAudioSessionRouteChangePreviousRouteKey];
-    switch (reason) {
-        case AVAudioSessionRouteChangeReasonNoSuitableRouteForCategory:
-            seccReason = @"The route changed because no suitable route is now available for the specified category.";
-            break;
-        case AVAudioSessionRouteChangeReasonWakeFromSleep:
-            seccReason = @"The route changed when the device woke up from sleep.";
-            break;
-        case AVAudioSessionRouteChangeReasonOverride:
-            seccReason = @"The output route was overridden by the app.";
-            break;
-        case AVAudioSessionRouteChangeReasonCategoryChange:
-            seccReason = @"The category of the session object changed.";
-            break;
-        case AVAudioSessionRouteChangeReasonOldDeviceUnavailable:
-            seccReason = @"The previous audio output path is no longer available.";
-            break;
-        case AVAudioSessionRouteChangeReasonNewDeviceAvailable:
-            seccReason = @"A preferred new audio output path is now available.";
-            break;
-        case AVAudioSessionRouteChangeReasonUnknown:
-        default:
-            seccReason = @"The reason for the change is unknown.";
-            break;
-    }
-    AVAudioSessionPortDescription *input = [[session.currentRoute.inputs count]?session.currentRoute.inputs:nil objectAtIndex:0];
-    if (input.portType == AVAudioSessionPortHeadsetMic) {
-        
-    }
+//    AVAudioSession *session = [AVAudioSession sharedInstance];
+//    NSString* reasonStr = @"";
+//    NSInteger  reason = [[[notification userInfo] objectForKey:AVAudioSessionRouteChangeReasonKey] integerValue];
+//    //  AVAudioSessionRouteDescription* prevRoute = [[notification userInfo] objectForKey:AVAudioSessionRouteChangePreviousRouteKey];
+//    switch (reason) {
+//        case AVAudioSessionRouteChangeReasonNoSuitableRouteForCategory:
+//            reasonStr = @"The route changed because no suitable route is now available for the specified category.";
+//            break;
+//        case AVAudioSessionRouteChangeReasonWakeFromSleep:
+//            reasonStr = @"The route changed when the device woke up from sleep.";
+//            break;
+//        case AVAudioSessionRouteChangeReasonOverride:
+//            reasonStr = @"The input route was overridden by the app.";
+//            break;
+//        case AVAudioSessionRouteChangeReasonCategoryChange:
+//            reasonStr = @"The category of the session object changed.";
+//            break;
+//        case AVAudioSessionRouteChangeReasonOldDeviceUnavailable:
+//            reasonStr = @"The previous audio input path is no longer available.";
+//            break;
+//        case AVAudioSessionRouteChangeReasonNewDeviceAvailable:
+//            reasonStr = @"A preferred new audio output path is now available.";
+//            break;
+//        case AVAudioSessionRouteChangeReasonUnknown:
+//        default:
+//            reasonStr = @"The reason for the change is unknown.";
+//            break;
+//    }
+    
+    [self updateInputChannel];
+    
 }
 
 
+-(void) updateInputChannel
+{
+    AVAudioSession *session = [AVAudioSession sharedInstance];
+    NSArray *inputs = session.currentRoute.inputs;
+    AVAudioSessionPortDescription *input = inputs.count > 0 ? inputs[0] : nil;
+    if ([input.portType isEqualToString: AVAudioSessionPortHeadsetMic]) {
+        // sensor plugged in
+        [self setSensorPluggedIn:true];
+    } else { // AVAudioSessionPortBuiltInMic
+        // sensor unplugged
+        [self setSensorPluggedIn:false];
+    }
+    
+}
 
 @end

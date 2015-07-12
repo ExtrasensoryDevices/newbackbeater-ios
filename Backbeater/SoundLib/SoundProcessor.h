@@ -8,9 +8,25 @@
 
 #import <Foundation/Foundation.h>
 
+
+@protocol SoundProcessorDelegate <NSObject>
+
+-(void)soundProcessorDidDetectSensorIn:(BOOL) sensorIn;
+-(void)soundProcessorDidDetectStrikeStart:(NSDictionary*) params;
+-(void)soundProcessorDidDetectStrikeEnd:(NSDictionary*) params;
+
+@end
+
 @interface SoundProcessor : NSObject
 
 +(instancetype) sharedInstance;
+
+@property (nonatomic, weak) id<SoundProcessorDelegate> delegate;
+
+@property (nonatomic, readonly) BOOL sensorIn;
+@property (nonatomic, assign) Float32 startTheshold;
+@property (nonatomic, assign) Float32 endTheshold;
+
 
 -(BOOL)startSoundProcessing:(NSError**)error;
 -(BOOL)stopSoundProcessing:(NSError**)error;
