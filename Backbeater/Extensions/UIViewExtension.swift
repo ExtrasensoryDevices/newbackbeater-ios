@@ -8,6 +8,11 @@
 import UIKit
 
 extension UIView {
+    func removeBorder()
+    {
+        layer.borderWidth = 0
+    }
+    
     func drawBorder()
     {
         drawBorderWithColor(ColorPalette.Pink.color())
@@ -17,6 +22,7 @@ extension UIView {
     {
         drawBorderWithColor(color, width: BORDER_WIDTH)
     }
+    
     func drawBorderWithColor(color: UIColor, width: CGFloat)
     {
         layer.borderColor = color.CGColor

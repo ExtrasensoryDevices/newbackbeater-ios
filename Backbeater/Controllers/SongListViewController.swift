@@ -19,7 +19,8 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     
     
-    weak var selectedTextField:UITextField?
+    var inputTextField:UITextField!
+    
     var selectedIndexPath: NSIndexPath? {
         didSet {
             if oldValue != nil {
@@ -30,6 +31,8 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
             }
         }
     }
+
+    
     
     var keyboardToolbar:UIToolbar!
     var nextButton: UIBarButtonItem!
@@ -50,7 +53,8 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
         self.view.backgroundColor = ColorPalette.Black.color()
         tableView.backgroundColor = ColorPalette.Black.color()
         tableView.backgroundView = nil
-        tableView.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: "tableViewLongPress:"))
+        tableView.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: "didLongPressTableViewCell:"))
+        tableView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "didTapTableViewCell:"))
         
         setupKeyboardAceessory()
         
@@ -67,14 +71,14 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
         nextButton = UIBarButtonItem(title: "❯", style: UIBarButtonItemStyle.Plain, target: self, action: "didTapNextButton")
         prevButton = UIBarButtonItem(title: "❮", style: UIBarButtonItemStyle.Plain, target: self, action: "didTapPrevButton")
         
-        let frame = CGRectMake(0, 0, 320, 50)
+        let frame = CGRectMake(0, 0, self.view.frame.size.width, 51)
         
         keyboardToolbar = UIToolbar(frame: frame)
         keyboardToolbar.barTintColor = ColorPalette.KeyboardBg.color()
         keyboardToolbar.items = [prevButton, nextButton, flexibleSpace, submitButton]
         
         // create bottom line
-        let borderView = UIView(frame: CGRectMake(0, 49, 320, 1))
+        let borderView = UIView(frame: CGRectMake(0, 50, frame.size.width, 1))
         borderView.backgroundColor = ColorPalette.KeyboardBorder.color()
         borderView.userInteractionEnabled = false
         borderView.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -84,6 +88,18 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
         keyboardToolbar.layoutIfNeeded()
     }
     
+    
+    func setupInputTextField() {
+        if inputTextField == nil {
+            inputTextField = UITextField()
+        }
+        inputTextField.inputAccessoryView = keyboardToolbar
+        inputTextField.backgroundColor = ColorPalette.Black.color()
+        
+        inputTextField.autocapitalizationType = .AllCharacters
+        
+        inputTextField.delegate = self
+    }
     
     func setSongList(list:[SongTempo]?) {
         if list != nil {
@@ -129,12 +145,10 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
         let cell:UITableViewCell
         if indexPath.row < newSongList.count {
             let songListCell = tableView.dequeueReusableCellWithIdentifier(SongListCellReuseID, forIndexPath: indexPath) as! SongListCell
-            songListCell.songNameTextField.text = newSongList[indexPath.row].songName.uppercaseString
-            songListCell.tempoValueTextField.text = "\(newSongList[indexPath.row].tempoValue)"
-            songListCell.songNameTextField.inputAccessoryView = keyboardToolbar
-            songListCell.tempoValueTextField.inputAccessoryView = keyboardToolbar
-            songListCell.songNameTextField.tag = SONG_NAME_TEXT_FIELD_TAG
-            songListCell.tempoValueTextField.tag = TEMPO_VALUE_TEXT_FIELD_TAG
+            songListCell.songNameLabel.text = newSongList[indexPath.row].songName.uppercaseString
+            songListCell.tempoValueLabel.text = "\(newSongList[indexPath.row].tempoValue)"
+            songListCell.songNameLabel.tag = SONG_NAME_TEXT_FIELD_TAG
+            songListCell.tempoValueLabel.tag = TEMPO_VALUE_TEXT_FIELD_TAG
             
             songListCell.deleteButton.addTarget(self, action: "didTapDeleteButton:", forControlEvents: UIControlEvents.TouchUpInside)
             
@@ -161,7 +175,7 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
     
     
     
-    func tableViewLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
+    func didLongPressTableViewCell(gestureRecognizer: UILongPressGestureRecognizer) {
         let p = gestureRecognizer.locationInView(self.tableView)
         if let indexPath = self.tableView.indexPathForRowAtPoint(p) {
             
@@ -180,6 +194,63 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     
+    func didTapTableViewCell(gestureRecognizer: UILongPressGestureRecognizer) {
+        let p = gestureRecognizer.locationInView(self.tableView)
+        if let indexPath = self.tableView.indexPathForRowAtPoint(p) {
+            
+            // start editing
+            
+            if let cell = self.tableView.cellForRowAtIndexPath(indexPath) as? SongListCell {
+                let pointInCell = cell.contentView.convertPoint(p, fromView:self.tableView)
+                if CGRectContainsPoint(cell.songNameLabel.frame, pointInCell) {
+                    editTextWithTag(SONG_NAME_TEXT_FIELD_TAG, inCell: cell, atIndexPath: indexPath)
+                } else if CGRectContainsPoint(cell.tempoValueLabel.frame, pointInCell) {
+                    editTextWithTag(TEMPO_VALUE_TEXT_FIELD_TAG, inCell: cell, atIndexPath: indexPath)
+                }
+            }
+        }
+    }
+    
+    
+    func editTextWithTag(tag:Int, inCell cell:SongListCell, atIndexPath indexPath:NSIndexPath) {
+
+        if inputTextField == nil {
+            setupInputTextField()
+        }
+        
+        if tag == SONG_NAME_TEXT_FIELD_TAG {
+            println("did tap song name")
+            inputTextField.frame = cell.songNameLabel.frame
+            inputTextField.font = Font.FuturaDemi.get(13)
+            inputTextField.minimumFontSize = 13
+            inputTextField.keyboardType = UIKeyboardType.Default
+            inputTextField.textAlignment = .Left
+            inputTextField.tag = SONG_NAME_TEXT_FIELD_TAG
+            inputTextField.removeBorder()
+            inputTextField.text = cell.songNameLabel.text
+            
+        } else if tag == TEMPO_VALUE_TEXT_FIELD_TAG {
+            println("did tap tempo value")
+            inputTextField.frame = cell.tempoValueLabel.frame
+            inputTextField.font = Font.FuturaBook.get(14)
+            inputTextField.minimumFontSize = 14
+            inputTextField.keyboardType = UIKeyboardType.DecimalPad
+            inputTextField.textAlignment = .Center
+            inputTextField.tag = TEMPO_VALUE_TEXT_FIELD_TAG
+            inputTextField.drawBorder()
+            inputTextField.text = cell.tempoValueLabel.text
+        } else {
+            return
+        }
+        
+        selectedIndexPath = indexPath
+        
+        cell.contentView.addSubview(inputTextField)
+        inputTextField.becomeFirstResponder()
+        updateKeyboardToolbar()
+    }
+
+    
     
     func getIndexPathForCellWithView(aView:UIView) -> NSIndexPath? {
         return tableView.indexPathForRowAtPoint(tableView.convertPoint(aView.center, fromView: aView.superview))
@@ -190,7 +261,7 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
         println("didTapDeleteButton")
         if let path = getIndexPathForCellWithView(button) {
             
-            selectedTextField?.resignFirstResponder()
+            inputTextField?.resignFirstResponder()
             
             let alert = UIAlertController(title: nil, message: "Delete \(newSongList[path.row].songName)?", preferredStyle: UIAlertControllerStyle.Alert)
             let deleteAction = UIAlertAction(title: "Delete", style: UIAlertActionStyle.Destructive){ (action) in
@@ -206,15 +277,20 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func didTapAddButton(button: UIButton) {
         println("didTapAddButton")
-        selectedTextField?.resignFirstResponder()
-        newSongList.append(SongTempo(songName:"", tempoValue:DEFAULT_TEMPO))
+        inputTextField?.resignFirstResponder()
         
-        let indexPath = NSIndexPath(forRow: newSongList.count-1, inSection: 0)
+        
+        let indexPath = NSIndexPath(forRow: newSongList.count, inSection: 0)
+        
+        newSongList.append(SongTempo(songName:"Song #\(indexPath.row+1)", tempoValue:DEFAULT_TEMPO))
+        
         tableView.beginUpdates()
         tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Bottom)
         tableView.endUpdates()
+        
         if let cell = tableView.cellForRowAtIndexPath(indexPath) as? SongListCell {
-            cell.viewWithTag(SONG_NAME_TEXT_FIELD_TAG)?.becomeFirstResponder()
+            editTextWithTag(SONG_NAME_TEXT_FIELD_TAG, inCell: cell, atIndexPath: indexPath)
+            inputTextField.textRangeFromPosition(inputTextField.beginningOfDocument, toPosition: inputTextField.endOfDocument)
         }
     }
     
@@ -222,55 +298,55 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
     // MARK: - Keyboard
     
     func didTapDoneButton() {
-        selectedTextField?.resignFirstResponder()
-        selectedTextField = nil
-        selectedIndexPath = nil
+        inputTextField?.resignFirstResponder()
     }
     
     func didTapNextButton() {
         println("didTapNextButton")
-        if selectedTextField == nil || selectedIndexPath == nil {
-            return
-        }
-        let selectedCell = tableView.cellForRowAtIndexPath(selectedIndexPath!)
-        if selectedTextField!.tag == SONG_NAME_TEXT_FIELD_TAG {
-            let nextTextField = selectedCell!.viewWithTag(TEMPO_VALUE_TEXT_FIELD_TAG)!
-            nextTextField.becomeFirstResponder()
+        
+        if inputTextField.tag == SONG_NAME_TEXT_FIELD_TAG {
+            if let cell = tableView.cellForRowAtIndexPath(selectedIndexPath!) as? SongListCell {
+                editTextWithTag(TEMPO_VALUE_TEXT_FIELD_TAG, inCell: cell, atIndexPath: selectedIndexPath!)
+            }
         } else {
             let newIndexPath = NSIndexPath(forRow: selectedIndexPath!.row+1, inSection: selectedIndexPath!.section)
-            let cell = tableView.cellForRowAtIndexPath(newIndexPath)
-            if let tf = cell?.viewWithTag(SONG_NAME_TEXT_FIELD_TAG) as? UITextField {
-                selectedTextField?.becomeFirstResponder()
+            if let cell = tableView.cellForRowAtIndexPath(newIndexPath)  as? SongListCell {
+                editTextWithTag(SONG_NAME_TEXT_FIELD_TAG, inCell: cell, atIndexPath: newIndexPath)
             }
         }
     }
     
     func didTapPrevButton() {
         println("didTapPrevButton")
-        if selectedTextField == nil || selectedIndexPath == nil {
-            return
-        }
-        let selectedCell = tableView.cellForRowAtIndexPath(selectedIndexPath!)
-        if selectedTextField!.tag == TEMPO_VALUE_TEXT_FIELD_TAG {
-            let prevTextField = selectedCell!.viewWithTag(SONG_NAME_TEXT_FIELD_TAG)!
-            prevTextField.becomeFirstResponder()
+        
+        
+        if inputTextField.tag == TEMPO_VALUE_TEXT_FIELD_TAG {
+            if let cell = tableView.cellForRowAtIndexPath(selectedIndexPath!) as? SongListCell {
+                editTextWithTag(SONG_NAME_TEXT_FIELD_TAG, inCell: cell, atIndexPath: selectedIndexPath!)
+            }
         } else {
             let newIndexPath = NSIndexPath(forRow: selectedIndexPath!.row-1, inSection: selectedIndexPath!.section)
-            let cell = tableView.cellForRowAtIndexPath(newIndexPath)
-            if let tf = cell?.viewWithTag(TEMPO_VALUE_TEXT_FIELD_TAG) as? UITextField {
-                selectedTextField?.becomeFirstResponder()
+            if let cell = tableView.cellForRowAtIndexPath(newIndexPath)  as? SongListCell {
+                editTextWithTag(TEMPO_VALUE_TEXT_FIELD_TAG, inCell: cell, atIndexPath: newIndexPath)
             }
         }
     }
     
+    
+    func updateKeyboardToolbar() {
+        if selectedIndexPath != nil && inputTextField != nil {
+            nextButton.enabled = selectedIndexPath!.row < newSongList.count-1 || inputTextField.tag != TEMPO_VALUE_TEXT_FIELD_TAG
+            prevButton.enabled = selectedIndexPath!.row > 0 || inputTextField.tag != SONG_NAME_TEXT_FIELD_TAG
+        }
+    }
+    
+
+    
     func textFieldDidBeginEditing(textField: UITextField) {
         println("textFieldDidBeginEditing: \(textField.text)")
-        selectedTextField = textField
-        
         if let cellIndexPath = getIndexPathForCellWithView(textField) {
             selectedIndexPath = cellIndexPath
-            nextButton.enabled = selectedIndexPath!.row < tableView.numberOfRowsInSection(0)-1 || selectedTextField!.tag != TEMPO_VALUE_TEXT_FIELD_TAG
-            prevButton.enabled = selectedIndexPath!.row > 0 || selectedTextField!.tag != SONG_NAME_TEXT_FIELD_TAG
+            updateKeyboardToolbar()
         }
     }
     
@@ -290,8 +366,9 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
             textField.text = "\(songTempo.tempoValue)"
         }
         newSongList[selectedIndexPath!.row] = songTempo
+        tableView.reloadRowsAtIndexPaths([selectedIndexPath!], withRowAnimation: UITableViewRowAnimation.None)
         selectedIndexPath = nil
-        selectedTextField = nil
+        textField.removeFromSuperview()
     }
     
     

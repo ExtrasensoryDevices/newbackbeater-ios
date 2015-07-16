@@ -9,35 +9,26 @@ import UIKit
 
 class SongListCell: UITableViewCell {
 
-    @IBOutlet weak var songNameTextField: UITextField!
-    @IBOutlet weak var tempoValueTextField: UITextField!
+    @IBOutlet weak var songNameLabel: UILabel!
+    @IBOutlet weak var tempoValueLabel: UILabel!
     
     @IBOutlet weak var deleteButton: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        songNameTextField.backgroundColor = ColorPalette.Black.color()
-        tempoValueTextField.backgroundColor = ColorPalette.Black.color()
+        songNameLabel.font = Font.FuturaDemi.get(13)
+        tempoValueLabel.font = Font.FuturaBook.get(14)
         
-        songNameTextField.font = Font.FuturaDemi.get(13)
-        tempoValueTextField.font = Font.FuturaBook.get(14)
-        
-        songNameTextField.minimumFontSize = 13
-        tempoValueTextField.minimumFontSize = 14
-        
-        tempoValueTextField.drawBorder()
-        
-        songNameTextField.editingRectForBounds(songNameTextField.bounds)
-        tempoValueTextField.editingRectForBounds(tempoValueTextField.bounds)
+        tempoValueLabel.drawBorder()
         
     }
     
-    override func prepareForReuse() {
-        songNameTextField.font = Font.FuturaDemi.get(13)
-        tempoValueTextField.font = Font.FuturaBook.get(14)
-        songNameTextField.minimumFontSize = 13
-        tempoValueTextField.minimumFontSize = 14
-    }
+//    override func prepareForReuse() {
+//        songNameTextField.font = Font.FuturaDemi.get(13)
+//        tempoValueTextField.font = Font.FuturaBook.get(14)
+//        songNameTextField.minimumFontSize = 13
+//        tempoValueTextField.minimumFontSize = 14
+//    }
     
 }

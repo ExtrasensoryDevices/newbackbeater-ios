@@ -50,7 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let barButton = UIBarButtonItem.appearance()
         barButton.setTitleTextAttributes([
-            NSFontAttributeName: Font.FuturaBook.get(13.0),
+            NSFontAttributeName: Font.FuturaDemi.get(16),
             ], forState: .Normal)
     }
     
