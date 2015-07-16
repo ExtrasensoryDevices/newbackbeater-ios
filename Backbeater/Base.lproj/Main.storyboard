@@ -6,14 +6,6 @@
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <mutableArray key="FuturaRound-Book.ttf">
-            <string>FuturaRound-Book</string>
-        </mutableArray>
-        <mutableArray key="FuturaRound-Demi.ttf">
-            <string>FuturaRound-Demi</string>
-        </mutableArray>
-    </customFonts>
     <scenes>
         <!--Main View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -567,14 +559,6 @@ SENSOR</string>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6Xt-pD-VMK" id="aoi-oP-37Y">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Song #1" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Cpf-qD-4wz">
-                                                    <rect key="frame" x="16" y="7" width="478" height="37"/>
-                                                    <fontDescription key="fontDescription" name="FuturaRound-Demi" family="Futura Round Demi" pointSize="13"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
-                                                    <connections>
-                                                        <outlet property="delegate" destination="0VI-mf-dU7" id="4ml-y9-qKA"/>
-                                                    </connections>
-                                                </textField>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rSJ-TT-uJl" userLabel="DeleteButton">
                                                     <rect key="frame" x="547" y="7" width="37" height="37"/>
                                                     <constraints>
@@ -585,34 +569,37 @@ SENSOR</string>
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                 </button>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="120" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vQA-y0-wZd">
-                                                    <rect key="frame" x="502" y="7" width="37" height="37"/>
-                                                    <fontDescription key="fontDescription" name="FuturaRound-Book" family="Futura Round" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
-                                                    <connections>
-                                                        <outlet property="delegate" destination="0VI-mf-dU7" id="5cZ-d4-nsa"/>
-                                                    </connections>
-                                                </textField>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song #1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XvK-x8-9Cd">
+                                                    <rect key="frame" x="16" y="7" width="478" height="37"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="120" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y0F-vn-S05">
+                                                    <rect key="frame" x="502" y="6" width="37" height="37"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
-                                                <constraint firstItem="vQA-y0-wZd" firstAttribute="width" secondItem="rSJ-TT-uJl" secondAttribute="width" id="6Lm-r9-V6e"/>
                                                 <constraint firstAttribute="centerY" secondItem="rSJ-TT-uJl" secondAttribute="centerY" id="DES-sb-Cvz"/>
-                                                <constraint firstItem="vQA-y0-wZd" firstAttribute="leading" secondItem="Cpf-qD-4wz" secondAttribute="trailing" constant="8" id="KPw-xa-dx1"/>
+                                                <constraint firstAttribute="centerY" secondItem="Y0F-vn-S05" secondAttribute="centerY" id="E3a-1r-iP1"/>
+                                                <constraint firstItem="rSJ-TT-uJl" firstAttribute="height" secondItem="XvK-x8-9Cd" secondAttribute="height" id="JjZ-CH-SzW"/>
+                                                <constraint firstItem="Y0F-vn-S05" firstAttribute="height" secondItem="rSJ-TT-uJl" secondAttribute="height" id="OEw-rE-JB2"/>
+                                                <constraint firstItem="rSJ-TT-uJl" firstAttribute="leading" secondItem="Y0F-vn-S05" secondAttribute="trailing" constant="8" id="PbG-Y4-b88"/>
                                                 <constraint firstAttribute="trailing" secondItem="rSJ-TT-uJl" secondAttribute="trailing" constant="16" id="bhZ-0K-x82"/>
-                                                <constraint firstItem="rSJ-TT-uJl" firstAttribute="leading" secondItem="vQA-y0-wZd" secondAttribute="trailing" constant="8" id="gfo-BG-yT7"/>
-                                                <constraint firstAttribute="centerY" secondItem="vQA-y0-wZd" secondAttribute="centerY" id="lRZ-co-BYt"/>
-                                                <constraint firstAttribute="centerY" secondItem="Cpf-qD-4wz" secondAttribute="centerY" id="lka-yg-YIG"/>
-                                                <constraint firstItem="vQA-y0-wZd" firstAttribute="height" secondItem="rSJ-TT-uJl" secondAttribute="height" id="sJN-bE-bK9"/>
-                                                <constraint firstItem="Cpf-qD-4wz" firstAttribute="height" secondItem="rSJ-TT-uJl" secondAttribute="height" id="uGd-n7-5RM"/>
-                                                <constraint firstItem="Cpf-qD-4wz" firstAttribute="leading" secondItem="aoi-oP-37Y" secondAttribute="leading" constant="16" id="vcN-1f-EcX"/>
+                                                <constraint firstItem="Y0F-vn-S05" firstAttribute="width" secondItem="rSJ-TT-uJl" secondAttribute="width" id="fbo-2O-NF3"/>
+                                                <constraint firstItem="Y0F-vn-S05" firstAttribute="leading" secondItem="XvK-x8-9Cd" secondAttribute="trailing" constant="8" id="nSZ-v5-Xr1"/>
+                                                <constraint firstItem="XvK-x8-9Cd" firstAttribute="leading" secondItem="aoi-oP-37Y" secondAttribute="leading" constant="16" id="qkl-D9-JSM"/>
+                                                <constraint firstAttribute="centerY" secondItem="XvK-x8-9Cd" secondAttribute="centerY" id="y9L-BO-ozN"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.14901960784313725" green="0.14901960784313725" blue="0.14901960784313725" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
-                                            <outlet property="deleteButton" destination="rSJ-TT-uJl" id="ifF-6F-kdy"/>
-                                            <outlet property="songNameTextField" destination="Cpf-qD-4wz" id="31c-Sm-7s4"/>
-                                            <outlet property="tempoValueTextField" destination="vQA-y0-wZd" id="R1q-7G-gh1"/>
+                                            <outlet property="deleteButton" destination="rSJ-TT-uJl" id="CMU-cy-Xfn"/>
+                                            <outlet property="songNameLabel" destination="XvK-x8-9Cd" id="40p-dr-ZuS"/>
+                                            <outlet property="tempoValueLabel" destination="Y0F-vn-S05" id="eSf-10-VDp"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddSongCellReuseID" rowHeight="50" id="azQ-Ie-a6U">

@@ -530,6 +530,7 @@
 /* Begin XCBuildConfiguration section */
 		C7E77A9A1B1D07210058523B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FEA891A245A8A2058FE6E340 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -566,7 +567,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -575,6 +576,7 @@
 		};
 		C7E77A9B1B1D07210058523B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A7EE4D57B300F74DA2ED6A9B /* Pods.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
