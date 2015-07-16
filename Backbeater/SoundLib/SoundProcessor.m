@@ -175,7 +175,9 @@ BOOL _strikeState;
 -(void)setSensorPluggedIn:(BOOL) sensorIn {
     if (_sensorIn != sensorIn) {
         _sensorIn = sensorIn;
-        [self.delegate soundProcessorDidDetectSensorIn: self.sensorIn];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.delegate soundProcessorDidDetectSensorIn: self.sensorIn];
+        });
         //TODO: uncomment
 //        if (_sensorIn) {
 //            NSError *error

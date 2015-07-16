@@ -53,10 +53,6 @@ int count = kEmpty;
         for (int i=0; i<kNumValues; i++) {
             energy += buffer[i];
         }
-        
-//        if (energy > 0) {
-//            NSLog(@"Energy: %f", energy);
-//        }
         resultHandler(YES, energy);
     }
 }

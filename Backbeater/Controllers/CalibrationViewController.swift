@@ -138,7 +138,7 @@ class CalibrationViewController: UIViewController, UITextFieldDelegate, SoundPro
         logText(sensorIn ? "---------SensorIn: true" : "SensorIn: false")
     }
     
-    func soundProcessorDidDetectStrikeEnd(params: [NSObject : AnyObject]!) {
+    func soundProcessorDidDetectStrikeStart(params: [NSObject : AnyObject]!) {
         if let unwrapped = params["energyLevel"] as? NSNumber {
             logText("Strike started: \(unwrapped)")
         } else {
@@ -146,11 +146,11 @@ class CalibrationViewController: UIViewController, UITextFieldDelegate, SoundPro
         }
     }
     
-    func soundProcessorDidDetectStrikeStart(params: [NSObject : AnyObject]!) {
+    func soundProcessorDidDetectStrikeEnd(params: [NSObject : AnyObject]!) {
         if let unwrapped = params["energyLevel"] as? NSNumber {
-            logText("Strike ended: \(unwrapped)")
+            logText("           ended: \(unwrapped)")
         } else {
-            logText("Strike ended: \(params)")
+            logText("           ended: \(params)")
         }
     }
     
