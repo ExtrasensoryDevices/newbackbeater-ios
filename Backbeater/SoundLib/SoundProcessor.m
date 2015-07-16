@@ -153,15 +153,20 @@ BOOL _strikeState;
     }
     if (_strikeState == NO && value >= _startTheshold) {
         //NSLog(@" ----------------------- Started ----------------------- ");
-        NSLog(@"Strike start, value: %f ", value);
+        //NSLog(@"Strike start, value: %f ", value);
         _strikeState = YES;
-        //[self.delegate soundProcessorDidDetectStrikeStart: @{@"energyLevel": [NSNumber numberWithFloat:value]}];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.delegate soundProcessorDidDetectStrikeStart: @{@"energyLevel": [NSNumber numberWithFloat:value]}];
+        });
         _strikeCount++;
     } else if (_strikeState == YES && value <= _endTheshold) {
         //NSLog(@" ------------------------ Ended ------------------------ ");
-        NSLog(@"Strike end, value: %f ", value);
+        //NSLog(@"Strike end, value: %f ", value);
         _strikeState = NO;
-        //[self.delegate soundProcessorDidDetectStrikeEnd:@{@"energyLevel": [NSNumber numberWithFloat:value]}];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.delegate soundProcessorDidDetectStrikeEnd:@{@"energyLevel": [NSNumber numberWithFloat:value]}];
+        });
     }
 }
 

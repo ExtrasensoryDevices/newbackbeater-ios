@@ -126,8 +126,8 @@ class CalibrationViewController: UIViewController, UITextFieldDelegate, SoundPro
     
     
     func logText(str:String) {
-        println(str)
-        log.text = log.text + "\n\(str)"
+        self.log.text = self.log.text + "\n\(str)"
+        
 //        log.scrollRangeToVisible(NSMakeRange(count(log.text)-1, 1))
     }
     
@@ -139,13 +139,19 @@ class CalibrationViewController: UIViewController, UITextFieldDelegate, SoundPro
     }
     
     func soundProcessorDidDetectStrikeEnd(params: [NSObject : AnyObject]!) {
-        let value: Any? = params["energyLevel"]
-        logText("Strike started: \(value)")
+        if let unwrapped = params["energyLevel"] as? NSNumber {
+            logText("Strike started: \(unwrapped)")
+        } else {
+            logText("Strike started: \(params)")
+        }
     }
     
     func soundProcessorDidDetectStrikeStart(params: [NSObject : AnyObject]!) {
-        let value: Any? = params["energyLevel"]
-        logText("Strike ended: \(value)");
+        if let unwrapped = params["energyLevel"] as? NSNumber {
+            logText("Strike ended: \(unwrapped)")
+        } else {
+            logText("Strike ended: \(params)")
+        }
     }
     
 }
