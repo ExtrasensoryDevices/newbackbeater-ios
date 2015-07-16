@@ -49,7 +49,8 @@
 		C7E77AAD1B1FBFBC0058523B /* UIControlNibDesignable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E77AAC1B1FBFBC0058523B /* UIControlNibDesignable.swift */; };
 		C7E77AAF1B1FD37B0058523B /* Sidebar.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7E77AAE1B1FD37B0058523B /* Sidebar.xib */; };
 		C7E77AB11B1FD7820058523B /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E77AB01B1FD7820058523B /* Sidebar.swift */; };
-		C7F34E331B4E40CF00B60D29 /* EnergyFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C7F34E321B4E40CF00B60D29 /* EnergyFilter.m */; };
+		C7F34E331B4E40CF00B60D29 /* EnergyFunctionQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = C7F34E321B4E40CF00B60D29 /* EnergyFunctionQueue.m */; };
+		C7F34E381B4F33DA00B60D29 /* CalibrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F34E371B4F33DA00B60D29 /* CalibrationViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -108,8 +109,9 @@
 		C7E77AB01B1FD7820058523B /* Sidebar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Sidebar.swift; path = Views/Sidebar.swift; sourceTree = "<group>"; };
 		C7E77AB91B20F4C90058523B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C7E77ABB1B20F4E00058523B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		C7F34E311B4E40CF00B60D29 /* EnergyFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnergyFilter.h; sourceTree = "<group>"; };
-		C7F34E321B4E40CF00B60D29 /* EnergyFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnergyFilter.m; sourceTree = "<group>"; };
+		C7F34E311B4E40CF00B60D29 /* EnergyFunctionQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnergyFunctionQueue.h; sourceTree = "<group>"; };
+		C7F34E321B4E40CF00B60D29 /* EnergyFunctionQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnergyFunctionQueue.m; sourceTree = "<group>"; };
+		C7F34E371B4F33DA00B60D29 /* CalibrationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalibrationViewController.swift; sourceTree = "<group>"; };
 		FEA891A245A8A2058FE6E340 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -227,6 +229,7 @@
 				C71C557B1B28C61F007EDF51 /* DisplayViewController.swift */,
 				C71C558B1B2909E9007EDF51 /* WebViewController.swift */,
 				C774B1701B2F7224007625B3 /* SongListViewController.swift */,
+				C7F34E371B4F33DA00B60D29 /* CalibrationViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -256,8 +259,8 @@
 				C71C559C1B2A43D0007EDF51 /* BBSettingsWrapper.mm */,
 				C7A90B601B4DB84D00E4719A /* SoundProcessor.h */,
 				C7A90B611B4DB84D00E4719A /* SoundProcessor.m */,
-				C7F34E311B4E40CF00B60D29 /* EnergyFilter.h */,
-				C7F34E321B4E40CF00B60D29 /* EnergyFilter.m */,
+				C7F34E311B4E40CF00B60D29 /* EnergyFunctionQueue.h */,
+				C7F34E321B4E40CF00B60D29 /* EnergyFunctionQueue.m */,
 			);
 			path = SoundLib;
 			sourceTree = "<group>";
@@ -476,6 +479,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7A90B5A1B4DACAE00E4719A /* ATSoundSessionIO.m in Sources */,
+				C7F34E381B4F33DA00B60D29 /* CalibrationViewController.swift in Sources */,
 				C71C557C1B28C61F007EDF51 /* DisplayViewController.swift in Sources */,
 				C774B1711B2F7224007625B3 /* SongListViewController.swift in Sources */,
 				C7B9C8011B27828F00250686 /* AppDelegate.swift in Sources */,
@@ -484,7 +488,7 @@
 				C7E77AAB1B1F81170058523B /* NibDesignable.swift in Sources */,
 				C7E77AAD1B1FBFBC0058523B /* UIControlNibDesignable.swift in Sources */,
 				C7A90B621B4DB84D00E4719A /* SoundProcessor.m in Sources */,
-				C7F34E331B4E40CF00B60D29 /* EnergyFilter.m in Sources */,
+				C7F34E331B4E40CF00B60D29 /* EnergyFunctionQueue.m in Sources */,
 				C774B16C1B2BB0E3007625B3 /* UIViewExtension.swift in Sources */,
 				C774B17A1B30F195007625B3 /* SongListCell.swift in Sources */,
 				C7C0BA3E1B38C420005B8D6D /* NumericStepper.swift in Sources */,
@@ -623,6 +627,7 @@
 				);
 				GCC_NO_COMMON_BLOCKS = NO;
 				INFOPLIST_FILE = Backbeater/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -660,6 +665,7 @@
 				GCC_NO_COMMON_BLOCKS = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = Backbeater/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
