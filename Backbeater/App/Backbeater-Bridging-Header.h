@@ -7,7 +7,8 @@
 
 #import <UIKit/UIKit.h> 
 
-#import "BBSettingsWrapper.h"
+#import "Settings.h"
+#import "PublicUtilityWrapper.h"
 #import "SoundProcessor.h"
 #import "Updater.h"
 #import "MBProgressHUD.h"

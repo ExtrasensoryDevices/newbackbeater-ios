@@ -11,6 +11,11 @@ import UIKit
 class DisplayViewController: UIViewController, SongListViewControllerDelegate {
 
     @IBOutlet weak var logView: UITextView!
+    @IBOutlet weak var logButton: UIButton!
+    
+    
+    @IBOutlet weak var centralRing: CentralRing!
+    
     @IBOutlet weak var songListView: UIView!
     
     @IBOutlet weak var getSensorView: UILabel!
@@ -42,7 +47,6 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate {
         registerForNotifications()
         
         
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -68,6 +72,11 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate {
         updateSensorView()
         
         updateSongListView()
+        
+        centralRing.setTranslatesAutoresizingMaskIntoConstraints(false)
+        
+        logButton.selected = false
+        logView.hidden = true
     }
     
     
@@ -75,6 +84,16 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "settingsChanged:", name: "SettingsChanged", object: nil)
     }
     
+    @IBAction func didTapShowLog(sender: UIButton) {
+        
+        if sender.selected {
+            sender.selected = false
+            logView.hidden = true
+        } else {
+            sender.selected = true
+            logView.hidden = false
+        }
+    }
     
     
     
@@ -125,9 +144,12 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate {
     }
     
     func updateSensorView() {
-        let sensorIn = BBSettingsWrapper.sharedInstance().sensorIn
+        let sensorIn = Settings.sharedInstance().sensorIn
         getSensorView.hidden = sensorIn
         setTempoView.hidden = !sensorIn
+        // TODO: uncomment    
+//        centralRing.listenToTaps(!sensorIn)
+        centralRing.listenToTaps(true)
     }
     
 

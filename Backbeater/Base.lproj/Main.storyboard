@@ -101,12 +101,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Log" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wvu-d9-Ke6" userLabel="Log">
-                                <rect key="frame" x="183" y="154" width="235" height="235"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I8c-WM-xqu" customClass="CentralRing" customModule="Backbeater" customModuleProvider="target">
+                                <rect key="frame" x="151" y="120" width="299" height="299"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="235" id="6wb-nl-iHb"/>
-                                    <constraint firstAttribute="width" constant="235" id="7Sg-3u-Taa"/>
+                                    <constraint firstAttribute="width" secondItem="I8c-WM-xqu" secondAttribute="height" multiplier="1:1" id="kTh-PH-ru6"/>
+                                </constraints>
+                            </view>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Log" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wvu-d9-Ke6" userLabel="Log">
+                                <rect key="frame" x="151" y="120" width="299" height="299"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="wvu-d9-Ke6" secondAttribute="height" multiplier="1:1" id="5OB-rq-D4e"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -116,13 +122,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="76" id="4Zq-kf-Vr2"/>
                                     <constraint firstAttribute="width" secondItem="HD3-4I-VRj" secondAttribute="height" multiplier="162:76" id="GGL-vc-OAW"/>
-                                    <constraint firstAttribute="width" constant="162" id="cnG-tv-2H3"/>
                                 </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="cnG-tv-2H3"/>
-                                    </mask>
-                                </variation>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZVW-OY-ljc" userLabel="Song list View">
                                 <rect key="frame" x="0.0" y="480" width="600" height="120"/>
@@ -255,10 +255,25 @@ SENSOR</string>
                                     <constraint firstAttribute="width" secondItem="tQT-Vc-gGK" secondAttribute="height" multiplier="16:27" constant="-26.074074074074076" id="kZ7-Uk-YOC"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RmA-Wm-2Js">
-                                <rect key="frame" x="183" y="116" width="235" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OsZ-U7-aQk">
+                                <rect key="frame" x="507" y="66" width="77" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="235" id="u5w-U0-FTF"/>
+                                    <constraint firstAttribute="width" constant="77" id="XBw-gs-Vrw"/>
+                                    <constraint firstAttribute="height" constant="30" id="rfC-Hm-q9C"/>
+                                </constraints>
+                                <state key="normal" title="Show Log">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="selected" title="Hide Log"/>
+                                <connections>
+                                    <action selector="didTapShowLog:" destination="ri4-d8-4RD" eventType="touchUpInside" id="5XB-uY-adX"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RmA-Wm-2Js">
+                                <rect key="frame" x="514" y="28" width="70" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Mwm-GA-6Aw"/>
+                                    <constraint firstAttribute="width" constant="70" id="u5w-U0-FTF"/>
                                 </constraints>
                                 <state key="normal" title="Test">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -275,25 +290,32 @@ SENSOR</string>
                             <constraint firstAttribute="trailing" secondItem="ZVW-OY-ljc" secondAttribute="trailing" id="Cqp-2j-OEz"/>
                             <constraint firstItem="QJn-dF-3EQ" firstAttribute="width" secondItem="qeG-nt-Ow3" secondAttribute="width" id="ERR-wb-7Q7"/>
                             <constraint firstItem="kYO-4H-tYr" firstAttribute="top" secondItem="ZVW-OY-ljc" secondAttribute="bottom" id="ESO-Kr-YQ0"/>
+                            <constraint firstItem="OsZ-U7-aQk" firstAttribute="top" secondItem="RmA-Wm-2Js" secondAttribute="bottom" constant="8" id="EVs-yQ-aDV"/>
                             <constraint firstItem="QJn-dF-3EQ" firstAttribute="centerX" secondItem="qeG-nt-Ow3" secondAttribute="centerX" id="NTG-tK-rEQ"/>
-                            <constraint firstItem="wvu-d9-Ke6" firstAttribute="top" secondItem="RmA-Wm-2Js" secondAttribute="bottom" constant="8" id="RWB-fn-7zc"/>
-                            <constraint firstItem="wvu-d9-Ke6" firstAttribute="top" secondItem="HD3-4I-VRj" secondAttribute="bottom" constant="50" id="b2F-EJ-rc4"/>
+                            <constraint firstItem="RmA-Wm-2Js" firstAttribute="top" secondItem="WG6-xU-VjA" secondAttribute="bottom" constant="8" id="NcJ-CQ-VP8"/>
+                            <constraint firstItem="QJn-dF-3EQ" firstAttribute="top" secondItem="I8c-WM-xqu" secondAttribute="bottom" constant="16" id="OME-vP-mdI"/>
+                            <constraint firstItem="I8c-WM-xqu" firstAttribute="top" secondItem="HD3-4I-VRj" secondAttribute="bottom" constant="16" id="PHS-3J-phh"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="RmA-Wm-2Js" secondAttribute="trailing" id="Sjy-Le-DCy"/>
+                            <constraint firstItem="QJn-dF-3EQ" firstAttribute="top" secondItem="wvu-d9-Ke6" secondAttribute="bottom" constant="16" id="WVk-qp-6xL"/>
+                            <constraint firstItem="wvu-d9-Ke6" firstAttribute="top" secondItem="HD3-4I-VRj" secondAttribute="bottom" constant="16" id="b2F-EJ-rc4"/>
                             <constraint firstItem="QJn-dF-3EQ" firstAttribute="leading" secondItem="FFV-Bp-Hpm" secondAttribute="leading" constant="16" id="cKf-dU-x94"/>
                             <constraint firstItem="QJn-dF-3EQ" firstAttribute="centerY" secondItem="qeG-nt-Ow3" secondAttribute="centerY" id="g8A-5D-AVh"/>
-                            <constraint firstAttribute="centerX" secondItem="RmA-Wm-2Js" secondAttribute="centerX" id="geL-H4-Aj9"/>
-                            <constraint firstItem="RmA-Wm-2Js" firstAttribute="top" secondItem="HD3-4I-VRj" secondAttribute="bottom" constant="12" id="hER-QG-CYG"/>
                             <constraint firstItem="HD3-4I-VRj" firstAttribute="top" secondItem="WG6-xU-VjA" secondAttribute="bottom" constant="8" id="izT-tZ-7p1"/>
                             <constraint firstItem="ZVW-OY-ljc" firstAttribute="leading" secondItem="FFV-Bp-Hpm" secondAttribute="leading" id="mHb-w8-FXS"/>
                             <constraint firstItem="QJn-dF-3EQ" firstAttribute="width" secondItem="tQT-Vc-gGK" secondAttribute="width" id="tKM-bC-h1A"/>
                             <constraint firstAttribute="centerX" secondItem="wvu-d9-Ke6" secondAttribute="centerX" id="taA-eS-LSE"/>
                             <constraint firstItem="kYO-4H-tYr" firstAttribute="top" secondItem="QJn-dF-3EQ" secondAttribute="bottom" constant="101" id="trp-Am-ymW"/>
+                            <constraint firstItem="OsZ-U7-aQk" firstAttribute="trailing" secondItem="FFV-Bp-Hpm" secondAttribute="trailingMargin" id="vdr-no-Lpo"/>
+                            <constraint firstAttribute="centerX" secondItem="I8c-WM-xqu" secondAttribute="centerX" id="xp0-RP-WL8"/>
                             <constraint firstItem="QJn-dF-3EQ" firstAttribute="height" secondItem="qeG-nt-Ow3" secondAttribute="height" id="ySO-hz-PPw"/>
                             <constraint firstItem="QJn-dF-3EQ" firstAttribute="centerY" secondItem="tQT-Vc-gGK" secondAttribute="centerY" id="yuq-2C-uTm"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="centralRing" destination="I8c-WM-xqu" id="24i-6w-wC4"/>
                         <outlet property="getSensorView" destination="QJn-dF-3EQ" id="fIG-uE-HsY"/>
                         <outlet property="hamButton" destination="jnP-U3-IJJ" id="ejP-Ub-jum"/>
+                        <outlet property="logButton" destination="OsZ-U7-aQk" id="fAJ-Cu-b3e"/>
                         <outlet property="logView" destination="wvu-d9-Ke6" id="ZQn-RF-E7h"/>
                         <outlet property="nextSongButton" destination="k2V-zZ-Agb" id="ac6-qT-Od2"/>
                         <outlet property="prevSongButton" destination="s24-Z9-6xS" id="a8Q-6T-766"/>

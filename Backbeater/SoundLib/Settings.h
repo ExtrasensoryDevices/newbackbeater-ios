@@ -1,5 +1,5 @@
 //
-//  BBSettingsWrapper.h
+//  Settings.h
 //  Backbeater
 //
 //  Created by Alina on 2015-06-11.
@@ -7,9 +7,9 @@
 
 #import <Foundation/Foundation.h>
 
-@interface BBSettingsWrapper : NSObject
+@interface Settings : NSObject
 
-+ (BBSettingsWrapper*)sharedInstance;
++ (Settings*)sharedInstance;
 
 
 

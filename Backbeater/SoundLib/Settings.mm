@@ -1,5 +1,5 @@
 //
-//  BBSettingsWrapper.m
+//  Settings.mm
 //  Backbeater
 //
 //  Created by Alina on 2015-06-11.
@@ -7,7 +7,7 @@
 
 
 
-#import "BBSettingsWrapper.h"
+#import "Settings.h"
 //#import "BBSetting.h"
 //#import "AUtype1.h"
 //#import "AUtype1Delegate.h"
@@ -16,23 +16,14 @@
  
 
 
-//@interface BBSettingsWrapper()
-//
-//@property (readwrite, nonatomic) BBSetting *settings;
-//@property (readwrite, nonatomic) AUtype1 *rioUnit;
-//@property (readwrite, nonatomic) AUtype1Delegate *rioUnitDelegate;
-//
-//@end
+
+@implementation Settings
 
 
+NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
 
-@implementation BBSettingsWrapper
-
-
-
-
-+ (BBSettingsWrapper*)sharedInstance {
-    static BBSettingsWrapper *_instance = nil;
++ (Settings*)sharedInstance {
+    static Settings *_instance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _instance = [[self alloc] init];

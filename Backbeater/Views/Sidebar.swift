@@ -32,7 +32,7 @@ class Sidebar: NibDesignable {
     
     @IBOutlet weak var versionLabel: UILabel!
     
-    let settings = BBSettingsWrapper.sharedInstance()
+    let settings = Settings.sharedInstance()
     
     let strikes = [2, 4, 8, 16] // WINDOW
     let timeSignature = [1, 2, 3, 4] // BEAT
