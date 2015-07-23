@@ -29,7 +29,7 @@ class SensitivitySlider: UIControlNibDesignable{
     }
     
     
-    private(set) var value:Int = 10 {
+    var value:Int = 10 {
         didSet {
             if (value != oldValue) {
                 self.sendActionsForControlEvents(UIControlEvents.ValueChanged)

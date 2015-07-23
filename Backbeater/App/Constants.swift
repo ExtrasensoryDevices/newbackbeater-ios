@@ -17,11 +17,14 @@ func ==(lhs: SongTempo, rhs: SongTempo) -> Bool {
 
 
 
+let DEFAULT_SENSITIVITY = 0.6
 let DEFAULT_TEMPO = 120
 let MAX_TEMPO = 221
 let MIN_TEMPO = 20
 let HELP_URL = "http://www.google.com"
 let BUY_SENSOR_URL = "http://www.backbeater.com"
+
+let IDLE_TIMEOUT = 5.0
 
 
 enum ColorPalette: Int {

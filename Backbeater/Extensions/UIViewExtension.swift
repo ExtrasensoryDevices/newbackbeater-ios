@@ -30,4 +30,12 @@ extension UIView {
         layer.cornerRadius = self.bounds.size.height / 2
         self.clipsToBounds = true
     }
+    
+    
+    func drawBorderForLayer(aLayer:CALayer, color: UIColor, width: CGFloat)
+    {
+        aLayer.borderColor = color.CGColor
+        aLayer.borderWidth = width
+        aLayer.cornerRadius = self.bounds.size.height / 2
+    }
 }
