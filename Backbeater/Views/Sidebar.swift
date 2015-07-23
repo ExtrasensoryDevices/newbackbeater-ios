@@ -34,19 +34,18 @@ class Sidebar: NibDesignable {
     
     let settings = Settings.sharedInstance()
     
-    let strikes = [2, 4, 8, 16] // WINDOW
-    let timeSignature = [1, 2, 3, 4] // BEAT
-    let sounds = ["stick", "beep", "clap"]
+    //let sounds = ["stick", "beep", "clap"]
     
     override func setup() {
         self.backgroundColor = ColorPalette.Pink.color()
         soundButtonCollection = [stickButton, dingButton, bangButton]
         
-        // TODO: save user settings between sessions
         soundButtonCollection.first?.selected = true
         
-        windowSegmentedControl.items = toStringArray(strikes)
-        beatSegmentedControl.items = toStringArray(timeSignature)
+        windowSegmentedControl.items = toStringArray(Settings.sharedInstance().strikesWindowValues)
+        beatSegmentedControl.items = toStringArray(Settings.sharedInstance().timeSignatureValues)
+        
+        displayValuesFromSettings()
         
         setupVersionLabel()
     }
@@ -59,6 +58,24 @@ class Sidebar: NibDesignable {
         }
     }
     
+    
+    func displayValuesFromSettings()
+    {
+        let settings = Settings.sharedInstance()
+        sensitivitySlider.value = Int(settings.sensitivity * 100)
+        
+        let selectedIndex = settings.metronomeSoundSelectedIndex
+        for (index, button) in enumerate(soundButtonCollection) {
+            button.selected = index == selectedIndex
+        }
+        
+        windowSegmentedControl.selectedIndex = settings.strikesWindowSelectedIndex
+        beatSegmentedControl.selectedIndex = settings.timeSignatureSelectedIndex
+        
+    }
+    
+    
+    
     @IBAction func didTapSoundButton(sender: UIButton) {
         for (index, button) in enumerate(soundButtonCollection) {
             if sender == button {
@@ -66,7 +83,7 @@ class Sidebar: NibDesignable {
                     return
                 } else {
                     // set new sound
-                    settings.metSound = index
+                    settings.metronomeSoundSelectedIndex = index
                  }
                 sender.selected = !sender.selected
             } else {
@@ -87,11 +104,11 @@ class Sidebar: NibDesignable {
     }
     
     @IBAction func windowValueChanged(sender: SegmentedControl) {
-        settings.strikesFilter = strikes[sender.selectedIndex]
+        settings.strikesWindowSelectedIndex = sender.selectedIndex
     }
     
     @IBAction func beatValueChanged(sender: SegmentedControl) {
-        settings.timeSignature = timeSignature[sender.selectedIndex]
+        settings.timeSignatureSelectedIndex = sender.selectedIndex
     }
     
     @IBAction func didTapHelp(sender: AnyObject) {
@@ -100,10 +117,10 @@ class Sidebar: NibDesignable {
     
     
     // Helper methods
-    func toStringArray(intArray: [Int]) -> [String] {
+    func toStringArray(intArray: NSArray) -> [String] {
         var strArray = [String]()
         for i in intArray {
-            strArray.append(String(i))
+            strArray.append(String(i.integerValue))
         }
         return strArray
     }

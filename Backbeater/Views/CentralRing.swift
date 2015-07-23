@@ -10,7 +10,7 @@ import UIKit
 
 
 protocol CentralRingDelegate: class {
-    func centralRingFoundTapBPM(bpm:UInt)
+    func centralRingFoundTapBPM(bpm:Float64)
 }
 
 
@@ -27,6 +27,12 @@ class CentralRing: NibDesignable {
     
     @IBOutlet weak var ringTopConstraint: NSLayoutConstraint!
     
+    var timeSignature:Int!
+    
+    var rotationAnimation:CABasicAnimation!
+    var pulseAnimation:CABasicAnimation!
+    let PULSE_DURATION = floor(60.0 / Double(MAX_TEMPO) * 10) / 10
+    
     override func setup() {
         super.setup()
         self.backgroundColor = UIColor.clearColor()
@@ -38,6 +44,11 @@ class CentralRing: NibDesignable {
         crtLabel.text = ""
         
         resetSublayers()
+        
+        timeSignature = Settings.sharedInstance().timeSignature
+        Settings.sharedInstance().addObserver(self, forKeyPath: "timeSignatureSelectedIndex", options: NSKeyValueObservingOptions.allZeros, context: nil)
+        
+        initAnimations()
     }
     
     override func didMoveToWindow() {
@@ -46,12 +57,15 @@ class CentralRing: NibDesignable {
     
     deinit {
         ringView.removeObserver(self, forKeyPath: "bounds")
+        Settings.sharedInstance().removeObserver(self, forKeyPath: "timeSignatureSelectedIndex")
     }
     
     
     override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
         if object === ringView && keyPath == "bounds" {
             resetSublayers()
+        } else if keyPath == "timeSignatureSelectedIndex" {
+            timeSignature = Settings.sharedInstance().timeSignature
         }
     }
     
@@ -92,23 +106,46 @@ class CentralRing: NibDesignable {
         animationSublayer.path = path.CGPath
         animationSublayer.masksToBounds = false
         
-        ringView.layer.addSublayer(animationSublayer)
+        ringView.layer.insertSublayer(animationSublayer, above: borderSublayer)
+        
+    }
+    
+    
+    func initAnimations() {
+        // rotation
+        rotationAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
+        rotationAnimation.fromValue = 0
+        rotationAnimation.toValue = -M_PI * 2.0  //   /* full rotation*/ * rotations * duration ];
+        rotationAnimation.cumulative = false
+        rotationAnimation.repeatCount = 1
+        rotationAnimation.removedOnCompletion = true
+        
+        // drum frame animation
+        let dSize:CGFloat = 15
+        let startBounds = drumImage.bounds;
+        let stopBounds = CGRectMake(0, 0, startBounds.width+dSize, startBounds.height+dSize);
+        
+        pulseAnimation = CABasicAnimation(keyPath:"bounds")
+        pulseAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
+        pulseAnimation.fromValue = NSValue(CGRect:startBounds)
+        pulseAnimation.toValue = NSValue(CGRect:stopBounds)
+        pulseAnimation.autoreverses = true
+        pulseAnimation.duration = PULSE_DURATION
+        pulseAnimation.cumulative = false
+        pulseAnimation.repeatCount = 1
+        pulseAnimation.removedOnCompletion = true
         
     }
     
     //func runSpinAnimationWithDuration(duration:CFTimeInterval) {
-    func runSpinAnimationWithDuration(bpm:UInt) {
+    func runAnimationWithDuration(cpt:Int) {
         
         animationSublayer.removeAllAnimations() // or resetAnimationSublayer() ?
         
-        let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
-        rotationAnimation.toValue = -M_PI * 2.0  //   /* full rotation*/ * rotations * duration ];
-        rotationAnimation.duration = CFTimeInterval(60/bpm) // duration;
-        rotationAnimation.cumulative = true
-        rotationAnimation.repeatCount = 1
-        rotationAnimation.removedOnCompletion = true
+        rotationAnimation.duration = CFTimeInterval(60/(cpt/timeSignature)) // duration;
         
         animationSublayer?.addAnimation(rotationAnimation, forKey:"rotationAnimation")
+        drumImage?.layer.addAnimation(pulseAnimation, forKey: "pulseAnimation")
     }
     
     
@@ -149,19 +186,14 @@ class CentralRing: NibDesignable {
         var delayFator:Float64 = 0.1
         var timeElapsedInSec:Float64 = Float64(timeElapsedNs) * 10.0e-9 * delayFator;
         
-        var isNewTapSeq = (timeElapsedInSec > 2.0) ? true : false
+        var isNewTapSeq = (timeElapsedInSec > IDLE_TIMEOUT) ? true : false
         
         if isNewTapSeq {
             tapCount = 0;
-            crtLabel.hidden = true
+            crtLabel.text = ""
         } else {
-//            if timeElapsedInSec > 0.2 { // When BPM is less than 100, calculate and display BPM immediately.
-                let bpm = UInt(60.0 / timeElapsedInSec)
-                self.foundFigertapBPM(bpm)
-                println("nanoseconds: \(timeElapsedNs)\tseconds: \(timeElapsedInSec) \tbpm: \(bpm)")
-//            } else { // When BPM is more than 100, add up elapsed time until tap count is over 3, then display.
-//                crtLabel.hidden = true
-//            }
+            let figertapBPM = 60.0 / timeElapsedInSec
+            self.foundFigertapBPM(figertapBPM)
         }
         
         oldTapTime = newTapTime;
@@ -169,32 +201,37 @@ class CentralRing: NibDesignable {
     
     }
 
-    func foundFigertapBPM(bpm: UInt) {
-        // time signature correction
-        let correctedBPM = bpm * UInt(Settings.sharedInstance().timeSignature)
-        displayBPM(correctedBPM)
+    func foundFigertapBPM(figertapBPM: Float64) {
+        // apply time signature 
+        println("bpm: \(figertapBPM)")
+        delegate?.centralRingFoundTapBPM(figertapBPM);
     }
 
-    
-    func displayBPM(bpm:UInt) {
-        let avgBpm:UInt = bpm  //TODO: need this? [[self.filter enqueue:[NSNumber numberWithFloat:bpm]] average];
+    func displayCPT(cpt:Int) {
 
-        delegate?.centralRingFoundTapBPM(avgBpm)
-
+        println("cpt: \(cpt)")
+        
         // display numbers
-        if avgBpm > UInt(MAX_TEMPO) || avgBpm < UInt(MIN_TEMPO) {
+        if cpt > MAX_TEMPO || cpt < MIN_TEMPO {
             // We do not need BPM outside this range.
             crtLabel.text = "__"
             resetAnimationSublayer()
         } else {
-            crtLabel.text = "\(avgBpm)"
-            runSpinAnimationWithDuration(avgBpm)
+            crtLabel.text = "\(cpt)"
+            runAnimationWithDuration(cpt)
         }
-        crtLabel.hidden = false
-//        delay(0.1, callback: { () -> () in
-//            self.crtLabel.hidden = true
-//        })
+        delay(PULSE_DURATION, callback: { () -> () in
+            self.crtLabel.text = ""
+        })
         
+    }
+    
+    func clear() {
+        oldTapTime = 0
+        newTapTime = 0
+        tapCount = 0
+        crtLabel.text = ""
+        resetAnimationSublayer()
     }
     
     

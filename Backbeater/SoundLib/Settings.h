@@ -16,16 +16,23 @@
 
 @property (nonatomic) BOOL mute;
 @property (nonatomic, readonly) BOOL sensorIn;
-@property (nonatomic, readonly) NSInteger bpm;
 @property (nonatomic) float sensitivity;
-@property (nonatomic) NSInteger strikesFilter;
-@property (nonatomic) NSInteger timeSignature;
-@property (nonatomic) NSInteger metSound;
+@property (nonatomic,readonly) NSInteger strikesWindow;
+@property (nonatomic,readonly) NSInteger timeSignature;
+@property (nonatomic,readonly) NSInteger metronomeSound;
 
-@property (nonatomic, readonly) float foundBPM;
-@property (nonatomic, readonly) float foundBPMf;
-@property (nonatomic, readonly) BOOL sensitivityFlash;
+@property (nonatomic) NSInteger strikesWindowSelectedIndex;
+@property (nonatomic) NSInteger timeSignatureSelectedIndex;
+@property (nonatomic) NSInteger metronomeSoundSelectedIndex;
 
+@property (nonatomic, readonly) NSArray* strikesWindowValues;
+@property (nonatomic, readonly) NSArray* timeSignatureValues;
 
+//@property (nonatomic, readonly) NSInteger bpm;
+//@property (nonatomic, readonly) float foundBPM;
+//@property (nonatomic, readonly) float foundBPMf;
+//@property (nonatomic, readonly) BOOL sensitivityFlash;
+
+-(void)saveState;
 
 @end

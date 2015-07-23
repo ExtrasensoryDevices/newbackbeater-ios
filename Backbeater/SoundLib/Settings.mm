@@ -7,20 +7,17 @@
 
 
 
+#import "Backbeater-Swift.h"
 #import "Settings.h"
-//#import "BBSetting.h"
-//#import "AUtype1.h"
-//#import "AUtype1Delegate.h"
-
-
- 
-
 
 
 @implementation Settings
 
+float DEFAULT_SENSITIVITY = 0.6;
 
-NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+NSArray *_strikesWindowValues;
+NSArray *_timeSignatureValues;
+NSArray *_metronomeSoundValues;
 
 + (Settings*)sharedInstance {
     static Settings *_instance = nil;
@@ -32,31 +29,41 @@ NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
 }
 
 
-
 - (instancetype)init
 {
     self = [super init];
     if (self) {
-//        _settings = [BBSetting sharedInstance];
         [self setupKVO];
+        [self restoreState];
+        _sensorIn = NO;
+        _strikesWindowValues = @[@2, @4, @8, @16];
+        _timeSignatureValues = @[@1, @2, @3, @4];
+        _metronomeSoundValues = @[@1, @2, @3]; //@[@"stick", @"beep", @"clap"];
     }
     return self;
 }
 
 
+
+-(NSArray *)strikesWindowValues
+{
+    return [_strikesWindowValues copy];
+}
+
+
+-(NSArray *)timeSignatureValues
+{
+    return [_timeSignatureValues copy];
+}
+
+
+
 -(void) setupKVO {
-    NSArray *properties = @[@"mute", @"sensorIn", @"bpm", @"sensitivity", @"strikesFilter", @"timeSignature", @"metSound", @"foundBPM", @"foundBPMf", @"sensitivityFlash"];
+    NSArray *properties = @[@"mute", @"sensorIn", @"sensitivity", @"strikesWindowSelectedIndex", @"timeSignatureSelectedIndex", @"metronomeSoundSelectedIndex"];
     for (size_t i = 0; i < properties.count; ++i) {
         NSString *key = (NSString*)properties[i];
         [self addObserver:self forKeyPath:key options:0 context:nil];
     }
-    
-//    [_settings addObserver:self forKeyPath:@"sensitivity" options:0 context:nil];
-//    [_settings addObserver:self forKeyPath:@"bpm" options:0 context:nil];
-//    [_settings addObserver:self forKeyPath:@"mute" options:0 context:nil];
-//    [_settings addObserver:self forKeyPath:@"sensorIn" options:0 context:nil];
-//    [_settings addObserver:self forKeyPath:@"foundBPMf" options:0 context:nil];
-//    [_settings addObserver:self forKeyPath:@"sensitivityFlash" options:0 context:nil];
     
 }
 
@@ -71,64 +78,86 @@ NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
 
 
 
-//-(void) setMetSound:(NSInteger)metSound {
-//    _settings.metSound = metSound;
-//}
-//-(NSInteger) metSound {
-//    return _settings.metSound;
-//}
-//
-//-(void) setMute:(BOOL)mute {
-//    _settings.mute = mute;
-//}
-//-(BOOL) mute {
-//    return _settings.mute;
-//}
-//
-//
-//-(BOOL) sensorIn {
-//    return _settings.sensorIn;
-//}
-//
-//-(NSInteger) bpm {
-//    return _settings.bpm;
-//}
-//
-//
-//-(void) setSensitivity:(float)sensitivity {
-//    _settings.sensitivity = sensitivity;
-//}
-//-(float) sensitivity {
-//    return _settings.sensitivity;
-//}
-//
-//-(void) setStrikesFilter:(NSInteger)strikesFilter {
-//    _strikesFilter = strikesFilter;
-//    NSDictionary *userInfo = @{@"name": @"strikesFilter", @"value":[NSNumber numberWithInteger:strikesFilter]};
-//    [[NSNotificationCenter defaultCenter] postNotificationName:@"SettingsChanged" object:nil userInfo:userInfo];
-//}
-//
-//-(void) setTimeSignature:(NSInteger)timeSignature {
-//    _timeSignature = timeSignature;
-//    NSDictionary *userInfo = @{@"name": @"timeSignature", @"value":[NSNumber numberWithInteger:timeSignature]};
-//    [[NSNotificationCenter defaultCenter] postNotificationName:@"SettingsChanged" object:nil userInfo:userInfo];
-//}
-//
-//-(float) foundBPM {
-//    return _settings.foundBPM;
-//}
-//
-//-(float) foundBPMf {
-//    return _settings.foundBPMf;
-//}
-//
-//-(BOOL) sensitivityFlash {
-//    return _settings.sensitivityFlash;
-//}
-//
-//
-//
-//
+
+-(NSInteger)strikesWindow
+{
+    return ((NSNumber*)_strikesWindowValues[_strikesWindowSelectedIndex]).integerValue;
+}
+
+-(NSInteger)timeSignature
+{
+    return ((NSNumber*)_timeSignatureValues[_timeSignatureSelectedIndex]).integerValue;
+}
+
+
+-(NSInteger)metronomeSound
+{
+    return ((NSNumber*)_metronomeSoundValues[_metronomeSoundSelectedIndex]).integerValue;
+}
+
+#pragma mark - Persistence
+-(void) restoreState
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    BOOL changed = NO;
+    
+    if ([userDefaults objectForKey:@"mute"] != nil) {
+        _mute = [userDefaults boolForKey:@"mute"];
+    } else {
+        changed = YES;
+        _mute = false;
+    }
+    
+    
+    if ([userDefaults objectForKey:@"sensitivity"] != nil) {
+        _sensitivity = [userDefaults floatForKey:@"sensitivity"];
+    } else {
+        changed = YES;
+        _sensitivity = DEFAULT_SENSITIVITY;
+    }
+    
+    if ([userDefaults objectForKey:@"strikesWindowSelectedIndex"] != nil) {
+        _strikesWindowSelectedIndex = [userDefaults integerForKey:@"strikesWindowSelectedIndex"];
+    } else {
+        changed = YES;
+        _strikesWindowSelectedIndex = 1;
+    }
+    
+    
+    if ([userDefaults objectForKey:@"timeSignatureSelectedIndex"] != nil) {
+        _timeSignatureSelectedIndex = [userDefaults integerForKey:@"timeSignatureSelectedIndex"];
+    } else {
+        changed = YES;
+        _timeSignatureSelectedIndex = 0;
+    }
+    
+    
+    if ([userDefaults objectForKey:@"metronomeSoundSelectedIndex"] != nil) {
+        _metronomeSoundSelectedIndex = [userDefaults integerForKey:@"metronomeSoundSelectedIndex"];
+    } else {
+        changed = YES;
+        _metronomeSoundSelectedIndex = 0;
+    }
+    
+    
+    if (changed) {
+        [self saveState];
+    }
+}
+
+-(void) saveState
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setBool:_mute forKey:@"mute"];
+    [userDefaults setFloat: _sensitivity forKey:@"sensitivity"];
+    [userDefaults setInteger:_strikesWindowSelectedIndex forKey:@"strikesWindowSelectedIndex"];
+    [userDefaults setInteger:_timeSignatureSelectedIndex forKey:@"timeSignatureSelectedIndex"];
+    [userDefaults setInteger:_metronomeSoundSelectedIndex forKey:@"metronomeSoundSelectedIndex"];
+    
+    [userDefaults synchronize];
+}
+
 @end
 
     

@@ -8,6 +8,7 @@
 #import <UIKit/UIKit.h> 
 
 #import "Settings.h"
+#import "WindowQueue.h"
 #import "PublicUtilityWrapper.h"
 #import "SoundProcessor.h"
 #import "Updater.h"
