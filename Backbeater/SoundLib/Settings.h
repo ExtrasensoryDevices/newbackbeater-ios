@@ -13,20 +13,29 @@
 
 
 
-
-@property (nonatomic) BOOL mute;
-@property (nonatomic, readonly) BOOL sensorIn;
+// current state / user input
+@property (nonatomic, readonly) BOOL sensorIn; // value received from SoundProcessor
 @property (nonatomic) float sensitivity;
-@property (nonatomic,readonly) NSInteger strikesWindow;
-@property (nonatomic,readonly) NSInteger timeSignature;
-@property (nonatomic,readonly) NSInteger metronomeSound;
+@property (nonatomic,readonly) NSInteger strikesWindow; // value set by index in array
+@property (nonatomic,readonly) NSInteger timeSignature; // value set by index in array
+@property (nonatomic) BOOL metronomeIsOn;
+@property (nonatomic) NSInteger metronomeTempo;
+@property (nonatomic,readonly) NSInteger metronomeSound; // value set by index in array
 
+// possible values
+@property (nonatomic, readonly) NSArray* strikesWindowValues;
+@property (nonatomic, readonly) NSArray* timeSignatureValues;
+// TODO: move sound array here too
+
+// selected indices
 @property (nonatomic) NSInteger strikesWindowSelectedIndex;
 @property (nonatomic) NSInteger timeSignatureSelectedIndex;
 @property (nonatomic) NSInteger metronomeSoundSelectedIndex;
 
-@property (nonatomic, readonly) NSArray* strikesWindowValues;
-@property (nonatomic, readonly) NSArray* timeSignatureValues;
+
+
+
+
 
 //@property (nonatomic, readonly) NSInteger bpm;
 //@property (nonatomic, readonly) float foundBPM;

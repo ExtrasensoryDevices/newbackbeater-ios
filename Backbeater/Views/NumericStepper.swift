@@ -27,13 +27,26 @@ class NumericStepper: UIControlNibDesignable {
         }
     }
     
-    var value:Int = 0 {
-        didSet {
-            label.text = "\(value)"
-            if oldValue != value {
+    
+    private var _value:Int = 0
+    
+    var value:Int {
+        get {
+            return isOn ? _value : 0
+        }
+        set (newValue) {
+            if _value != newValue.inBounds(minValue: MIN_TEMPO, maxValue: MAX_TEMPO) {
+                _value = newValue
+                label.text = "\(_value)"
                 sendActionsForControlEvents(UIControlEvents.ValueChanged)
             }
         }
+//        didSet {
+//            label.text = "\(value)"
+//            if oldValue != value {
+//                sendActionsForControlEvents(UIControlEvents.ValueChanged)
+//            }
+//        }
     }
     
     var bgrColor:UIColor! {
@@ -280,9 +293,8 @@ class NumericStepper: UIControlNibDesignable {
     
     
     func incrementValue(increment:Int) {
-        var newValue = value + increment
-        newValue = min(MAX_TEMPO, max(MIN_TEMPO, newValue))
-        value = newValue
+        var newValue = _value + increment
+        value = newValue.inBounds(minValue: MIN_TEMPO, maxValue: MAX_TEMPO)
     }
     
     

@@ -359,7 +359,8 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
             textField.text = songTempo.songName
         } else {
             if let value = textField.text.trim().toInt() where value >= 0 {
-                songTempo.tempoValue = value > MAX_TEMPO ? MAX_TEMPO : value < MIN_TEMPO ? MIN_TEMPO : value
+                
+                songTempo.tempoValue = value.inBounds(minValue: MIN_TEMPO, maxValue: MAX_TEMPO)
             } else {
                 songTempo.tempoValue = DEFAULT_TEMPO
             }

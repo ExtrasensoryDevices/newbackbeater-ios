@@ -22,16 +22,24 @@ class CentralRing: NibDesignable {
     @IBOutlet weak var ringView: UIView!
     @IBOutlet weak var crtLabel: UILabel!
     
-    var animationSublayer:CAShapeLayer!
+    var cptSublayer:CAShapeLayer!
+    var bpmSublayer:CAShapeLayer!
     var borderSublayer:CAShapeLayer!
     
     @IBOutlet weak var ringTopConstraint: NSLayoutConstraint!
     
     var timeSignature:Int!
     
-    var rotationAnimation:CABasicAnimation!
+    var cptAnimation:CABasicAnimation!
+    var bpmAnimation:CABasicAnimation!
     var pulseAnimation:CABasicAnimation!
     let PULSE_DURATION = floor(60.0 / Double(MAX_TEMPO) * 10) / 10
+    
+    var metronomeTempo:Int = 0
+    
+    var metronomeIsOn:Bool {
+        return metronomeTempo >= MIN_TEMPO && metronomeTempo <= MAX_TEMPO
+    }
     
     override func setup() {
         super.setup()
@@ -47,32 +55,50 @@ class CentralRing: NibDesignable {
         
         timeSignature = Settings.sharedInstance().timeSignature
         Settings.sharedInstance().addObserver(self, forKeyPath: "timeSignatureSelectedIndex", options: NSKeyValueObservingOptions.allZeros, context: nil)
+        Settings.sharedInstance().addObserver(self, forKeyPath: "metronomeTempo", options: NSKeyValueObservingOptions.allZeros, context: nil)
+        Settings.sharedInstance().addObserver(self, forKeyPath: "metronomeIsOn", options: NSKeyValueObservingOptions.allZeros, context: nil)
         
         initAnimations()
+        
     }
     
     override func didMoveToWindow() {
         crtLabel.font = Font.FuturaBook.get(100) // TODO: add font for label, then uncomment 142)
+        handleMetronomeState()
     }
     
     deinit {
         ringView.removeObserver(self, forKeyPath: "bounds")
         Settings.sharedInstance().removeObserver(self, forKeyPath: "timeSignatureSelectedIndex")
+        Settings.sharedInstance().removeObserver(self, forKeyPath: "metronomeTempo")
+        Settings.sharedInstance().removeObserver(self, forKeyPath: "metronomeIsOn")
     }
     
     
     override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
         if object === ringView && keyPath == "bounds" {
             resetSublayers()
-        } else if keyPath == "timeSignatureSelectedIndex" {
-            timeSignature = Settings.sharedInstance().timeSignature
+        } else if let settings = object as? Settings {
+            if keyPath == "timeSignatureSelectedIndex" {
+                timeSignature = settings.timeSignature
+                if metronomeIsOn {
+                    handleMetronomeState()
+                }
+            } else if keyPath == "metronomeTempo" {
+                metronomeTempo = settings.metronomeTempo
+                handleMetronomeState()
+            } else if keyPath == "metronomeIsOn" {
+                metronomeTempo = settings.metronomeIsOn ? settings.metronomeTempo : 0
+                handleMetronomeState()
+            }
         }
     }
     
     
     func resetSublayers() {
         resetBorderSublayer()
-        resetAnimationSublayer()
+        resetCptSublayer()
+        resetBpmSublayer()
         ringView.layer.masksToBounds = false
         ringView.clipsToBounds = false
     }
@@ -89,36 +115,65 @@ class CentralRing: NibDesignable {
         ringView.drawBorderForLayer(borderSublayer, color: ColorPalette.Pink.color(), width: BORDER_WIDTH)
     }
         
-    func resetAnimationSublayer() {
-        animationSublayer?.removeAllAnimations()
-        animationSublayer?.removeFromSuperlayer()
-
-        animationSublayer = CAShapeLayer()
-        animationSublayer.frame = ringView.bounds
-        animationSublayer.strokeColor = ColorPalette.Pink.color().CGColor
-        animationSublayer.fillColor = UIColor.blueColor().CGColor //ColorPalette.Black.color().CGColor
-        animationSublayer.lineWidth = BORDER_WIDTH
+    func resetCptSublayer() {
+        cptSublayer?.removeAllAnimations()
+        cptSublayer?.removeFromSuperlayer()
+        
+        cptSublayer = CAShapeLayer()
+        cptSublayer.frame = ringView.bounds
+        cptSublayer.strokeColor = ColorPalette.Pink.color().CGColor
+        cptSublayer.fillColor = UIColor.blueColor().CGColor //ColorPalette.Black.color().CGColor
+        cptSublayer.lineWidth = BORDER_WIDTH
         
         
         let diameter:CGFloat = 15
         let smallCircleFrame = CGRect(x: CGRectGetMidX(ringView.bounds)-diameter/2, y: -diameter/2+1, width: diameter, height: diameter)
         let path = UIBezierPath(ovalInRect: smallCircleFrame)
-        animationSublayer.path = path.CGPath
-        animationSublayer.masksToBounds = false
+        cptSublayer.path = path.CGPath
+        cptSublayer.masksToBounds = false
         
-        ringView.layer.insertSublayer(animationSublayer, above: borderSublayer)
+        ringView.layer.insertSublayer(cptSublayer, above: borderSublayer)
+        
+    }
+    
+    func resetBpmSublayer() {
+        bpmSublayer?.removeAllAnimations()
+        bpmSublayer?.removeFromSuperlayer()
+        
+        bpmSublayer = CAShapeLayer()
+        bpmSublayer.frame = ringView.bounds
+        bpmSublayer.strokeColor = ColorPalette.Pink.color().CGColor
+        bpmSublayer.fillColor = ColorPalette.Pink.color().CGColor
+        bpmSublayer.lineWidth = BORDER_WIDTH
+        
+        
+        let diameter:CGFloat = 15
+        let smallCircleFrame = CGRect(x: CGRectGetMidX(ringView.bounds)-diameter/2, y: -diameter/2+1, width: diameter, height: diameter)
+        let path = UIBezierPath(ovalInRect: smallCircleFrame)
+        bpmSublayer.path = path.CGPath
+        bpmSublayer.masksToBounds = false
+        
+        ringView.layer.insertSublayer(bpmSublayer, above: cptSublayer)
         
     }
     
     
     func initAnimations() {
-        // rotation
-        rotationAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
-        rotationAnimation.fromValue = 0
-        rotationAnimation.toValue = -M_PI * 2.0  //   /* full rotation*/ * rotations * duration ];
-        rotationAnimation.cumulative = false
-        rotationAnimation.repeatCount = 1
-        rotationAnimation.removedOnCompletion = true
+        // CPT rotation
+        cptAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
+        cptAnimation.fromValue = 0
+        cptAnimation.toValue = -M_PI * 2.0  //   /* full rotation*/ * rotations * duration ];
+        cptAnimation.cumulative = false
+        cptAnimation.repeatCount = metronomeIsOn ? Float.infinity : 1
+        cptAnimation.removedOnCompletion = true
+        
+        // BPM rotation
+        bpmAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
+        bpmAnimation.fromValue = 0
+        bpmAnimation.toValue = -M_PI * 2.0  //   /* full rotation*/ * rotations * duration ];
+        bpmAnimation.cumulative = false
+        bpmAnimation.repeatCount = 1
+        bpmAnimation.removedOnCompletion = true
         
         // drum frame animation
         let dSize:CGFloat = 15
@@ -137,22 +192,51 @@ class CentralRing: NibDesignable {
         
     }
     
+//    func cptAnimationIsPlaying() -> Bool {
+//        return cptSublayer.animationForKey("transform.rotation.z") != nil
+//    }
+    
     //func runSpinAnimationWithDuration(duration:CFTimeInterval) {
-    func runAnimationWithDuration(cpt:Int) {
+    func runAnimationWithCpt(cpt:Int, bpm:Int) {
+        cptSublayer.removeAllAnimations()
+        drumImage?.layer.removeAllAnimations()
+        // CPT
+        if !metronomeIsOn {
+            cptAnimation.duration = 60.0/Double(cpt/timeSignature) // =60sec/bpm
+            cptAnimation.repeatCount = 1
+        }
+        // BPM
         
-        animationSublayer.removeAllAnimations() // or resetAnimationSublayer() ?
-        
-        rotationAnimation.duration = CFTimeInterval(60/(cpt/timeSignature)) // duration;
-        
-        animationSublayer?.addAnimation(rotationAnimation, forKey:"rotationAnimation")
+        cptSublayer?.addAnimation(cptAnimation, forKey:"cptAnimation")
+        drumImage?.layer.addAnimation(pulseAnimation, forKey: "pulseAnimation")
+    }
+    
+    func runPulseAnimationOnly() {
+        if !metronomeIsOn {
+            cptSublayer.removeAllAnimations()
+        }
+        drumImage?.layer.removeAllAnimations()
         drumImage?.layer.addAnimation(pulseAnimation, forKey: "pulseAnimation")
     }
     
     
-    func clearSublayers() {
-        ringView.layer.sublayers = nil
-        animationSublayer = nil
-        borderSublayer = nil
+//    func clearSublayers() {
+//        ringView.layer.sublayers = nil
+//        cptSublayer = nil
+//        borderSublayer = nil
+//    }
+    
+    
+    func handleMetronomeState()
+    {
+        cptSublayer.removeAllAnimations()
+        
+        if metronomeIsOn {
+            cptAnimation.duration = 60.0/Double(metronomeTempo/timeSignature)
+            cptAnimation.repeatCount = Float.infinity
+            cptSublayer.addAnimation(cptAnimation, forKey:"cptAnimation")
+            
+        }
     }
     
     
@@ -207,18 +291,18 @@ class CentralRing: NibDesignable {
         delegate?.centralRingFoundTapBPM(figertapBPM);
     }
 
-    func displayCPT(cpt:Int) {
+    func displayCpt(cpt:Int, bpm:Int) {
 
-        println("cpt: \(cpt)")
+        println("cpt: \(cpt), bpm: \(bpm)")
         
         // display numbers
         if cpt > MAX_TEMPO || cpt < MIN_TEMPO {
             // We do not need BPM outside this range.
             crtLabel.text = "__"
-            resetAnimationSublayer()
+            runPulseAnimationOnly()
         } else {
             crtLabel.text = "\(cpt)"
-            runAnimationWithDuration(cpt)
+            runAnimationWithCpt(cpt, bpm:bpm)
         }
         delay(PULSE_DURATION, callback: { () -> () in
             self.crtLabel.text = ""
@@ -231,7 +315,7 @@ class CentralRing: NibDesignable {
         newTapTime = 0
         tapCount = 0
         crtLabel.text = ""
-        resetAnimationSublayer()
+        resetCptSublayer()
     }
     
     

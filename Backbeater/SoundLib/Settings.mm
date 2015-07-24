@@ -13,11 +13,15 @@
 
 @implementation Settings
 
-float DEFAULT_SENSITIVITY = 0.6;
-
 NSArray *_strikesWindowValues;
 NSArray *_timeSignatureValues;
 NSArray *_metronomeSoundValues;
+
+
+float DEFAULT_SENSITIVITY = 0.6;
+int DEFAULT_TEMPO = 120;
+int MAX_TEMPO = 221;
+int MIN_TEMPO = 20;
 
 + (Settings*)sharedInstance {
     static Settings *_instance = nil;
@@ -33,7 +37,6 @@ NSArray *_metronomeSoundValues;
 {
     self = [super init];
     if (self) {
-        [self setupKVO];
         [self restoreState];
         _sensorIn = NO;
         _strikesWindowValues = @[@2, @4, @8, @16];
@@ -57,25 +60,13 @@ NSArray *_metronomeSoundValues;
 }
 
 
-
--(void) setupKVO {
-    NSArray *properties = @[@"mute", @"sensorIn", @"sensitivity", @"strikesWindowSelectedIndex", @"timeSignatureSelectedIndex", @"metronomeSoundSelectedIndex"];
-    for (size_t i = 0; i < properties.count; ++i) {
-        NSString *key = (NSString*)properties[i];
-        [self addObserver:self forKeyPath:key options:0 context:nil];
-    }
-    
-}
-
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+-(void)setMetronomeTempo:(NSInteger)value
 {
-    // keep it
-    NSLog(@"%@ changed", keyPath);
-    id value = [object valueForKey:keyPath];
-    NSDictionary *userInfo = @{@"name": keyPath, @"value":value};
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"SettingsChanged" object:nil userInfo:userInfo];
+    NSInteger boundedValue = value > MAX_TEMPO ? MAX_TEMPO : (value < MIN_TEMPO ? MIN_TEMPO : value);
+    if (_metronomeTempo != boundedValue) {
+        _metronomeTempo = boundedValue;
+    }
 }
-
 
 
 
@@ -101,14 +92,6 @@ NSArray *_metronomeSoundValues;
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
     BOOL changed = NO;
-    
-    if ([userDefaults objectForKey:@"mute"] != nil) {
-        _mute = [userDefaults boolForKey:@"mute"];
-    } else {
-        changed = YES;
-        _mute = false;
-    }
-    
     
     if ([userDefaults objectForKey:@"sensitivity"] != nil) {
         _sensitivity = [userDefaults floatForKey:@"sensitivity"];
@@ -140,7 +123,21 @@ NSArray *_metronomeSoundValues;
         _metronomeSoundSelectedIndex = 0;
     }
     
+    if ([userDefaults objectForKey:@"metronomeIsOn"] != nil) {
+        _metronomeIsOn = [userDefaults boolForKey:@"metronomeIsOn"];
+    } else {
+        changed = YES;
+        _metronomeIsOn = false;
+    }
     
+    
+    if ([userDefaults objectForKey:@"metronomeTempo"] != nil) {
+        _metronomeTempo = [userDefaults integerForKey:@"metronomeTempo"];
+    } else {
+        changed = YES;
+        _metronomeTempo = DEFAULT_TEMPO;
+    }
+ 
     if (changed) {
         [self saveState];
     }
@@ -149,11 +146,12 @@ NSArray *_metronomeSoundValues;
 -(void) saveState
 {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults setBool:_mute forKey:@"mute"];
     [userDefaults setFloat: _sensitivity forKey:@"sensitivity"];
     [userDefaults setInteger:_strikesWindowSelectedIndex forKey:@"strikesWindowSelectedIndex"];
     [userDefaults setInteger:_timeSignatureSelectedIndex forKey:@"timeSignatureSelectedIndex"];
     [userDefaults setInteger:_metronomeSoundSelectedIndex forKey:@"metronomeSoundSelectedIndex"];
+    [userDefaults setBool:_metronomeIsOn forKey:@"metronomeIsOn"];
+    [userDefaults setInteger:_metronomeTempo forKey:@"metronomeTempo"];
     
     [userDefaults synchronize];
 }

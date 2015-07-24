@@ -51,6 +51,9 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
         strikesWindowQueue = WindowQueue(capacity:Settings.sharedInstance().strikesWindow)
         centralRing.delegate = self
         
+        tempoView.value = Settings.sharedInstance().metronomeTempo
+        centralRing.metronomeTempo = Settings.sharedInstance().metronomeTempo
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -140,7 +143,7 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
         if let songListVC = segue.destinationViewController as? SongListViewController {
             songListVC.delegate = self
             
-            //TODO: remove this
+            //TODO: remove default song list
             songListVC.setSongList(songList ?? [SongTempo(songName:"Song #1", tempoValue: 120),
                 SongTempo(songName:"Song #2", tempoValue: 60),
                 SongTempo(songName:"Song #3", tempoValue: 90),
@@ -150,6 +153,18 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
             webVC.url = BUY_SENSOR_URL
         }
     }
+    
+    @IBAction func metronomeTempoValueChanged(sender: NumericStepper) {
+//        centralRing.metronomeTempo = tempoView.value
+        Settings.sharedInstance().metronomeTempo = tempoView.value
+    }
+    
+    @IBAction func metronomeTempoPressed(sender: NumericStepper) {
+        Settings.sharedInstance().metronomeIsOn = sender.isOn
+    }
+    
+    
+    
     
    // MARK: - BPM processing
     
@@ -164,7 +179,7 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
         
         let cpt = strikesWindowQueue.enqueue(tempo).average
         
-        centralRing.displayCPT(cpt)
+        centralRing.displayCpt(cpt, bpm: Int(bpm))
     }
     
     
@@ -187,7 +202,7 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
         songNameLabel.hidden = hideLabel
         
         songNameLabel.text = songList?[selectedIndex].songName ?? ""
-        tempoView.value = songList?[selectedIndex].tempoValue ?? DEFAULT_TEMPO
+        tempoView.value = songList?[selectedIndex].tempoValue ?? Settings.sharedInstance().metronomeTempo
     }
     
     func updateSensorView() {

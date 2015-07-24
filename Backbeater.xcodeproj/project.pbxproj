@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		661E409B1B60373300945177 /* WindowQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 661E409A1B60373300945177 /* WindowQueue.m */; };
+		661E409D1B6179F800945177 /* IntExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661E409C1B6179F800945177 /* IntExtension.swift */; };
 		BA37BB4BC9F84D143B5D9689 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BD97D472B88826767A07A992 /* libPods.a */; };
 		C71511C21B5DBBBE007A0D18 /* NSObjectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71511C11B5DBBBE007A0D18 /* NSObjectExtension.swift */; };
 		C71511C71B5DC0C4007A0D18 /* PublicUtilityWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = C71511C61B5DC0C4007A0D18 /* PublicUtilityWrapper.mm */; };
@@ -63,6 +64,7 @@
 /* Begin PBXFileReference section */
 		661E40991B60373300945177 /* WindowQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WindowQueue.h; sourceTree = "<group>"; };
 		661E409A1B60373300945177 /* WindowQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WindowQueue.m; sourceTree = "<group>"; };
+		661E409C1B6179F800945177 /* IntExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntExtension.swift; sourceTree = "<group>"; };
 		A7EE4D57B300F74DA2ED6A9B /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		BD97D472B88826767A07A992 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C71511C11B5DBBBE007A0D18 /* NSObjectExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSObjectExtension.swift; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 				C774B1811B34B240007625B3 /* StringExtension.swift */,
 				C7C0BA411B38CD17005B8D6D /* UILabelExtension.swift */,
 				C71511C11B5DBBBE007A0D18 /* NSObjectExtension.swift */,
+				661E409C1B6179F800945177 /* IntExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -536,6 +539,7 @@
 				C71C558C1B2909E9007EDF51 /* WebViewController.swift in Sources */,
 				C7A90B591B4DACAE00E4719A /* ATDCRejectionFilter.m in Sources */,
 				C7B9C8021B27828F00250686 /* Constants.swift in Sources */,
+				661E409D1B6179F800945177 /* IntExtension.swift in Sources */,
 				C71C559D1B2A43D0007EDF51 /* Settings.mm in Sources */,
 				C71C55A11B2B5D75007EDF51 /* UIColorExtensions.swift in Sources */,
 				C774B17E1B338067007625B3 /* Updater.m in Sources */,

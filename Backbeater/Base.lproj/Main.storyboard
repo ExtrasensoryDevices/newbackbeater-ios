@@ -254,6 +254,10 @@ SENSOR</string>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="tQT-Vc-gGK" secondAttribute="height" multiplier="16:27" constant="-26.074074074074076" id="kZ7-Uk-YOC"/>
                                 </constraints>
+                                <connections>
+                                    <action selector="metronomeTempoPressed:" destination="ri4-d8-4RD" eventType="touchUpInside" id="tkD-vV-i0Q"/>
+                                    <action selector="metronomeTempoValueChanged:" destination="ri4-d8-4RD" eventType="valueChanged" id="vYY-r6-MCd"/>
+                                </connections>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OsZ-U7-aQk">
                                 <rect key="frame" x="507" y="66" width="77" height="30"/>
