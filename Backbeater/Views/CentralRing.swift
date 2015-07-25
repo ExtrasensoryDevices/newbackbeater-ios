@@ -180,10 +180,10 @@ class CentralRing: NibDesignable {
         // BPM rotation
         bpmAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
         bpmAnimation.fromValue = 0
-        bpmAnimation.toValue = -M_PI * 2.0  //   /* full rotation*/ * rotations * duration ];
-        bpmAnimation.cumulative = false
-        bpmAnimation.repeatCount = 1
-        bpmAnimation.removedOnCompletion = true
+        bpmAnimation.byValue = -M_PI * 2.0  //   /* full rotation*/ * rotations * duration ];
+        bpmAnimation.cumulative = true
+        bpmAnimation.repeatCount = Float.infinity
+        bpmAnimation.removedOnCompletion = false
         
         // drum frame animation
         let dSize:CGFloat = 15
@@ -202,13 +202,10 @@ class CentralRing: NibDesignable {
         
     }
     
-//    func cptAnimationIsPlaying() -> Bool {
-//        return cptSublayer.animationForKey("transform.rotation.z") != nil
-//    }
     
     func runAnimationWithCpt(cpt:Int, bpm:Int) {
         drumImage?.layer.removeAllAnimations()
-        bpmSublayer?.removeAllAnimations()
+//        bpmSublayer?.removeAllAnimations()
         // CPT
         if !metronomeIsOn {
             cptSublayer.removeAllAnimations()
@@ -217,10 +214,12 @@ class CentralRing: NibDesignable {
             cptSublayer?.addAnimation(cptAnimation, forKey:"cptAnimation")
         }
         // BPM
+        bpmAnimation.fromValue = bpmSublayer.valueForKeyPath("presentationLayer.transform.rotation.z")
         bpmAnimation.duration = 60.0/(Double(bpm)/Double(timeSignature)) // =60sec/actual_hits_per_min
         bpmSublayer?.addAnimation(bpmAnimation, forKey: "bpmAnimation")
-        
+
         drumImage?.layer.addAnimation(pulseAnimation, forKey: "pulseAnimation")
+        
     }
     
     func runPulseAnimationOnly() {
@@ -230,14 +229,6 @@ class CentralRing: NibDesignable {
         drumImage?.layer.removeAllAnimations()
         drumImage?.layer.addAnimation(pulseAnimation, forKey: "pulseAnimation")
     }
-    
-    
-//    func clearSublayers() {
-//        ringView.layer.sublayers = nil
-//        cptSublayer = nil
-//        borderSublayer = nil
-//    }
-    
     
     func handleMetronomeState()
     {
@@ -323,6 +314,18 @@ class CentralRing: NibDesignable {
         }
         hideCptLabelAfterDelay()
         
+        self.delay(IDLE_TIMEOUT, callback: { () -> () in
+            let now:UInt64 = PublicUtilityWrapper.CAHostTimeBase_GetCurrentTime()
+            var timeElapsedNs:UInt64 = PublicUtilityWrapper.CAHostTimeBase_AbsoluteHostDeltaToNanos(now, oldTapTime: self.oldTapTime)
+            
+            var delayFator:Float64 = 0.1
+            
+            var timeElapsedInSec:Float64 = Float64(timeElapsedNs) * 10.0e-9 * delayFator;
+            if timeElapsedInSec > IDLE_TIMEOUT {
+                self.resetBpmSublayer()
+                self.bpmAnimation.fromValue = 0
+            }
+        })
     }
     
     func clear() {
