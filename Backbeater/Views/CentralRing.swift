@@ -132,7 +132,7 @@ class CentralRing: NibDesignable {
         cptSublayer = CAShapeLayer()
         cptSublayer.frame = ringView.bounds
         cptSublayer.strokeColor = ColorPalette.Pink.color().CGColor
-        cptSublayer.fillColor = UIColor.blueColor().CGColor //ColorPalette.Black.color().CGColor
+        cptSublayer.fillColor = ColorPalette.Black.color().CGColor // UIColor.blueColor().CGColor //
         cptSublayer.lineWidth = BORDER_WIDTH
         
         
@@ -206,17 +206,19 @@ class CentralRing: NibDesignable {
 //        return cptSublayer.animationForKey("transform.rotation.z") != nil
 //    }
     
-    //func runSpinAnimationWithDuration(duration:CFTimeInterval) {
     func runAnimationWithCpt(cpt:Int, bpm:Int) {
         drumImage?.layer.removeAllAnimations()
+        bpmSublayer?.removeAllAnimations()
         // CPT
         if !metronomeIsOn {
             cptSublayer.removeAllAnimations()
-            cptAnimation.duration = 60.0/Double(cpt/timeSignature) // =60sec/bpm
+            cptAnimation.duration = 60.0/(Double(cpt)/Double(timeSignature)) // =60sec/actual_hits_per_min
             cptAnimation.repeatCount = 1
             cptSublayer?.addAnimation(cptAnimation, forKey:"cptAnimation")
         }
         // BPM
+        bpmAnimation.duration = 60.0/(Double(bpm)/Double(timeSignature)) // =60sec/actual_hits_per_min
+        bpmSublayer?.addAnimation(bpmAnimation, forKey: "bpmAnimation")
         
         drumImage?.layer.addAnimation(pulseAnimation, forKey: "pulseAnimation")
     }
@@ -287,7 +289,9 @@ class CentralRing: NibDesignable {
         
         if isNewTapSeq {
             tapCount = 0;
-            crtLabel.text = ""
+            crtLabel.text = "_"
+            runPulseAnimationOnly()
+            hideCptLabelAfterDelay()
         } else {
             let figertapBPM = 60.0 / timeElapsedInSec
             self.foundFigertapBPM(figertapBPM)
@@ -311,15 +315,13 @@ class CentralRing: NibDesignable {
         // display numbers
         if cpt > MAX_TEMPO || cpt < MIN_TEMPO {
             // We do not need BPM outside this range.
-            crtLabel.text = "__"
+            crtLabel.text = "_"
             runPulseAnimationOnly()
         } else {
             crtLabel.text = "\(cpt)"
             runAnimationWithCpt(cpt, bpm:bpm)
         }
-        delay(PULSE_DURATION, callback: { () -> () in
-            self.crtLabel.text = ""
-        })
+        hideCptLabelAfterDelay()
         
     }
     
@@ -331,5 +333,10 @@ class CentralRing: NibDesignable {
         resetCptSublayer()
     }
     
+    func hideCptLabelAfterDelay() {
+        delay(PULSE_DURATION, callback: { () -> () in
+            self.crtLabel.text = ""
+        })
+    }
     
 }
