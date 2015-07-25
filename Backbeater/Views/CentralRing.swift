@@ -54,9 +54,13 @@ class CentralRing: NibDesignable {
         resetSublayers()
         
         timeSignature = Settings.sharedInstance().timeSignature
+        metronomeTempo = Settings.sharedInstance().metronomeTempo
+        
         Settings.sharedInstance().addObserver(self, forKeyPath: "timeSignatureSelectedIndex", options: NSKeyValueObservingOptions.allZeros, context: nil)
         Settings.sharedInstance().addObserver(self, forKeyPath: "metronomeTempo", options: NSKeyValueObservingOptions.allZeros, context: nil)
         Settings.sharedInstance().addObserver(self, forKeyPath: "metronomeIsOn", options: NSKeyValueObservingOptions.allZeros, context: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "applicationWillEnterForeground", name:UIApplicationWillEnterForegroundNotification, object: nil)
         
         initAnimations()
         
@@ -64,7 +68,6 @@ class CentralRing: NibDesignable {
     
     override func didMoveToWindow() {
         crtLabel.font = Font.FuturaBook.get(100) // TODO: add font for label, then uncomment 142)
-        handleMetronomeState()
     }
     
     deinit {
@@ -72,12 +75,19 @@ class CentralRing: NibDesignable {
         Settings.sharedInstance().removeObserver(self, forKeyPath: "timeSignatureSelectedIndex")
         Settings.sharedInstance().removeObserver(self, forKeyPath: "metronomeTempo")
         Settings.sharedInstance().removeObserver(self, forKeyPath: "metronomeIsOn")
+        
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIApplicationWillEnterForegroundNotification, object: nil)
+    }
+    
+    func applicationWillEnterForeground() {
+        handleMetronomeState()
     }
     
     
     override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
         if object === ringView && keyPath == "bounds" {
             resetSublayers()
+            handleMetronomeState()
         } else if let settings = object as? Settings {
             if keyPath == "timeSignatureSelectedIndex" {
                 timeSignature = settings.timeSignature
@@ -198,16 +208,16 @@ class CentralRing: NibDesignable {
     
     //func runSpinAnimationWithDuration(duration:CFTimeInterval) {
     func runAnimationWithCpt(cpt:Int, bpm:Int) {
-        cptSublayer.removeAllAnimations()
         drumImage?.layer.removeAllAnimations()
         // CPT
         if !metronomeIsOn {
+            cptSublayer.removeAllAnimations()
             cptAnimation.duration = 60.0/Double(cpt/timeSignature) // =60sec/bpm
             cptAnimation.repeatCount = 1
+            cptSublayer?.addAnimation(cptAnimation, forKey:"cptAnimation")
         }
         // BPM
         
-        cptSublayer?.addAnimation(cptAnimation, forKey:"cptAnimation")
         drumImage?.layer.addAnimation(pulseAnimation, forKey: "pulseAnimation")
     }
     
@@ -229,6 +239,7 @@ class CentralRing: NibDesignable {
     
     func handleMetronomeState()
     {
+        println("handleMetronomeState")
         cptSublayer.removeAllAnimations()
         
         if metronomeIsOn {
@@ -236,6 +247,8 @@ class CentralRing: NibDesignable {
             cptAnimation.repeatCount = Float.infinity
             cptSublayer.addAnimation(cptAnimation, forKey:"cptAnimation")
             
+        } else {
+            println("metronom OFF")
         }
     }
     

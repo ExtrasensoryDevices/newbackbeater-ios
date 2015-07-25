@@ -51,8 +51,14 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
         strikesWindowQueue = WindowQueue(capacity:Settings.sharedInstance().strikesWindow)
         centralRing.delegate = self
         
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         tempoView.value = Settings.sharedInstance().metronomeTempo
-        centralRing.metronomeTempo = Settings.sharedInstance().metronomeTempo
+
+        updateSensorView()
+        updateSongListView()
         
     }
     
@@ -75,10 +81,6 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
         getSensorView.backgroundColor = ColorPalette.Pink.color()
         getSensorView.font = Font.FuturaDemi.get(14)
         getSensorView.textColor = ColorPalette.Black.color()
-        
-        updateSensorView()
-        
-        updateSongListView()
         
         centralRing.setTranslatesAutoresizingMaskIntoConstraints(false)
         
@@ -190,19 +192,19 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
         
         var hideButtons = true
         var hideLabel = true
-        if let count = songList?.count where count > 0 {
+        if let count = songList?.count where count > 0 { // show
             hideButtons = count <= 1
             hideLabel = count < 1
+            tempoView.value = songList![selectedIndex].tempoValue
             songListBottomLayoutConstraint.constant = 0
-        } else {
+        } else {   // hide
             songListBottomLayoutConstraint.constant = -songListView.bounds.height / 2
         }
+        songNameLabel.text = songList?[selectedIndex].songName ?? ""
+        
         prevSongButton.hidden = hideButtons
         nextSongButton.hidden = hideButtons
         songNameLabel.hidden = hideLabel
-        
-        songNameLabel.text = songList?[selectedIndex].songName ?? ""
-        tempoView.value = songList?[selectedIndex].tempoValue ?? Settings.sharedInstance().metronomeTempo
     }
     
     func updateSensorView() {
