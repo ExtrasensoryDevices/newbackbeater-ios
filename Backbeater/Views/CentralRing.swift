@@ -249,7 +249,7 @@ class CentralRing: NibDesignable {
         cptSublayer.removeAllAnimations()
         
         if metronomeIsOn {
-            cptAnimation.duration = 60.0/Double(metronomeTempo/timeSignature)
+            cptAnimation.duration = 60.0/Double(metronomeTempo)
             cptAnimation.repeatCount = Float.infinity
             cptSublayer.addAnimation(cptAnimation, forKey:CPT_ANIMATION_KEY)
             

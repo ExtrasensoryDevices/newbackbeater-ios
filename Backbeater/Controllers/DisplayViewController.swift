@@ -177,7 +177,9 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
     }
     
     func processBPM(bpm: Float64){
-        let tempo = Int(bpm * Float64(Settings.sharedInstance().timeSignature))
+        let multiplier = Settings.sharedInstance().metronomeIsOn ? 1 : Float64(Settings.sharedInstance().timeSignature)
+        
+        let tempo = Int(bpm * multiplier)
         
         let cpt = strikesWindowQueue.enqueue(tempo).average
         
