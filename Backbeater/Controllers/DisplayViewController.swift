@@ -181,7 +181,7 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
         
         let cpt = strikesWindowQueue.enqueue(tempo).average
         
-        centralRing.displayCpt(cpt, bpm: Int(bpm))
+        centralRing.displayCPT(cpt, instantTempo: Int(tempo))
     }
     
     

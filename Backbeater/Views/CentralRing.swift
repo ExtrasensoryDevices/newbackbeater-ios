@@ -41,6 +41,15 @@ class CentralRing: NibDesignable {
         return metronomeTempo >= MIN_TEMPO && metronomeTempo <= MAX_TEMPO
     }
     
+    
+    let BPM_ANIMATION_KEY = "bpmAnimation"
+    let CPT_ANIMATION_KEY = "cptAnimation"
+    let PULSE_ANIMATION_KEY = "pulseAnimation"
+    
+    let TIME_SIGNATURE_KEY_PATH = "timeSignatureSelectedIndex"
+    let METRONOME_TEMPO_KEY_PATH = "metronomeTempo"
+    let METRONOME_ON_KEY_PATH = "metronomeIsOn"
+    
     override func setup() {
         super.setup()
         self.backgroundColor = UIColor.clearColor()
@@ -56,9 +65,9 @@ class CentralRing: NibDesignable {
         timeSignature = Settings.sharedInstance().timeSignature
         metronomeTempo = Settings.sharedInstance().metronomeTempo
         
-        Settings.sharedInstance().addObserver(self, forKeyPath: "timeSignatureSelectedIndex", options: NSKeyValueObservingOptions.allZeros, context: nil)
-        Settings.sharedInstance().addObserver(self, forKeyPath: "metronomeTempo", options: NSKeyValueObservingOptions.allZeros, context: nil)
-        Settings.sharedInstance().addObserver(self, forKeyPath: "metronomeIsOn", options: NSKeyValueObservingOptions.allZeros, context: nil)
+        Settings.sharedInstance().addObserver(self, forKeyPath: TIME_SIGNATURE_KEY_PATH, options: NSKeyValueObservingOptions.allZeros, context: nil)
+        Settings.sharedInstance().addObserver(self, forKeyPath: METRONOME_TEMPO_KEY_PATH, options: NSKeyValueObservingOptions.allZeros, context: nil)
+        Settings.sharedInstance().addObserver(self, forKeyPath: METRONOME_ON_KEY_PATH, options: NSKeyValueObservingOptions.allZeros, context: nil)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "applicationWillEnterForeground", name:UIApplicationWillEnterForegroundNotification, object: nil)
         
@@ -72,9 +81,9 @@ class CentralRing: NibDesignable {
     
     deinit {
         ringView.removeObserver(self, forKeyPath: "bounds")
-        Settings.sharedInstance().removeObserver(self, forKeyPath: "timeSignatureSelectedIndex")
-        Settings.sharedInstance().removeObserver(self, forKeyPath: "metronomeTempo")
-        Settings.sharedInstance().removeObserver(self, forKeyPath: "metronomeIsOn")
+        Settings.sharedInstance().removeObserver(self, forKeyPath: TIME_SIGNATURE_KEY_PATH)
+        Settings.sharedInstance().removeObserver(self, forKeyPath: METRONOME_TEMPO_KEY_PATH)
+        Settings.sharedInstance().removeObserver(self, forKeyPath: METRONOME_ON_KEY_PATH)
         
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIApplicationWillEnterForegroundNotification, object: nil)
     }
@@ -89,15 +98,15 @@ class CentralRing: NibDesignable {
             resetSublayers()
             handleMetronomeState()
         } else if let settings = object as? Settings {
-            if keyPath == "timeSignatureSelectedIndex" {
+            if keyPath == TIME_SIGNATURE_KEY_PATH {
                 timeSignature = settings.timeSignature
                 if metronomeIsOn {
                     handleMetronomeState()
                 }
-            } else if keyPath == "metronomeTempo" {
+            } else if keyPath == METRONOME_TEMPO_KEY_PATH {
                 metronomeTempo = settings.metronomeTempo
                 handleMetronomeState()
-            } else if keyPath == "metronomeIsOn" {
+            } else if keyPath == METRONOME_ON_KEY_PATH {
                 metronomeTempo = settings.metronomeIsOn ? settings.metronomeTempo : 0
                 handleMetronomeState()
             }
@@ -203,22 +212,26 @@ class CentralRing: NibDesignable {
     }
     
     
-    func runAnimationWithCpt(cpt:Int, bpm:Int) {
+    func runAnimationWithCpt(cpt:Int, tempo:Int) {
         drumImage?.layer.removeAllAnimations()
-//        bpmSublayer?.removeAllAnimations()
+        bpmSublayer?.removeAllAnimations()
         // CPT
         if !metronomeIsOn {
             cptSublayer.removeAllAnimations()
             cptAnimation.duration = 60.0/(Double(cpt)/Double(timeSignature)) // =60sec/actual_hits_per_min
             cptAnimation.repeatCount = 1
-            cptSublayer?.addAnimation(cptAnimation, forKey:"cptAnimation")
+            cptSublayer.addAnimation(cptAnimation, forKey:CPT_ANIMATION_KEY)
         }
         // BPM
-        bpmAnimation.fromValue = bpmSublayer.valueForKeyPath("presentationLayer.transform.rotation.z")
-        bpmAnimation.duration = 60.0/(Double(bpm)/Double(timeSignature)) // =60sec/actual_hits_per_min
-        bpmSublayer?.addAnimation(bpmAnimation, forKey: "bpmAnimation")
+        
+        let fromValue: NSNumber = bpmSublayer.presentationLayer().valueForKeyPath("transform.rotation.z")  as! NSNumber
+        
+//        bpmSublayer.removeAllAnimations()
+        bpmAnimation.fromValue = fromValue //bpmSublayer.valueForKeyPath("presentationLayer.transform.rotation.z")
+        bpmAnimation.duration = 60.0/(Double(tempo)/Double(timeSignature)) // =60sec/actual_hits_per_min
+        bpmSublayer.addAnimation(bpmAnimation, forKey: BPM_ANIMATION_KEY)
 
-        drumImage?.layer.addAnimation(pulseAnimation, forKey: "pulseAnimation")
+        drumImage?.layer.addAnimation(pulseAnimation, forKey: PULSE_ANIMATION_KEY)
         
     }
     
@@ -227,7 +240,7 @@ class CentralRing: NibDesignable {
             cptSublayer.removeAllAnimations()
         }
         drumImage?.layer.removeAllAnimations()
-        drumImage?.layer.addAnimation(pulseAnimation, forKey: "pulseAnimation")
+        drumImage?.layer.addAnimation(pulseAnimation, forKey: PULSE_ANIMATION_KEY)
     }
     
     func handleMetronomeState()
@@ -238,7 +251,7 @@ class CentralRing: NibDesignable {
         if metronomeIsOn {
             cptAnimation.duration = 60.0/Double(metronomeTempo/timeSignature)
             cptAnimation.repeatCount = Float.infinity
-            cptSublayer.addAnimation(cptAnimation, forKey:"cptAnimation")
+            cptSublayer.addAnimation(cptAnimation, forKey:CPT_ANIMATION_KEY)
             
         } else {
             println("metronom OFF")
@@ -295,13 +308,13 @@ class CentralRing: NibDesignable {
 
     func foundFigertapBPM(figertapBPM: Float64) {
         // apply time signature 
-        println("bpm: \(figertapBPM)")
+//        println("bpm: \(figertapBPM)")
         delegate?.centralRingFoundTapBPM(figertapBPM);
     }
 
-    func displayCpt(cpt:Int, bpm:Int) {
+    func displayCPT(cpt:Int, instantTempo:Int) {
 
-        println("cpt: \(cpt), bpm: \(bpm)")
+        println("cpt: \(cpt), bpm: \(instantTempo)")
         
         // display numbers
         if cpt > MAX_TEMPO || cpt < MIN_TEMPO {
@@ -310,7 +323,7 @@ class CentralRing: NibDesignable {
             runPulseAnimationOnly()
         } else {
             crtLabel.text = "\(cpt)"
-            runAnimationWithCpt(cpt, bpm:bpm)
+            runAnimationWithCpt(cpt, tempo:instantTempo)
         }
         hideCptLabelAfterDelay()
         
