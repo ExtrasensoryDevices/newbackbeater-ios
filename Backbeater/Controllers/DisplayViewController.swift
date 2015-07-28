@@ -213,7 +213,7 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
         let sensorIn = Settings.sharedInstance().sensorIn
         getSensorView.hidden = sensorIn
         setTempoView.hidden = !sensorIn
-        centralRing.listenToTaps(!sensorIn)
+        centralRing.listenToTaps = !sensorIn
     }
     
 

@@ -17,24 +17,27 @@ protocol CentralRingDelegate: class {
 class CentralRing: NibDesignable {
     
     weak var delegate: CentralRingDelegate?
+    
+    var listenToTaps = false
+
 
     @IBOutlet weak var drumImage: UIImageView!
     @IBOutlet weak var ringView: UIView!
     @IBOutlet weak var crtLabel: UILabel!
     
+    @IBOutlet weak var ringTopConstraint: NSLayoutConstraint!
+    
+    
     var cptSublayer:CAShapeLayer!
     var bpmSublayer:CAShapeLayer!
     var borderSublayer:CAShapeLayer!
-    
-    @IBOutlet weak var ringTopConstraint: NSLayoutConstraint!
-    
-    var timeSignature:Int!
     
     var cptAnimation:CABasicAnimation!
     var bpmAnimation:CAKeyframeAnimation!
     var pulseAnimation:CABasicAnimation!
     let PULSE_DURATION = floor(60.0 / Double(MAX_TEMPO) * 10) / 10
     
+    var timeSignature:Int!
     var metronomeTempo:Int = 0
     
     var metronomeIsOn:Bool {
@@ -173,7 +176,6 @@ class CentralRing: NibDesignable {
         bpmSublayer.path = path.CGPath
         bpmSublayer.masksToBounds = false
         
-//        cptSublayer.addSublayer(bpmSublayer)
         ringView.layer.insertSublayer(bpmSublayer, above: cptSublayer)
         
     }
@@ -189,8 +191,8 @@ class CentralRing: NibDesignable {
         cptAnimation.removedOnCompletion = true
         
         bpmAnimation = CAKeyframeAnimation(keyPath:"opacity")
-        bpmAnimation.duration = 2.0
-        bpmAnimation.keyTimes = [0.0, 0.01, 2.0]
+        bpmAnimation.duration = 1.5
+        bpmAnimation.keyTimes = [0.0, 0.01, 1.5]
         bpmAnimation.values =   [0.0, 1.0, 0.0]
         bpmAnimation.beginTime = 0.0;
         bpmAnimation.removedOnCompletion = true
@@ -247,7 +249,6 @@ class CentralRing: NibDesignable {
     
     func handleMetronomeState()
     {
-        println("handleMetronomeState")
         cptSublayer.removeAllAnimations()
         
         if metronomeIsOn {
@@ -263,27 +264,16 @@ class CentralRing: NibDesignable {
     
     //MARK: - Tap recognizer
     
-    lazy var tapGR:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "didTapCentralRing:")
-    
-    func listenToTaps(doListen:Bool) {
-        if doListen {
-            ringView.addGestureRecognizer(tapGR)
-        } else {
-            ringView.removeGestureRecognizer(tapGR)
-        }
-    }
-    
-    func didTapCentralRing(gestureRecognizer:UITapGestureRecognizer) {
-        handleTap()
-    }
-    
-    
     var newTapTime:UInt64 = 0;
     var oldTapTime:UInt64 = 0;
     
     var tapCount:UInt64 = 0;
     
-    func handleTap() {
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+        if !listenToTaps {
+            return
+        }
+        
         newTapTime = PublicUtilityWrapper.CAHostTimeBase_GetCurrentTime()
         
         var timeElapsedNs:UInt64 = PublicUtilityWrapper.CAHostTimeBase_AbsoluteHostDeltaToNanos(newTapTime, oldTapTime: oldTapTime)
@@ -315,7 +305,7 @@ class CentralRing: NibDesignable {
 
     func displayCPT(cpt:Int, instantTempo:Int) {
 
-        println("cpt: \(cpt), bpm: \(instantTempo)")
+//        println("cpt: \(cpt), bpm: \(instantTempo)")
         
         // display numbers
         if cpt > MAX_TEMPO || cpt < MIN_TEMPO {

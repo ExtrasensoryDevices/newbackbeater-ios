@@ -41,12 +41,6 @@ class NumericStepper: UIControlNibDesignable {
                 sendActionsForControlEvents(UIControlEvents.ValueChanged)
             }
         }
-//        didSet {
-//            label.text = "\(value)"
-//            if oldValue != value {
-//                sendActionsForControlEvents(UIControlEvents.ValueChanged)
-//            }
-//        }
     }
     
     var bgrColor:UIColor! {
@@ -116,129 +110,6 @@ class NumericStepper: UIControlNibDesignable {
     
     var prevPoint:CGPoint!
     var prevPointTimeStamp:NSDate!
-//    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
-//        super.touchesBegan(touches, withEvent: event)
-//        let touch = touches.first! as! UITouch
-//        let point = touch.locationInView(self)
-//        
-//        if !frameView.frame.contains(point) {
-//            println("canceled")
-//            gestureStarted = false
-//            gestureMoved = false
-//            return
-//        }
-//        
-//        gestureStarted = true
-//        prevPoint = point
-//        prevPointTimeStamp = NSDate()
-//        
-//    }
-    
-    
-//    override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
-//        super.touchesEnded(touches, withEvent: event)
-//        if gestureStarted {
-//            if !gestureMoved {
-//                // if tap: switch on/off
-//                var tapDuration = NSDate().timeIntervalSinceDate(prevPointTimeStamp)
-//                tapDuration = Double(round(tapDuration*100)/100)
-//                println(NSString(format:"tap duration: %.2f", tapDuration))
-//                if tapDuration < 0.2 {
-//                    // tap happened
-//                    self.isOn = !isOn
-//                }
-//                gestureMoved = false
-//            }
-//            gestureStarted = false
-//            prevPoint = nil
-//            prevPointTimeStamp = nil
-//            collapse()
-//        }
-//    }
-
-//    override func touchesCancelled(touches: Set<NSObject>!, withEvent event: UIEvent!) {
-//        super.touchesCancelled(touches, withEvent: event)
-//        if gestureStarted {
-//            gestureStarted = false
-//            gestureMoved = false
-//            prevPoint = nil
-//            prevPointTimeStamp = nil
-//            collapse()
-//        }
-//    }
-    
-    
-   
-//    override func touchesMoved(touches: Set<NSObject>, withEvent event: UIEvent) {
-//        super.touchesMoved(touches, withEvent: event)
-//        
-//        if !isOn || !gestureStarted {
-//            return
-//        }
-//        
-//        
-//        
-//        let touch = touches.first! as! UITouch
-//        let point = touch.locationInView(self)
-//        let timestamp = NSDate()
-//        
-//        let dx = point.x - prevPoint.x
-//        let dy = point.y - prevPoint.y
-//        let timeInt = timestamp.timeIntervalSinceDate(prevPointTimeStamp)
-//        let time = CGFloat(timeInt)
-//        let velocity = CGPoint(x: dx/time, y: dy/time)
-//        
-//        let midY = self.bounds.midY
-//        
-//        var coeff:CGFloat = 30
-//        
-//        
-//        
-//        println("-------- \(dy) \t \(timeInt) \t \(velocity.y)  \t \(velocity.y/coeff) -----------")
-////        println("prevPoint: \(prevPoint.y), point: \(point.y), midY: \(midY)")
-////        println("\(prevPoint.y - midY) * \(point.y - midY) = \((prevPoint.y - midY) * (point.y - midY))")
-//        
-//        
-//        if !gestureMoved && abs(dy) > 0.2 {
-//            let expandDirection:Direction
-//            if dy < 0 {
-//                expandDirection = .Down
-//            } else {
-//                expandDirection = .Up
-//            }
-//            gestureMoved = true
-//            expand(expandDirection)
-//            return
-//        }
-//        
-//        prevPointTimeStamp = timestamp
-//        prevPoint = point
-//        
-//        
-//        let crossedTheMiddleLine = (prevPoint.y - midY) * (point.y - midY) <= 0
-//
-//        if crossedTheMiddleLine {
-////            println("!!!!!!!!!!!!!!!!!! move:crossed !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-//        } else {
-////            println("move: increase counter and return")
-//            incrementValue(-Int(velocity.y/coeff))
-//            return
-//        }
-//        
-//        let expandDirection:Direction
-//        if currentState == .ExpandedUp && point.y <= midY {
-////            println("moveDirection = .Down")
-//            expandDirection = .Down
-//        } else if currentState == .ExpandedDown && point.y >= midY {
-////            println("moveDirection = .Up")
-//            expandDirection = .Up
-//        } else {
-////            println("ignore: \(currentState), point: \(point.y)")
-//            return
-//        }
-//        switchState(expandDirection)
-//    }
-    
     func expand(direction:Direction) {
         let constraint = direction == .Up ? topConstraint : bottomConstraint
         let offset: CGFloat = direction == .Up ? V_CONSTRAINT_CONSTANT : -V_CONSTRAINT_CONSTANT
@@ -248,7 +119,6 @@ class NumericStepper: UIControlNibDesignable {
         
         UIView.animateWithDuration(ANIMATION_DURATION, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: { () -> Void in
             self.layoutIfNeeded()
-            //self.superview?.layoutIfNeeded()
         }) { (completed:Bool) -> Void in
             println("expanded: \(offset)")
             self.currentState = direction == .Up ? .ExpandedUp : .ExpandedDown
@@ -263,7 +133,6 @@ class NumericStepper: UIControlNibDesignable {
         
         UIView.animateWithDuration(ANIMATION_DURATION, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: { () -> Void in
             self.layoutIfNeeded()
-            //self.superview?.layoutIfNeeded()
         }) { (completed:Bool) -> Void in
             println("collapsed")
             self.currentState = .Collapsed
@@ -327,12 +196,8 @@ class NumericStepper: UIControlNibDesignable {
             
             let midY = self.bounds.midY
             
-//            println("-------------------")
-//            println("prevPoint: \(prevPoint.y), point: \(point.y), midY: \(midY)")
-//            println("\(prevPoint.y - midY) * \(point.y - midY) = \((prevPoint.y - midY) * (point.y - midY))")
-            
             let crossedTheMiddleLine = (prevPoint.y - midY) * (point.y - midY) <= 0
-            
+
             prevPoint = point
 
             if !crossedTheMiddleLine {
@@ -361,19 +226,22 @@ class NumericStepper: UIControlNibDesignable {
         
     }
     
+    
+    var skipStep = false
     func getIncrement(velocityY:CGFloat) -> Int {
         var increment = 0
         switch abs(velocityY) {
-        case 0..<0.002 : increment = 0
-        case 0.002...10 : increment = 1
-        case 11...15: increment = 5
-        case 16...20: increment = 10
-        case 21...25: increment = 15
-        case 26...30: increment = 20
-        default     : increment = 25
+        case 0..<20     : increment = 0
+        case 20..<300   : increment = skipStep ? 0: 1; skipStep = !skipStep
+        case 300..<500  : increment = 1
+        case 500..<800  : increment = 5
+        case 800..<1100 : increment = 10
+        case 1100..<1300: increment = 15
+        case 1300..<1600: increment = 20
+        default      : increment = 25
         }
         increment = velocityY < 0 ? increment : -increment // opposit to move direction
-        println("velocityY: \(velocityY), \tincrement: \(increment)")
+//        println("velocityY: \(abs(velocityY)), \tincrement: \(increment)")
         return increment
     }
     

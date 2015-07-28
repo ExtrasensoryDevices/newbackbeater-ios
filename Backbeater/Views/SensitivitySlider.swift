@@ -37,7 +37,7 @@ class SensitivitySlider: UIControlNibDesignable{
             }
         }
     }
-    // TODO: var continuousUpdates = true
+    // TODO ? : var continuousUpdates = true
     
     
     override func setup() {
