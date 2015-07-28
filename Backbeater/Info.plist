@@ -19,7 +19,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1351</string>
+	<string>1362</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -40,6 +40,7 @@
 	<array>
 		<string>FuturaRound-Book.ttf</string>
 		<string>FuturaRound-Demi.ttf</string>
+		<string>SteelfishRg.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

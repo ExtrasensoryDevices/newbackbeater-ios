@@ -6,8 +6,8 @@
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <customFonts key="customFonts">
-        <mutableArray key="FuturaRound-Demi.ttf">
-            <string>FuturaRound-Demi</string>
+        <mutableArray key="SteelfishRg.ttf">
+            <string>SteelfishRg-Regular</string>
         </mutableArray>
     </customFonts>
     <objects>
@@ -29,8 +29,8 @@
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="140" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dC7-h9-cZm">
                             <rect key="frame" x="0.0" y="0.0" width="388" height="388"/>
-                            <fontDescription key="fontDescription" name="FuturaRound-Demi" family="Futura Round Demi" pointSize="142"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <fontDescription key="fontDescription" name="SteelfishRg-Regular" family="Steelfish" pointSize="142"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
@@ -51,7 +51,7 @@
                     </constraints>
                 </imageView>
             </subviews>
-            <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+            <color key="backgroundColor" red="0.43529411764705883" green="0.44313725490196076" blue="0.47450980392156861" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="qlr-Kh-p4Q" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="35" id="4t8-vK-z4D"/>
                 <constraint firstAttribute="centerX" secondItem="qlr-Kh-p4Q" secondAttribute="centerX" id="DJy-0x-5ER"/>

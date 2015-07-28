@@ -76,7 +76,7 @@ class CentralRing: NibDesignable {
     }
     
     override func didMoveToWindow() {
-        crtLabel.font = Font.FuturaBook.get(100) // TODO: add font for label, then uncomment 142)
+        crtLabel.font = Font.SteelfishRg.get(142)
     }
     
     deinit {
@@ -141,7 +141,7 @@ class CentralRing: NibDesignable {
         cptSublayer = CAShapeLayer()
         cptSublayer.frame = ringView.bounds
         cptSublayer.strokeColor = ColorPalette.Pink.color().CGColor
-        cptSublayer.fillColor = ColorPalette.Black.color().CGColor // UIColor.blueColor().CGColor //
+        cptSublayer.fillColor = ColorPalette.Black.color().CGColor
         cptSublayer.lineWidth = BORDER_WIDTH
         
         
@@ -173,7 +173,8 @@ class CentralRing: NibDesignable {
         bpmSublayer.path = path.CGPath
         bpmSublayer.masksToBounds = false
         
-        cptSublayer.addSublayer(bpmSublayer)
+//        cptSublayer.addSublayer(bpmSublayer)
+        ringView.layer.insertSublayer(bpmSublayer, above: cptSublayer)
         
     }
     
@@ -187,21 +188,12 @@ class CentralRing: NibDesignable {
         cptAnimation.repeatCount = metronomeIsOn ? Float.infinity : 1
         cptAnimation.removedOnCompletion = true
         
-        // BPM rotation
-//        bpmAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
-//        bpmAnimation.fromValue = 0
-//        bpmAnimation.byValue = -M_PI * 2.0  //   /* full rotation*/ * rotations * duration ];
-//        bpmAnimation.cumulative = true
-//        bpmAnimation.repeatCount = Float.infinity
-//        bpmAnimation.removedOnCompletion = false
-        
         bpmAnimation = CAKeyframeAnimation(keyPath:"opacity")
         bpmAnimation.duration = 2.0
-        bpmAnimation.keyTimes = [0.0, 0.01, 1.0, 2.0]
-        bpmAnimation.values =   [0.0, 1.0,  1.0, 0.0]
+        bpmAnimation.keyTimes = [0.0, 0.01, 2.0]
+        bpmAnimation.values =   [0.0, 1.0, 0.0]
         bpmAnimation.beginTime = 0.0;
         bpmAnimation.removedOnCompletion = true
-//        bpmAnimation.fillMode = kCAFillModeBoth;
         bpmAnimation.cumulative = false
         bpmAnimation.repeatCount = 1
         
@@ -237,16 +229,7 @@ class CentralRing: NibDesignable {
         // BPM
         
         let fromValue: NSNumber = cptSublayer.presentationLayer().valueForKeyPath("transform.rotation.z")  as! NSNumber
-        
-        
-        let baseTempoSpeed = 60.0 / Double(metronomeIsOn ? metronomeTempo : cpt)
-        let instantTempoSpeed = 60.0 / Double(instantTempo)
-        let deltaRadians = M_PI * 2.0 * (instantTempoSpeed - baseTempoSpeed) / (instantTempoSpeed * baseTempoSpeed)
-        println("deltaDeg: \(deltaRadians*180/M_PI)")
-        
-        bpmSublayer.transform = CATransform3DMakeRotation(CGFloat(deltaRadians), 0, 0, 1.0)
-//        bpmAnimation.fromValue = fromValue //bpmSublayer.valueForKeyPath("presentationLayer.transform.rotation.z")
-//        bpmAnimation.duration = 60.0/(Double(tempo)/Double(timeSignature)) // =60sec/actual_hits_per_min
+        bpmSublayer.transform = CATransform3DMakeRotation(CGFloat(fromValue.floatValue), 0, 0, 1.0)
         bpmSublayer.removeAllAnimations()
         bpmSublayer.addAnimation(bpmAnimation, forKey: BPM_ANIMATION_KEY)
 
@@ -327,7 +310,6 @@ class CentralRing: NibDesignable {
 
     func foundFigertapBPM(figertapBPM: Float64) {
         // apply time signature 
-//        println("bpm: \(figertapBPM)")
         delegate?.centralRingFoundTapBPM(figertapBPM);
     }
 
@@ -355,7 +337,6 @@ class CentralRing: NibDesignable {
             var timeElapsedInSec:Float64 = Float64(timeElapsedNs) * 10.0e-9 * delayFator;
             if timeElapsedInSec > IDLE_TIMEOUT {
                 self.resetBpmSublayer()
-//                self.bpmAnimation.fromValue = 0
             }
         })
     }

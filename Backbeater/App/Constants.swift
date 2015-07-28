@@ -45,7 +45,7 @@ enum ColorPalette: Int {
 enum Font: String {
     case FuturaDemi = "FuturaRound-Demi",
     FuturaBook = "FuturaRound-Book",
-    SteelfishReg = "SteelfishRg-Regular"
+    SteelfishRg = "SteelfishRg-Regular"
     
     func get(size: CGFloat) -> UIFont {
         return UIFont(name: self.rawValue, size: size)!

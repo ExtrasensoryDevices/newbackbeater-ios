@@ -45,6 +45,7 @@
 		C7C0BA3E1B38C420005B8D6D /* NumericStepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C0BA3D1B38C420005B8D6D /* NumericStepper.swift */; };
 		C7C0BA401B38C445005B8D6D /* NumericStepper.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7C0BA3F1B38C445005B8D6D /* NumericStepper.xib */; };
 		C7C0BA421B38CD17005B8D6D /* UILabelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C0BA411B38CD17005B8D6D /* UILabelExtension.swift */; };
+		C7C483BE1B67068C00D0053C /* SteelfishRg.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7C483BD1B67045A00D0053C /* SteelfishRg.ttf */; };
 		C7CE94621B5870E200C2D582 /* CentralRing.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7CE94611B5870E200C2D582 /* CentralRing.swift */; };
 		C7CE94641B58710200C2D582 /* CentralRing.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7CE94631B58710200C2D582 /* CentralRing.xib */; };
 		C7E77A881B1D07210058523B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7E77A861B1D07210058523B /* Main.storyboard */; };
@@ -111,6 +112,7 @@
 		C7C0BA3D1B38C420005B8D6D /* NumericStepper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NumericStepper.swift; path = Views/NumericStepper.swift; sourceTree = "<group>"; };
 		C7C0BA3F1B38C445005B8D6D /* NumericStepper.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = NumericStepper.xib; path = Views/NumericStepper.xib; sourceTree = "<group>"; };
 		C7C0BA411B38CD17005B8D6D /* UILabelExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UILabelExtension.swift; sourceTree = "<group>"; };
+		C7C483BD1B67045A00D0053C /* SteelfishRg.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SteelfishRg.ttf; sourceTree = "<group>"; };
 		C7CE94611B5870E200C2D582 /* CentralRing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CentralRing.swift; path = Views/CentralRing.swift; sourceTree = "<group>"; };
 		C7CE94631B58710200C2D582 /* CentralRing.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CentralRing.xib; sourceTree = "<group>"; };
 		C7E77A7D1B1D07210058523B /* Backbeater.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Backbeater.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -276,6 +278,7 @@
 		C7B9C8091B2782F400250686 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				C7C483BD1B67045A00D0053C /* SteelfishRg.ttf */,
 				C7B9C80A1B2782F400250686 /* FuturaRound-Book.ttf */,
 				C7B9C80B1B2782F400250686 /* FuturaRound-Demi.ttf */,
 			);
@@ -434,6 +437,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7C483BE1B67068C00D0053C /* SteelfishRg.ttf in Resources */,
 				C71C55891B290539007EDF51 /* clap.aiff in Resources */,
 				C7C0BA401B38C445005B8D6D /* NumericStepper.xib in Resources */,
 				C7E77AA61B1E3DDF0058523B /* SensitivitySlider.xib in Resources */,
