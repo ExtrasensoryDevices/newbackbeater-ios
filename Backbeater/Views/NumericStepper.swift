@@ -336,7 +336,7 @@ class NumericStepper: UIControlNibDesignable {
             prevPoint = point
 
             if !crossedTheMiddleLine {
-                incrementValue(getIncrement(0.0005*velocity.y))
+                incrementValue(getIncrement(0.0001*velocity.y))
                 return
             }
             // croseed the middle line: switch state
@@ -364,7 +364,8 @@ class NumericStepper: UIControlNibDesignable {
     func getIncrement(velocityY:CGFloat) -> Int {
         var increment = 0
         switch abs(velocityY) {
-        case 0...10 : increment = 1
+        case 0..<0.002 : increment = 0
+        case 0.002...10 : increment = 1
         case 11...15: increment = 5
         case 16...20: increment = 10
         case 21...25: increment = 15
