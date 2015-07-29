@@ -13,7 +13,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CentralRing" customModule="Backbeater" customModuleProvider="target">
             <connections>
-                <outlet property="crtLabel" destination="dC7-h9-cZm" id="4ej-XU-8sE"/>
+                <outlet property="cptLabel" destination="dC7-h9-cZm" id="gQ4-Ka-htF"/>
                 <outlet property="drumImage" destination="Gvb-ZV-exZ" id="i0k-kd-vHb"/>
                 <outlet property="ringTopConstraint" destination="4t8-vK-z4D" id="HcE-nW-aPw"/>
                 <outlet property="ringView" destination="qlr-Kh-p4Q" id="3uM-Pt-2rh"/>

@@ -17,7 +17,7 @@ func ==(lhs: SongTempo, rhs: SongTempo) -> Bool {
 
 
 
-let DEFAULT_SENSITIVITY = 0.6
+let DEFAULT_SENSITIVITY = 1.0
 let DEFAULT_TEMPO = 120
 let MAX_TEMPO = 221
 let MIN_TEMPO = 20
@@ -54,5 +54,5 @@ enum Font: String {
 
 let BORDER_WIDTH:CGFloat = 2.5
 
-let CHECK_INTERVAL_SECONDS = 60.0 * 15
+let CHECK_INTERVAL_SECONDS = 60.0 * 5
 let PLIST_URL = "https://backbeater.com/app/backbeater.plist"

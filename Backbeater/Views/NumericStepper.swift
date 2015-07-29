@@ -52,7 +52,7 @@ class NumericStepper: UIControlNibDesignable {
     
     var isOn = true {
         didSet {
-            switchOnOffState()
+            updateOnOffState()
         }
     }
     
@@ -90,10 +90,10 @@ class NumericStepper: UIControlNibDesignable {
         bottomConstraint.constant = V_CONSTRAINT_CONSTANT
         layoutIfNeeded()
         
-        switchOnOffState()
+        updateOnOffState()
    }
     
-    private func switchOnOffState() {
+    private func updateOnOffState() {
         if isOn {
             self.frameView?.drawBorder()
             frameView.addGestureRecognizer(panGestureRecognizer)
@@ -101,7 +101,6 @@ class NumericStepper: UIControlNibDesignable {
             self.frameView?.drawBorderWithColor(ColorPalette.Grey.color())
             frameView.removeGestureRecognizer(panGestureRecognizer)
         }
-        self.sendActionsForControlEvents(UIControlEvents.TouchUpInside)
     }
     
     
@@ -171,6 +170,7 @@ class NumericStepper: UIControlNibDesignable {
     @IBOutlet var panGestureRecognizer: UIPanGestureRecognizer!
     @IBAction func didTapView(sender: AnyObject) {
         isOn = !isOn
+        self.sendActionsForControlEvents(UIControlEvents.TouchUpInside)
     }
     
     override func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -201,7 +201,7 @@ class NumericStepper: UIControlNibDesignable {
             prevPoint = point
 
             if !crossedTheMiddleLine {
-                incrementValue(getIncrement(0.0001*velocity.y))
+                incrementValue(getIncrement(velocity.y))
                 return
             }
             // croseed the middle line: switch state
@@ -241,7 +241,7 @@ class NumericStepper: UIControlNibDesignable {
         default      : increment = 25
         }
         increment = velocityY < 0 ? increment : -increment // opposit to move direction
-//        println("velocityY: \(abs(velocityY)), \tincrement: \(increment)")
+        println("velocityY: \(abs(velocityY)), \tincrement: \(increment)")
         return increment
     }
     

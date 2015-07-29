@@ -321,13 +321,13 @@ SENSOR</string>
                         <outlet property="hamButton" destination="jnP-U3-IJJ" id="ejP-Ub-jum"/>
                         <outlet property="logButton" destination="OsZ-U7-aQk" id="fAJ-Cu-b3e"/>
                         <outlet property="logView" destination="wvu-d9-Ke6" id="ZQn-RF-E7h"/>
+                        <outlet property="metronomeTempoView" destination="tQT-Vc-gGK" id="mRX-SP-UJa"/>
                         <outlet property="nextSongButton" destination="k2V-zZ-Agb" id="ac6-qT-Od2"/>
                         <outlet property="prevSongButton" destination="s24-Z9-6xS" id="a8Q-6T-766"/>
                         <outlet property="setTempoView" destination="qeG-nt-Ow3" id="Iao-91-MAd"/>
                         <outlet property="songListBottomLayoutConstraint" destination="ESO-Kr-YQ0" id="9XM-ry-vhg"/>
                         <outlet property="songListView" destination="ZVW-OY-ljc" id="rIr-Hz-8TH"/>
                         <outlet property="songNameLabel" destination="yDh-T4-4gI" id="QSs-oA-d6C"/>
-                        <outlet property="tempoView" destination="tQT-Vc-gGK" id="VdY-Wf-pyx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="51M-Jy-04m" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -603,7 +603,7 @@ SENSOR</string>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="120" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y0F-vn-S05">
                                                     <rect key="frame" x="502" y="6" width="37" height="37"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>

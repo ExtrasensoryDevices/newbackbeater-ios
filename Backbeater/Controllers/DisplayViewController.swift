@@ -21,7 +21,7 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
     @IBOutlet weak var getSensorView: UILabel!
     @IBOutlet weak var setTempoView: UIView!
     
-    @IBOutlet weak var tempoView: NumericStepper!
+    @IBOutlet weak var metronomeTempoView: NumericStepper!
     
     @IBOutlet weak var prevSongButton: UIButton!
     @IBOutlet weak var nextSongButton: UIButton!
@@ -51,11 +51,15 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
         strikesWindowQueue = WindowQueue(capacity:Settings.sharedInstance().strikesWindow)
         centralRing.delegate = self
         
+        metronomeTempoView.value = Settings.sharedInstance().metronomeTempo
+        println("metronomeIsOn: \(Settings.sharedInstance().metronomeIsOn)")
+        metronomeTempoView.isOn = Settings.sharedInstance().metronomeIsOn
+        
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        tempoView.value = Settings.sharedInstance().metronomeTempo
+        
 
         updateSensorView()
         updateSongListView()
@@ -73,8 +77,8 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
         setTempoView.drawBorder()
         setTempoView.backgroundColor = ColorPalette.Black.color()
         
-        tempoView.font = Font.FuturaBook.get(33)
-        tempoView.bgrColor = ColorPalette.Black.color()
+        metronomeTempoView.font = Font.FuturaBook.get(33)
+        metronomeTempoView.bgrColor = ColorPalette.Black.color()
 
         getSensorView.drawBorder()
         getSensorView.clipsToBounds = true
@@ -88,6 +92,17 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
         logView.hidden = true
     }
     
+    func applicationWillEnterForeground() {
+        metronomeTempoView.isOn = false
+        centralRing.handleMetronomeState()
+    }
+    
+    func applicationWillResignActive() {
+        Settings.sharedInstance().metronomeIsOn = false
+        Settings.sharedInstance().saveState()
+    }
+    
+    
     
     func registerForNotifications() {
         let settings = Settings.sharedInstance()
@@ -96,6 +111,9 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
         settings.addObserver(self, forKeyPath: "timeSignatureSelectedIndex", options: NSKeyValueObservingOptions.allZeros, context: nil)
         settings.addObserver(self, forKeyPath: "metronomeSoundSelectedIndex", options: NSKeyValueObservingOptions.allZeros, context: nil)
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "applicationWillEnterForeground", name:UIApplicationWillEnterForegroundNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "applicationWillResignActive", name:UIApplicationWillResignActiveNotification, object: nil)
+
     }
     
     deinit {
@@ -104,6 +122,9 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
         settings.removeObserver(self, forKeyPath: "strikesWindowSelectedIndex")
         settings.removeObserver(self, forKeyPath: "timeSignatureSelectedIndex")
         settings.removeObserver(self, forKeyPath: "metronomeSoundSelectedIndex")
+        
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIApplicationWillEnterForegroundNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIApplicationWillResignActiveNotification, object: nil)
     }
     
     
@@ -141,24 +162,8 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
         logView.scrollRangeToVisible(NSMakeRange(count(logView.text)-1, 1))
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let songListVC = segue.destinationViewController as? SongListViewController {
-            songListVC.delegate = self
-            
-            //TODO: remove default song list
-            songListVC.setSongList(songList ?? [SongTempo(songName:"Song #1", tempoValue: 120),
-                SongTempo(songName:"Song #2", tempoValue: 60),
-                SongTempo(songName:"Song #3", tempoValue: 90),
-                SongTempo(songName:"Song #4", tempoValue: 120),
-                SongTempo(songName:"Song #5", tempoValue: 60)])
-        } else if let webVC = segue.destinationViewController as? WebViewController {
-            webVC.url = BUY_SENSOR_URL
-        }
-    }
-    
     @IBAction func metronomeTempoValueChanged(sender: NumericStepper) {
-//        centralRing.metronomeTempo = tempoView.value
-        Settings.sharedInstance().metronomeTempo = tempoView.value
+        Settings.sharedInstance().metronomeTempo = metronomeTempoView.value
     }
     
     @IBAction func metronomeTempoPressed(sender: NumericStepper) {
@@ -190,6 +195,15 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
     
     // MARK: - Song list
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let songListVC = segue.destinationViewController as? SongListViewController {
+            songListVC.delegate = self
+            songListVC.setSongList(songList)
+        } else if let webVC = segue.destinationViewController as? WebViewController {
+            webVC.url = BUY_SENSOR_URL
+        }
+    }
+    
     func updateSongListView() {
         
         var hideButtons = true
@@ -197,7 +211,7 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
         if let count = songList?.count where count > 0 { // show
             hideButtons = count <= 1
             hideLabel = count < 1
-            tempoView.value = songList![selectedIndex].tempoValue
+            metronomeTempoView.value = songList![selectedIndex].tempoValue
             songListBottomLayoutConstraint.constant = 0
         } else {   // hide
             songListBottomLayoutConstraint.constant = -songListView.bounds.height / 2
@@ -218,12 +232,10 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
     
 
     @IBAction func didTapPrevButton(sender: AnyObject) {
-        println("didTapPrevButton")
         selectedIndex  = selectedIndex >= 1 ? selectedIndex-1 : songList!.count-1
     }
 
     @IBAction func didTapNextButton(sender: AnyObject) {
-        println("didTapNextButton")
         selectedIndex  = selectedIndex < songList!.count-1 ? selectedIndex+1 : 0
     }
     

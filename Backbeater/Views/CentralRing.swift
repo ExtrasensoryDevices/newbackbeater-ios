@@ -23,7 +23,7 @@ class CentralRing: NibDesignable {
 
     @IBOutlet weak var drumImage: UIImageView!
     @IBOutlet weak var ringView: UIView!
-    @IBOutlet weak var crtLabel: UILabel!
+    @IBOutlet weak var cptLabel: UILabel!
     
     @IBOutlet weak var ringTopConstraint: NSLayoutConstraint!
     
@@ -35,13 +35,15 @@ class CentralRing: NibDesignable {
     var cptAnimation:CABasicAnimation!
     var bpmAnimation:CAKeyframeAnimation!
     var pulseAnimation:CABasicAnimation!
-    let PULSE_DURATION = floor(60.0 / Double(MAX_TEMPO) * 10) / 10
+    let PULSE_DURATION:Double = floor(60.0 / Double(MAX_TEMPO) * 10) / 10 / 5
     
-    var timeSignature:Int!
-    var metronomeTempo:Int = 0
+//    var timeSignature:Int!
+//    var metronomeTempo:Int = 0
+    
+    let settings = Settings.sharedInstance()
     
     var metronomeIsOn:Bool {
-        return metronomeTempo >= MIN_TEMPO && metronomeTempo <= MAX_TEMPO
+        return settings.metronomeIsOn && settings.metronomeTempo >= MIN_TEMPO && settings.metronomeTempo <= MAX_TEMPO
     }
     
     
@@ -61,25 +63,20 @@ class CentralRing: NibDesignable {
         ringView.addObserver(self, forKeyPath: "bounds", options: NSKeyValueObservingOptions.allZeros, context: nil)
         
         
-        crtLabel.text = ""
+        cptLabel.text = ""
         
         resetSublayers()
+        initAnimations()
         
-        timeSignature = Settings.sharedInstance().timeSignature
-        metronomeTempo = Settings.sharedInstance().metronomeTempo
-        
+       
         Settings.sharedInstance().addObserver(self, forKeyPath: TIME_SIGNATURE_KEY_PATH, options: NSKeyValueObservingOptions.allZeros, context: nil)
         Settings.sharedInstance().addObserver(self, forKeyPath: METRONOME_TEMPO_KEY_PATH, options: NSKeyValueObservingOptions.allZeros, context: nil)
         Settings.sharedInstance().addObserver(self, forKeyPath: METRONOME_ON_KEY_PATH, options: NSKeyValueObservingOptions.allZeros, context: nil)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "applicationWillEnterForeground", name:UIApplicationWillEnterForegroundNotification, object: nil)
-        
-        initAnimations()
-        
     }
     
     override func didMoveToWindow() {
-        crtLabel.font = Font.SteelfishRg.get(142)
+        cptLabel.font = Font.SteelfishRg.get(142)
     }
     
     deinit {
@@ -87,14 +84,7 @@ class CentralRing: NibDesignable {
         Settings.sharedInstance().removeObserver(self, forKeyPath: TIME_SIGNATURE_KEY_PATH)
         Settings.sharedInstance().removeObserver(self, forKeyPath: METRONOME_TEMPO_KEY_PATH)
         Settings.sharedInstance().removeObserver(self, forKeyPath: METRONOME_ON_KEY_PATH)
-        
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIApplicationWillEnterForegroundNotification, object: nil)
     }
-    
-    func applicationWillEnterForeground() {
-        handleMetronomeState()
-    }
-    
     
     override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
         if object === ringView && keyPath == "bounds" {
@@ -102,15 +92,12 @@ class CentralRing: NibDesignable {
             handleMetronomeState()
         } else if let settings = object as? Settings {
             if keyPath == TIME_SIGNATURE_KEY_PATH {
-                timeSignature = settings.timeSignature
                 if metronomeIsOn {
                     handleMetronomeState()
                 }
             } else if keyPath == METRONOME_TEMPO_KEY_PATH {
-                metronomeTempo = settings.metronomeTempo
                 handleMetronomeState()
             } else if keyPath == METRONOME_ON_KEY_PATH {
-                metronomeTempo = settings.metronomeIsOn ? settings.metronomeTempo : 0
                 handleMetronomeState()
             }
         }
@@ -224,7 +211,7 @@ class CentralRing: NibDesignable {
         // CPT
         if !metronomeIsOn {
             cptSublayer.removeAllAnimations()
-            cptAnimation.duration = 60.0/(Double(cpt)/Double(timeSignature)) // =60sec/actual_hits_per_min
+            cptAnimation.duration = 60.0/(Double(cpt)/Double(settings.timeSignature)) // =60sec/actual_hits_per_min
             cptAnimation.repeatCount = 1
             cptSublayer.addAnimation(cptAnimation, forKey:CPT_ANIMATION_KEY)
         }
@@ -252,7 +239,7 @@ class CentralRing: NibDesignable {
         cptSublayer.removeAllAnimations()
         
         if metronomeIsOn {
-            cptAnimation.duration = 60.0/Double(metronomeTempo)
+            cptAnimation.duration = 60.0/Double(settings.metronomeTempo)
             cptAnimation.repeatCount = Float.infinity
             cptSublayer.addAnimation(cptAnimation, forKey:CPT_ANIMATION_KEY)
             
@@ -285,9 +272,9 @@ class CentralRing: NibDesignable {
         
         if isNewTapSeq {
             tapCount = 0;
-            crtLabel.text = "_"
+            cptLabel.text = ""
             runPulseAnimationOnly()
-            hideCptLabelAfterDelay()
+//            hideCptLabelAfterDelay()
         } else {
             let figertapBPM = 60.0 / timeElapsedInSec
             self.foundFigertapBPM(figertapBPM)
@@ -310,13 +297,13 @@ class CentralRing: NibDesignable {
         // display numbers
         if cpt > MAX_TEMPO || cpt < MIN_TEMPO {
             // We do not need BPM outside this range.
-            crtLabel.text = "_"
+            cptLabel.text = cpt > MAX_TEMPO ? "MAX" : "MIN"
             runPulseAnimationOnly()
         } else {
-            crtLabel.text = "\(cpt)"
+            cptLabel.text = "\(cpt)"
             runAnimationWithCPT(cpt, instantTempo:instantTempo)
         }
-        hideCptLabelAfterDelay()
+//        hideCptLabelAfterDelay()
         
         self.delay(IDLE_TIMEOUT, callback: { () -> () in
             let now:UInt64 = PublicUtilityWrapper.CAHostTimeBase_GetCurrentTime()
@@ -335,13 +322,13 @@ class CentralRing: NibDesignable {
         oldTapTime = 0
         newTapTime = 0
         tapCount = 0
-        crtLabel.text = ""
+        cptLabel.text = ""
         resetCptSublayer()
     }
     
     func hideCptLabelAfterDelay() {
         delay(PULSE_DURATION, callback: { () -> () in
-            self.crtLabel.text = ""
+            self.cptLabel.text = ""
         })
     }
     
