@@ -154,7 +154,8 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
             logView.text = logView.text + "\ntimeSignature: \(Settings.sharedInstance().timeSignature)"
         case "metronomeSoundSelectedIndex":
             // TODO:switch metronome sound
-            logView.text = logView.text + "\nmetronomeSound: \(Settings.sharedInstance().metronomeSound)"
+//            logView.text = logView.text + "\nmetronomeSound: \(Settings.sharedInstance().metronomeSound)"
+            break
         default:
             break
             

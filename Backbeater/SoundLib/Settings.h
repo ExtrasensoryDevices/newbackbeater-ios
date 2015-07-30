@@ -20,7 +20,7 @@
 @property (nonatomic,readonly) NSInteger timeSignature; // value set by index in array
 @property (nonatomic) BOOL metronomeIsOn;
 @property (nonatomic) NSInteger metronomeTempo;
-@property (nonatomic,readonly) NSInteger metronomeSound; // value set by index in array
+@property (nonatomic, readonly) NSURL *urlForSound; // url for the selected sound
 
 // possible values
 @property (nonatomic, readonly) NSArray* strikesWindowValues;

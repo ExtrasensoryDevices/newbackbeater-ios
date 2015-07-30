@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import AVFoundation
 
 protocol CentralRingDelegate: class {
     func centralRingFoundTapBPM(bpm:Float64)
@@ -27,6 +27,7 @@ class CentralRing: NibDesignable {
     
     @IBOutlet weak var ringTopConstraint: NSLayoutConstraint!
     
+    var player:AVAudioPlayer!
     
     var cptSublayer:CAShapeLayer!
     var bpmSublayer:CAShapeLayer!
@@ -46,6 +47,8 @@ class CentralRing: NibDesignable {
         return settings.metronomeIsOn && settings.metronomeTempo >= MIN_TEMPO && settings.metronomeTempo <= MAX_TEMPO
     }
     
+    var metronomeTimer: dispatch_source_t?
+    
     
     let BPM_ANIMATION_KEY = "bpmAnimation"
     let CPT_ANIMATION_KEY = "cptAnimation"
@@ -54,6 +57,7 @@ class CentralRing: NibDesignable {
     let TIME_SIGNATURE_KEY_PATH = "timeSignatureSelectedIndex"
     let METRONOME_TEMPO_KEY_PATH = "metronomeTempo"
     let METRONOME_ON_KEY_PATH = "metronomeIsOn"
+    let METRONOME_SOUND_INDEX_KEY_PATH = "metronomeSoundSelectedIndex"
     
     override func setup() {
         super.setup()
@@ -67,11 +71,13 @@ class CentralRing: NibDesignable {
         
         resetSublayers()
         initAnimations()
+        updateAudioPlayer()
         
        
         Settings.sharedInstance().addObserver(self, forKeyPath: TIME_SIGNATURE_KEY_PATH, options: NSKeyValueObservingOptions.allZeros, context: nil)
         Settings.sharedInstance().addObserver(self, forKeyPath: METRONOME_TEMPO_KEY_PATH, options: NSKeyValueObservingOptions.allZeros, context: nil)
         Settings.sharedInstance().addObserver(self, forKeyPath: METRONOME_ON_KEY_PATH, options: NSKeyValueObservingOptions.allZeros, context: nil)
+        Settings.sharedInstance().addObserver(self, forKeyPath: METRONOME_SOUND_INDEX_KEY_PATH, options: NSKeyValueObservingOptions.allZeros, context: nil)
         
     }
     
@@ -84,6 +90,7 @@ class CentralRing: NibDesignable {
         Settings.sharedInstance().removeObserver(self, forKeyPath: TIME_SIGNATURE_KEY_PATH)
         Settings.sharedInstance().removeObserver(self, forKeyPath: METRONOME_TEMPO_KEY_PATH)
         Settings.sharedInstance().removeObserver(self, forKeyPath: METRONOME_ON_KEY_PATH)
+        Settings.sharedInstance().removeObserver(self, forKeyPath: METRONOME_SOUND_INDEX_KEY_PATH)
     }
     
     override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
@@ -99,10 +106,21 @@ class CentralRing: NibDesignable {
                 handleMetronomeState()
             } else if keyPath == METRONOME_ON_KEY_PATH {
                 handleMetronomeState()
+            } else if keyPath == METRONOME_SOUND_INDEX_KEY_PATH {
+                updateAudioPlayer()
             }
         }
     }
     
+    func updateAudioPlayer() {
+        var error:NSError?
+        player = AVAudioPlayer(contentsOfURL: settings.urlForSound, error: &error)
+        if error == nil {
+            player.prepareToPlay()
+        } else {
+            println(error!)
+        }
+    }
     
     func resetSublayers() {
         resetBorderSublayer()
@@ -206,7 +224,7 @@ class CentralRing: NibDesignable {
     
     
     func runAnimationWithCPT(cpt:Int, instantTempo:Int) {
-        drumImage?.layer.removeAllAnimations()
+        runPulseAnimationOnly()
         bpmSublayer?.removeAllAnimations()
         // CPT
         if !metronomeIsOn {
@@ -222,14 +240,10 @@ class CentralRing: NibDesignable {
         bpmSublayer.removeAllAnimations()
         bpmSublayer.addAnimation(bpmAnimation, forKey: BPM_ANIMATION_KEY)
 
-        drumImage?.layer.addAnimation(pulseAnimation, forKey: PULSE_ANIMATION_KEY)
         
     }
     
     func runPulseAnimationOnly() {
-        if !metronomeIsOn {
-            cptSublayer.removeAllAnimations()
-        }
         drumImage?.layer.removeAllAnimations()
         drumImage?.layer.addAnimation(pulseAnimation, forKey: PULSE_ANIMATION_KEY)
     }
@@ -238,10 +252,30 @@ class CentralRing: NibDesignable {
     {
         cptSublayer.removeAllAnimations()
         
+        if let timer = metronomeTimer {
+            dispatch_source_cancel(metronomeTimer!)
+            metronomeTimer = nil
+        }
+        
         if metronomeIsOn {
-            cptAnimation.duration = 60.0/Double(settings.metronomeTempo)
+            let duration = 60.0/Double(settings.metronomeTempo)
+            cptAnimation.duration = duration
             cptAnimation.repeatCount = Float.infinity
             cptSublayer.addAnimation(cptAnimation, forKey:CPT_ANIMATION_KEY)
+            if let timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_main_queue()) {
+                dispatch_source_set_timer(timer, dispatch_walltime(nil, 0), UInt64(duration*Double(NSEC_PER_SEC)), 5);
+                dispatch_source_set_event_handler(timer, { [weak self] () -> Void in
+                    if let player = self?.player {
+                        if player.playing {
+                            player.stop()
+                            player.currentTime = 0.0
+                        }
+                        player.play()
+                    }
+                })
+                dispatch_resume(timer)
+                metronomeTimer = timer
+            }
             
         } else {
             println("metronom OFF")

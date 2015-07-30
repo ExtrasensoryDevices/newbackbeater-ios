@@ -15,7 +15,7 @@
 
 NSArray *_strikesWindowValues;
 NSArray *_timeSignatureValues;
-NSArray *_metronomeSoundValues;
+NSArray *_metronomeSoundFileNames;
 
 
 float DEFAULT_SENSITIVITY = 0.6;
@@ -41,7 +41,7 @@ int MIN_TEMPO = 20;
         _sensorIn = NO;
         _strikesWindowValues = @[@2, @4, @8, @16];
         _timeSignatureValues = @[@1, @2, @3, @4];
-        _metronomeSoundValues = @[@1, @2, @3]; //@[@"stick", @"beep", @"clap"];
+        _metronomeSoundFileNames = @[@"stick", @"metronome", @"sideStick"];
     }
     return self;
 }
@@ -81,9 +81,9 @@ int MIN_TEMPO = 20;
 }
 
 
--(NSInteger)metronomeSound
+-(NSURL*)urlForSound
 {
-    return ((NSNumber*)_metronomeSoundValues[_metronomeSoundSelectedIndex]).integerValue;
+    return [[NSURL alloc] initFileURLWithPath: [[NSBundle mainBundle] pathForResource:_metronomeSoundFileNames[_metronomeSoundSelectedIndex] ofType:@"wav"]];
 }
 
 #pragma mark - Persistence
