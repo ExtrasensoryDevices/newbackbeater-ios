@@ -14,6 +14,7 @@
 -(void)soundProcessorDidDetectSensorIn:(BOOL) sensorIn;
 -(void)soundProcessorDidDetectStrikeStart:(NSDictionary*) params;
 -(void)soundProcessorDidDetectStrikeEnd:(NSDictionary*) params;
+-(void)soundProcessorProcessedFrame:(NSDictionary*) params;
 
 @end
 

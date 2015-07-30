@@ -154,4 +154,8 @@ class CalibrationViewController: UIViewController, UITextFieldDelegate, SoundPro
         }
     }
     
+    func soundProcessorProcessedFrame(params: [NSObject : AnyObject]!) {
+        logText("-------------")
+    }
+    
 }

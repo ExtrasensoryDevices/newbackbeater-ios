@@ -84,26 +84,47 @@ BOOL _strikeState;
     _logStringEnergy = @"";
     _logStringEnergySpikes = @"";
     _maxEnergy = 0.0;
-    __block SoundProcessor *blocksafeSelf = self;
-    for (i=0; i<numFrames; i++)
-    {
-//        _logStringRaw = [_logStringRaw stringByAppendingFormat:@"%f, ", data[0]];
-        [_energyFunctionQueue push:data[0] resultHandler:^(BOOL success, Float32 value) {
-            if (success) {
-                [blocksafeSelf processEnergyLevel:value];
-                if (_maxEnergy < value) {
-                    _maxEnergy = value;
-                    if (_maxEnergyTotal < _maxEnergy) {
-                        _maxEnergyTotal = _maxEnergy;
-                    }
-                }
-            }
-        }];
+    BOOL strikesInFrameDetected = NO;
+    for (i=0; i<numFrames; i++) {
+        Float32 energyLevel = [_energyFunctionQueue push:data[i]];
+        
+        //   _logStringRaw = [_logStringRaw stringByAppendingFormat:@"%f, ", data[0]];
+        //    _logStringEnergy = [_logStringEnergy stringByAppendingFormat:@"%f, ", energyLevel];
+        
+        if (_strikeState == NO && energyLevel >= _startTheshold) {
+            _strikeState = YES;
+            strikesInFrameDetected = YES;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.delegate soundProcessorDidDetectStrikeStart: @{@"energyLevel": [NSNumber numberWithFloat:energyLevel]}];
+            });
+            _strikeCount++;
+        } else if (_strikeState == YES && energyLevel <= _endTheshold) {
+            _strikeState = NO;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.delegate soundProcessorDidDetectStrikeEnd:@{@"energyLevel": [NSNumber numberWithFloat:energyLevel]}];
+            });
+        }
 
-        data += 1;
+        
+        
+        
+        if (_maxEnergy < energyLevel) {
+            _maxEnergy = energyLevel;
+            if (_maxEnergyTotal < _maxEnergy) {
+                _maxEnergyTotal = _maxEnergy;
+            }
+        }
     }
-    
-//    NSLog(@"\n---------------------------\n\n%@\n\n%@\n\n%@\n\n\n-----------%f----------------", _logStringRaw, _logStringEnergy, _logStringEnergySpikes, _maxEnergy);
+    if (strikesInFrameDetected) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.delegate soundProcessorProcessedFrame:nil];
+        });
+    }
+    if (_maxEnergy > _startTheshold) {
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            NSLog(@"\n------------start---------------\n%@\n\n%@\n------------end---------------", _logStringRaw, _logStringEnergy);
+//        });
+    }
 //    NSLog(@"-----------%f----------------", _maxEnergy);
 }
 
@@ -143,31 +164,31 @@ BOOL _strikeState;
 -(void) processEnergyLevel: (Float32) value
 {
     
-//    _logStringEnergy = [_logStringEnergy stringByAppendingFormat:@"%f, ", value];
-    
-    if (value > 0) {
-//         _logStringEnergySpikes = [_logStringEnergySpikes stringByAppendingFormat:@"%f, ", value];
-    }
-    if (value > 0) {
-        //NSLog(@"strike state: %@, value: %f ", (strikeState?@"YES":@"NO"), value);
-    }
-    if (_strikeState == NO && value >= _startTheshold) {
-        //NSLog(@" ----------------------- Started ----------------------- ");
-        //NSLog(@"Strike start, value: %f ", value);
-        _strikeState = YES;
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.delegate soundProcessorDidDetectStrikeStart: @{@"energyLevel": [NSNumber numberWithFloat:value]}];
-        });
-        _strikeCount++;
-    } else if (_strikeState == YES && value <= _endTheshold) {
-        //NSLog(@" ------------------------ Ended ------------------------ ");
-        //NSLog(@"Strike end, value: %f ", value);
-        _strikeState = NO;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.delegate soundProcessorDidDetectStrikeEnd:@{@"energyLevel": [NSNumber numberWithFloat:value]}];
-        });
-    }
+////    _logStringEnergy = [_logStringEnergy stringByAppendingFormat:@"%f, ", value];
+//    
+//    if (value > 0) {
+////         _logStringEnergySpikes = [_logStringEnergySpikes stringByAppendingFormat:@"%f, ", value];
+//    }
+//    if (value > 0) {
+//        //NSLog(@"strike state: %@, value: %f ", (strikeState?@"YES":@"NO"), value);
+//    }
+//    if (_strikeState == NO && value >= _startTheshold) {
+//        //NSLog(@" ----------------------- Started ----------------------- ");
+//        //NSLog(@"Strike start, value: %f ", value);
+//        _strikeState = YES;
+//        
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [self.delegate soundProcessorDidDetectStrikeStart: @{@"energyLevel": [NSNumber numberWithFloat:value]}];
+//        });
+//        _strikeCount++;
+//    } else if (_strikeState == YES && value <= _endTheshold) {
+//        //NSLog(@" ------------------------ Ended ------------------------ ");
+//        //NSLog(@"Strike end, value: %f ", value);
+//        _strikeState = NO;
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [self.delegate soundProcessorDidDetectStrikeEnd:@{@"energyLevel": [NSNumber numberWithFloat:value]}];
+//        });
+//    }
 }
 
 #pragma mark - Properties

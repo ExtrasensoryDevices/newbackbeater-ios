@@ -17,7 +17,7 @@
 
 
 Float32 buffer[kNumValues];
-int count = kEmpty;
+int _index = kEmpty;
 
 
 
@@ -34,27 +34,24 @@ int count = kEmpty;
 
 - (void)clear
 {
-    count = kEmpty;
+    _index = kEmpty;
     for (int i=0; i<kNumValues; i++) {
         buffer[i] = 0;
     }
 }
 
 
--(void) push:(Float32)value resultHandler:(void (^)(BOOL success, Float32 value))resultHandler
+-(Float32) push:(Float32)value
 {
-    count++;
+    
+    _index = (_index+1) % kNumValues;
     Float32 square = value*value;
-    buffer[count % kNumValues] = square;
-    if (count < kNumValues) {
-        resultHandler(NO, 0);
-    } else {
-        Float32 energy = 0;
-        for (int i=0; i<kNumValues; i++) {
-            energy += buffer[i];
-        }
-        resultHandler(YES, energy);
+    buffer[_index] = square;
+    Float32 energy = 0;
+    for (int i=0; i<kNumValues; i++) {
+        energy += buffer[i];
     }
+    return energy;
 }
 
 @end
