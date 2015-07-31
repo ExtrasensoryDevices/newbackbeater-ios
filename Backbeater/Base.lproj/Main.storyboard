@@ -100,16 +100,22 @@
                     <view key="view" contentMode="scaleToFill" id="FFV-Bp-Hpm">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <userGuides>
+                            <userLayoutGuide location="64" affinity="minY"/>
+                            <userLayoutGuide location="536" affinity="minY"/>
+                            <userLayoutGuide location="472" affinity="minY"/>
+                            <userLayoutGuide location="448" affinity="minY"/>
+                        </userGuides>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I8c-WM-xqu" customClass="CentralRing" customModule="Backbeater" customModuleProvider="target">
-                                <rect key="frame" x="151" y="120" width="299" height="299"/>
+                                <rect key="frame" x="127" y="72" width="347" height="347"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="I8c-WM-xqu" secondAttribute="height" multiplier="1:1" id="kTh-PH-ru6"/>
                                 </constraints>
                             </view>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Log" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wvu-d9-Ke6" userLabel="Log">
-                                <rect key="frame" x="151" y="120" width="299" height="299"/>
+                                <rect key="frame" x="127" y="72" width="347" height="347"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="wvu-d9-Ke6" secondAttribute="height" multiplier="1:1" id="5OB-rq-D4e"/>
@@ -117,13 +123,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="top_logo" translatesAutoresizingMaskIntoConstraints="NO" id="HD3-4I-VRj">
-                                <rect key="frame" x="219" y="28" width="162" height="76"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="76" id="4Zq-kf-Vr2"/>
-                                    <constraint firstAttribute="width" secondItem="HD3-4I-VRj" secondAttribute="height" multiplier="162:76" id="GGL-vc-OAW"/>
-                                </constraints>
-                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZVW-OY-ljc" userLabel="Song list View">
                                 <rect key="frame" x="0.0" y="480" width="600" height="120"/>
                                 <subviews>
@@ -286,6 +285,16 @@ SENSOR</string>
                                     <segue destination="6WL-bB-PAd" kind="presentation" id="M3V-lp-Lh2"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="top_logo" translatesAutoresizingMaskIntoConstraints="NO" id="HD3-4I-VRj">
+                                <rect key="frame" x="262" y="20" width="76" height="36"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="36" id="4Zq-kf-Vr2"/>
+                                    <constraint firstAttribute="width" secondItem="HD3-4I-VRj" secondAttribute="height" multiplier="162:76" id="GGL-vc-OAW"/>
+                                </constraints>
+                                <variation key="widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="161" y="20" width="78" height="36"/>
+                                </variation>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.14901960784313725" green="0.14901960784313725" blue="0.14901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -304,7 +313,7 @@ SENSOR</string>
                             <constraint firstItem="wvu-d9-Ke6" firstAttribute="top" secondItem="HD3-4I-VRj" secondAttribute="bottom" constant="16" id="b2F-EJ-rc4"/>
                             <constraint firstItem="QJn-dF-3EQ" firstAttribute="leading" secondItem="FFV-Bp-Hpm" secondAttribute="leading" constant="16" id="cKf-dU-x94"/>
                             <constraint firstItem="QJn-dF-3EQ" firstAttribute="centerY" secondItem="qeG-nt-Ow3" secondAttribute="centerY" id="g8A-5D-AVh"/>
-                            <constraint firstItem="HD3-4I-VRj" firstAttribute="top" secondItem="WG6-xU-VjA" secondAttribute="bottom" constant="8" id="izT-tZ-7p1"/>
+                            <constraint firstItem="HD3-4I-VRj" firstAttribute="top" secondItem="WG6-xU-VjA" secondAttribute="bottom" id="izT-tZ-7p1"/>
                             <constraint firstItem="ZVW-OY-ljc" firstAttribute="leading" secondItem="FFV-Bp-Hpm" secondAttribute="leading" id="mHb-w8-FXS"/>
                             <constraint firstItem="QJn-dF-3EQ" firstAttribute="width" secondItem="tQT-Vc-gGK" secondAttribute="width" id="tKM-bC-h1A"/>
                             <constraint firstAttribute="centerX" secondItem="wvu-d9-Ke6" secondAttribute="centerX" id="taA-eS-LSE"/>

@@ -241,7 +241,7 @@ class NumericStepper: UIControlNibDesignable {
         default      : increment = 25
         }
         increment = velocityY < 0 ? increment : -increment // opposit to move direction
-        println("velocityY: \(abs(velocityY)), \tincrement: \(increment)")
+//        println("velocityY: \(abs(velocityY)), \tincrement: \(increment)")
         return increment
     }
     
