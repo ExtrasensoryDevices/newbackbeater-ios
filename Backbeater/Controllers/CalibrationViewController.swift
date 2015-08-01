@@ -46,8 +46,8 @@ class CalibrationViewController: UIViewController, UITextFieldDelegate, SoundPro
         
         soundProcessor.delegate = self
         
-        startTh.text = "\(soundProcessor.startTheshold)"
-        stopTh.text = "\(soundProcessor.endTheshold)"
+        startTh.text = "\(soundProcessor.startThreshold)"
+        stopTh.text = "\(soundProcessor.endThreshold)"
         
         let timeoutValue = soundProcessor.timeout/timeoutCoeff
         timeout.text = "\(timeoutValue)"
@@ -121,9 +121,9 @@ class CalibrationViewController: UIViewController, UITextFieldDelegate, SoundPro
     func textFieldDidEndEditing(textField: UITextField) {
         let value = (textField.text as NSString).floatValue
         if textField == startTh {
-            soundProcessor.startTheshold = value
+            soundProcessor.startThreshold = value
         } else if textField == stopTh {
-            soundProcessor.endTheshold = value
+            soundProcessor.endThreshold = value
         } else if textField == timeout {
             soundProcessor.timeout = UInt64(value) * timeoutCoeff
         }

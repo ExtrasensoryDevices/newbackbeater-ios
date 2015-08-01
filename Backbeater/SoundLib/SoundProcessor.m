@@ -10,6 +10,9 @@
 #import "ATSoundSessionIO.h"
 #import "EnergyFunctionQueue.h"
 #import "PublicUtilityWrapper.h"
+#import "Settings.h"
+
+#import <UIKit/UIKit.h>
 
 
 
@@ -32,6 +35,8 @@ NSString *_logStringEnergySpikes;
 Float32 _maxEnergy;
 Float32 _maxEnergyTotal;
 
+Float32 _startThresholdWithSensitivity;
+
 int _strikeCount;
 
 BOOL _strikeState;
@@ -50,8 +55,10 @@ BOOL _strikeState;
     self = [super init];
     if (self != nil) {
         
-        _startTheshold = kStartThreshold;
-        _endTheshold = kEndThreshold;
+        _startThreshold = kStartThreshold;
+        _startThresholdWithSensitivity = _startThreshold;
+        [self updateStartThreshold];
+        _endThreshold = kEndThreshold;
         _timeout = kTimeout;
         
         _strikeState = NO;
@@ -97,7 +104,7 @@ UInt64 strikeEndTime = 0;
         //   _logStringRaw = [_logStringRaw stringByAppendingFormat:@"%f, ", data[0]];
         //    _logStringEnergy = [_logStringEnergy stringByAppendingFormat:@"%f, ", energyLevel];
         
-        if (_strikeState == NO && energyLevel >= _startTheshold) {
+        if (_strikeState == NO && energyLevel >= _startThresholdWithSensitivity) {
             UInt64 newTime = [PublicUtilityWrapper CAHostTimeBase_GetCurrentTime];
             
             UInt64 timeElapsedNs = [PublicUtilityWrapper CAHostTimeBase_AbsoluteHostDeltaToNanos:newTime oldTapTime:strikeEndTime];
@@ -116,7 +123,7 @@ UInt64 strikeEndTime = 0;
                 });
                 _strikeCount++;
             }
-        } else if (_strikeState == YES && energyLevel <= _endTheshold) {
+        } else if (_strikeState == YES && energyLevel <= _endThreshold) {
             _strikeState = NO;
             
             strikeEndTime = [PublicUtilityWrapper CAHostTimeBase_GetCurrentTime];
@@ -151,7 +158,7 @@ UInt64 strikeEndTime = 0;
 //            [self.delegate soundProcessorProcessedFrame:nil];
 //        });
     }
-    if (_maxEnergy > _startTheshold) {
+    if (_maxEnergy > _startThresholdWithSensitivity) {
 //        dispatch_async(dispatch_get_main_queue(), ^{
 //            NSLog(@"\n------------start---------------\n%@\n\n%@\n------------end---------------", _logStringRaw, _logStringEnergy);
 //        });
@@ -265,6 +272,9 @@ UInt64 strikeEndTime = 0;
                                              selector: @selector(handleMediaServicesWereReset:)
                                                  name: AVAudioSessionMediaServicesWereResetNotification
                                                object: session];
+    
+    [[Settings sharedInstance] addObserver:self forKeyPath:@"sensitivity" options:NSKeyValueObservingOptionNew context:nil];
+
 }
 
 -(void)removeObservers
@@ -272,6 +282,28 @@ UInt64 strikeEndTime = 0;
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"AVAudioSessionRouteChangeNotification" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"AVAudioSessionInterruptionNotification" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"AVAudioSessionMediaServicesWereResetNotification" object:nil];
+    
+    [[Settings sharedInstance] removeObserver:self forKeyPath:@"sensitivity"];
+
+}
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if (object == Settings.sharedInstance && [keyPath isEqualToString:@"sensitivity"]) {
+        [self updateStartThreshold];
+    }
+}
+
+-(void) updateStartThreshold
+{
+    float sensitivity = Settings.sharedInstance.sensitivity * 100.0;
+    _startThresholdWithSensitivity = - (pow(sensitivity,3) - 225.0 * pow(sensitivity,2) + 17250.0 * sensitivity - 500000.0) / 500000.0;
+    NSLog(@"_startThresholdWithSensitivity: %f", _startThresholdWithSensitivity);
+    
+    NSString *msg = [NSString stringWithFormat:@"sensitivity: %.2f, startThreshold: %.2f", sensitivity, _startThresholdWithSensitivity];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Threshold" message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
+    
 }
 
 
@@ -281,6 +313,7 @@ UInt64 strikeEndTime = 0;
     //      • Audio streaming objects are invalidated (zombies)
     //      • Handle this notification by fully reconfiguring audio
     NSLog(@"handleMediaServicesWereReset: %@ ",[notification name]);
+    
 }
 
 

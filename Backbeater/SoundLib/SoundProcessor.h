@@ -25,8 +25,9 @@
 @property (nonatomic, weak) id<SoundProcessorDelegate> delegate;
 
 @property (nonatomic, readonly) BOOL sensorIn;
-@property (nonatomic, assign) Float32 startTheshold;
-@property (nonatomic, assign) Float32 endTheshold;
+@property (nonatomic, assign) Float32 startThreshold;
+@property (nonatomic, assign) Float32 startThresholdWithSensitivity;
+@property (nonatomic, assign) Float32 endThreshold;
 @property (nonatomic, assign) UInt64 timeout;
 
 
