@@ -299,7 +299,22 @@ UInt64 strikeEndTime = 0;
 -(void) updateStartThreshold
 {
     float sensitivity = Settings.sharedInstance.sensitivity * 100.0;
-    _startThresholdWithSensitivity = - (pow(sensitivity,3) - 225.0 * pow(sensitivity,2) + 17250.0 * sensitivity - 500000.0) / 500000.0;
+//    _startThresholdWithSensitivity = - (pow(sensitivity,3) - 225.0 * pow(sensitivity,2) + 17250.0 * sensitivity - 500000.0) / 500000.0;
+    
+    float A = 0;
+    float B = 0;
+    float C = 0;
+    
+    if (sensitivity < 20){
+        A = 7; B = 197; C = 19;
+    } else if (sensitivity < 90) {
+        A = 1; B = 95; C = 25;
+    } else {
+        A = 3; B = 310; C = 200;
+    }
+    
+    _startThresholdWithSensitivity = - (A * sensitivity - B ) / C;
+    
     NSLog(@"_startThresholdWithSensitivity: %f", _startThresholdWithSensitivity);
     
     NSString *msg = [NSString stringWithFormat:@"sensitivity: %.2f, startThreshold: %.2f", sensitivity, _startThresholdWithSensitivity];
