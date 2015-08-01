@@ -172,7 +172,9 @@ class CalibrationViewController: UIViewController, UITextFieldDelegate, SoundPro
     }
     
     func soundProcessorProcessedFrame(params: [NSObject : AnyObject]!) {
-        logText("-------------")
+        let maxPerFrame = params["maxPerFrame"] as? NSNumber
+        let maxTotal = params["maxTotal"] as? NSNumber
+        logText("maxPerFrame: \(maxPerFrame!), maxTotal: \(maxTotal!)")
     }
     
 }

@@ -130,6 +130,7 @@ UInt64 strikeEndTime = 0;
             UInt64 timeElapsedNs = [PublicUtilityWrapper CAHostTimeBase_AbsoluteHostDeltaToNanos:strikeEndTime oldTapTime:strikeStartTime];
             
              NSLog(@"strike ended: %llu", strikeEndTime);
+            strikesInFrameDetected = YES;
             
             Float64 delayFator = 0.1;
             Float64 timeElapsedInSec = Float64(timeElapsedNs) * 10.0e-9 * delayFator;
@@ -154,9 +155,10 @@ UInt64 strikeEndTime = 0;
         }
     }
     if (strikesInFrameDetected) {
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            [self.delegate soundProcessorProcessedFrame:nil];
-//        });
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.delegate soundProcessorProcessedFrame:@{@"maxPerFrame": [NSNumber numberWithFloat:_maxEnergy],
+                                                          @"maxTotal": [NSNumber numberWithFloat:_maxEnergyTotal]}];
+        });
     }
     if (_maxEnergy > _startThresholdWithSensitivity) {
 //        dispatch_async(dispatch_get_main_queue(), ^{
