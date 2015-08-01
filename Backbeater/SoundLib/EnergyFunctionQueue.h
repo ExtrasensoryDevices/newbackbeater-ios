@@ -11,7 +11,7 @@
 @interface EnergyFunctionQueue : NSObject
 
 
--(void) push:(Float32)value resultHandler:(void (^)(BOOL success, Float32 value))resultHandler;
+-(Float32) push:(Float32)value;
 -(void)clear;
 
 @end

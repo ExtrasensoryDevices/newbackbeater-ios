@@ -14,6 +14,7 @@
 -(void)soundProcessorDidDetectSensorIn:(BOOL) sensorIn;
 -(void)soundProcessorDidDetectStrikeStart:(NSDictionary*) params;
 -(void)soundProcessorDidDetectStrikeEnd:(NSDictionary*) params;
+-(void)soundProcessorProcessedFrame:(NSDictionary*) params;
 
 @end
 
@@ -26,6 +27,7 @@
 @property (nonatomic, readonly) BOOL sensorIn;
 @property (nonatomic, assign) Float32 startTheshold;
 @property (nonatomic, assign) Float32 endTheshold;
+@property (nonatomic, assign) UInt64 timeout;
 
 
 -(BOOL)startSoundProcessing:(NSError**)error;
