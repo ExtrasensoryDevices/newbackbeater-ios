@@ -12,6 +12,7 @@ class CalibrationViewController: UIViewController, UITextFieldDelegate, SoundPro
 
     @IBOutlet weak var startTh: UITextField!
     @IBOutlet weak var stopTh: UITextField!
+    @IBOutlet weak var timeout: UITextField!
     @IBOutlet weak var log: UITextView!
     
     
@@ -25,6 +26,8 @@ class CalibrationViewController: UIViewController, UITextFieldDelegate, SoundPro
     
     let soundProcessor = SoundProcessor.sharedInstance()
     
+    let timeoutCoeff:UInt64 = 1000000
+    
     
     override func viewWillAppear(animated: Bool) {
         
@@ -33,6 +36,7 @@ class CalibrationViewController: UIViewController, UITextFieldDelegate, SoundPro
         self.view.backgroundColor = ColorPalette.Black.color()
         startTh.backgroundColor = ColorPalette.Black.color()
         stopTh.backgroundColor = ColorPalette.Black.color()
+        timeout.backgroundColor = ColorPalette.Black.color()
         startButton.setTitleColor(UIColor.blueColor(), forState: UIControlState.Normal)
         startButton.setTitleColor(UIColor.blueColor(), forState: UIControlState.Selected)
         clearButton.setTitleColor(UIColor.blueColor(), forState: UIControlState.Normal)
@@ -44,6 +48,9 @@ class CalibrationViewController: UIViewController, UITextFieldDelegate, SoundPro
         
         startTh.text = "\(soundProcessor.startTheshold)"
         stopTh.text = "\(soundProcessor.endTheshold)"
+        
+        let timeoutValue = soundProcessor.timeout/timeoutCoeff
+        timeout.text = "\(timeoutValue)"
         
     }
     
@@ -72,12 +79,16 @@ class CalibrationViewController: UIViewController, UITextFieldDelegate, SoundPro
         
         startTh.inputAccessoryView = keyboardToolbar
         stopTh.inputAccessoryView = keyboardToolbar
+        timeout.inputAccessoryView = keyboardToolbar
+        log.inputAccessoryView = keyboardToolbar
     }
     
     
     func didTapDoneButton() {
         startTh.resignFirstResponder()
         stopTh.resignFirstResponder()
+        timeout.resignFirstResponder()
+        log.resignFirstResponder()
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -113,6 +124,8 @@ class CalibrationViewController: UIViewController, UITextFieldDelegate, SoundPro
             soundProcessor.startTheshold = value
         } else if textField == stopTh {
             soundProcessor.endTheshold = value
+        } else if textField == timeout {
+            soundProcessor.timeout = UInt64(value) * timeoutCoeff
         }
     }
     
@@ -149,6 +162,10 @@ class CalibrationViewController: UIViewController, UITextFieldDelegate, SoundPro
     func soundProcessorDidDetectStrikeEnd(params: [NSObject : AnyObject]!) {
         if let unwrapped = params["energyLevel"] as? NSNumber {
             logText("           ended: \(unwrapped)")
+            let time = params["time"] as? NSNumber
+            let timeElapsedNs = params["timeElapsedNs"] as? NSNumber
+            let timeElapsedInSec = params["timeElapsedInSec"] as? NSNumber
+            println("timeElapsedNs: \(timeElapsedNs!), timeElapsedInSec: \(timeElapsedInSec!)")
         } else {
             logText("           ended: \(params)")
         }

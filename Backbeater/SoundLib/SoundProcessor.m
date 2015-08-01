@@ -9,11 +9,14 @@
 #import "SoundProcessor.h"
 #import "ATSoundSessionIO.h"
 #import "EnergyFunctionQueue.h"
+#import "PublicUtilityWrapper.h"
 
 
 
-#define kStartThreshold 1.6
-#define kEndThreshold 0.6
+#define kStartThreshold 0.15
+#define kEndThreshold 0.1
+#define kTimeout 100000000
+               //10294458
 
 
 
@@ -49,6 +52,7 @@ BOOL _strikeState;
         
         _startTheshold = kStartThreshold;
         _endTheshold = kEndThreshold;
+        _timeout = kTimeout;
         
         _strikeState = NO;
         
@@ -76,6 +80,8 @@ BOOL _strikeState;
 }
 
 
+UInt64 strikeStartTime = 0;
+UInt64 strikeEndTime = 0;
 -(void) processData:(Float32*)left right:(Float32*)right numFrames:(UInt32) numFrames
 {
     Float32 *data = left;
@@ -92,19 +98,44 @@ BOOL _strikeState;
         //    _logStringEnergy = [_logStringEnergy stringByAppendingFormat:@"%f, ", energyLevel];
         
         if (_strikeState == NO && energyLevel >= _startTheshold) {
-            _strikeState = YES;
-            strikesInFrameDetected = YES;
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.delegate soundProcessorDidDetectStrikeStart: @{@"energyLevel": [NSNumber numberWithFloat:energyLevel]}];
-            });
-            _strikeCount++;
+            UInt64 newTime = [PublicUtilityWrapper CAHostTimeBase_GetCurrentTime];
+            
+            UInt64 timeElapsedNs = [PublicUtilityWrapper CAHostTimeBase_AbsoluteHostDeltaToNanos:newTime oldTapTime:strikeEndTime];
+            
+            if (timeElapsedNs < _timeout) {
+                // ignore
+                NSLog(@"ignore strike: %llu", timeElapsedNs);
+            } else {
+                NSLog(@"strike started: %llu, delay: %llu", newTime, timeElapsedNs);
+                _strikeState = YES;
+                strikeStartTime = newTime;
+                strikesInFrameDetected = YES;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.delegate soundProcessorDidDetectStrikeStart: @{@"energyLevel": [NSNumber numberWithFloat:energyLevel],
+                                                                         @"time": [NSNumber numberWithFloat:strikeStartTime]}];
+                });
+                _strikeCount++;
+            }
         } else if (_strikeState == YES && energyLevel <= _endTheshold) {
             _strikeState = NO;
+            
+            strikeEndTime = [PublicUtilityWrapper CAHostTimeBase_GetCurrentTime];
+            UInt64 timeElapsedNs = [PublicUtilityWrapper CAHostTimeBase_AbsoluteHostDeltaToNanos:strikeEndTime oldTapTime:strikeStartTime];
+            
+             NSLog(@"strike ended: %llu", strikeEndTime);
+            
+            Float64 delayFator = 0.1;
+            Float64 timeElapsedInSec = Float64(timeElapsedNs) * 10.0e-9 * delayFator;
+            
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self.delegate soundProcessorDidDetectStrikeEnd:@{@"energyLevel": [NSNumber numberWithFloat:energyLevel]}];
+                [self.delegate soundProcessorDidDetectStrikeEnd:@{@"energyLevel": [NSNumber numberWithFloat:energyLevel],
+                                                                  @"time": [NSNumber numberWithFloat:strikeEndTime],
+                                                                  @"timeElapsedNs": [NSNumber numberWithFloat:timeElapsedNs],
+                                                                  @"timeElapsedInSec": [NSNumber numberWithFloat:timeElapsedInSec]}];
             });
         }
 
+        
         
         
         
@@ -116,9 +147,9 @@ BOOL _strikeState;
         }
     }
     if (strikesInFrameDetected) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.delegate soundProcessorProcessedFrame:nil];
-        });
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [self.delegate soundProcessorProcessedFrame:nil];
+//        });
     }
     if (_maxEnergy > _startTheshold) {
 //        dispatch_async(dispatch_get_main_queue(), ^{

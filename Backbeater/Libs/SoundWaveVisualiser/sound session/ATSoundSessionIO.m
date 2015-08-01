@@ -261,7 +261,7 @@ static OSStatus at_inRenderCallBackProc(	void *							inRefCon,
     // why not output to skpeacker
     // https://developer.apple.com/library/ios/qa/qa1754/_index.html
     NSError *errRet;
-    self.graphSampleRate = 44100.0;
+    self.graphSampleRate = 3000.0;   //44100.0;
     self.leftChanelFilter = [[ATDCRejectionFilter alloc] init];
     self.rightChanelFilter = [[ATDCRejectionFilter alloc] init];
     AVAudioSession *session = [ AVAudioSession sharedInstance ];

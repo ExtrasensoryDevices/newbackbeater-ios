@@ -10,10 +10,6 @@ import UIKit
 
 class DisplayViewController: UIViewController, SongListViewControllerDelegate, CentralRingDelegate {
 
-    @IBOutlet weak var logView: UITextView!
-    @IBOutlet weak var logButton: UIButton!
-    
-    
     @IBOutlet weak var centralRing: CentralRing!
     
     @IBOutlet weak var songListView: UIView!
@@ -88,8 +84,6 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
         
         centralRing.setTranslatesAutoresizingMaskIntoConstraints(false)
         
-        logButton.selected = false
-        logView.hidden = true
     }
     
     func applicationWillEnterForeground() {
@@ -128,39 +122,24 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
     }
     
     
-    // TODO: remove
-    @IBAction func didTapShowLog(sender: UIButton) {
-        
-        if sender.selected {
-            sender.selected = false
-            logView.hidden = true
-        } else {
-            sender.selected = true
-            logView.hidden = false
-        }
-    }
-    
-    
-    
     override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
         switch keyPath {
         case "sensorIn":
-            logView.text = logView.text + "\nsensorIn: \(Settings.sharedInstance().sensorIn)"
+            println("\nsensorIn: \(Settings.sharedInstance().sensorIn)")
             updateSensorView()
         case "strikesWindowSelectedIndex":
-            logView.text = logView.text + "\nwindow: \(Settings.sharedInstance().strikesWindow)"
+            println("\nwindow: \(Settings.sharedInstance().strikesWindow)")
             strikesWindowQueue.capacity = Settings.sharedInstance().strikesWindow
         case "timeSignatureSelectedIndex":
-            logView.text = logView.text + "\ntimeSignature: \(Settings.sharedInstance().timeSignature)"
+            println("\ntimeSignature: \(Settings.sharedInstance().timeSignature)")
         case "metronomeSoundSelectedIndex":
             // TODO:switch metronome sound
-//            logView.text = logView.text + "\nmetronomeSound: \(Settings.sharedInstance().metronomeSound)"
+//            println("\nmetronomeSound: \(Settings.sharedInstance().metronomeSound)")
             break
         default:
             break
             
         }
-        logView.scrollRangeToVisible(NSMakeRange(count(logView.text)-1, 1))
     }
     
     @IBAction func metronomeTempoValueChanged(sender: NumericStepper) {
