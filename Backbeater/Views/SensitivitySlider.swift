@@ -29,7 +29,7 @@ class SensitivitySlider: UIControlNibDesignable{
     }
     
     
-    var value:Int = 10 {
+    var value:Int = 0 {
         didSet {
             if (value != oldValue) {
                 self.sendActionsForControlEvents(UIControlEvents.ValueChanged)
@@ -42,6 +42,18 @@ class SensitivitySlider: UIControlNibDesignable{
     
     override func setup() {
         setupGestures()
+        self.addObserver(self, forKeyPath: "bounds", options: NSKeyValueObservingOptions.allZeros, context: nil)
+        
+    }
+    
+    deinit {
+        self.removeObserver(self, forKeyPath: "bounds")
+    }
+    
+    override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
+        if object === self && keyPath == "bounds" {
+            setupThumb()
+        }
     }
     
     override func layoutSubviews() {

@@ -46,11 +46,14 @@ class CalibrationViewController: UIViewController, UITextFieldDelegate, SoundPro
         
         soundProcessor.delegate = self
         
-        startTh.text = "\(soundProcessor.startThreshold)"
-        stopTh.text = "\(soundProcessor.endThreshold)"
+//        startTh.text = "\(soundProcessor.startThreshold)"
+//        stopTh.text = "\(soundProcessor.endThreshold)"
+//        
+//        let timeoutValue = soundProcessor.timeout/timeoutCoeff
         
-        let timeoutValue = soundProcessor.timeout/timeoutCoeff
-        timeout.text = "\(timeoutValue)"
+        
+        
+//        timeout.text = "\(timeoutValue)"
         
     }
     
@@ -93,7 +96,7 @@ class CalibrationViewController: UIViewController, UITextFieldDelegate, SoundPro
     
     override func viewWillDisappear(animated: Bool) {
         var error:NSError?
-        soundProcessor.stopSoundProcessing(&error)
+        soundProcessor.stop(&error)
         if let err = error {
             println(err)
         }
@@ -103,10 +106,10 @@ class CalibrationViewController: UIViewController, UITextFieldDelegate, SoundPro
         var error:NSError? = nil
         if sender.selected {
             sender.selected = false
-            SoundProcessor.sharedInstance().stopSoundProcessing(&error)
+            SoundProcessor.sharedInstance().stop(&error)
         } else {
             sender.selected = true
-            SoundProcessor.sharedInstance().startSoundProcessing(&error)
+            SoundProcessor.sharedInstance().start(&error)
         }
         if let err = error {
             println(err)
@@ -119,14 +122,14 @@ class CalibrationViewController: UIViewController, UITextFieldDelegate, SoundPro
     }
     
     func textFieldDidEndEditing(textField: UITextField) {
-        let value = (textField.text as NSString).floatValue
-        if textField == startTh {
-            soundProcessor.startThreshold = value
-        } else if textField == stopTh {
-            soundProcessor.endThreshold = value
-        } else if textField == timeout {
-            soundProcessor.timeout = UInt64(value) * timeoutCoeff
-        }
+//        let value = (textField.text as NSString).floatValue
+//        if textField == startTh {
+//            soundProcessor.startThreshold = value
+//        } else if textField == stopTh {
+//            soundProcessor.endThreshold = value
+//        } else if textField == timeout {
+//            soundProcessor.timeout = UInt64(value) * timeoutCoeff
+//        }
     }
     
     @IBAction func didTapClear(sender: AnyObject) {
@@ -175,6 +178,14 @@ class CalibrationViewController: UIViewController, UITextFieldDelegate, SoundPro
         let maxPerFrame = params["maxPerFrame"] as? NSNumber
         let maxTotal = params["maxTotal"] as? NSNumber
         logText("maxPerFrame: \(maxPerFrame!), maxTotal: \(maxTotal!)")
+    }
+    
+    func soundProcessorDidDetectFirstStrike() {
+        //
+    }
+    
+    func soundProcessorDidFindBPM(bpm: Float64) {
+        //
     }
     
 }

@@ -16,11 +16,15 @@ func ==(lhs: SongTempo, rhs: SongTempo) -> Bool {
 }
 
 
+//@objc class SoundConstants:NSObject {
+//    func DEFAULT_SENSITIVITY() -> Int {return 100}
+    let DEFAULT_SENSITIVITY = 100
+    let DEFAULT_TEMPO = 120
+    let MAX_TEMPO = 221
+    let MIN_TEMPO = 20
+//}
 
-let DEFAULT_SENSITIVITY = 1.0
-let DEFAULT_TEMPO = 120
-let MAX_TEMPO = 221
-let MIN_TEMPO = 20
+
 let HELP_URL = "http://www.google.com"
 let BUY_SENSOR_URL = "http://www.backbeater.com"
 

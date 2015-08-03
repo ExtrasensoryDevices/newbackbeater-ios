@@ -249,19 +249,6 @@ SENSOR</string>
                                     <action selector="metronomeTempoValueChanged:" destination="ri4-d8-4RD" eventType="valueChanged" id="vYY-r6-MCd"/>
                                 </connections>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RmA-Wm-2Js">
-                                <rect key="frame" x="514" y="28" width="70" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="Mwm-GA-6Aw"/>
-                                    <constraint firstAttribute="width" constant="70" id="u5w-U0-FTF"/>
-                                </constraints>
-                                <state key="normal" title="Test">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="6WL-bB-PAd" kind="presentation" id="M3V-lp-Lh2"/>
-                                </connections>
-                            </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="top_logo" translatesAutoresizingMaskIntoConstraints="NO" id="HD3-4I-VRj">
                                 <rect key="frame" x="262" y="20" width="76" height="36"/>
                                 <constraints>
@@ -281,10 +268,8 @@ SENSOR</string>
                             <constraint firstItem="QJn-dF-3EQ" firstAttribute="width" secondItem="qeG-nt-Ow3" secondAttribute="width" id="ERR-wb-7Q7"/>
                             <constraint firstItem="kYO-4H-tYr" firstAttribute="top" secondItem="ZVW-OY-ljc" secondAttribute="bottom" id="ESO-Kr-YQ0"/>
                             <constraint firstItem="QJn-dF-3EQ" firstAttribute="centerX" secondItem="qeG-nt-Ow3" secondAttribute="centerX" id="NTG-tK-rEQ"/>
-                            <constraint firstItem="RmA-Wm-2Js" firstAttribute="top" secondItem="WG6-xU-VjA" secondAttribute="bottom" constant="8" id="NcJ-CQ-VP8"/>
                             <constraint firstItem="QJn-dF-3EQ" firstAttribute="top" secondItem="I8c-WM-xqu" secondAttribute="bottom" constant="16" id="OME-vP-mdI"/>
                             <constraint firstItem="I8c-WM-xqu" firstAttribute="top" secondItem="HD3-4I-VRj" secondAttribute="bottom" constant="16" id="PHS-3J-phh"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="RmA-Wm-2Js" secondAttribute="trailing" id="Sjy-Le-DCy"/>
                             <constraint firstItem="QJn-dF-3EQ" firstAttribute="leading" secondItem="FFV-Bp-Hpm" secondAttribute="leading" constant="16" id="cKf-dU-x94"/>
                             <constraint firstItem="QJn-dF-3EQ" firstAttribute="centerY" secondItem="qeG-nt-Ow3" secondAttribute="centerY" id="g8A-5D-AVh"/>
                             <constraint firstItem="HD3-4I-VRj" firstAttribute="top" secondItem="WG6-xU-VjA" secondAttribute="bottom" id="izT-tZ-7p1"/>

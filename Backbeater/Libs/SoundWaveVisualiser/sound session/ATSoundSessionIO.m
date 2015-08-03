@@ -268,6 +268,7 @@ static OSStatus at_inRenderCallBackProc(	void *							inRefCon,
     // Request the MultiRoute category (1)
     if ([session setPreferredSampleRate:self.graphSampleRate error:&errRet] && !errRet) {
         if ([session setCategory:AVAudioSessionCategoryPlayAndRecord error:&errRet] && !errRet){
+            [session overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:&errRet];
             [session setMode:AVAudioSessionModeMeasurement error:&errRet];
             if ([session setPreferredIOBufferDuration:.005 error:&errRet] && !errRet) {
                 if ([session setActive:YES error:&errRet] && !errRet) {

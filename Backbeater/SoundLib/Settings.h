@@ -14,8 +14,8 @@
 
 
 // current state / user input
-@property (nonatomic, readonly) BOOL sensorIn; // value received from SoundProcessor
-@property (nonatomic) float sensitivity;
+@property (nonatomic) BOOL sensorIn; 
+@property (nonatomic) NSInteger sensitivity;
 @property (nonatomic,readonly) NSInteger strikesWindow; // value set by index in array
 @property (nonatomic,readonly) NSInteger timeSignature; // value set by index in array
 @property (nonatomic) BOOL metronomeIsOn;

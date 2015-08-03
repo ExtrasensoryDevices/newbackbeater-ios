@@ -62,7 +62,7 @@ class Sidebar: NibDesignable {
     func displayValuesFromSettings()
     {
         let settings = Settings.sharedInstance()
-        sensitivitySlider.value = Int(settings.sensitivity * 100)
+        sensitivitySlider.value = settings.sensitivity
         
         let selectedIndex = settings.metronomeSoundSelectedIndex
         for (index, button) in enumerate(soundButtonCollection) {
@@ -100,7 +100,7 @@ class Sidebar: NibDesignable {
     
     
     @IBAction func sensitivityValueChanged(sender: SensitivitySlider) {
-        settings.sensitivity = Float(sender.value) / 100
+        settings.sensitivity = sender.value
     }
     
     @IBAction func windowValueChanged(sender: SegmentedControl) {

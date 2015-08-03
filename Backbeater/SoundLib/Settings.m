@@ -17,8 +17,8 @@ NSArray *_strikesWindowValues;
 NSArray *_timeSignatureValues;
 NSArray *_metronomeSoundFileNames;
 
-
-float DEFAULT_SENSITIVITY = 0.6;
+//TODO: import from swift
+float DEFAULT_SENSITIVITY = 100;
 int DEFAULT_TEMPO = 120;
 int MAX_TEMPO = 221;
 int MIN_TEMPO = 20;
@@ -62,7 +62,7 @@ int MIN_TEMPO = 20;
 
 -(void)setMetronomeTempo:(NSInteger)value
 {
-    NSInteger boundedValue = value > MAX_TEMPO ? MAX_TEMPO : (value < MIN_TEMPO ? MIN_TEMPO : value);
+    NSInteger boundedValue = value >  MAX_TEMPO ? MAX_TEMPO : (value < MIN_TEMPO ? MIN_TEMPO : value);
     if (_metronomeTempo != boundedValue) {
         _metronomeTempo = boundedValue;
     }
@@ -94,7 +94,7 @@ int MIN_TEMPO = 20;
     BOOL changed = NO;
     
     if ([userDefaults objectForKey:@"sensitivity"] != nil) {
-        _sensitivity = [userDefaults floatForKey:@"sensitivity"];
+        _sensitivity = [userDefaults integerForKey:@"sensitivity"];
     } else {
         changed = YES;
         _sensitivity = DEFAULT_SENSITIVITY;
@@ -146,7 +146,7 @@ int MIN_TEMPO = 20;
 -(void) saveState
 {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults setFloat: _sensitivity forKey:@"sensitivity"];
+    [userDefaults setInteger: _sensitivity forKey:@"sensitivity"];
     [userDefaults setInteger:_strikesWindowSelectedIndex forKey:@"strikesWindowSelectedIndex"];
     [userDefaults setInteger:_timeSignatureSelectedIndex forKey:@"timeSignatureSelectedIndex"];
     [userDefaults setInteger:_metronomeSoundSelectedIndex forKey:@"metronomeSoundSelectedIndex"];

@@ -12,9 +12,13 @@
 @protocol SoundProcessorDelegate <NSObject>
 
 -(void)soundProcessorDidDetectSensorIn:(BOOL) sensorIn;
--(void)soundProcessorDidDetectStrikeStart:(NSDictionary*) params;
--(void)soundProcessorDidDetectStrikeEnd:(NSDictionary*) params;
--(void)soundProcessorProcessedFrame:(NSDictionary*) params;
+//-(void)soundProcessorDidDetectStrikeStart:(NSDictionary*) params;
+//-(void)soundProcessorDidDetectStrikeEnd:(NSDictionary*) params;
+//-(void)soundProcessorProcessedFrame:(NSDictionary*) params;
+
+
+-(void)soundProcessorDidDetectFirstStrike;
+-(void)soundProcessorDidFindBPM:(Float64)bpm;
 
 @end
 
@@ -25,13 +29,13 @@
 @property (nonatomic, weak) id<SoundProcessorDelegate> delegate;
 
 @property (nonatomic, readonly) BOOL sensorIn;
-@property (nonatomic, assign) Float32 startThreshold;
-@property (nonatomic, assign) Float32 startThresholdWithSensitivity;
-@property (nonatomic, assign) Float32 endThreshold;
-@property (nonatomic, assign) UInt64 timeout;
+//@property (nonatomic, assign) Float32 startThreshold;
+//@property (nonatomic, assign) Float32 startThresholdWithSensitivity;
+//@property (nonatomic, assign) Float32 endThreshold;
+//@property (nonatomic, assign) UInt64 timeout;
 
 
--(BOOL)startSoundProcessing:(NSError**)error;
--(BOOL)stopSoundProcessing:(NSError**)error;
+-(BOOL)start:(NSError**)error;
+-(BOOL)stop:(NSError**)error;
 
 @end

@@ -8,7 +8,7 @@
 import UIKit
 
 
-class DisplayViewController: UIViewController, SongListViewControllerDelegate, CentralRingDelegate {
+class DisplayViewController: UIViewController, SongListViewControllerDelegate, CentralRingDelegate, SoundProcessorDelegate {
 
     @IBOutlet weak var centralRing: CentralRing!
     
@@ -27,6 +27,10 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
     
     var strikesWindowQueue:WindowQueue!
     
+    var soundProcessor: SoundProcessor!
+    
+    var currentTempo = 0
+
     
     var songList:[SongTempo]?
     var selectedIndex:Int = 0 {
@@ -44,6 +48,10 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
 
         registerForNotifications()
         
+        
+        soundProcessor = SoundProcessor.sharedInstance()
+        soundProcessor.delegate = self;
+        
         strikesWindowQueue = WindowQueue(capacity:Settings.sharedInstance().strikesWindow)
         centralRing.delegate = self
         
@@ -51,12 +59,12 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
         println("metronomeIsOn: \(Settings.sharedInstance().metronomeIsOn)")
         metronomeTempoView.isOn = Settings.sharedInstance().metronomeIsOn
         
+        
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-
         updateSensorView()
         updateSongListView()
         
@@ -72,6 +80,7 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
         
         setTempoView.drawBorder()
         setTempoView.backgroundColor = ColorPalette.Black.color()
+        setTempoView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "didTapSetTempoButton"))
         
         metronomeTempoView.font = Font.FuturaBook.get(33)
         metronomeTempoView.bgrColor = ColorPalette.Black.color()
@@ -100,10 +109,7 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
     
     func registerForNotifications() {
         let settings = Settings.sharedInstance()
-        settings.addObserver(self, forKeyPath: "sensorIn", options: NSKeyValueObservingOptions.allZeros, context: nil)
         settings.addObserver(self, forKeyPath: "strikesWindowSelectedIndex", options: NSKeyValueObservingOptions.allZeros, context: nil)
-        settings.addObserver(self, forKeyPath: "timeSignatureSelectedIndex", options: NSKeyValueObservingOptions.allZeros, context: nil)
-        settings.addObserver(self, forKeyPath: "metronomeSoundSelectedIndex", options: NSKeyValueObservingOptions.allZeros, context: nil)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "applicationWillEnterForeground", name:UIApplicationWillEnterForegroundNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "applicationWillResignActive", name:UIApplicationWillResignActiveNotification, object: nil)
@@ -112,10 +118,7 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
     
     deinit {
         let settings = Settings.sharedInstance()
-        settings.removeObserver(self, forKeyPath: "sensorIn")
         settings.removeObserver(self, forKeyPath: "strikesWindowSelectedIndex")
-        settings.removeObserver(self, forKeyPath: "timeSignatureSelectedIndex")
-        settings.removeObserver(self, forKeyPath: "metronomeSoundSelectedIndex")
         
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIApplicationWillEnterForegroundNotification, object: nil)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIApplicationWillResignActiveNotification, object: nil)
@@ -124,23 +127,23 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
     
     override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
         switch keyPath {
-        case "sensorIn":
-            println("\nsensorIn: \(Settings.sharedInstance().sensorIn)")
-            updateSensorView()
         case "strikesWindowSelectedIndex":
-            println("\nwindow: \(Settings.sharedInstance().strikesWindow)")
             strikesWindowQueue.capacity = Settings.sharedInstance().strikesWindow
-        case "timeSignatureSelectedIndex":
-            println("\ntimeSignature: \(Settings.sharedInstance().timeSignature)")
-        case "metronomeSoundSelectedIndex":
-            // TODO:switch metronome sound
-//            println("\nmetronomeSound: \(Settings.sharedInstance().metronomeSound)")
-            break
         default:
             break
             
         }
     }
+    
+    
+    func didTapSetTempoButton() {
+        metronomeTempoView.value = currentTempo
+        Settings.sharedInstance().metronomeIsOn = true
+        metronomeTempoView.isOn = true
+    }
+    
+    
+    //MARK: - NumericStepper delegate
     
     @IBAction func metronomeTempoValueChanged(sender: NumericStepper) {
         Settings.sharedInstance().metronomeTempo = metronomeTempoView.value
@@ -166,12 +169,30 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
         
         let tempo = Int(bpm * multiplier)
         
-        let cpt = strikesWindowQueue.enqueue(tempo).average
-        
-        centralRing.displayCPT(cpt, instantTempo: Int(tempo))
+        currentTempo = strikesWindowQueue.enqueue(tempo).average
+        centralRing.displayCPT(currentTempo, instantTempo: Int(tempo))
     }
     
+    // MARK: - SoundProcessorDelegate
     
+    func soundProcessorDidDetectSensorIn(sensorIn: Bool) {
+        Settings.sharedInstance().sensorIn = sensorIn
+        updateSensorView()
+        
+        if sensorIn {
+            soundProcessor.start(nil)
+        } else {
+            soundProcessor.stop(nil)
+        }
+    }
+    
+    func soundProcessorDidDetectFirstStrike() {
+        centralRing.runPulseAnimationOnly()
+    }
+    
+    func soundProcessorDidFindBPM(bpm: Float64) {
+        processBPM(bpm)
+    }
     
     // MARK: - Song list
     

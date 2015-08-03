@@ -308,7 +308,6 @@ class CentralRing: NibDesignable {
             tapCount = 0;
             cptLabel.text = ""
             runPulseAnimationOnly()
-//            hideCptLabelAfterDelay()
         } else {
             let figertapBPM = 60.0 / timeElapsedInSec
             self.foundFigertapBPM(figertapBPM)
@@ -325,9 +324,6 @@ class CentralRing: NibDesignable {
     }
 
     func displayCPT(cpt:Int, instantTempo:Int) {
-
-//        println("cpt: \(cpt), bpm: \(instantTempo)")
-        
         // display numbers
         if cpt > MAX_TEMPO || cpt < MIN_TEMPO {
             // We do not need BPM outside this range.
@@ -337,7 +333,6 @@ class CentralRing: NibDesignable {
             cptLabel.text = "\(cpt)"
             runAnimationWithCPT(cpt, instantTempo:instantTempo)
         }
-//        hideCptLabelAfterDelay()
         
         self.delay(IDLE_TIMEOUT, callback: { () -> () in
             let now:UInt64 = PublicUtilityWrapper.CAHostTimeBase_GetCurrentTime()
