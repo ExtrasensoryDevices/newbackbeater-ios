@@ -150,6 +150,7 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
     }
     
     @IBAction func metronomeTempoPressed(sender: NumericStepper) {
+        Settings.sharedInstance().metronomeTempo = metronomeTempoView.value
         Settings.sharedInstance().metronomeIsOn = sender.isOn
     }
     

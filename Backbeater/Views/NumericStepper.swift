@@ -32,13 +32,15 @@ class NumericStepper: UIControlNibDesignable {
     
     var value:Int {
         get {
-            return isOn ? _value : 0
+            return _value
         }
         set (newValue) {
             if _value != newValue.inBounds(minValue: MIN_TEMPO, maxValue: MAX_TEMPO) {
                 _value = newValue
                 label.text = "\(_value)"
-                sendActionsForControlEvents(UIControlEvents.ValueChanged)
+                if isOn {
+                    sendActionsForControlEvents(UIControlEvents.ValueChanged)
+                }
             }
         }
     }
@@ -91,15 +93,15 @@ class NumericStepper: UIControlNibDesignable {
         layoutIfNeeded()
         
         updateOnOffState()
+        
+        frameView.addGestureRecognizer(panGestureRecognizer)
    }
     
     private func updateOnOffState() {
         if isOn {
             self.frameView?.drawBorder()
-            frameView.addGestureRecognizer(panGestureRecognizer)
         } else {
             self.frameView?.drawBorderWithColor(ColorPalette.Grey.color())
-            frameView.removeGestureRecognizer(panGestureRecognizer)
         }
     }
     
@@ -173,13 +175,6 @@ class NumericStepper: UIControlNibDesignable {
         self.sendActionsForControlEvents(UIControlEvents.TouchUpInside)
     }
     
-    override func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
-        if gestureRecognizer is UIPanGestureRecognizer {
-            return isOn
-        }
-        return true
-    }
-    
     
     @IBAction func didPanView(gesture: UIPanGestureRecognizer) {
         let point = gesture.locationInView(self)
@@ -241,7 +236,6 @@ class NumericStepper: UIControlNibDesignable {
         default      : increment = 25
         }
         increment = velocityY < 0 ? increment : -increment // opposit to move direction
-//        println("velocityY: \(abs(velocityY)), \tincrement: \(increment)")
         return increment
     }
     

@@ -25,7 +25,7 @@ func ==(lhs: SongTempo, rhs: SongTempo) -> Bool {
 //}
 
 
-let HELP_URL = "http://www.google.com"
+let HELP_URL = "http://backbeater.com/m"
 let BUY_SENSOR_URL = "http://www.backbeater.com"
 
 let IDLE_TIMEOUT = 5.0
