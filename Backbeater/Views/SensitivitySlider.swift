@@ -17,14 +17,16 @@ class SensitivitySlider: UIControlNibDesignable{
     @IBOutlet weak var thumbView: UIView!
     @IBOutlet weak var thumbLabel: UILabel!
     
+    @IBOutlet weak var thumbLeadingConstraint: NSLayoutConstraint!
+    
     var MIN_VALUE:Int = 0 {
         didSet {
-            updateThumb(animated: true)
+            updateThumbPosition(animated: true)
         }
     }
     var MAX_VALUE:Int = 100 {
         didSet {
-            updateThumb(animated: true)
+            updateThumbPosition(animated: true)
         }
     }
     
@@ -33,46 +35,29 @@ class SensitivitySlider: UIControlNibDesignable{
         didSet {
             if (value != oldValue) {
                 self.sendActionsForControlEvents(UIControlEvents.ValueChanged)
-                updateThumb(animated: true)
+                updateThumbPosition(animated: true)
             }
         }
     }
-    // TODO ? : var continuousUpdates = true
-    
     
     override func setup() {
         setupGestures()
-        self.addObserver(self, forKeyPath: "bounds", options: NSKeyValueObservingOptions.allZeros, context: nil)
-        
+        setupThumb()
     }
     
-    deinit {
-        self.removeObserver(self, forKeyPath: "bounds")
-    }
-    
-    override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
-        if object === self && keyPath == "bounds" {
-            setupThumb()
-        }
-    }
-    
-    override func layoutSubviews() {
-        println("layoutSubviews")
-        super.layoutSubviews()
+    override func didMoveToWindow() {
+        super.didMoveToWindow()
         setupThumb()
     }
     
     func setupThumb() {
         thumbView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        var thumbViewFrame = thumbView.bounds
-        thumbViewFrame.size.width = thumbViewFrame.size.height
-        thumbView.frame = thumbViewFrame
         thumbView.backgroundColor = ColorPalette.Pink.color()
-        thumbView.layer.cornerRadius = thumbView.frame.size.height / 2 - BORDER_WIDTH * 1.5
+        thumbView.layer.cornerRadius = thumbView.frame.size.height / 2 // - BORDER_WIDTH * 1.5
         thumbView.layer.borderWidth = BORDER_WIDTH
         thumbView.layer.borderColor = UIColor.whiteColor().CGColor
         thumbLabel.font = thumbLabel.font.fontWithSize(10)
-        updateThumb(animated: false)
+        updateThumbPosition(animated: false)
         
         println("setupThumb: \(thumbView.center)")
         
@@ -80,66 +65,58 @@ class SensitivitySlider: UIControlNibDesignable{
     }
     
 
-
-    
-    func updateThumb(#animated: Bool) {
-        thumbLabel.text = String(value)
-        moveThumbCenterToPoint(getCenterPointForValue(), animated: animated)
+    private func valueForTrackPointX(pointX:CGFloat) -> Int? {
+        let minX = trackView.frame.minX
+        let maxX = trackView.frame.maxX
+        if pointX >= minX && pointX <= maxX {
+            let val = (pointX - minX) * CGFloat(MAX_VALUE - MIN_VALUE) / (maxX - minX)
+            return Int(round(val))
+        }
+        return nil
     }
     
-    private func moveThumbCenterToPoint(point:CGPoint, animated: Bool) {
+    private func valueForThumbCenterPointX(pointX:CGFloat) -> Int? {
+        let thumbHalfWidth = thumbView.frame.width / 2
+        let minX = trackView.frame.minX + thumbHalfWidth
+        let maxX = trackView.frame.maxX - thumbHalfWidth
+        if pointX >= minX && pointX <= maxX {
+            let val = (pointX - minX) * CGFloat(MAX_VALUE - MIN_VALUE) / (maxX - minX)
+            return Int(round(val))
+        }
+        return nil
+    }
+    
+    // offset from the left side of the track
+    private func thumbOffsetForValue(val:Int) -> CGFloat {
+        let trackLength = trackView.frame.size.width
+        let trackAvailableSpace = trackLength - thumbView.frame.size.width // thumb should stay fully inside track width
+        let thumbOffsetX = (trackAvailableSpace * CGFloat(val)) / 100.0
+        return thumbOffsetX
+    }
+    
+    
+
+    
+    func updateThumbPosition(#animated: Bool) {
+        thumbLabel.text = String(value)
+        setThumbOffset(thumbOffsetForValue(self.value), animated: animated)
+    }
+    
+    private func setThumbOffset(offset:CGFloat, animated: Bool) {
         if thumbView == nil {
             return
         }
-        println("move to point: \(point) animated: \(animated)")
-        println("\t\t\tb/f: \(thumbView.frame)")
+        thumbLeadingConstraint.constant = offset
         if animated {
             UIView.animateWithDuration(0.3) {[weak self] in
-                self?.thumbView.center = point
+                self?.layoutIfNeeded()
             }
-        } else {
-            thumbView.center = point
         }
-        println("\t\t\tafter: \(thumbView.frame)")
     }
     
-    private func getCenterPointForValue() -> CGPoint {
-        // find the center position of the thumb view on the track
+    func pointValid(centerPointX:CGFloat) -> Bool {
         let thumbOffset = thumbView.frame.width / 2
-        let minX = trackView.frame.minX + thumbOffset
-        let maxX = trackView.frame.maxX - thumbOffset
-        let dX = (maxX - minX) * CGFloat(value) / CGFloat(MAX_VALUE - MIN_VALUE)
-        // find x position of the thumb view in the parent view
-        let centerX = minX + dX
-        return CGPoint(x:centerX, y: trackView.frame.midY)
-    }
-    
-    
-    // full track, not taking into account thumb width
-    private func getValueForTrackTapPoint(point:CGPoint) -> Int? {
-        if point.x >= trackView.frame.minX && point.x <= trackView.frame.maxX {
-            let val = (point.x - trackView.frame.minX) * CGFloat(MAX_VALUE - MIN_VALUE) / (trackView.frame.maxX - trackView.frame.minX)
-            return Int(round(val))
-        }
-        return nil
-    }
-    
-    // inner part of the track taking into account thumb width
-    private func getValueForThumbCenterPoint(thumbCenterPoint:CGPoint) -> Int? {
-        // find the center position of the thumb view on the track
-        let thumbOffset = thumbView.frame.width / 2
-        let minX = trackView.frame.minX + thumbOffset
-        let maxX = trackView.frame.maxX - thumbOffset
-        if thumbCenterPoint.x >= minX && thumbCenterPoint.x <= maxX {
-            let val = (thumbCenterPoint.x - minX) * CGFloat(MAX_VALUE - MIN_VALUE) / (maxX - minX)
-            return Int(round(val))
-        }
-        return nil
-    }
-    
-    func pointValid(centerPoint:CGPoint) -> Bool {
-        let thumbOffset = thumbView.frame.width / 2
-        return centerPoint.x >= trackView.frame.minX+thumbOffset && centerPoint.x <= trackView.frame.maxX-thumbOffset
+        return centerPointX >= trackView.frame.minX+thumbOffset && centerPointX <= trackView.frame.maxX-thumbOffset
     }
     
     
@@ -162,7 +139,7 @@ class SensitivitySlider: UIControlNibDesignable{
         } else if CGRectContainsPoint(rightImage.frame, tapPoint) {
             // right image tapped  - set max value
             value = MAX_VALUE
-        } else if let val = getValueForTrackTapPoint(tapPoint) {
+        } else if let val = valueForTrackPointX(tapPoint.x) {
             value = val
         }
     }
@@ -178,17 +155,19 @@ class SensitivitySlider: UIControlNibDesignable{
             dragging = true
             initialValue = value
         case .Changed :
-            var newCenter = gestureRecognizer.view!.center
-            newCenter.x = newCenter.x + point.x
-            if pointValid(newCenter) {
-                gestureRecognizer.view!.center = newCenter
-                if let val = getValueForThumbCenterPoint(newCenter) where val != value {
+            var newCenterX = gestureRecognizer.view!.center.x + point.x
+            if pointValid(newCenterX) {
+                // do not call self.value:= smth, it will dispatch continuous updates
+                // move thumb
+                thumbLeadingConstraint.constant += point.x
+                // updateLabel
+                if let val = valueForThumbCenterPointX(newCenterX) where val != value {
                     thumbLabel.text = String(val)
                 }
             }
         case .Ended :
             dragging = false
-            if let val = getValueForThumbCenterPoint(thumbView.center) {
+            if let val = valueForThumbCenterPointX(thumbView.center.x) {
                 value = val
             }
         case .Cancelled, .Failed :

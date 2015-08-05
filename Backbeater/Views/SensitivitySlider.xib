@@ -11,6 +11,7 @@
                 <outlet property="leftImage" destination="Wgh-hk-iuP" id="5Up-2F-boG"/>
                 <outlet property="rightImage" destination="ybe-I9-Y08" id="gXX-KS-RW9"/>
                 <outlet property="thumbLabel" destination="dkB-fW-Hxk" id="D83-8n-cjZ"/>
+                <outlet property="thumbLeadingConstraint" destination="yDe-eA-AGB" id="4J6-Be-5d4"/>
                 <outlet property="thumbView" destination="B0i-nx-BHs" id="3Ll-4c-oRN"/>
                 <outlet property="trackView" destination="Daf-PR-JEN" id="ybZ-1E-wF3"/>
             </connections>
@@ -40,7 +41,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B0i-nx-BHs" userLabel="thumb">
-                    <rect key="frame" x="210" y="8" width="32" height="32"/>
+                    <rect key="frame" x="47" y="8" width="32" height="32"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dkB-fW-Hxk">
                             <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
@@ -67,11 +68,11 @@
                 <constraint firstItem="Wgh-hk-iuP" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="7aJ-kH-MFE"/>
                 <constraint firstItem="Wgh-hk-iuP" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="89L-5w-M2Q"/>
                 <constraint firstAttribute="centerY" secondItem="Daf-PR-JEN" secondAttribute="centerY" id="EBf-nM-BHw"/>
-                <constraint firstAttribute="centerX" secondItem="B0i-nx-BHs" secondAttribute="centerX" placeholder="YES" id="RMc-tH-IX6"/>
                 <constraint firstAttribute="bottom" secondItem="Wgh-hk-iuP" secondAttribute="bottom" id="YS5-ty-Wbe"/>
                 <constraint firstItem="Daf-PR-JEN" firstAttribute="leading" secondItem="Wgh-hk-iuP" secondAttribute="trailing" id="aTR-nE-DEG"/>
                 <constraint firstAttribute="trailing" secondItem="ybe-I9-Y08" secondAttribute="trailing" id="bz5-4v-3La"/>
                 <constraint firstItem="ybe-I9-Y08" firstAttribute="leading" secondItem="Daf-PR-JEN" secondAttribute="trailing" id="lSY-Pf-1BC"/>
+                <constraint firstItem="B0i-nx-BHs" firstAttribute="leading" secondItem="Daf-PR-JEN" secondAttribute="leading" id="yDe-eA-AGB"/>
                 <constraint firstItem="ybe-I9-Y08" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="z2G-w4-kFZ"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
