@@ -17,11 +17,6 @@ NSArray *_strikesWindowValues;
 NSArray *_timeSignatureValues;
 NSArray *_metronomeSoundFileNames;
 
-//TODO: import from swift
-float DEFAULT_SENSITIVITY = 100;
-int DEFAULT_TEMPO = 120;
-int MAX_TEMPO = 221;
-int MIN_TEMPO = 20;
 
 + (Settings*)sharedInstance {
     static Settings *_instance = nil;
@@ -41,7 +36,7 @@ int MIN_TEMPO = 20;
         _sensorIn = NO;
         _strikesWindowValues = @[@2, @4, @8, @16];
         _timeSignatureValues = @[@1, @2, @3, @4];
-        _metronomeSoundFileNames = @[@"stick", @"metronome", @"sideStick"];
+        _metronomeSoundFileNames = @[@"sideStick", @"stick", @"metronome", @"surprise"];
     }
     return self;
 }
@@ -62,6 +57,8 @@ int MIN_TEMPO = 20;
 
 -(void)setMetronomeTempo:(NSInteger)value
 {
+    NSInteger MAX_TEMPO = [SoundConstant MAX_TEMPO];
+    NSInteger MIN_TEMPO = [SoundConstant MIN_TEMPO];
     NSInteger boundedValue = value >  MAX_TEMPO ? MAX_TEMPO : (value < MIN_TEMPO ? MIN_TEMPO : value);
     if (_metronomeTempo != boundedValue) {
         _metronomeTempo = boundedValue;
@@ -97,7 +94,7 @@ int MIN_TEMPO = 20;
         _sensitivity = [userDefaults integerForKey:@"sensitivity"];
     } else {
         changed = YES;
-        _sensitivity = DEFAULT_SENSITIVITY;
+        _sensitivity = [SoundConstant DEFAULT_SENSITIVITY];
     }
     
     if ([userDefaults objectForKey:@"strikesWindowSelectedIndex"] != nil) {
@@ -135,9 +132,15 @@ int MIN_TEMPO = 20;
         _metronomeTempo = [userDefaults integerForKey:@"metronomeTempo"];
     } else {
         changed = YES;
-        _metronomeTempo = DEFAULT_TEMPO;
+        _metronomeTempo = [SoundConstant DEFAULT_TEMPO];
     }
- 
+    
+    if ([userDefaults objectForKey:@"songList"] != nil) {
+        _songList = [userDefaults objectForKey:@"songList"];
+    } else {
+        _songList = nil;
+    }
+    
     if (changed) {
         [self saveState];
     }
@@ -152,6 +155,7 @@ int MIN_TEMPO = 20;
     [userDefaults setInteger:_metronomeSoundSelectedIndex forKey:@"metronomeSoundSelectedIndex"];
     [userDefaults setBool:_metronomeIsOn forKey:@"metronomeIsOn"];
     [userDefaults setInteger:_metronomeTempo forKey:@"metronomeTempo"];
+    [userDefaults setObject:_songList forKey:@"songList"];
     
     [userDefaults synchronize];
 }

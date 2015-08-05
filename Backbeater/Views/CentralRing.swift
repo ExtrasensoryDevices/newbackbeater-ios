@@ -36,7 +36,7 @@ class CentralRing: NibDesignable {
     var cptAnimation:CABasicAnimation!
     var bpmAnimation:CAKeyframeAnimation!
     var pulseAnimation:CABasicAnimation!
-    let PULSE_DURATION:Double = floor(60.0 / Double(MAX_TEMPO) * 10) / 10 / 5
+    let PULSE_DURATION:Double = floor(60.0 / Double(SoundConstant.MAX_TEMPO()) * 10) / 10 / 5
     
 //    var timeSignature:Int!
 //    var metronomeTempo:Int = 0
@@ -44,7 +44,7 @@ class CentralRing: NibDesignable {
     let settings = Settings.sharedInstance()
     
     var metronomeIsOn:Bool {
-        return settings.metronomeIsOn && settings.metronomeTempo >= MIN_TEMPO && settings.metronomeTempo <= MAX_TEMPO
+        return settings.metronomeIsOn && settings.metronomeTempo >= SoundConstant.MIN_TEMPO() && settings.metronomeTempo <= SoundConstant.MAX_TEMPO()
     }
     
     var metronomeTimer: dispatch_source_t?
@@ -62,7 +62,7 @@ class CentralRing: NibDesignable {
     override func setup() {
         super.setup()
         self.backgroundColor = UIColor.clearColor()
-        self.nibView.backgroundColor = UIColor.clearColor()
+//        self.nibView.backgroundColor = UIColor.clearColor()
         self.ringView.backgroundColor = UIColor.clearColor()
         ringView.addObserver(self, forKeyPath: "bounds", options: NSKeyValueObservingOptions.allZeros, context: nil)
         
@@ -325,9 +325,9 @@ class CentralRing: NibDesignable {
 
     func displayCPT(cpt:Int, instantTempo:Int) {
         // display numbers
-        if cpt > MAX_TEMPO || cpt < MIN_TEMPO {
+        if cpt > SoundConstant.MAX_TEMPO() || cpt < SoundConstant.MIN_TEMPO() {
             // We do not need BPM outside this range.
-            cptLabel.text = cpt > MAX_TEMPO ? "MAX" : "MIN"
+            cptLabel.text = cpt > SoundConstant.MAX_TEMPO() ? "MAX" : "MIN"
             runPulseAnimationOnly()
         } else {
             cptLabel.text = "\(cpt)"

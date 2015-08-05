@@ -25,22 +25,13 @@
 // possible values
 @property (nonatomic, readonly) NSArray* strikesWindowValues;
 @property (nonatomic, readonly) NSArray* timeSignatureValues;
-// TODO: move sound array here too
 
 // selected indices
 @property (nonatomic) NSInteger strikesWindowSelectedIndex;
 @property (nonatomic) NSInteger timeSignatureSelectedIndex;
 @property (nonatomic) NSInteger metronomeSoundSelectedIndex;
 
-
-
-
-
-
-//@property (nonatomic, readonly) NSInteger bpm;
-//@property (nonatomic, readonly) float foundBPM;
-//@property (nonatomic, readonly) float foundBPMf;
-//@property (nonatomic, readonly) BOOL sensitivityFlash;
+@property (nonatomic) NSArray *songList;
 
 -(void)saveState;
 

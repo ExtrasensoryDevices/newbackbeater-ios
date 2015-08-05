@@ -22,9 +22,10 @@ class Sidebar: NibDesignable {
     @IBOutlet weak var beatSegmentedControl: SegmentedControl!
     
     
+    @IBOutlet weak var sideStickButton: UIButton!
     @IBOutlet weak var stickButton: UIButton!
-    @IBOutlet weak var dingButton: UIButton!
-    @IBOutlet weak var bangButton: UIButton!
+    @IBOutlet weak var metronomeButton: UIButton!
+    @IBOutlet weak var surpriseButton: UIButton!
     var soundButtonCollection: [UIButton]!
     
     
@@ -34,11 +35,10 @@ class Sidebar: NibDesignable {
     
     let settings = Settings.sharedInstance()
     
-    //let sounds = ["stick", "beep", "clap"]
     
     override func setup() {
         self.backgroundColor = ColorPalette.Pink.color()
-        soundButtonCollection = [stickButton, dingButton, bangButton]
+        soundButtonCollection = [sideStickButton, stickButton, metronomeButton, surpriseButton]
         
         soundButtonCollection.first?.selected = true
         

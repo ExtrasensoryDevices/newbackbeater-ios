@@ -35,7 +35,7 @@ class NumericStepper: UIControlNibDesignable {
             return _value
         }
         set (newValue) {
-            if _value != newValue.inBounds(minValue: MIN_TEMPO, maxValue: MAX_TEMPO) {
+            if _value != newValue.inBounds(minValue: SoundConstant.MIN_TEMPO(), maxValue: SoundConstant.MAX_TEMPO()) {
                 _value = newValue
                 label.text = "\(_value)"
                 if isOn {
@@ -84,7 +84,7 @@ class NumericStepper: UIControlNibDesignable {
         super.awakeFromNib()
         font = label.font
         self.backgroundColor = UIColor.clearColor()
-        self.nibView?.backgroundColor = UIColor.clearColor()
+//        self.nibView?.backgroundColor = UIColor.clearColor()
         self.frameView.backgroundColor = bgrColor
         
         V_CONSTRAINT_CONSTANT = (self.bounds.size.height - self.bounds.size.width)/2
@@ -164,7 +164,7 @@ class NumericStepper: UIControlNibDesignable {
     
     func incrementValue(increment:Int) {
         var newValue = _value + increment
-        value = newValue.inBounds(minValue: MIN_TEMPO, maxValue: MAX_TEMPO)
+        value = newValue.inBounds(minValue: SoundConstant.MIN_TEMPO(), maxValue: SoundConstant.MAX_TEMPO())
     }
     
     

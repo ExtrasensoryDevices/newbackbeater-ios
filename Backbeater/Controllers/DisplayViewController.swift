@@ -59,6 +59,7 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
         println("metronomeIsOn: \(Settings.sharedInstance().metronomeIsOn)")
         metronomeTempoView.isOn = Settings.sharedInstance().metronomeIsOn
         
+        songList = restoreSongTempoList(Settings.sharedInstance().songList as? [NSDictionary])
         
     }
     
@@ -245,6 +246,8 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
         if updated {
             self.songList = songList
             selectedIndex = 0
+            
+            Settings.sharedInstance().songList = prepareToSaveSongTempoList(songList)
         }
     }
     

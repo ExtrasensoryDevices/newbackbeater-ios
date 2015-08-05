@@ -50,6 +50,7 @@ public class UIControlNibDesignable: UIControl {
         nibView = self.loadNib()
         nibView.frame = self.bounds
         nibView.autoresizingMask = .FlexibleWidth | .FlexibleHeight
+        nibView.backgroundColor = UIColor.clearColor()
         self.addSubview(nibView)
     }
     

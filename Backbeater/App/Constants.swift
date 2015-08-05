@@ -11,18 +11,47 @@ struct SongTempo: Equatable {
     var songName:String
     var tempoValue:Int
 }
+
+func prepareToSaveSongTempoList(songList:[SongTempo]?) -> [NSDictionary]? {
+    if songList == nil {
+        return nil
+    }
+    var result = [NSDictionary]()
+    for songTempo in songList! {
+        result.append(["songName": songTempo.songName, "tempoValue": songTempo.tempoValue])
+    }
+    return result
+}
+func restoreSongTempoList(songList:[NSDictionary]?) -> [SongTempo]? {
+    if songList == nil {
+        return nil
+    }
+    var result = [SongTempo]()
+    for songTempo in songList! {
+        let songName =  songTempo["songName"] as! String
+        let tempoValue =  songTempo["tempoValue"] as! Int
+        
+        result.append(SongTempo(songName:songName, tempoValue: tempoValue))
+    }
+    return result
+}
+
+
+
+
 func ==(lhs: SongTempo, rhs: SongTempo) -> Bool {
     return lhs.songName == rhs.songName && lhs.tempoValue == rhs.tempoValue
 }
 
 
-//@objc class SoundConstants:NSObject {
-//    func DEFAULT_SENSITIVITY() -> Int {return 100}
-    let DEFAULT_SENSITIVITY = 100
-    let DEFAULT_TEMPO = 120
-    let MAX_TEMPO = 221
-    let MIN_TEMPO = 20
-//}
+@objc class SoundConstant {
+    private init() {}
+    
+    class func DEFAULT_SENSITIVITY() -> Int {return 100}
+    class func DEFAULT_TEMPO() -> Int {return 120}
+    class func MAX_TEMPO() -> Int {return 221}
+    class func MIN_TEMPO() -> Int {return 20}
+}
 
 
 let HELP_URL = "http://backbeater.com/m"

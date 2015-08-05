@@ -291,7 +291,7 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
         
         let indexPath = NSIndexPath(forRow: newSongList.count, inSection: 0)
         
-        newSongList.append(SongTempo(songName:"Song #\(indexPath.row+1)", tempoValue:DEFAULT_TEMPO))
+        newSongList.append(SongTempo(songName:"Song #\(indexPath.row+1)", tempoValue:SoundConstant.DEFAULT_TEMPO()))
         
         tableView.beginUpdates()
         tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Bottom)
@@ -363,9 +363,9 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
         } else {
             if let value = textField.text.trim().toInt() where value >= 0 {
                 
-                songTempo.tempoValue = value.inBounds(minValue: MIN_TEMPO, maxValue: MAX_TEMPO)
+                songTempo.tempoValue = value.inBounds(minValue: SoundConstant.MIN_TEMPO(), maxValue: SoundConstant.MAX_TEMPO())
             } else {
-                songTempo.tempoValue = DEFAULT_TEMPO
+                songTempo.tempoValue = SoundConstant.DEFAULT_TEMPO()
             }
             textField.text = "\(songTempo.tempoValue)"
         }

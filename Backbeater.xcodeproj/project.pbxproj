@@ -46,6 +46,7 @@
 		C7C483C41B6A9F5700D0053C /* metronome.wav in Resources */ = {isa = PBXBuildFile; fileRef = C7C483C11B6A9F5700D0053C /* metronome.wav */; };
 		C7C483C51B6A9F5700D0053C /* sideStick.wav in Resources */ = {isa = PBXBuildFile; fileRef = C7C483C21B6A9F5700D0053C /* sideStick.wav */; };
 		C7C483C61B6A9F5700D0053C /* stick.wav in Resources */ = {isa = PBXBuildFile; fileRef = C7C483C31B6A9F5700D0053C /* stick.wav */; };
+		C7C483C81B71D35B00D0053C /* surprise.wav in Resources */ = {isa = PBXBuildFile; fileRef = C7C483C71B71D35B00D0053C /* surprise.wav */; };
 		C7CE94621B5870E200C2D582 /* CentralRing.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7CE94611B5870E200C2D582 /* CentralRing.swift */; };
 		C7CE94641B58710200C2D582 /* CentralRing.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7CE94631B58710200C2D582 /* CentralRing.xib */; };
 		C7E77A881B1D07210058523B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7E77A861B1D07210058523B /* Main.storyboard */; };
@@ -113,6 +114,7 @@
 		C7C483C11B6A9F5700D0053C /* metronome.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = metronome.wav; sourceTree = "<group>"; };
 		C7C483C21B6A9F5700D0053C /* sideStick.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sideStick.wav; sourceTree = "<group>"; };
 		C7C483C31B6A9F5700D0053C /* stick.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = stick.wav; sourceTree = "<group>"; };
+		C7C483C71B71D35B00D0053C /* surprise.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = surprise.wav; sourceTree = "<group>"; };
 		C7CE94611B5870E200C2D582 /* CentralRing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CentralRing.swift; path = Views/CentralRing.swift; sourceTree = "<group>"; };
 		C7CE94631B58710200C2D582 /* CentralRing.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CentralRing.xib; sourceTree = "<group>"; };
 		C7E77A7D1B1D07210058523B /* Backbeater.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Backbeater.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -207,6 +209,7 @@
 		C71C55841B290539007EDF51 /* Sound */ = {
 			isa = PBXGroup;
 			children = (
+				C7C483C71B71D35B00D0053C /* surprise.wav */,
 				C7C483C11B6A9F5700D0053C /* metronome.wav */,
 				C7C483C21B6A9F5700D0053C /* sideStick.wav */,
 				C7C483C31B6A9F5700D0053C /* stick.wav */,
@@ -446,6 +449,7 @@
 				C7B9C80C1B2782F400250686 /* FuturaRound-Book.ttf in Resources */,
 				C7E77A8A1B1D07210058523B /* Images.xcassets in Resources */,
 				C7E77AAF1B1FD37B0058523B /* Sidebar.xib in Resources */,
+				C7C483C81B71D35B00D0053C /* surprise.wav in Resources */,
 				C7C483C51B6A9F5700D0053C /* sideStick.wav in Resources */,
 				C7B9C80D1B2782F400250686 /* FuturaRound-Demi.ttf in Resources */,
 				C7C483C41B6A9F5700D0053C /* metronome.wav in Resources */,
