@@ -488,13 +488,11 @@ SENSOR</string>
                                     <outlet property="delegate" destination="0VI-mf-dU7" id="soB-z7-XKn"/>
                                 </connections>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nLz-t0-zZh">
-                                <rect key="frame" x="0.0" y="542" width="600" height="42"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MAKE A LIST OF PRESET TEMPOS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nLz-t0-zZh">
+                                <rect key="frame" x="0.0" y="563" width="600" height="21"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="42" id="o1z-3M-0vt"/>
+                                    <constraint firstAttribute="height" constant="21" id="o1z-3M-0vt"/>
                                 </constraints>
-                                <string key="text">HERE YOU CAN MAKE 
-A LIST OF PRESET TEMPOS</string>
                                 <fontDescription key="fontDescription" name="FuturaRound-Demi" family="Futura Round Demi" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>

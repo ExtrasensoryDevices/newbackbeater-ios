@@ -97,12 +97,21 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
     }
     
     func applicationWillEnterForeground() {
-        metronomeTempoView.isOn = false
+//        metronomeTempoView.isOn = Settings.sharedInstance().metronomeIsOn
+    }
+    
+    func applicationDidBecomeActive() {
         centralRing.handleMetronomeState()
     }
     
     func applicationWillResignActive() {
+//        Settings.sharedInstance().metronomeIsOn = false
+//        Settings.sharedInstance().saveState()
+    }
+    
+    func applicationDidEnterBackground() {
         Settings.sharedInstance().metronomeIsOn = false
+        metronomeTempoView.isOn = false
         Settings.sharedInstance().saveState()
     }
     
@@ -113,7 +122,9 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
         settings.addObserver(self, forKeyPath: "strikesWindowSelectedIndex", options: NSKeyValueObservingOptions.allZeros, context: nil)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "applicationWillEnterForeground", name:UIApplicationWillEnterForegroundNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "applicationDidBecomeActive", name:UIApplicationDidBecomeActiveNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "applicationWillResignActive", name:UIApplicationWillResignActiveNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "applicationDidEnterBackground", name:UIApplicationDidEnterBackgroundNotification, object: nil)
 
     }
     
@@ -122,7 +133,9 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
         settings.removeObserver(self, forKeyPath: "strikesWindowSelectedIndex")
         
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIApplicationWillEnterForegroundNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIApplicationDidBecomeActiveNotification, object: nil)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIApplicationWillResignActiveNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIApplicationDidEnterBackgroundNotification, object: nil)
     }
     
     
@@ -151,7 +164,9 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
     }
     
     @IBAction func metronomeTempoPressed(sender: NumericStepper) {
-        Settings.sharedInstance().metronomeTempo = metronomeTempoView.value
+        if Settings.sharedInstance().metronomeTempo != metronomeTempoView.value {
+            Settings.sharedInstance().metronomeTempo = metronomeTempoView.value
+        }
         Settings.sharedInstance().metronomeIsOn = sender.isOn
     }
     
@@ -246,8 +261,6 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
         if updated {
             self.songList = songList
             selectedIndex = 0
-            
-            Settings.sharedInstance().songList = prepareToSaveSongTempoList(songList)
         }
     }
     

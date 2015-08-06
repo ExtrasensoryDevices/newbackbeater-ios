@@ -124,6 +124,10 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
 
 
     @IBAction func didTapClose(sender: AnyObject) {
+        // log list created
+        if oldSongList.isEmpty && !newSongList.isEmpty {
+            Flurry.logEvent(FlurryEvent.TEMPO_LIST_CREATED())
+        }
         let listToReturn:[SongTempo]? = newSongList.isEmpty ? nil : newSongList
         delegate?.songListViewControllerDidReturnSongList(listToReturn, updated: isUpdated())
         self.dismissViewControllerAnimated(true, completion: nil)
@@ -291,7 +295,7 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
         
         let indexPath = NSIndexPath(forRow: newSongList.count, inSection: 0)
         
-        newSongList.append(SongTempo(songName:"Song #\(indexPath.row+1)", tempoValue:SoundConstant.DEFAULT_TEMPO()))
+        newSongList.append(SongTempo(songName:"Song #\(indexPath.row+1)", tempoValue:BridgeConstants.DEFAULT_TEMPO()))
         
         tableView.beginUpdates()
         tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Bottom)
@@ -363,9 +367,9 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
         } else {
             if let value = textField.text.trim().toInt() where value >= 0 {
                 
-                songTempo.tempoValue = value.inBounds(minValue: SoundConstant.MIN_TEMPO(), maxValue: SoundConstant.MAX_TEMPO())
+                songTempo.tempoValue = value.inBounds(minValue: BridgeConstants.MIN_TEMPO(), maxValue: BridgeConstants.MAX_TEMPO())
             } else {
-                songTempo.tempoValue = SoundConstant.DEFAULT_TEMPO()
+                songTempo.tempoValue = BridgeConstants.DEFAULT_TEMPO()
             }
             textField.text = "\(songTempo.tempoValue)"
         }
@@ -373,6 +377,8 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
         tableView.reloadRowsAtIndexPaths([selectedIndexPath!], withRowAnimation: UITableViewRowAnimation.None)
         selectedIndexPath = nil
         textField.removeFromSuperview()
+        
+        Settings.sharedInstance().songList = prepareToSaveSongTempoList(newSongList)
     }
     
     

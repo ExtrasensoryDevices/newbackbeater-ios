@@ -36,7 +36,7 @@ class CentralRing: NibDesignable {
     var cptAnimation:CABasicAnimation!
     var bpmAnimation:CAKeyframeAnimation!
     var pulseAnimation:CABasicAnimation!
-    let PULSE_DURATION:Double = floor(60.0 / Double(SoundConstant.MAX_TEMPO()) * 10) / 10 / 5
+    let PULSE_DURATION:Double = floor(60.0 / Double(BridgeConstants.MAX_TEMPO()) * 10) / 10 / 5
     
 //    var timeSignature:Int!
 //    var metronomeTempo:Int = 0
@@ -44,7 +44,7 @@ class CentralRing: NibDesignable {
     let settings = Settings.sharedInstance()
     
     var metronomeIsOn:Bool {
-        return settings.metronomeIsOn && settings.metronomeTempo >= SoundConstant.MIN_TEMPO() && settings.metronomeTempo <= SoundConstant.MAX_TEMPO()
+        return settings.metronomeIsOn && settings.metronomeTempo >= BridgeConstants.MIN_TEMPO() && settings.metronomeTempo <= BridgeConstants.MAX_TEMPO()
     }
     
     var metronomeTimer: dispatch_source_t?
@@ -325,9 +325,9 @@ class CentralRing: NibDesignable {
 
     func displayCPT(cpt:Int, instantTempo:Int) {
         // display numbers
-        if cpt > SoundConstant.MAX_TEMPO() || cpt < SoundConstant.MIN_TEMPO() {
+        if cpt > BridgeConstants.MAX_TEMPO() || cpt < BridgeConstants.MIN_TEMPO() {
             // We do not need BPM outside this range.
-            cptLabel.text = cpt > SoundConstant.MAX_TEMPO() ? "MAX" : "MIN"
+            cptLabel.text = cpt > BridgeConstants.MAX_TEMPO() ? "MAX" : "MIN"
             runPulseAnimationOnly()
         } else {
             cptLabel.text = "\(cpt)"

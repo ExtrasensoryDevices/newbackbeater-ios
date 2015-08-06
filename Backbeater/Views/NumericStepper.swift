@@ -35,7 +35,7 @@ class NumericStepper: UIControlNibDesignable {
             return _value
         }
         set (newValue) {
-            if _value != newValue.inBounds(minValue: SoundConstant.MIN_TEMPO(), maxValue: SoundConstant.MAX_TEMPO()) {
+            if _value != newValue.inBounds(minValue: BridgeConstants.MIN_TEMPO(), maxValue: BridgeConstants.MAX_TEMPO()) {
                 _value = newValue
                 label.text = "\(_value)"
                 if isOn {
@@ -164,7 +164,7 @@ class NumericStepper: UIControlNibDesignable {
     
     func incrementValue(increment:Int) {
         var newValue = _value + increment
-        value = newValue.inBounds(minValue: SoundConstant.MIN_TEMPO(), maxValue: SoundConstant.MAX_TEMPO())
+        value = newValue.inBounds(minValue: BridgeConstants.MIN_TEMPO(), maxValue: BridgeConstants.MAX_TEMPO())
     }
     
     

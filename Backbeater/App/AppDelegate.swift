@@ -9,6 +9,7 @@ import UIKit
 import Fabric
 import Crashlytics
 
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -17,8 +18,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var updater: Updater!
     var lastUpdateCheck: NSDate!
-
-
+    
+    var lastOpenTime:NSDate!
+    let INACTIVE_TIMEOUT:NSTimeInterval = 60 // 1 min
+    
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
@@ -27,6 +30,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         setupUpdates()
         setupAppearance()
+        
+        Fabric.with([Crashlytics()])
+        Flurry.setCrashReportingEnabled(false)
+        Flurry.startSession(BridgeConstants.FLURRY_API_KEY())
         
         return true
     }
@@ -72,6 +79,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        
+        // log event
+        Flurry.logEvent(FlurryEvent.APP_CLOSED(), withParameters: ["sessionLength": lastOpenTime!.timeIntervalSinceNow])
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
@@ -85,6 +95,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+ 
+//        if lastOpenTime == nil || lastOpenTime!.timeIntervalSinceNow > INACTIVE_TIMEOUT {
+            // log event
+            Flurry.logEvent(FlurryEvent.APP_OPENED())
+            lastOpenTime = NSDate()
+//        }
+
     }
 
     func applicationWillTerminate(application: UIApplication) {

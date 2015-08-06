@@ -30,8 +30,6 @@
 		C7A90B5A1B4DACAE00E4719A /* ATSoundSessionIO.m in Sources */ = {isa = PBXBuildFile; fileRef = C7A90B581B4DACAE00E4719A /* ATSoundSessionIO.m */; };
 		C7A90B621B4DB84D00E4719A /* SoundProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = C7A90B611B4DB84D00E4719A /* SoundProcessor.m */; };
 		C7A90B641B4DCB9600E4719A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7A90B631B4DCB9600E4719A /* AVFoundation.framework */; };
-		C7B9C7E61B225D2700250686 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B9C7E41B225D2700250686 /* Fabric.framework */; };
-		C7B9C7E71B225D2700250686 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B9C7E51B225D2700250686 /* Crashlytics.framework */; };
 		C7B9C8011B27828F00250686 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B9C7FE1B27828F00250686 /* AppDelegate.swift */; };
 		C7B9C8021B27828F00250686 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B9C8001B27828F00250686 /* Constants.swift */; };
 		C7B9C8041B2782A600250686 /* SegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B9C8031B2782A600250686 /* SegmentedControl.swift */; };
@@ -47,6 +45,8 @@
 		C7C483C51B6A9F5700D0053C /* sideStick.wav in Resources */ = {isa = PBXBuildFile; fileRef = C7C483C21B6A9F5700D0053C /* sideStick.wav */; };
 		C7C483C61B6A9F5700D0053C /* stick.wav in Resources */ = {isa = PBXBuildFile; fileRef = C7C483C31B6A9F5700D0053C /* stick.wav */; };
 		C7C483C81B71D35B00D0053C /* surprise.wav in Resources */ = {isa = PBXBuildFile; fileRef = C7C483C71B71D35B00D0053C /* surprise.wav */; };
+		C7C483CB1B729BD200D0053C /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7C483C91B729BD200D0053C /* Crashlytics.framework */; };
+		C7C483CC1B729BD200D0053C /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7C483CA1B729BD200D0053C /* Fabric.framework */; };
 		C7CE94621B5870E200C2D582 /* CentralRing.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7CE94611B5870E200C2D582 /* CentralRing.swift */; };
 		C7CE94641B58710200C2D582 /* CentralRing.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7CE94631B58710200C2D582 /* CentralRing.xib */; };
 		C7E77A881B1D07210058523B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7E77A861B1D07210058523B /* Main.storyboard */; };
@@ -97,8 +97,6 @@
 		C7A90B601B4DB84D00E4719A /* SoundProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundProcessor.h; sourceTree = "<group>"; };
 		C7A90B611B4DB84D00E4719A /* SoundProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundProcessor.m; sourceTree = "<group>"; };
 		C7A90B631B4DCB9600E4719A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		C7B9C7E41B225D2700250686 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
-		C7B9C7E51B225D2700250686 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		C7B9C7FE1B27828F00250686 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7B9C7FF1B27828F00250686 /* Backbeater-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Backbeater-Bridging-Header.h"; sourceTree = "<group>"; };
 		C7B9C8001B27828F00250686 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -115,6 +113,8 @@
 		C7C483C21B6A9F5700D0053C /* sideStick.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sideStick.wav; sourceTree = "<group>"; };
 		C7C483C31B6A9F5700D0053C /* stick.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = stick.wav; sourceTree = "<group>"; };
 		C7C483C71B71D35B00D0053C /* surprise.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = surprise.wav; sourceTree = "<group>"; };
+		C7C483C91B729BD200D0053C /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = Frameworks/Crashlytics.framework; sourceTree = "<group>"; };
+		C7C483CA1B729BD200D0053C /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = Frameworks/Fabric.framework; sourceTree = "<group>"; };
 		C7CE94611B5870E200C2D582 /* CentralRing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CentralRing.swift; path = Views/CentralRing.swift; sourceTree = "<group>"; };
 		C7CE94631B58710200C2D582 /* CentralRing.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CentralRing.xib; sourceTree = "<group>"; };
 		C7E77A7D1B1D07210058523B /* Backbeater.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Backbeater.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -144,12 +144,12 @@
 			files = (
 				C71512711B5DC822007A0D18 /* CoreAudio.framework in Frameworks */,
 				C7A90B641B4DCB9600E4719A /* AVFoundation.framework in Frameworks */,
+				C7C483CB1B729BD200D0053C /* Crashlytics.framework in Frameworks */,
 				C71C557A1B28C5C9007EDF51 /* Accelerate.framework in Frameworks */,
 				C71C55781B28C390007EDF51 /* AudioToolbox.framework in Frameworks */,
+				C7C483CC1B729BD200D0053C /* Fabric.framework in Frameworks */,
 				C75DAA941B212787008FDB43 /* Foundation.framework in Frameworks */,
-				C7B9C7E71B225D2700250686 /* Crashlytics.framework in Frameworks */,
 				C7E77AA81B1E7FEB0058523B /* QuartzCore.framework in Frameworks */,
-				C7B9C7E61B225D2700250686 /* Fabric.framework in Frameworks */,
 				BA37BB4BC9F84D143B5D9689 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -160,13 +160,13 @@
 		550D132ADA81F391F4746002 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C7C483C91B729BD200D0053C /* Crashlytics.framework */,
+				C7C483CA1B729BD200D0053C /* Fabric.framework */,
 				C7A90B631B4DCB9600E4719A /* AVFoundation.framework */,
 				C71C55991B2A19A8007EDF51 /* CoreAudio.framework */,
 				C71C55791B28C5C9007EDF51 /* Accelerate.framework */,
 				C71C55771B28C390007EDF51 /* AudioToolbox.framework */,
 				C71C55751B28C308007EDF51 /* AudioUnit.framework */,
-				C7B9C7E41B225D2700250686 /* Fabric.framework */,
-				C7B9C7E51B225D2700250686 /* Crashlytics.framework */,
 				C7E77ABB1B20F4E00058523B /* Foundation.framework */,
 				C7E77AB91B20F4C90058523B /* UIKit.framework */,
 				C7E77AA71B1E7FEB0058523B /* QuartzCore.framework */,
@@ -500,7 +500,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./Fabric.framework/run 2005672959a305e58471f44a4dc2d921baa415aa 5eed7f1a8bcbd18d2739d66f7c54c30fec116dbbfe6b8b6343506bb3b917693b";
+			shellScript = "./Frameworks/Fabric.framework/run 2005672959a305e58471f44a4dc2d921baa415aa 5eed7f1a8bcbd18d2739d66f7c54c30fec116dbbfe6b8b6343506bb3b917693b";
 		};
 		FB1934F3070654E9CE64DAF5 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -679,12 +679,16 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Frameworks/**",
 				);
 				GCC_NO_COMMON_BLOCKS = NO;
 				INFOPLIST_FILE = Backbeater/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(PODS_ROOT)/FlurrySDK/Flurry\"",
+				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
 					"$(inherited)",
@@ -714,13 +718,17 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Frameworks/**",
 				);
 				GCC_NO_COMMON_BLOCKS = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = Backbeater/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(PODS_ROOT)/FlurrySDK/Flurry\"",
+				);
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-x",

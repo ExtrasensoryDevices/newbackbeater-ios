@@ -13,3 +13,4 @@
 #import "SoundProcessor.h"
 #import "Updater.h"
 #import "MBProgressHUD.h"
+#import <FlurrySDK/Flurry.h>

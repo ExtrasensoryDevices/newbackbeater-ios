@@ -22,7 +22,7 @@
 @property (nonatomic) NSInteger metronomeTempo;
 @property (nonatomic, readonly) NSURL *urlForSound; // url for the selected sound
 
-// possible values
+// values available
 @property (nonatomic, readonly) NSArray* strikesWindowValues;
 @property (nonatomic, readonly) NSArray* timeSignatureValues;
 

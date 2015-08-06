@@ -43,6 +43,64 @@ NSArray *_metronomeSoundFileNames;
 
 
 
+
+// setters
+-(void)setMetronomeTempo:(NSInteger)value
+{
+    NSInteger MAX_TEMPO = [BridgeConstants MAX_TEMPO];
+    NSInteger MIN_TEMPO = [BridgeConstants MIN_TEMPO];
+    NSInteger boundedValue = value >  MAX_TEMPO ? MAX_TEMPO : (value < MIN_TEMPO ? MIN_TEMPO : value);
+    if (_metronomeTempo != boundedValue) {
+        _metronomeTempo = boundedValue;
+        [Flurry logEvent:[FlurryEvent METRONOME_TEMPO_VALUE_CHANGED]
+          withParameters:@{@"value": [NSNumber numberWithInteger:_metronomeTempo]}];
+    }
+}
+
+
+-(void)setMetronomeIsOn:(BOOL)value
+{
+    if (_metronomeIsOn != value) {
+        _metronomeIsOn = value;
+        [Flurry logEvent:[FlurryEvent METRONOME_STATE_CHANGED]
+          withParameters:@{@"value": [NSNumber numberWithBool:_metronomeIsOn]}];
+    }
+}
+
+
+-(void)setSensitivity:(NSInteger)value
+{
+    if (_sensitivity != value) {
+        _sensitivity = value;
+        [Flurry logEvent:[FlurryEvent SENSITIVITY_VALUE_CHANGED]
+          withParameters:@{@"value": [NSNumber numberWithInteger:_sensitivity]}];
+    }
+}
+
+
+-(void)setStrikesWindowSelectedIndex:(NSInteger)value
+{
+    if (_strikesWindowSelectedIndex != value) {
+        _strikesWindowSelectedIndex = value;
+        [Flurry logEvent:[FlurryEvent STRIKES_WINDOW_VALUE_CHANGED]
+          withParameters:@{@"value": [NSNumber numberWithInteger:self.strikesWindow]}];
+    }
+}
+
+
+-(void)setTimeSignatureSelectedIndex:(NSInteger)value
+{
+    if (_timeSignatureSelectedIndex != value) {
+        _timeSignatureSelectedIndex = value;
+        [Flurry logEvent:[FlurryEvent TIME_SIGNATURE_VALUE_CHANGED]
+          withParameters:@{@"value": [NSNumber numberWithInteger:self.timeSignature]}];
+    }
+}
+
+
+
+// getters
+
 -(NSArray *)strikesWindowValues
 {
     return [_strikesWindowValues copy];
@@ -53,18 +111,6 @@ NSArray *_metronomeSoundFileNames;
 {
     return [_timeSignatureValues copy];
 }
-
-
--(void)setMetronomeTempo:(NSInteger)value
-{
-    NSInteger MAX_TEMPO = [SoundConstant MAX_TEMPO];
-    NSInteger MIN_TEMPO = [SoundConstant MIN_TEMPO];
-    NSInteger boundedValue = value >  MAX_TEMPO ? MAX_TEMPO : (value < MIN_TEMPO ? MIN_TEMPO : value);
-    if (_metronomeTempo != boundedValue) {
-        _metronomeTempo = boundedValue;
-    }
-}
-
 
 
 -(NSInteger)strikesWindow
@@ -94,7 +140,7 @@ NSArray *_metronomeSoundFileNames;
         _sensitivity = [userDefaults integerForKey:@"sensitivity"];
     } else {
         changed = YES;
-        _sensitivity = [SoundConstant DEFAULT_SENSITIVITY];
+        _sensitivity = [BridgeConstants DEFAULT_SENSITIVITY];
     }
     
     if ([userDefaults objectForKey:@"strikesWindowSelectedIndex"] != nil) {
@@ -132,7 +178,7 @@ NSArray *_metronomeSoundFileNames;
         _metronomeTempo = [userDefaults integerForKey:@"metronomeTempo"];
     } else {
         changed = YES;
-        _metronomeTempo = [SoundConstant DEFAULT_TEMPO];
+        _metronomeTempo = [BridgeConstants DEFAULT_TEMPO];
     }
     
     if ([userDefaults objectForKey:@"songList"] != nil) {

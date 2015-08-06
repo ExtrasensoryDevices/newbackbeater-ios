@@ -133,13 +133,14 @@ class SensitivitySlider: UIControlNibDesignable{
     
     func didTapView(gestureRecognizer:UITapGestureRecognizer) {
         let tapPoint = gestureRecognizer.locationInView(self)
-        if CGRectContainsPoint(leftImage.frame, tapPoint) {
-            // left image tapped  - set min value
-            value = MIN_VALUE
-        } else if CGRectContainsPoint(rightImage.frame, tapPoint) {
-            // right image tapped  - set max value
-            value = MAX_VALUE
-        } else if let val = valueForTrackPointX(tapPoint.x) {
+//        if CGRectContainsPoint(leftImage.frame, tapPoint) {
+//            // left image tapped  - set min value
+//            value = MIN_VALUE
+//        } else if CGRectContainsPoint(rightImage.frame, tapPoint) {
+//            // right image tapped  - set max value
+//            value = MAX_VALUE
+//        } else
+            if let val = valueForTrackPointX(tapPoint.x) {
             value = val
         }
     }
