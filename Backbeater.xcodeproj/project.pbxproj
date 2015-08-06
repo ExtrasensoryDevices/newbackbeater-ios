@@ -120,7 +120,7 @@
 		C7E77A7D1B1D07210058523B /* Backbeater.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Backbeater.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7E77A811B1D07210058523B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C7E77A871B1D07210058523B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		C7E77A891B1D07210058523B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		C7E77A891B1D07210058523B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Images.xcassets; sourceTree = "<group>"; };
 		C7E77A8C1B1D07210058523B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		C7E77AA31B1E3DCC0058523B /* SensitivitySlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SensitivitySlider.swift; path = Views/SensitivitySlider.swift; sourceTree = "<group>"; };
 		C7E77AA51B1E3DDF0058523B /* SensitivitySlider.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SensitivitySlider.xib; path = Views/SensitivitySlider.xib; sourceTree = "<group>"; };
@@ -272,6 +272,7 @@
 		C7B9C8081B2782F300250686 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C7E77A891B1D07210058523B /* Images.xcassets */,
 				C71C55841B290539007EDF51 /* Sound */,
 				C7B9C8091B2782F400250686 /* Fonts */,
 			);
@@ -329,12 +330,11 @@
 			children = (
 				C71C557F1B28FF71007EDF51 /* Extensions */,
 				C7B9C7FD1B27828F00250686 /* App */,
-				C7E77AA91B1F81170058523B /* Libs */,
 				C7E77AA21B1E3D800058523B /* Views */,
 				C7B9C8051B2782B600250686 /* Controllers */,
-				C7E77A891B1D07210058523B /* Images.xcassets */,
-				C7B9C80E1B27836C00250686 /* SoundLib */,
 				C7B9C8081B2782F300250686 /* Resources */,
+				C7E77AA91B1F81170058523B /* Libs */,
+				C7B9C80E1B27836C00250686 /* SoundLib */,
 				C7E77A801B1D07210058523B /* Supporting Files */,
 			);
 			path = Backbeater;

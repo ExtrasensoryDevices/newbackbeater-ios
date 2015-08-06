@@ -3,7 +3,6 @@
 //  Backbeater
 //
 //  Created by Alina Kholcheva on 2015-07-20.
-//  Copyright (c) 2015 Samsung Accelerator. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
