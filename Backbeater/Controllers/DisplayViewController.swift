@@ -33,7 +33,7 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
 
     
     var songList:[SongTempo]?
-    var selectedIndex:Int = 0 {
+    var selectedSongIndex:Int = 0 {
         didSet {
             updateSongListView()
         }
@@ -51,6 +51,7 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
         
         soundProcessor = SoundProcessor.sharedInstance()
         soundProcessor.delegate = self;
+        Settings.sharedInstance().sensorIn = soundProcessor.sensorIn
         
         strikesWindowQueue = WindowQueue(capacity:Settings.sharedInstance().strikesWindow)
         centralRing.delegate = self
@@ -160,7 +161,11 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
     //MARK: - NumericStepper delegate
     
     @IBAction func metronomeTempoValueChanged(sender: NumericStepper) {
-        Settings.sharedInstance().metronomeTempo = metronomeTempoView.value
+        let newValue = metronomeTempoView.value
+        Settings.sharedInstance().metronomeTempo = newValue
+        if songList != nil {
+            songList![selectedSongIndex].tempoValue = newValue
+        }
     }
     
     @IBAction func metronomeTempoPressed(sender: NumericStepper) {
@@ -229,12 +234,12 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
         if let count = songList?.count where count > 0 { // show
             hideButtons = count <= 1
             hideLabel = count < 1
-            metronomeTempoView.value = songList![selectedIndex].tempoValue
+            metronomeTempoView.value = songList![selectedSongIndex].tempoValue
             songListBottomLayoutConstraint.constant = 0
         } else {   // hide
             songListBottomLayoutConstraint.constant = -songListView.bounds.height / 2
         }
-        songNameLabel.text = songList?[selectedIndex].songName ?? ""
+        songNameLabel.text = songList?[selectedSongIndex].songName ?? ""
         
         prevSongButton.hidden = hideButtons
         nextSongButton.hidden = hideButtons
@@ -250,17 +255,17 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
     
 
     @IBAction func didTapPrevButton(sender: AnyObject) {
-        selectedIndex  = selectedIndex >= 1 ? selectedIndex-1 : songList!.count-1
+        selectedSongIndex  = selectedSongIndex >= 1 ? selectedSongIndex-1 : songList!.count-1
     }
 
     @IBAction func didTapNextButton(sender: AnyObject) {
-        selectedIndex  = selectedIndex < songList!.count-1 ? selectedIndex+1 : 0
+        selectedSongIndex  = selectedSongIndex < songList!.count-1 ? selectedSongIndex+1 : 0
     }
     
     func songListViewControllerDidReturnSongList(songList: [SongTempo]?, updated: Bool) {
         if updated {
             self.songList = songList
-            selectedIndex = 0
+            selectedSongIndex = 0
         }
     }
     

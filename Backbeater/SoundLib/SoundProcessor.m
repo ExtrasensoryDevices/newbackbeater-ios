@@ -76,6 +76,8 @@ BOOL _strikeState;
         [_soundSessionIO prepareSoundProcessingGraph:nil];
 
         [self addObservers];
+        
+        [self updateInputChannel];
     }
     return self;
 }
@@ -128,9 +130,6 @@ UInt64 _strikeEndTime = 0;
     _strikeCount = 0;
     [_energyFunctionQueue clear];
     [_soundSessionIO startSoundProcessing:error];
-    
-    [self updateInputChannel];
-    
     
     return error == nil;
 }

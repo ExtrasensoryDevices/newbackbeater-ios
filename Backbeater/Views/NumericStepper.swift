@@ -38,9 +38,7 @@ class NumericStepper: UIControlNibDesignable {
             if _value != newValue.inBounds(minValue: BridgeConstants.MIN_TEMPO(), maxValue: BridgeConstants.MAX_TEMPO()) {
                 _value = newValue
                 label.text = "\(_value)"
-                if isOn {
-                    sendActionsForControlEvents(UIControlEvents.ValueChanged)
-                }
+                sendActionsForControlEvents(UIControlEvents.ValueChanged)
             }
         }
     }

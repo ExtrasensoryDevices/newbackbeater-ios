@@ -112,12 +112,36 @@
                             <userLayoutGuide location="448" affinity="minY"/>
                         </userGuides>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I8c-WM-xqu" customClass="CentralRing" customModule="Backbeater" customModuleProvider="target">
-                                <rect key="frame" x="140" y="79" width="320" height="320"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TKZ-50-aAo">
+                                <rect key="frame" x="16" y="79" width="568" height="320"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I8c-WM-xqu" customClass="CentralRing" customModule="Backbeater" customModuleProvider="target">
+                                        <rect key="frame" x="139" y="0.0" width="290" height="320"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="I8c-WM-xqu" secondAttribute="height" multiplier="266:294" id="kTh-PH-ru6"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="I8c-WM-xqu" secondAttribute="height" multiplier="1:1" id="kTh-PH-ru6"/>
+                                    <constraint firstAttribute="centerX" secondItem="I8c-WM-xqu" secondAttribute="centerX" id="EAM-da-bSc"/>
+                                    <constraint firstItem="I8c-WM-xqu" firstAttribute="width" secondItem="TKZ-50-aAo" secondAttribute="width" priority="750" id="F6q-rQ-811"/>
+                                    <constraint firstItem="I8c-WM-xqu" firstAttribute="top" secondItem="TKZ-50-aAo" secondAttribute="top" id="GLk-bF-geU"/>
+                                    <constraint firstItem="I8c-WM-xqu" firstAttribute="height" relation="lessThanOrEqual" secondItem="TKZ-50-aAo" secondAttribute="height" id="RQw-yE-N30"/>
+                                    <constraint firstItem="I8c-WM-xqu" firstAttribute="height" secondItem="TKZ-50-aAo" secondAttribute="height" priority="750" id="Ub8-ZE-wre"/>
+                                    <constraint firstAttribute="centerX" secondItem="I8c-WM-xqu" secondAttribute="centerX" id="mE4-Ss-GiI"/>
+                                    <constraint firstAttribute="bottom" secondItem="I8c-WM-xqu" secondAttribute="bottom" id="oLW-ud-QsC"/>
+                                    <constraint firstItem="I8c-WM-xqu" firstAttribute="width" relation="lessThanOrEqual" secondItem="TKZ-50-aAo" secondAttribute="width" id="ucG-eb-JEu"/>
+                                    <constraint firstAttribute="centerY" secondItem="I8c-WM-xqu" secondAttribute="centerY" id="y5v-hQ-FQy"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="EAM-da-bSc"/>
+                                        <exclude reference="GLk-bF-geU"/>
+                                        <exclude reference="oLW-ud-QsC"/>
+                                    </mask>
+                                </variation>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZVW-OY-ljc" userLabel="Song list View">
                                 <rect key="frame" x="0.0" y="480" width="600" height="120"/>
@@ -270,18 +294,19 @@ SENSOR</string>
                             <constraint firstAttribute="centerX" secondItem="HD3-4I-VRj" secondAttribute="centerX" id="1Ns-wa-GjR"/>
                             <constraint firstAttribute="trailing" secondItem="tQT-Vc-gGK" secondAttribute="trailing" constant="16" id="8db-Qm-gDG"/>
                             <constraint firstAttribute="trailing" secondItem="ZVW-OY-ljc" secondAttribute="trailing" id="Cqp-2j-OEz"/>
+                            <constraint firstItem="TKZ-50-aAo" firstAttribute="leading" secondItem="FFV-Bp-Hpm" secondAttribute="leading" constant="16" id="EDn-RB-CGn"/>
                             <constraint firstItem="QJn-dF-3EQ" firstAttribute="width" secondItem="qeG-nt-Ow3" secondAttribute="width" id="ERR-wb-7Q7"/>
                             <constraint firstItem="kYO-4H-tYr" firstAttribute="top" secondItem="ZVW-OY-ljc" secondAttribute="bottom" id="ESO-Kr-YQ0"/>
                             <constraint firstItem="QJn-dF-3EQ" firstAttribute="centerX" secondItem="qeG-nt-Ow3" secondAttribute="centerX" id="NTG-tK-rEQ"/>
-                            <constraint firstItem="QJn-dF-3EQ" firstAttribute="top" secondItem="I8c-WM-xqu" secondAttribute="bottom" constant="27" id="OME-vP-mdI"/>
-                            <constraint firstItem="I8c-WM-xqu" firstAttribute="top" secondItem="HD3-4I-VRj" secondAttribute="bottom" constant="16" id="PHS-3J-phh"/>
+                            <constraint firstItem="TKZ-50-aAo" firstAttribute="top" secondItem="HD3-4I-VRj" secondAttribute="bottom" constant="16" id="OCx-cE-5rS"/>
+                            <constraint firstItem="QJn-dF-3EQ" firstAttribute="top" secondItem="TKZ-50-aAo" secondAttribute="bottom" constant="27" id="awi-31-XCa"/>
                             <constraint firstItem="QJn-dF-3EQ" firstAttribute="leading" secondItem="FFV-Bp-Hpm" secondAttribute="leading" constant="16" id="cKf-dU-x94"/>
                             <constraint firstItem="QJn-dF-3EQ" firstAttribute="centerY" secondItem="qeG-nt-Ow3" secondAttribute="centerY" id="g8A-5D-AVh"/>
                             <constraint firstItem="HD3-4I-VRj" firstAttribute="top" secondItem="WG6-xU-VjA" secondAttribute="bottom" id="izT-tZ-7p1"/>
                             <constraint firstItem="ZVW-OY-ljc" firstAttribute="leading" secondItem="FFV-Bp-Hpm" secondAttribute="leading" id="mHb-w8-FXS"/>
+                            <constraint firstAttribute="trailing" secondItem="TKZ-50-aAo" secondAttribute="trailing" constant="16" id="qnD-Ws-0mQ"/>
                             <constraint firstItem="QJn-dF-3EQ" firstAttribute="width" secondItem="tQT-Vc-gGK" secondAttribute="width" id="tKM-bC-h1A"/>
                             <constraint firstItem="kYO-4H-tYr" firstAttribute="top" secondItem="QJn-dF-3EQ" secondAttribute="bottom" constant="101" id="trp-Am-ymW"/>
-                            <constraint firstAttribute="centerX" secondItem="I8c-WM-xqu" secondAttribute="centerX" id="xp0-RP-WL8"/>
                             <constraint firstItem="QJn-dF-3EQ" firstAttribute="height" secondItem="qeG-nt-Ow3" secondAttribute="height" id="ySO-hz-PPw"/>
                             <constraint firstItem="QJn-dF-3EQ" firstAttribute="centerY" secondItem="tQT-Vc-gGK" secondAttribute="centerY" id="yuq-2C-uTm"/>
                         </constraints>
