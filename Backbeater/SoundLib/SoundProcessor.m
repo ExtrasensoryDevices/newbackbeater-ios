@@ -18,9 +18,12 @@
 #define kStartThreshold 0.15
 #define kEndThreshold 0.1
 #define kTimeout 250000000 // 250 000 000ns = 250ms
-               //10294458
 
+@interface SoundProcessor()
 
+@property (nonatomic) BOOL testing;
+
+@end
 
 
 @implementation SoundProcessor
@@ -28,12 +31,7 @@
 ATSoundSessionIO *_soundSessionIO;
 EnergyFunctionQueue *_energyFunctionQueue;
 
-NSString *_logStringRaw;
-NSString *_logStringEnergy;
-NSString *_logStringEnergySpikes;
-
-Float32 _maxEnergy;
-Float32 _maxEnergyTotal;
+Float32 _testMaxEnergy;
 
 Float32 _startThreshold;
 Float32 _endThreshold;
@@ -42,6 +40,7 @@ Float32 _timeout;
 int _strikeCount;
 
 BOOL _strikeState;
+
 
 +(instancetype)sharedInstance {
     static dispatch_once_t once;
@@ -60,7 +59,16 @@ BOOL _strikeState;
         _startThreshold = kStartThreshold;
         _endThreshold = kEndThreshold;
         _timeout = kTimeout;
+        
         [self updateStartThreshold];
+        
+        // init test data
+        _testStartThreshold = _startThreshold;
+        _testEndThreshold = _endThreshold;
+        _testTimeout = _timeout  ;
+        
+        
+
         
         _strikeState = NO;
         
@@ -90,32 +98,95 @@ BOOL _strikeState;
 }
 
 
+-(BOOL)testing
+{
+    return _testDelegate != nil;
+}
+
+
 UInt64 _strikeStartTime = 0;
 UInt64 _strikeEndTime = 0;
+BOOL _insideTimeout = false;
 -(void) processData:(Float32*)left right:(Float32*)right numFrames:(UInt32) numFrames
 {
     Float32 *data = left;
     int i;
     for (i=0; i<numFrames; i++) {
-        Float32 energyLevel = [_energyFunctionQueue push:data[i]];
+
+//        Float32 energyLevel = [_energyFunctionQueue push:data[i]];
+//        if (_strikeState == NO && energyLevel >= _startThreshold) {
+//            UInt64 newTime = [PublicUtilityWrapper CAHostTimeBase_GetCurrentTime];
+//            
+//            UInt64 timeElapsedNs = [PublicUtilityWrapper CAHostTimeBase_AbsoluteHostDeltaToNanos:newTime oldTapTime:_strikeEndTime];
+//            
+//            if (timeElapsedNs < _timeout) {
+//                // ignore
+//            } else {
+//                _strikeState = YES;
+//                _strikeStartTime = newTime;
+//            }
+//        } else if (_strikeState == YES && energyLevel <= _endThreshold) {
+//            _strikeState = NO;
+//            
+//            _strikeEndTime = [PublicUtilityWrapper CAHostTimeBase_GetCurrentTime];
+//            [self didDetectStrike];
+//        }
         
-        if (_strikeState == NO && energyLevel >= _startThreshold) {
-            UInt64 newTime = [PublicUtilityWrapper CAHostTimeBase_GetCurrentTime];
-            
-            UInt64 timeElapsedNs = [PublicUtilityWrapper CAHostTimeBase_AbsoluteHostDeltaToNanos:newTime oldTapTime:_strikeEndTime];
-            
-            if (timeElapsedNs < _timeout) {
-                // ignore
-            } else {
-                _strikeState = YES;
-                _strikeStartTime = newTime;
+        Float32 __startTh = self.testing ? _testStartThreshold : _startThreshold;
+        Float32 __endTh = self.testing ? _testEndThreshold : _endThreshold;
+        Float32 __timeout = self.testing ? _testTimeout : _timeout;
+        
+        Float32 energyLevel = [_energyFunctionQueue push:data[i]];
+        UInt64 newTime = [PublicUtilityWrapper CAHostTimeBase_GetCurrentTime];
+        UInt64 timeElapsedNs = [PublicUtilityWrapper CAHostTimeBase_AbsoluteHostDeltaToNanos:newTime oldTapTime:_strikeEndTime];
+        
+        if (timeElapsedNs > __timeout) {
+            // if timeout just ended : report max energy
+            if (_insideTimeout) {
+                [self testDidDetectTimeoutEnd:_testMaxEnergy];
+                _testMaxEnergy = 0;
+                _insideTimeout = false;
             }
-        } else if (_strikeState == YES && energyLevel <= _endThreshold) {
+        } else {
+            // still in timeout, update max energy end wait for timeout to end
+            NSLog(@" %.5f - %.5f", energyLevel, _testMaxEnergy);
+            _testMaxEnergy = MAX(energyLevel, _testMaxEnergy);
+            return;
+        }
+        
+        
+        // timeout ended, handle energy level
+        if (_strikeState == NO && energyLevel >= __startTh) {
+            _strikeState = YES;
+            _strikeStartTime = newTime;
+            
+            _insideTimeout = true;
+            
+            _testMaxEnergy = energyLevel;
+            NSLog(@" started: %.5f - %.5f", energyLevel, _testMaxEnergy);
+            if (self.testing) {
+                [self testDidDetectStrikeStart: energyLevel];
+            }
+        } else if (_strikeState == YES && energyLevel <= __endTh) {
             _strikeState = NO;
             
             _strikeEndTime = [PublicUtilityWrapper CAHostTimeBase_GetCurrentTime];
+            
+            if (self.testing) {
+                [self testDidDetectStrikeEnd:energyLevel];
+            }
+            
+            
             [self didDetectStrike];
         }
+
+        
+        
+        
+        
+        
+        
+        
     }
 }
 
@@ -125,7 +196,6 @@ UInt64 _strikeEndTime = 0;
 //    if (!_sensorIn){
 //        return NO;
 //    }
-    _maxEnergyTotal = 0.0;
     _strikeState = NO;
     _strikeCount = 0;
     [_energyFunctionQueue clear];
@@ -139,10 +209,8 @@ UInt64 _strikeEndTime = 0;
     if (_soundSessionIO.isProcessingSound) {
         [_soundSessionIO stopSoundProcessing:error];
     }
-    NSLog(@"Strikes total: %i,    Max energy: %f", _strikeCount, _maxEnergyTotal);
     _strikeState = NO;
     _strikeCount = 0;
-    _maxEnergyTotal = 0.0;
     [_energyFunctionQueue clear];
     return error == nil;
 }
@@ -222,6 +290,31 @@ float IDLE_TIMEOUT = 5.0;
     _startThreshold = - (A * sensitivity - B ) / C;
 }
 
+
+
+#pragma mark - Testing
+
+-(void)testDidDetectStrikeStart:(Float32) startEnergy
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.testDelegate soundProcessorDidDetectStrikeStart:startEnergy];
+    });
+}
+
+
+-(void)testDidDetectStrikeEnd:(Float32) endEnergy
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.testDelegate soundProcessorDidDetectStrikeEnd:endEnergy];
+    });
+}
+
+-(void)testDidDetectTimeoutEnd:(Float32) maxEnergy
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.testDelegate soundProcessorDidDetectTimeoutEnd:maxEnergy];
+    });
+}
 
 
 #pragma mark - Notifications

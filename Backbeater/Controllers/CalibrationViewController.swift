@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CalibrationViewController: UIViewController, UITextFieldDelegate, SoundProcessorDelegate {
+class CalibrationViewController: UIViewController, UITextFieldDelegate, SoundProcessorTestDelegate {
 
     @IBOutlet weak var startTh: UITextField!
     @IBOutlet weak var stopTh: UITextField!
@@ -15,10 +15,7 @@ class CalibrationViewController: UIViewController, UITextFieldDelegate, SoundPro
     @IBOutlet weak var log: UITextView!
     
     
-    @IBOutlet weak var l1: UILabel!
-    @IBOutlet weak var l2: UILabel!
     @IBOutlet weak var clearButton: UIButton!
-    @IBOutlet weak var startButton: UIButton!
     
     
     var keyboardToolbar:UIToolbar!
@@ -36,23 +33,18 @@ class CalibrationViewController: UIViewController, UITextFieldDelegate, SoundPro
         startTh.backgroundColor = ColorPalette.Black.color()
         stopTh.backgroundColor = ColorPalette.Black.color()
         timeout.backgroundColor = ColorPalette.Black.color()
-        startButton.setTitleColor(UIColor.blueColor(), forState: UIControlState.Normal)
-        startButton.setTitleColor(UIColor.blueColor(), forState: UIControlState.Selected)
         clearButton.setTitleColor(UIColor.blueColor(), forState: UIControlState.Normal)
         clearButton.setTitleColor(UIColor.blueColor(), forState: UIControlState.Selected)
         
         setupKeyboardAceessory()
         
-        soundProcessor.delegate = self
+        soundProcessor.testDelegate = self
         
-//        startTh.text = "\(soundProcessor.startThreshold)"
-//        stopTh.text = "\(soundProcessor.endThreshold)"
-//        
-//        let timeoutValue = soundProcessor.timeout/timeoutCoeff
+        startTh.text = "\(soundProcessor.testStartThreshold)"
+        stopTh.text = "\(soundProcessor.testEndThreshold)"
         
-        
-        
-//        timeout.text = "\(timeoutValue)"
+        let timeoutValue = soundProcessor.testTimeout/timeoutCoeff
+        timeout.text = "\(timeoutValue)"
         
     }
     
@@ -94,25 +86,7 @@ class CalibrationViewController: UIViewController, UITextFieldDelegate, SoundPro
     }
     
     override func viewWillDisappear(animated: Bool) {
-        var error:NSError?
-        soundProcessor.stop(&error)
-        if let err = error {
-            println(err)
-        }
-    }
-    
-    @IBAction func didTapStartButton(sender: UIButton) {
-        var error:NSError? = nil
-        if sender.selected {
-            sender.selected = false
-            SoundProcessor.sharedInstance().stop(&error)
-        } else {
-            sender.selected = true
-            SoundProcessor.sharedInstance().start(&error)
-        }
-        if let err = error {
-            println(err)
-        }
+        soundProcessor.testDelegate = nil;
     }
     
     
@@ -121,14 +95,14 @@ class CalibrationViewController: UIViewController, UITextFieldDelegate, SoundPro
     }
     
     func textFieldDidEndEditing(textField: UITextField) {
-//        let value = (textField.text as NSString).floatValue
-//        if textField == startTh {
-//            soundProcessor.startThreshold = value
-//        } else if textField == stopTh {
-//            soundProcessor.endThreshold = value
-//        } else if textField == timeout {
-//            soundProcessor.timeout = UInt64(value) * timeoutCoeff
-//        }
+        let value = (textField.text as NSString).floatValue
+        if textField == startTh {
+            soundProcessor.testStartThreshold = value
+        } else if textField == stopTh {
+            soundProcessor.testEndThreshold = value
+        } else if textField == timeout {
+            soundProcessor.testTimeout = UInt64(value) * timeoutCoeff
+        }
     }
     
     @IBAction func didTapClear(sender: AnyObject) {
@@ -153,38 +127,16 @@ class CalibrationViewController: UIViewController, UITextFieldDelegate, SoundPro
         logText(sensorIn ? "---------SensorIn: true" : "SensorIn: false")
     }
     
-    func soundProcessorDidDetectStrikeStart(params: [NSObject : AnyObject]!) {
-        if let unwrapped = params["energyLevel"] as? NSNumber {
-            logText("Strike started: \(unwrapped)")
-        } else {
-            logText("Strike started: \(params)")
-        }
+    func soundProcessorDidDetectStrikeStart(startValue: Float32) {
+        logText("Strike started: \(startValue)")
     }
     
-    func soundProcessorDidDetectStrikeEnd(params: [NSObject : AnyObject]!) {
-        if let unwrapped = params["energyLevel"] as? NSNumber {
-            logText("           ended: \(unwrapped)")
-            let time = params["time"] as? NSNumber
-            let timeElapsedNs = params["timeElapsedNs"] as? NSNumber
-            let timeElapsedInSec = params["timeElapsedInSec"] as? NSNumber
-            println("timeElapsedNs: \(timeElapsedNs!), timeElapsedInSec: \(timeElapsedInSec!)")
-        } else {
-            logText("           ended: \(params)")
-        }
+    func soundProcessorDidDetectStrikeEnd(endValue: Float32) {
+        logText("           ended: \(endValue)")
     }
     
-    func soundProcessorProcessedFrame(params: [NSObject : AnyObject]!) {
-        let maxPerFrame = params["maxPerFrame"] as? NSNumber
-        let maxTotal = params["maxTotal"] as? NSNumber
-        logText("maxPerFrame: \(maxPerFrame!), maxTotal: \(maxTotal!)")
+
+    func soundProcessorDidDetectTimeoutEnd(maxValue: Float32) {
+        logText("        maxValue: \(maxValue)")
     }
-    
-    func soundProcessorDidDetectFirstStrike() {
-        //
-    }
-    
-    func soundProcessorDidFindBPM(bpm: Float64) {
-        //
-    }
-    
 }
