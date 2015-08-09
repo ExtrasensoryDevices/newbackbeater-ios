@@ -19,6 +19,7 @@
 		C71C557C1B28C61F007EDF51 /* DisplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71C557B1B28C61F007EDF51 /* DisplayViewController.swift */; };
 		C71C558C1B2909E9007EDF51 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71C558B1B2909E9007EDF51 /* WebViewController.swift */; };
 		C71C55A11B2B5D75007EDF51 /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71C55A01B2B5D75007EDF51 /* UIColorExtensions.swift */; };
+		C74DC2F71B76BAC800E3DC6D /* BBlogoanimation02.gif in Resources */ = {isa = PBXBuildFile; fileRef = C74DC2F61B76BAC800E3DC6D /* BBlogoanimation02.gif */; };
 		C75DAA941B212787008FDB43 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7E77ABB1B20F4E00058523B /* Foundation.framework */; };
 		C774B16C1B2BB0E3007625B3 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C774B16B1B2BB0E3007625B3 /* UIViewExtension.swift */; };
 		C774B1711B2F7224007625B3 /* SongListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C774B1701B2F7224007625B3 /* SongListViewController.swift */; };
@@ -39,6 +40,12 @@
 		C7C0BA3E1B38C420005B8D6D /* NumericStepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C0BA3D1B38C420005B8D6D /* NumericStepper.swift */; };
 		C7C0BA401B38C445005B8D6D /* NumericStepper.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7C0BA3F1B38C445005B8D6D /* NumericStepper.xib */; };
 		C7C0BA421B38CD17005B8D6D /* UILabelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C0BA411B38CD17005B8D6D /* UILabelExtension.swift */; };
+		C7C2653F1B77177800E11C73 /* Animatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C265391B77177800E11C73 /* Animatable.swift */; };
+		C7C265401B77177800E11C73 /* AnimatableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C2653A1B77177800E11C73 /* AnimatableImageView.swift */; };
+		C7C265411B77177800E11C73 /* AnimatedFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C2653B1B77177800E11C73 /* AnimatedFrame.swift */; };
+		C7C265421B77177800E11C73 /* Animator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C2653C1B77177800E11C73 /* Animator.swift */; };
+		C7C265431B77177800E11C73 /* Gifu_UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C2653D1B77177800E11C73 /* Gifu_UIImageExtension.swift */; };
+		C7C265441B77177800E11C73 /* ImageSourceHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C2653E1B77177800E11C73 /* ImageSourceHelpers.swift */; };
 		C7C483BE1B67068C00D0053C /* SteelfishRg.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7C483BD1B67045A00D0053C /* SteelfishRg.ttf */; };
 		C7C483C01B69559200D0053C /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C483BF1B69559200D0053C /* Settings.m */; };
 		C7C483C41B6A9F5700D0053C /* metronome.wav in Resources */ = {isa = PBXBuildFile; fileRef = C7C483C11B6A9F5700D0053C /* metronome.wav */; };
@@ -82,6 +89,9 @@
 		C71C55991B2A19A8007EDF51 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		C71C559B1B2A43D0007EDF51 /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
 		C71C55A01B2B5D75007EDF51 /* UIColorExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
+		C74DC2F61B76BAC800E3DC6D /* BBlogoanimation02.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = BBlogoanimation02.gif; sourceTree = "<group>"; };
+		C74DC2FC1B76CA6400E3DC6D /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		C74DC2FE1B76CB9600E3DC6D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		C774B16B1B2BB0E3007625B3 /* UIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		C774B1701B2F7224007625B3 /* SongListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongListViewController.swift; sourceTree = "<group>"; };
 		C774B1791B30F195007625B3 /* SongListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SongListCell.swift; path = Views/SongListCell.swift; sourceTree = "<group>"; };
@@ -107,6 +117,12 @@
 		C7C0BA3D1B38C420005B8D6D /* NumericStepper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NumericStepper.swift; path = Views/NumericStepper.swift; sourceTree = "<group>"; };
 		C7C0BA3F1B38C445005B8D6D /* NumericStepper.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = NumericStepper.xib; path = Views/NumericStepper.xib; sourceTree = "<group>"; };
 		C7C0BA411B38CD17005B8D6D /* UILabelExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UILabelExtension.swift; sourceTree = "<group>"; };
+		C7C265391B77177800E11C73 /* Animatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animatable.swift; sourceTree = "<group>"; };
+		C7C2653A1B77177800E11C73 /* AnimatableImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimatableImageView.swift; sourceTree = "<group>"; };
+		C7C2653B1B77177800E11C73 /* AnimatedFrame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimatedFrame.swift; sourceTree = "<group>"; };
+		C7C2653C1B77177800E11C73 /* Animator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animator.swift; sourceTree = "<group>"; };
+		C7C2653D1B77177800E11C73 /* Gifu_UIImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gifu_UIImageExtension.swift; sourceTree = "<group>"; };
+		C7C2653E1B77177800E11C73 /* ImageSourceHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageSourceHelpers.swift; sourceTree = "<group>"; };
 		C7C483BD1B67045A00D0053C /* SteelfishRg.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SteelfishRg.ttf; sourceTree = "<group>"; };
 		C7C483BF1B69559200D0053C /* Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Settings.m; sourceTree = "<group>"; };
 		C7C483C11B6A9F5700D0053C /* metronome.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = metronome.wav; sourceTree = "<group>"; };
@@ -160,6 +176,8 @@
 		550D132ADA81F391F4746002 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C74DC2FE1B76CB9600E3DC6D /* CoreGraphics.framework */,
+				C74DC2FC1B76CA6400E3DC6D /* ImageIO.framework */,
 				C7C483C91B729BD200D0053C /* Crashlytics.framework */,
 				C7C483CA1B729BD200D0053C /* Fabric.framework */,
 				C7A90B631B4DCB9600E4719A /* AVFoundation.framework */,
@@ -272,6 +290,7 @@
 		C7B9C8081B2782F300250686 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C74DC2F61B76BAC800E3DC6D /* BBlogoanimation02.gif */,
 				C7E77A891B1D07210058523B /* Images.xcassets */,
 				C71C55841B290539007EDF51 /* Sound */,
 				C7B9C8091B2782F400250686 /* Fonts */,
@@ -304,6 +323,19 @@
 				C71511C61B5DC0C4007A0D18 /* PublicUtilityWrapper.mm */,
 			);
 			path = SoundLib;
+			sourceTree = "<group>";
+		};
+		C7C265381B77177800E11C73 /* gifu */ = {
+			isa = PBXGroup;
+			children = (
+				C7C265391B77177800E11C73 /* Animatable.swift */,
+				C7C2653A1B77177800E11C73 /* AnimatableImageView.swift */,
+				C7C2653B1B77177800E11C73 /* AnimatedFrame.swift */,
+				C7C2653C1B77177800E11C73 /* Animator.swift */,
+				C7C2653D1B77177800E11C73 /* Gifu_UIImageExtension.swift */,
+				C7C2653E1B77177800E11C73 /* ImageSourceHelpers.swift */,
+			);
+			path = gifu;
 			sourceTree = "<group>";
 		};
 		C7E77A741B1D07210058523B = {
@@ -371,6 +403,7 @@
 			children = (
 				C7E77AAC1B1FBFBC0058523B /* UIControlNibDesignable.swift */,
 				C7E77AAA1B1F81170058523B /* NibDesignable.swift */,
+				C7C265381B77177800E11C73 /* gifu */,
 				C7A90B521B4DACAE00E4719A /* SoundWaveVisualiser */,
 				C774B17B1B338067007625B3 /* Updater */,
 				C71511CA1B5DC802007A0D18 /* PublicUtility */,
@@ -440,6 +473,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C74DC2F71B76BAC800E3DC6D /* BBlogoanimation02.gif in Resources */,
 				C7C483BE1B67068C00D0053C /* SteelfishRg.ttf in Resources */,
 				C7C0BA401B38C445005B8D6D /* NumericStepper.xib in Resources */,
 				C7E77AA61B1E3DDF0058523B /* SensitivitySlider.xib in Resources */,
@@ -524,11 +558,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7C265401B77177800E11C73 /* AnimatableImageView.swift in Sources */,
+				C7C265431B77177800E11C73 /* Gifu_UIImageExtension.swift in Sources */,
+				C7C265441B77177800E11C73 /* ImageSourceHelpers.swift in Sources */,
 				C71512621B5DC803007A0D18 /* CAHostTimeBase.cpp in Sources */,
 				C7A90B5A1B4DACAE00E4719A /* ATSoundSessionIO.m in Sources */,
 				C7F34E381B4F33DA00B60D29 /* CalibrationViewController.swift in Sources */,
 				C71C557C1B28C61F007EDF51 /* DisplayViewController.swift in Sources */,
 				C774B1711B2F7224007625B3 /* SongListViewController.swift in Sources */,
+				C7C265411B77177800E11C73 /* AnimatedFrame.swift in Sources */,
+				C7C2653F1B77177800E11C73 /* Animatable.swift in Sources */,
 				661E409B1B60373300945177 /* WindowQueue.m in Sources */,
 				C71511C71B5DC0C4007A0D18 /* PublicUtilityWrapper.mm in Sources */,
 				C7B9C8011B27828F00250686 /* AppDelegate.swift in Sources */,
@@ -551,6 +590,7 @@
 				C7C483C01B69559200D0053C /* Settings.m in Sources */,
 				C71C55A11B2B5D75007EDF51 /* UIColorExtensions.swift in Sources */,
 				C774B17E1B338067007625B3 /* Updater.m in Sources */,
+				C7C265421B77177800E11C73 /* Animator.swift in Sources */,
 				C774B1821B34B240007625B3 /* StringExtension.swift in Sources */,
 				C7CE94621B5870E200C2D582 /* CentralRing.swift in Sources */,
 				C7B9C8071B2782B600250686 /* MainViewController.swift in Sources */,

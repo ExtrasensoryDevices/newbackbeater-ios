@@ -61,7 +61,6 @@ class CentralRing: NibDesignable {
     override func setup() {
         super.setup()
         self.backgroundColor = UIColor.clearColor()
-//        self.nibView.backgroundColor = UIColor.clearColor()
         self.ringView.backgroundColor = UIColor.clearColor()
         ringView.addObserver(self, forKeyPath: "bounds", options: NSKeyValueObservingOptions.allZeros, context: nil)
         

@@ -22,9 +22,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var lastOpenTime:NSDate!
     let INACTIVE_TIMEOUT:NSTimeInterval = 60 // 1 min
     
-
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        // play animation
+        window?.rootViewController?.view.backgroundColor = ColorPalette.Black.color()
+        if let imageView = window?.rootViewController?.view.viewWithTag(1) as? AnimatableImageView {
+            imageView.animateWithImage(named: "BBlogoanimation02.gif")
+        }
+        
+        // replace root VC
+        let mainVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("MainViewController") as! UIViewController
+        self.delay(2.0, callback: { [unowned self] () -> () in
+            UIView.transitionWithView(self.window!, duration: 0.5, options: UIViewAnimationOptions.TransitionFlipFromLeft, animations: { () -> Void in
+                self.window?.rootViewController = mainVC
+            }, completion: nil)
+        })
         
         Fabric.with([Crashlytics()])
         

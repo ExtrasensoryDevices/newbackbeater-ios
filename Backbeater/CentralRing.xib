@@ -30,11 +30,11 @@
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="140" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dC7-h9-cZm">
                             <rect key="frame" x="0.0" y="0.0" width="388" height="388"/>
                             <fontDescription key="fontDescription" name="SteelfishRg-Regular" family="Steelfish" pointSize="142"/>
-                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="0.14901960784313725" green="0.14901960784313725" blue="0.14901960784313725" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstItem="dC7-h9-cZm" firstAttribute="leading" secondItem="qlr-Kh-p4Q" secondAttribute="leading" id="PLx-de-C4Y"/>
                         <constraint firstItem="dC7-h9-cZm" firstAttribute="top" secondItem="qlr-Kh-p4Q" secondAttribute="top" id="Wp2-C4-sKn"/>
@@ -51,7 +51,7 @@
                     </constraints>
                 </imageView>
             </subviews>
-            <color key="backgroundColor" red="0.43529411764705883" green="0.44313725490196076" blue="0.47450980392156861" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" red="0.14901960784313725" green="0.14901960784313725" blue="0.14901960784313725" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="qlr-Kh-p4Q" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="35" id="4t8-vK-z4D"/>
                 <constraint firstAttribute="centerX" secondItem="qlr-Kh-p4Q" secondAttribute="centerX" id="DJy-0x-5ER"/>
