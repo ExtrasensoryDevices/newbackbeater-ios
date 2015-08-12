@@ -37,8 +37,7 @@ class CentralRing: NibDesignable {
     var pulseAnimation:CABasicAnimation!
     let PULSE_DURATION:Double = floor(60.0 / Double(BridgeConstants.MAX_TEMPO()) * 10) / 10 / 5
     
-//    var timeSignature:Int!
-//    var metronomeTempo:Int = 0
+    var drumAnimationImages:[UIImage] = []
     
     let settings = Settings.sharedInstance()
     
@@ -65,17 +64,17 @@ class CentralRing: NibDesignable {
         ringView.addObserver(self, forKeyPath: "bounds", options: NSKeyValueObservingOptions.allZeros, context: nil)
         
         
-        cptLabel.text = ""
+        cptLabel.text = "\(settings.lastPlayedTempo)"
         
         resetSublayers()
         initAnimations()
         updateAudioPlayer()
         
        
-        Settings.sharedInstance().addObserver(self, forKeyPath: TIME_SIGNATURE_KEY_PATH, options: NSKeyValueObservingOptions.allZeros, context: nil)
-        Settings.sharedInstance().addObserver(self, forKeyPath: METRONOME_TEMPO_KEY_PATH, options: NSKeyValueObservingOptions.allZeros, context: nil)
-        Settings.sharedInstance().addObserver(self, forKeyPath: METRONOME_ON_KEY_PATH, options: NSKeyValueObservingOptions.allZeros, context: nil)
-        Settings.sharedInstance().addObserver(self, forKeyPath: METRONOME_SOUND_INDEX_KEY_PATH, options: NSKeyValueObservingOptions.allZeros, context: nil)
+        settings.addObserver(self, forKeyPath: TIME_SIGNATURE_KEY_PATH, options: NSKeyValueObservingOptions.allZeros, context: nil)
+        settings.addObserver(self, forKeyPath: METRONOME_TEMPO_KEY_PATH, options: NSKeyValueObservingOptions.allZeros, context: nil)
+        settings.addObserver(self, forKeyPath: METRONOME_ON_KEY_PATH, options: NSKeyValueObservingOptions.allZeros, context: nil)
+        settings.addObserver(self, forKeyPath: METRONOME_SOUND_INDEX_KEY_PATH, options: NSKeyValueObservingOptions.allZeros, context: nil)
         
     }
     
@@ -85,10 +84,10 @@ class CentralRing: NibDesignable {
     
     deinit {
         ringView.removeObserver(self, forKeyPath: "bounds")
-        Settings.sharedInstance().removeObserver(self, forKeyPath: TIME_SIGNATURE_KEY_PATH)
-        Settings.sharedInstance().removeObserver(self, forKeyPath: METRONOME_TEMPO_KEY_PATH)
-        Settings.sharedInstance().removeObserver(self, forKeyPath: METRONOME_ON_KEY_PATH)
-        Settings.sharedInstance().removeObserver(self, forKeyPath: METRONOME_SOUND_INDEX_KEY_PATH)
+        settings.removeObserver(self, forKeyPath: TIME_SIGNATURE_KEY_PATH)
+        settings.removeObserver(self, forKeyPath: METRONOME_TEMPO_KEY_PATH)
+        settings.removeObserver(self, forKeyPath: METRONOME_ON_KEY_PATH)
+        settings.removeObserver(self, forKeyPath: METRONOME_SOUND_INDEX_KEY_PATH)
     }
     
     override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
@@ -218,6 +217,21 @@ class CentralRing: NibDesignable {
         pulseAnimation.repeatCount = 1
         pulseAnimation.removedOnCompletion = true
         
+        // drum hit animation
+        let imageCount = 8
+        for i in 0...imageCount-1 {
+            let imageName = "drum_icon\(i)"
+            println(imageName)
+            if let image = UIImage(named: imageName) {
+                drumAnimationImages.append(image)
+            }
+        }
+        drumImage.animationImages = drumAnimationImages
+        drumImage.animationRepeatCount = 1
+        drumImage.animationDuration = Double(imageCount) * 40.0 / 1000.0
+        
+
+        
     }
     
     
@@ -234,6 +248,9 @@ class CentralRing: NibDesignable {
         // BPM
         
         let fromValue: NSNumber = cptSublayer.presentationLayer().valueForKeyPath("transform.rotation.z")  as! NSNumber
+        if fromValue.floatValue > -0.2 && fromValue.floatValue < 0.2 {
+            animateDrumImage()
+        }
         bpmSublayer.transform = CATransform3DMakeRotation(CGFloat(fromValue.floatValue), 0, 0, 1.0)
         bpmSublayer.removeAllAnimations()
         bpmSublayer.addAnimation(bpmAnimation, forKey: BPM_ANIMATION_KEY)
@@ -278,6 +295,11 @@ class CentralRing: NibDesignable {
         } else {
             println("metronom OFF")
         }
+    }
+    
+    func  animateDrumImage() {
+        drumImage.stopAnimating()
+        drumImage.startAnimating()
     }
     
     

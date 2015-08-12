@@ -181,6 +181,13 @@ NSArray *_metronomeSoundFileNames;
         _metronomeTempo = [BridgeConstants DEFAULT_TEMPO];
     }
     
+    if ([userDefaults objectForKey:@"lastPlayedTempo"] != nil) {
+        _lastPlayedTempo = [userDefaults integerForKey:@"lastPlayedTempo"];
+    } else {
+        changed = YES;
+        _lastPlayedTempo = [BridgeConstants DEFAULT_TEMPO];
+    }
+    
     if ([userDefaults objectForKey:@"songList"] != nil) {
         _songList = [userDefaults objectForKey:@"songList"];
     } else {
@@ -201,6 +208,7 @@ NSArray *_metronomeSoundFileNames;
     [userDefaults setInteger:_metronomeSoundSelectedIndex forKey:@"metronomeSoundSelectedIndex"];
     [userDefaults setBool:_metronomeIsOn forKey:@"metronomeIsOn"];
     [userDefaults setInteger:_metronomeTempo forKey:@"metronomeTempo"];
+    [userDefaults setInteger:_lastPlayedTempo forKey:@"lastPlayedTempo"];
     [userDefaults setObject:_songList forKey:@"songList"];
     
     [userDefaults synchronize];

@@ -154,6 +154,9 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
         }
     }
     
+    @IBAction func didTapGetSensorButton(sender: AnyObject) {
+        UIApplication.sharedApplication().openURL(NSURL(string: BUY_SENSOR_URL)!)
+    }
     
     func didTapSetTempoButton() {
         metronomeTempoView.value = currentTempo
@@ -196,6 +199,7 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
         let tempo = Int(bpm * multiplier)
         
         currentTempo = strikesWindowQueue.enqueue(tempo).average
+        Settings.sharedInstance().lastPlayedTempo = currentTempo
         centralRing.displayCPT(currentTempo, instantTempo: Int(tempo))
     }
     

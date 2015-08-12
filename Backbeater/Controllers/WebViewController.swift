@@ -35,7 +35,7 @@ class WebViewController: UIViewController, UIWebViewDelegate {
     }
     
     func webView(webView: UIWebView, didFailLoadWithError error: NSError) {
-        println(error)
+//        println(error)
         MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
         let alertVC = UIAlertController(title: nil, message: "Please check your internet connection or try again later.", preferredStyle: .Alert)
         let okAction = UIAlertAction(title: "OK", style: .Default, handler: { (action) -> Void in})
@@ -44,5 +44,16 @@ class WebViewController: UIViewController, UIWebViewDelegate {
         self.presentViewController(alertVC, animated: true, completion: nil)
     }
     
- 
+    
+    
+    func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+        if let urlString = request.URL?.absoluteString {
+            if (urlString.lowercaseString.rangeOfString("apphelp") != nil) {
+                return true
+            }
+        }
+        return !UIApplication.sharedApplication().openURL(request.URL!)
+    }
+    
+    
 }

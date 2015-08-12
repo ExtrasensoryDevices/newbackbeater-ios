@@ -21,6 +21,8 @@
 @property (nonatomic) BOOL metronomeIsOn;
 @property (nonatomic) NSInteger metronomeTempo;
 @property (nonatomic, readonly) NSURL *urlForSound; // url for the selected sound
+@property (nonatomic) NSInteger lastPlayedTempo;
+
 
 // values available
 @property (nonatomic, readonly) NSArray* strikesWindowValues;

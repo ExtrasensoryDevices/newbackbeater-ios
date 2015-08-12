@@ -374,7 +374,7 @@ SENSOR</string>
                 <tapGestureRecognizer id="60N-Ku-2jr" userLabel="SetTempo Tap Gesture Recognizer"/>
                 <tapGestureRecognizer id="Eh1-Gb-B1S" userLabel="GetSensor Tap Gesture Recognizer">
                     <connections>
-                        <segue destination="dH9-CO-D53" kind="presentation" id="FRw-VP-Csb"/>
+                        <action selector="didTapGetSensorButton:" destination="ri4-d8-4RD" id="eDF-B4-aqS"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
