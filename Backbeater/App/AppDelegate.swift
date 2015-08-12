@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // play animation
         window?.rootViewController?.view.backgroundColor = ColorPalette.Black.color()
         if let imageView = window?.rootViewController?.view.viewWithTag(1) as? AnimatableImageView {
-            imageView.animateWithImage(named: "BBlogoanimation02.gif")
+            imageView.animateWithImage(named: "bblogoanimation5.gif")
         }
         
         // replace root VC

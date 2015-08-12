@@ -60,6 +60,10 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
         println("metronomeIsOn: \(Settings.sharedInstance().metronomeIsOn)")
         metronomeTempoView.isOn = Settings.sharedInstance().metronomeIsOn
         
+        
+        let image = UIImage(named:"tempo_list")!.imageWithRenderingMode(.AlwaysTemplate)
+        hamButton.setImage(image, forState: .Normal)
+        
         songList = restoreSongTempoList(Settings.sharedInstance().songList as? [NSDictionary])
         
     }
@@ -236,14 +240,17 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
             hideLabel = count < 1
             metronomeTempoView.value = songList![selectedSongIndex].tempoValue
             songListBottomLayoutConstraint.constant = 0
+            hamButton.tintColor = UIColor.whiteColor()
         } else {   // hide
             songListBottomLayoutConstraint.constant = -songListView.bounds.height / 2
+            hamButton.tintColor = ColorPalette.Grey.color()
         }
         songNameLabel.text = songList?[selectedSongIndex].songName ?? ""
         
         prevSongButton.hidden = hideButtons
         nextSongButton.hidden = hideButtons
         songNameLabel.hidden = hideLabel
+        
     }
     
     func updateSensorView() {

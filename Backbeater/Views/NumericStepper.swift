@@ -82,7 +82,6 @@ class NumericStepper: UIControlNibDesignable {
         super.awakeFromNib()
         font = label.font
         self.backgroundColor = UIColor.clearColor()
-//        self.nibView?.backgroundColor = UIColor.clearColor()
         self.frameView.backgroundColor = bgrColor
         
         V_CONSTRAINT_CONSTANT = (self.bounds.size.height - self.bounds.size.width)/2
@@ -97,10 +96,16 @@ class NumericStepper: UIControlNibDesignable {
     
     private func updateOnOffState() {
         if isOn {
-            self.frameView?.drawBorder()
+            setColorForBorder(ColorPalette.Pink.color(), labelColor: UIColor.whiteColor())
         } else {
-            self.frameView?.drawBorderWithColor(ColorPalette.Grey.color())
+            setColorForBorder(ColorPalette.Grey.color(), labelColor: ColorPalette.Grey.color())
         }
+    }
+    
+    
+    private func setColorForBorder(borderColor:UIColor, labelColor:UIColor) {
+        self.frameView?.drawBorderWithColor(borderColor)
+        self.label.textColor = labelColor
     }
     
     
@@ -183,6 +188,8 @@ class NumericStepper: UIControlNibDesignable {
             gestureStarted = true
             prevPoint = point
             
+            setColorForBorder(UIColor.whiteColor(), labelColor: UIColor.whiteColor())
+            
             let expandDirection:Direction = velocity.y < 0 ? .Down : .Up
             expand(expandDirection)
         case .Changed:
@@ -213,6 +220,7 @@ class NumericStepper: UIControlNibDesignable {
             gestureStarted = false
             prevPoint = nil
             collapse()
+            updateOnOffState() 
         default:
             break;
         }

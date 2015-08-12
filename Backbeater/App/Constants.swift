@@ -22,8 +22,8 @@ let CHECK_INTERVAL_SECONDS = 60.0 * 5
 let PLIST_URL = "https://backbeater.com/app/backbeater.plist"
 
 // urls
-let HELP_URL = "http://backbeater.com/m"
-let BUY_SENSOR_URL = "http://www.backbeater.com"
+let HELP_URL = "http://backbeater.com/apphelp/?app=ios"
+let BUY_SENSOR_URL = "http://backbeater.com/appbuy/?app=ios"
 
 let IDLE_TIMEOUT = 5.0
 
@@ -62,6 +62,11 @@ enum Font: String {
 struct SongTempo: Equatable {
     var songName:String
     var tempoValue:Int
+    
+    init(songName: String, tempoValue:  Int) {
+        self.songName = songName.uppercaseString
+        self.tempoValue = tempoValue
+    }
 }
 
 
