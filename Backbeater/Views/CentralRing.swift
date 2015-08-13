@@ -221,7 +221,6 @@ class CentralRing: NibDesignable {
         let imageCount = 8
         for i in 0...imageCount-1 {
             let imageName = "drum_icon\(i)"
-            println(imageName)
             if let image = UIImage(named: imageName) {
                 drumAnimationImages.append(image)
             }

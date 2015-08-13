@@ -82,6 +82,17 @@ class MainViewController: UIViewController, SidebarDelegate {
         return position / centerPanelExpandedOffset
     }
     
+    func addBlurView() {
+        visualEffectView.alpha = blurAlpha(containerCenterXConstraint.constant)
+        displayVC.view.addSubview(visualEffectView)
+        
+        // fix for iphone 6: not covering all the screen
+        visualEffectView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        displayVC.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[visualEffectView]|", options: NSLayoutFormatOptions.allZeros, metrics: nil, views: ["visualEffectView":visualEffectView]))
+        displayVC.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[visualEffectView]|", options: NSLayoutFormatOptions.allZeros, metrics: nil, views: ["visualEffectView":visualEffectView]))
+
+    }
+    
     @IBAction func didTapSettingsButton(sender: UIButton) {
         toggleMenuPanel(true)
     }
@@ -96,8 +107,7 @@ class MainViewController: UIViewController, SidebarDelegate {
         if newState == .Expanded {
             currentState = .Expanded
             if visualEffectView.superview == nil {
-                visualEffectView.alpha = blurAlpha(containerCenterXConstraint.constant)
-                displayVC.view.addSubview(visualEffectView)
+                addBlurView()
             }
             animateCenterPanelXPosition(targetPosition: centerPanelExpandedOffset)
         } else {
@@ -142,8 +152,7 @@ class MainViewController: UIViewController, SidebarDelegate {
         case .Began:
             if currentState == .Collapsed  {
                 showShadow(true)
-                visualEffectView.alpha = 0.0
-                displayVC.view.addSubview(visualEffectView)
+                addBlurView()
             }
         case .Changed:
             let point = recognizer.translationInView(view)
