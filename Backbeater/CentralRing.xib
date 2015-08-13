@@ -64,6 +64,6 @@
         </view>
     </objects>
     <resources>
-        <image name="drum_icon" width="132" height="98"/>
+        <image name="drum_icon" width="198" height="154"/>
     </resources>
 </document>

@@ -54,7 +54,7 @@ class SensitivitySlider: UIControlNibDesignable{
         thumbView.setTranslatesAutoresizingMaskIntoConstraints(false)
         thumbView.backgroundColor = ColorPalette.Pink.color()
         thumbView.layer.cornerRadius = thumbView.frame.size.height / 2 // - BORDER_WIDTH * 1.5
-        thumbView.layer.borderWidth = BORDER_WIDTH
+        thumbView.layer.borderWidth = BORDER_WIDTH_THIN
         thumbView.layer.borderColor = UIColor.whiteColor().CGColor
         thumbLabel.font = thumbLabel.font.fontWithSize(10)
         updateThumbPosition(animated: false)

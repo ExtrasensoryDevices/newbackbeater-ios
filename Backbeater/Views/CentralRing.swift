@@ -37,7 +37,9 @@ class CentralRing: NibDesignable {
     var pulseAnimation:CABasicAnimation!
     let PULSE_DURATION:Double = floor(60.0 / Double(BridgeConstants.MAX_TEMPO()) * 10) / 10 / 5
     
-    var drumAnimationImages:[UIImage] = []
+//    var drumAnimationImages:[UIImage] = []
+    var drumAnimationImagesLeft:[UIImage] = []
+    var drumAnimationImagesRight:[UIImage] = []
     
     let settings = Settings.sharedInstance()
     
@@ -218,24 +220,43 @@ class CentralRing: NibDesignable {
         pulseAnimation.removedOnCompletion = true
         
         // drum hit animation
-        let imageCount = 8
-        for i in 0...imageCount-1 {
-            let imageName = "drum_icon\(i)"
+//        let imageCount = 8
+//        for i in 0...imageCount-1 {
+//            let imageName = "drum_icon\(i)"
+//            if let image = UIImage(named: imageName) {
+//                drumAnimationImages.append(image)
+//            }
+//        }
+        let imageCount = 16
+        for i in 237...237+imageCount-1 {
+            let imageName = "Drum_00\(i)"
             if let image = UIImage(named: imageName) {
-                drumAnimationImages.append(image)
+                drumAnimationImagesLeft.append(image)
             }
         }
-        drumImage.animationImages = drumAnimationImages
+        
+        for i in 259...259+imageCount-1 {
+            let imageName = "Drum_00\(i)"
+            if let image = UIImage(named: imageName) {
+                drumAnimationImagesRight.append(image)
+            }
+        }
+        
         drumImage.animationRepeatCount = 1
         drumImage.animationDuration = Double(imageCount) * 40.0 / 1000.0
-        
-
-        
+        switchDrumAnimation()
+    }
+    
+    
+    var useDrumAnimationLeft = true
+    func switchDrumAnimation() {
+        useDrumAnimationLeft = !useDrumAnimationLeft
+        drumImage.animationImages = useDrumAnimationLeft ? drumAnimationImagesLeft : drumAnimationImagesRight
     }
     
     
     func runAnimationWithCPT(cpt:Int, instantTempo:Int) {
-        runPulseAnimationOnly()
+        
         bpmSublayer?.removeAllAnimations()
         // CPT
         if !metronomeIsOn {
@@ -247,8 +268,11 @@ class CentralRing: NibDesignable {
         // BPM
         
         let fromValue: NSNumber = cptSublayer.presentationLayer().valueForKeyPath("transform.rotation.z")  as! NSNumber
+//        if fromValue.floatValue > -5 && fromValue.floatValue < 5 {
         if fromValue.floatValue > -0.2 && fromValue.floatValue < 0.2 {
-            animateDrumImage()
+                animateDrumImage()
+        } else {
+            runPulseAnimationOnly()
         }
         bpmSublayer.transform = CATransform3DMakeRotation(CGFloat(fromValue.floatValue), 0, 0, 1.0)
         bpmSublayer.removeAllAnimations()
@@ -298,6 +322,7 @@ class CentralRing: NibDesignable {
     
     func  animateDrumImage() {
         drumImage.stopAnimating()
+        switchDrumAnimation()
         drumImage.startAnimating()
     }
     

@@ -18,6 +18,11 @@ extension UIView {
         drawBorderWithColor(ColorPalette.Pink.color())
     }
     
+    func drawBorderWithWidth(width: CGFloat)
+    {
+        drawBorderWithColor(ColorPalette.Pink.color(), width: width)
+    }
+    
     func drawBorderWithColor(color: UIColor)
     {
         drawBorderWithColor(color, width: BORDER_WIDTH)

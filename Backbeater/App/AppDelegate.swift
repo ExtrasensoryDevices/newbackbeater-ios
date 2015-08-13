@@ -95,7 +95,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
         
         // log event
-        Flurry.logEvent(FlurryEvent.APP_CLOSED(), withParameters: ["sessionLength": lastOpenTime!.timeIntervalSinceNow])
+        Flurry.logEvent(FlurryEvent.APP_CLOSED(), withParameters: ["sessionLength": -lastOpenTime!.timeIntervalSinceNow])
     }
 
     func applicationWillEnterForeground(application: UIApplication) {

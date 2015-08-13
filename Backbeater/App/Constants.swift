@@ -11,7 +11,7 @@ import UIKit
 @objc class BridgeConstants:NSObject { // has to be that way to be used in objc sound processor part
     class func DEFAULT_SENSITIVITY() -> Int {return 100}
     class func DEFAULT_TEMPO() -> Int {return 120}
-    class func MAX_TEMPO() -> Int {return 221}
+    class func MAX_TEMPO() -> Int {return 200}
     class func MIN_TEMPO() -> Int {return 20}
     
     class func FLURRY_API_KEY() -> String {return "DPF2V399HZKGGTKSG5Q2"}
@@ -27,7 +27,8 @@ let BUY_SENSOR_URL = "http://backbeater.com/appbuy/?app=ios"
 
 let IDLE_TIMEOUT = 5.0
 
-let BORDER_WIDTH:CGFloat = 2.5 // UI elements border width
+let BORDER_WIDTH_THIN:CGFloat = 2.5 // UI elements border width
+let BORDER_WIDTH:CGFloat = 3.2 // UI elements border width
 
 
 enum ColorPalette: Int {
