@@ -15,11 +15,13 @@ class MainViewController: UIViewController, SidebarDelegate {
     
     @IBOutlet weak var settingsButton: UIButton!
     
+    var visualEffectView:UIView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         containerCenterXConstraint.constant = 0
-        self.view.backgroundColor = ColorPalette.Black.color()
+        self.view.backgroundColor = ColorPalette.Pink.color()
         setupSidebar()
         setupDisplayViewController()
     }
@@ -42,6 +44,9 @@ class MainViewController: UIViewController, SidebarDelegate {
         containerView.insertSubview(displayVC.view, atIndex: 0)
         displayVC.didMoveToParentViewController(self)
         
+        
+        visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark)) as UIVisualEffectView
+        visualEffectView.frame = displayVC.view.bounds
     }
     
     
@@ -73,6 +78,10 @@ class MainViewController: UIViewController, SidebarDelegate {
         }
     }
     
+    func blurAlpha(position:CGFloat) -> CGFloat {
+        return position / centerPanelExpandedOffset
+    }
+    
     @IBAction func didTapSettingsButton(sender: UIButton) {
         toggleMenuPanel(true)
     }
@@ -86,24 +95,32 @@ class MainViewController: UIViewController, SidebarDelegate {
     func animateMenuPanel(#newState: MenuPanelState, animateMenuButton: Bool) {
         if newState == .Expanded {
             currentState = .Expanded
+            if visualEffectView.superview == nil {
+                visualEffectView.alpha = blurAlpha(containerCenterXConstraint.constant)
+                displayVC.view.addSubview(visualEffectView)
+            }
             animateCenterPanelXPosition(targetPosition: centerPanelExpandedOffset)
         } else {
             animateCenterPanelXPosition(targetPosition: 0) { finished in
                 self.currentState = .Collapsed
+                self.visualEffectView.removeFromSuperview()
+                self.visualEffectView.alpha = 0.0
             }
         }
     }
     
     func animateCenterPanelXPosition(#targetPosition: CGFloat, completion: ((Bool) -> Void)! = nil) {
         UIView.animateWithDuration(0.5, animations: {
+            let alpha = self.blurAlpha(targetPosition)
+            self.visualEffectView.alpha = self.blurAlpha(targetPosition)
             self.containerCenterXConstraint.constant = targetPosition
             self.view.layoutIfNeeded()
         }, completion: completion)
         
-        UIView.animateWithDuration(0.5, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: { () -> Void in
-            self.containerCenterXConstraint.constant = targetPosition
-            self.view.layoutIfNeeded()
-        }, completion: completion)
+//        self.containerCenterXConstraint.constant = targetPosition
+//        UIView.animateWithDuration(0.5, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: { () -> Void in
+//            self.view.layoutIfNeeded()
+//        }, completion: completion)
     }
     
 
@@ -125,12 +142,16 @@ class MainViewController: UIViewController, SidebarDelegate {
         case .Began:
             if currentState == .Collapsed  {
                 showShadow(true)
+                visualEffectView.alpha = 0.0
+                displayVC.view.addSubview(visualEffectView)
             }
         case .Changed:
             let point = recognizer.translationInView(view)
-            let newConstant = self.containerCenterXConstraint.constant - point.x
-            containerCenterXConstraint.constant = newConstant < 0 ? newConstant : 0
+            var newConstant = self.containerCenterXConstraint.constant - point.x
+            newConstant = min(0, newConstant)
+            containerCenterXConstraint.constant = newConstant
             containerView.setNeedsLayout()
+            visualEffectView.alpha = blurAlpha(newConstant)
             recognizer.setTranslation(CGPointZero, inView: recognizer.view)
         case .Ended:
             let hasMovedGreaterThanHalfway = recognizer.view!.center.x > view.bounds.size.width

@@ -326,7 +326,7 @@ class CentralRing: NibDesignable {
         
         if isNewTapSeq {
             tapCount = 0;
-            cptLabel.text = ""
+//            cptLabel.text = ""
             runPulseAnimationOnly()
         } else {
             let figertapBPM = 60.0 / timeElapsedInSec
