@@ -174,10 +174,7 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
             let addSongCell = tableView.dequeueReusableCellWithIdentifier(AddSongCellReuseID, forIndexPath: indexPath) as! UITableViewCell
             if let addButton = addSongCell.viewWithTag(ADD_SONG_BUTTON_TAG) as? UIButton {
                 addButton.addTarget(self, action: "didTapAddButton:", forControlEvents: UIControlEvents.TouchUpInside)
-            } else {
-                println("addButton not found")
             }
-            println("\(addSongCell.viewWithTag(ADD_SONG_BUTTON_TAG) as? UIButton)")
             
             cell = addSongCell
         }
@@ -280,6 +277,7 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
             let deleteAction = UIAlertAction(title: "Delete", style: UIAlertActionStyle.Destructive){ (action) in
                 self.newSongList.removeAtIndex(path.row)
                 self.tableView.deleteRowsAtIndexPaths([path], withRowAnimation: UITableViewRowAnimation.Automatic)
+                Settings.sharedInstance().songList = prepareToSaveSongTempoList(self.newSongList)
                 self.updateEmptyState()
             }
             let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
@@ -417,8 +415,6 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
         }){ (completed:Bool) in
             if let selectedRow = self.tableView.indexPathForSelectedRow() {
                 self.tableView.scrollToRowAtIndexPath(selectedRow, atScrollPosition: UITableViewScrollPosition.Middle, animated: true)
-            } else {
-                println("no row selected")
             }
         }
     }

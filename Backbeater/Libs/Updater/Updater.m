@@ -55,7 +55,7 @@
                 if ([currentBuildNumber caseInsensitiveCompare:buildNumber] != NSOrderedSame){
                     
                     // TODO: REMOVE BEFORE PUSHING
-                    if (currentBuildNumber.integerValue > buildNumber.integerValue) {
+                    if (currentBuildNumber.integerValue >= buildNumber.integerValue) {
                         return;
                     }
                     

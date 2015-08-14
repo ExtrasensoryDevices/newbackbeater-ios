@@ -228,15 +228,15 @@ class CentralRing: NibDesignable {
 //            }
 //        }
         let imageCount = 16
-        for i in 237...237+imageCount-1 {
-            let imageName = "Drum_00\(i)"
+        for i in 1...imageCount {
+            let imageName = "LEFT_\(i)"
             if let image = UIImage(named: imageName) {
                 drumAnimationImagesLeft.append(image)
             }
         }
         
-        for i in 259...259+imageCount-1 {
-            let imageName = "Drum_00\(i)"
+        for i in 1...imageCount {
+            let imageName = "RIGHT_\(i)"
             if let image = UIImage(named: imageName) {
                 drumAnimationImagesRight.append(image)
             }
@@ -252,6 +252,7 @@ class CentralRing: NibDesignable {
     func switchDrumAnimation() {
         useDrumAnimationLeft = !useDrumAnimationLeft
         drumImage.animationImages = useDrumAnimationLeft ? drumAnimationImagesLeft : drumAnimationImagesRight
+        drumImage.image = (drumImage.animationImages!.last as! UIImage)
     }
     
     
@@ -315,8 +316,6 @@ class CentralRing: NibDesignable {
                 metronomeTimer = timer
             }
             
-        } else {
-            println("metronom OFF")
         }
     }
     

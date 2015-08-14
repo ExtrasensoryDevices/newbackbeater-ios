@@ -57,7 +57,6 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
         centralRing.delegate = self
         
         metronomeTempoView.value = Settings.sharedInstance().metronomeTempo
-        println("metronomeIsOn: \(Settings.sharedInstance().metronomeIsOn)")
         metronomeTempoView.isOn = Settings.sharedInstance().metronomeIsOn
         
         

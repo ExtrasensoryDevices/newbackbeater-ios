@@ -124,7 +124,6 @@ class NumericStepper: UIControlNibDesignable {
         UIView.animateWithDuration(ANIMATION_DURATION, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: { () -> Void in
             self.layoutIfNeeded()
         }) { (completed:Bool) -> Void in
-            println("expanded: \(offset)")
             self.currentState = direction == .Up ? .ExpandedUp : .ExpandedDown
         }
     }
@@ -138,7 +137,6 @@ class NumericStepper: UIControlNibDesignable {
         UIView.animateWithDuration(ANIMATION_DURATION, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: { () -> Void in
             self.layoutIfNeeded()
         }) { (completed:Bool) -> Void in
-            println("collapsed")
             self.currentState = .Collapsed
         }
     }
@@ -158,7 +156,6 @@ class NumericStepper: UIControlNibDesignable {
             self.layoutIfNeeded()
             self.superview?.layoutIfNeeded()
         }) { (completed:Bool) -> Void in
-            println("expanded: \(offset)")
             self.currentState = direction == .Up ? .ExpandedUp : .ExpandedDown
         }
 

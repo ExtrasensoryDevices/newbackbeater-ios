@@ -35,7 +35,6 @@ class WebViewController: UIViewController, UIWebViewDelegate {
     }
     
     func webView(webView: UIWebView, didFailLoadWithError error: NSError) {
-//        println(error)
         MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
         let alertVC = UIAlertController(title: nil, message: "Please check your internet connection or try again later.", preferredStyle: .Alert)
         let okAction = UIAlertAction(title: "OK", style: .Default, handler: { (action) -> Void in})

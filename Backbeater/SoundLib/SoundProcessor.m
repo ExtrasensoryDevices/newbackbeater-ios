@@ -151,7 +151,7 @@ BOOL _insideTimeout = false;
             }
         } else {
             // still in timeout, update max energy end wait for timeout to end
-            NSLog(@" %.5f - %.5f", energyLevel, _testMaxEnergy);
+//            NSLog(@" %.5f - %.5f", energyLevel, _testMaxEnergy);
             _testMaxEnergy = MAX(energyLevel, _testMaxEnergy);
             return;
         }
@@ -165,7 +165,7 @@ BOOL _insideTimeout = false;
             _insideTimeout = true;
             
             _testMaxEnergy = energyLevel;
-            NSLog(@" started: %.5f - %.5f", energyLevel, _testMaxEnergy);
+//            NSLog(@" started: %.5f - %.5f", energyLevel, _testMaxEnergy);
             if (self.testing) {
                 [self testDidDetectStrikeStart: energyLevel];
             }
@@ -294,7 +294,7 @@ float IDLE_TIMEOUT = 5.0;
     NSInteger sensitivity = Settings.sharedInstance.sensitivity;
     _startThreshold = ((NSNumber*)_startThresholdArray[sensitivity]).floatValue;
     _endThreshold = 1.1 * _startThreshold;
-    NSLog(@"%f - %f", _startThreshold, _endThreshold);
+//    NSLog(@"%f - %f", _startThreshold, _endThreshold);
 }
 
 
@@ -372,7 +372,7 @@ float IDLE_TIMEOUT = 5.0;
     //    • No userInfo dictionary for this notification
     //      • Audio streaming objects are invalidated (zombies)
     //      • Handle this notification by fully reconfiguring audio
-    NSLog(@"handleMediaServicesWereReset: %@ ",[notification name]);
+//    NSLog(@"handleMediaServicesWereReset: %@ ",[notification name]);
     
 }
 

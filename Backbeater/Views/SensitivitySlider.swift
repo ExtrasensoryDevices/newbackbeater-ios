@@ -59,9 +59,6 @@ class SensitivitySlider: UIControlNibDesignable{
         thumbLabel.font = thumbLabel.font.fontWithSize(10)
         updateThumbPosition(animated: false)
         
-        println("setupThumb: \(thumbView.center)")
-        
-        
     }
     
 
