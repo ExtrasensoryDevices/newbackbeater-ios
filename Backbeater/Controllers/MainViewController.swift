@@ -82,6 +82,16 @@ class MainViewController: UIViewController, SidebarDelegate {
         return position / centerPanelExpandedOffset
     }
     
+    func slideDuration(currentPosition:CGFloat) -> NSTimeInterval {
+        let coeff: CGFloat
+        if centerPanelExpandedOffset == currentPosition {
+            coeff = 1
+        } else {
+            coeff = abs((centerPanelExpandedOffset - currentPosition) / centerPanelExpandedOffset)
+        }
+        return NSTimeInterval(0.5 * coeff)
+    }
+    
     func addBlurView() {
         visualEffectView.alpha = blurAlpha(containerCenterXConstraint.constant)
         displayVC.view.addSubview(visualEffectView)
@@ -120,7 +130,9 @@ class MainViewController: UIViewController, SidebarDelegate {
     }
     
     func animateCenterPanelXPosition(#targetPosition: CGFloat, completion: ((Bool) -> Void)! = nil) {
-        UIView.animateWithDuration(0.5, animations: {
+        
+        let currentPosition = self.containerCenterXConstraint.constant
+        UIView.animateWithDuration(slideDuration(currentPosition), animations: {
             let alpha = self.blurAlpha(targetPosition)
             self.visualEffectView.alpha = self.blurAlpha(targetPosition)
             self.containerCenterXConstraint.constant = targetPosition
@@ -146,7 +158,7 @@ class MainViewController: UIViewController, SidebarDelegate {
         return true
     }
 
-    
+    let EscapeVelocity = CGPoint(x: 350, y: 350)
     @IBAction func didPanContainerView(recognizer: UIPanGestureRecognizer) {
         switch(recognizer.state) {
         case .Began:
@@ -164,6 +176,10 @@ class MainViewController: UIViewController, SidebarDelegate {
             recognizer.setTranslation(CGPointZero, inView: recognizer.view)
         case .Ended:
             let hasMovedGreaterThanHalfway = recognizer.view!.center.x > view.bounds.size.width
+            
+//            var velocity = recognizer.velocityInView(self.view)
+//            var shouldEscape = fabs(velocity.x) >= EscapeVelocity.x
+            
             animateMenuPanel(newState: hasMovedGreaterThanHalfway ? .Expanded : .Collapsed, animateMenuButton: true)
         default:
             break

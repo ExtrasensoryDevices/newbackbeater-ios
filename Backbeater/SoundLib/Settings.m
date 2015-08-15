@@ -34,7 +34,7 @@ NSArray *_metronomeSoundFileNames;
     if (self) {
         [self restoreState];
         _sensorIn = NO;
-        _strikesWindowValues = @[@2, @4, @8, @16];
+        _strikesWindowValues = @[@2, @3, @4, @5];
         _timeSignatureValues = @[@1, @2, @3, @4];
         _metronomeSoundFileNames = @[@"sideStick", @"stick", @"metronome", @"surprise"];
     }

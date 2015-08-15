@@ -13,6 +13,7 @@ import UIKit
     class func DEFAULT_TEMPO() -> Int {return 120}
     class func MAX_TEMPO() -> Int {return 200}
     class func MIN_TEMPO() -> Int {return 20}
+    class func IDLE_TIMEOUT() -> Double {return 10.0}
     
     class func FLURRY_API_KEY() -> String {return "DPF2V399HZKGGTKSG5Q2"}
 }
@@ -24,8 +25,6 @@ let PLIST_URL = "https://backbeater.com/app/backbeater.plist"
 // urls
 let HELP_URL = "http://backbeater.com/apphelp/?app=ios"
 let BUY_SENSOR_URL = "http://backbeater.com/appbuy/?app=ios"
-
-let IDLE_TIMEOUT = 5.0
 
 let BORDER_WIDTH_THIN:CGFloat = 2.5 // UI elements border width
 let BORDER_WIDTH:CGFloat = 3.2 // UI elements border width
@@ -91,6 +90,7 @@ func restoreSongTempoList(songList:[NSDictionary]?) -> [SongTempo]? {
     if songList == nil {
         return nil
     }
+    
     var result = [SongTempo]()
     for songTempo in songList! {
         let songName =  songTempo["songName"] as! String
@@ -98,7 +98,7 @@ func restoreSongTempoList(songList:[NSDictionary]?) -> [SongTempo]? {
         
         result.append(SongTempo(songName:songName, tempoValue: tempoValue))
     }
-    return result
+    return result.count > 0 ? result : nil
 }
 
 

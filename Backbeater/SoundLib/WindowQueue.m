@@ -12,7 +12,7 @@
 
 NSInteger _capacity;
 NSMutableArray* _array;
-long _sum;
+Float64 _sum;
 
 
 -(instancetype)initWithCapacity:(NSInteger)capacity
@@ -45,19 +45,19 @@ long _sum;
     [_array removeAllObjects];
 }
 
--(instancetype) enqueue:(NSInteger)value {
+-(instancetype) enqueue:(Float64)value {
     
     NSNumber *fadingObject = nil;
     if (_array.count == _capacity){
         fadingObject = [_array objectAtIndex:0];
         [_array removeObjectAtIndex:0];
     }
-    [_array addObject:[NSNumber numberWithInteger:value]];
-    [self updateAverageObjectRemoved:fadingObject.integerValue objectAdded:value];
+    [_array addObject:[NSNumber numberWithFloat:value]];
+    [self updateAverageObjectRemoved:fadingObject.floatValue objectAdded:value];
     return self;
 }
 
--(void) updateAverageObjectRemoved:(NSInteger)valueRemoved objectAdded:(NSInteger)valueAdded{
+-(void) updateAverageObjectRemoved:(Float64)valueRemoved objectAdded:(Float64)valueAdded{
     if (_array.count == 0){
         _sum = 0;
         return;
@@ -71,7 +71,7 @@ long _sum;
     if (_array.count == 0){
         return 0;
     }
-    return _sum / _array.count;
+    return NSInteger(_sum / (float)_array.count);
     
 }
 @end

@@ -15,7 +15,7 @@
 
 -(instancetype)initWithCapacity:(NSInteger)capacity;
 
--(instancetype)enqueue:(NSInteger)value;
+-(instancetype)enqueue:(Float64)value;
 
 -(void)clear;
 

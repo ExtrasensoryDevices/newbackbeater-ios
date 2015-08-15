@@ -231,6 +231,10 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
             setupInputTextField()
         }
         
+        saveCurrentValue()
+        
+        inputTextField.text = ""
+        
         if tag == SONG_NAME_TEXT_FIELD_TAG {
             inputTextField.frame = cell.songNameLabel.frame
             inputTextField.font = Font.FuturaDemi.get(13)
@@ -256,7 +260,9 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
         
         selectedIndexPath = indexPath
         
-        cell.contentView.addSubview(inputTextField)
+        if cell.contentView != inputTextField.superview {
+            cell.contentView.addSubview(inputTextField)
+        }
         inputTextField.becomeFirstResponder()
         updateKeyboardToolbar()
     }
@@ -357,28 +363,38 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func textFieldDidEndEditing(textField: UITextField) {
-        var songTempo = newSongList[selectedIndexPath!.row]
-        if textField.tag == SONG_NAME_TEXT_FIELD_TAG {
-            var value = textField.text.trim()
-            songTempo.songName = value == "" ? "Song #\(selectedIndexPath!.row+1)" : value
-            textField.text = songTempo.songName
-        } else {
-            if let value = textField.text.trim().toInt() where value >= 0 {
-                
-                songTempo.tempoValue = value.inBounds(minValue: BridgeConstants.MIN_TEMPO(), maxValue: BridgeConstants.MAX_TEMPO())
-            } else {
-                songTempo.tempoValue = BridgeConstants.DEFAULT_TEMPO()
-            }
-            textField.text = "\(songTempo.tempoValue)"
-        }
-        newSongList[selectedIndexPath!.row] = songTempo
-        tableView.reloadRowsAtIndexPaths([selectedIndexPath!], withRowAnimation: UITableViewRowAnimation.None)
+        saveCurrentValue()
         selectedIndexPath = nil
         textField.removeFromSuperview()
         
         Settings.sharedInstance().songList = prepareToSaveSongTempoList(newSongList)
     }
     
+    
+    func saveCurrentValue() {
+        if selectedIndexPath == nil {
+            return
+        }
+        let cell  = tableView.cellForRowAtIndexPath(selectedIndexPath!) as! SongListCell
+        var songTempo = newSongList[selectedIndexPath!.row]
+        if inputTextField.tag == SONG_NAME_TEXT_FIELD_TAG {
+            var value = inputTextField.text.trim()
+            songTempo.songName = value == "" ? "Song #\(selectedIndexPath!.row+1)" : value
+            inputTextField.text = songTempo.songName
+            cell.songNameLabel.text = inputTextField.text
+            
+        } else {
+            if let value = inputTextField.text.trim().toInt() where value >= 0 {
+                
+                songTempo.tempoValue = value.inBounds(minValue: BridgeConstants.MIN_TEMPO(), maxValue: BridgeConstants.MAX_TEMPO())
+            } else {
+                songTempo.tempoValue = BridgeConstants.DEFAULT_TEMPO()
+            }
+            inputTextField.text = "\(songTempo.tempoValue)"
+            cell.tempoValueLabel.text = inputTextField.text
+        }
+        newSongList[selectedIndexPath!.row] = songTempo
+    }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()

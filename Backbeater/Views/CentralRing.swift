@@ -17,7 +17,7 @@ class CentralRing: NibDesignable {
     
     weak var delegate: CentralRingDelegate?
     
-    var listenToTaps = false
+//    var listenToTaps = false
 
 
     @IBOutlet weak var drumImage: UIImageView!
@@ -191,7 +191,7 @@ class CentralRing: NibDesignable {
         cptAnimation.fromValue = 0
         cptAnimation.toValue = -M_PI * 2.0  //   /* full rotation*/ * rotations * duration ];
         cptAnimation.cumulative = false
-        cptAnimation.repeatCount = metronomeIsOn ? Float.infinity : 1
+        cptAnimation.repeatCount = Float.infinity
         cptAnimation.removedOnCompletion = true
         
         bpmAnimation = CAKeyframeAnimation(keyPath:"opacity")
@@ -263,15 +263,13 @@ class CentralRing: NibDesignable {
         if !metronomeIsOn {
             cptSublayer.removeAllAnimations()
             cptAnimation.duration = 60.0/(Double(cpt)/Double(settings.timeSignature)) // =60sec/actual_hits_per_min
-            cptAnimation.repeatCount = 1
             cptSublayer.addAnimation(cptAnimation, forKey:CPT_ANIMATION_KEY)
         }
         // BPM
         
         let fromValue: NSNumber = cptSublayer.presentationLayer().valueForKeyPath("transform.rotation.z")  as! NSNumber
-//        if fromValue.floatValue > -5 && fromValue.floatValue < 5 {
         if fromValue.floatValue > -0.2 && fromValue.floatValue < 0.2 {
-                animateDrumImage()
+            animateDrumImage()
         } else {
             runPulseAnimationOnly()
         }
@@ -299,7 +297,6 @@ class CentralRing: NibDesignable {
         if metronomeIsOn {
             let duration = 60.0/Double(settings.metronomeTempo)
             cptAnimation.duration = duration
-            cptAnimation.repeatCount = Float.infinity
             cptSublayer.addAnimation(cptAnimation, forKey:CPT_ANIMATION_KEY)
             if let timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_main_queue()) {
                 dispatch_source_set_timer(timer, dispatch_walltime(nil, 0), UInt64(duration*Double(NSEC_PER_SEC)), 5);
@@ -334,9 +331,9 @@ class CentralRing: NibDesignable {
     var tapCount:UInt64 = 0;
     
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
-        if !listenToTaps {
-            return
-        }
+//        if !listenToTaps {
+//            return
+//        }
         
         newTapTime = PublicUtilityWrapper.CAHostTimeBase_GetCurrentTime()
         
@@ -345,11 +342,10 @@ class CentralRing: NibDesignable {
         var delayFator:Float64 = 0.1
         var timeElapsedInSec:Float64 = Float64(timeElapsedNs) * 10.0e-9 * delayFator;
         
-        var isNewTapSeq = (timeElapsedInSec > IDLE_TIMEOUT) ? true : false
+        var isNewTapSeq = (timeElapsedInSec > BridgeConstants.IDLE_TIMEOUT()) ? true : false
         
         if isNewTapSeq {
             tapCount = 0;
-//            cptLabel.text = ""
             runPulseAnimationOnly()
         } else {
             let figertapBPM = 60.0 / timeElapsedInSec
@@ -377,31 +373,16 @@ class CentralRing: NibDesignable {
             runAnimationWithCPT(cpt, instantTempo:instantTempo)
         }
         
-        self.delay(IDLE_TIMEOUT, callback: { () -> () in
-            let now:UInt64 = PublicUtilityWrapper.CAHostTimeBase_GetCurrentTime()
-            var timeElapsedNs:UInt64 = PublicUtilityWrapper.CAHostTimeBase_AbsoluteHostDeltaToNanos(now, oldTapTime: self.oldTapTime)
-            
-            var delayFator:Float64 = 0.1
-            
-            var timeElapsedInSec:Float64 = Float64(timeElapsedNs) * 10.0e-9 * delayFator;
-            if timeElapsedInSec > IDLE_TIMEOUT {
-                self.resetBpmSublayer()
-            }
-        })
+        
     }
     
     func clear() {
         oldTapTime = 0
         newTapTime = 0
         tapCount = 0
-        cptLabel.text = ""
-        resetCptSublayer()
+        cptSublayer.removeAllAnimations()
     }
     
-    func hideCptLabelAfterDelay() {
-        delay(PULSE_DURATION, callback: { () -> () in
-            self.cptLabel.text = ""
-        })
-    }
+
     
 }

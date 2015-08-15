@@ -192,14 +192,35 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
         processBPM(bpm)
     }
     
+    
+    
+    var lastStrikeTime:UInt64 = 0;
     func processBPM(bpm: Float64){
         let multiplier = Settings.sharedInstance().metronomeIsOn ? 1 : Float64(Settings.sharedInstance().timeSignature)
         
-        let tempo = Int(bpm * multiplier)
+        let tempo:Float64 = bpm * multiplier
         
         currentTempo = strikesWindowQueue.enqueue(tempo).average
         Settings.sharedInstance().lastPlayedTempo = currentTempo
         centralRing.displayCPT(currentTempo, instantTempo: Int(tempo))
+        
+        
+        if !Settings.sharedInstance().metronomeIsOn {
+            self.delay(BridgeConstants.IDLE_TIMEOUT(), callback: { () -> () in
+                let now:UInt64 = PublicUtilityWrapper.CAHostTimeBase_GetCurrentTime()
+                var timeElapsedNs:UInt64 = PublicUtilityWrapper.CAHostTimeBase_AbsoluteHostDeltaToNanos(now, oldTapTime: self.lastStrikeTime)
+                
+                var delayFator:Float64 = 0.1
+                
+                var timeElapsedInSec:Float64 = Float64(timeElapsedNs) * 10.0e-9 * delayFator;
+                if timeElapsedInSec > BridgeConstants.IDLE_TIMEOUT() {
+                    self.strikesWindowQueue.clear()
+                    self.centralRing.clear()
+                }
+            })
+        }
+        lastStrikeTime = PublicUtilityWrapper.CAHostTimeBase_GetCurrentTime()
+        
     }
     
     // MARK: - SoundProcessorDelegate
@@ -222,6 +243,17 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
     func soundProcessorDidFindBPM(bpm: Float64) {
         processBPM(bpm)
     }
+    
+    
+    func updateSensorView() {
+        let sensorIn = Settings.sharedInstance().sensorIn
+        getSensorView.hidden = sensorIn
+        setTempoView.hidden = !sensorIn
+        //        centralRing.listenToTaps = !sensorIn
+    }
+    
+    
+
     
     // MARK: - Song list
     
@@ -255,15 +287,6 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
         songNameLabel.hidden = hideLabel
         
     }
-    
-    func updateSensorView() {
-        let sensorIn = Settings.sharedInstance().sensorIn
-        getSensorView.hidden = sensorIn
-        setTempoView.hidden = !sensorIn
-        centralRing.listenToTaps = !sensorIn
-    }
-    
-
     @IBAction func didTapPrevButton(sender: AnyObject) {
         selectedSongIndex  = selectedSongIndex >= 1 ? selectedSongIndex-1 : songList!.count-1
     }
