@@ -214,8 +214,10 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
                 
                 var timeElapsedInSec:Float64 = Float64(timeElapsedNs) * 10.0e-9 * delayFator;
                 if timeElapsedInSec > BridgeConstants.IDLE_TIMEOUT() {
-                    self.strikesWindowQueue.clear()
-                    self.centralRing.clear()
+                    if !Settings.sharedInstance().metronomeIsOn {
+                        self.strikesWindowQueue.clear()
+                        self.centralRing.clear()
+                    }
                 }
             })
         }
