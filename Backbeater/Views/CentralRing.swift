@@ -256,6 +256,8 @@ class CentralRing: NibDesignable {
     }
     
     
+    
+    let correctHitAngleRad:Float = 0.131
     func runAnimationWithCPT(cpt:Int, instantTempo:Int) {
         
         bpmSublayer?.removeAllAnimations()
@@ -268,7 +270,7 @@ class CentralRing: NibDesignable {
         // BPM
         
         let fromValue: NSNumber = cptSublayer.presentationLayer().valueForKeyPath("transform.rotation.z")  as! NSNumber
-        if fromValue.floatValue > -0.2 && fromValue.floatValue < 0.2 {
+        if fromValue.floatValue > -correctHitAngleRad && fromValue.floatValue < correctHitAngleRad {
             animateDrumImage()
         } else {
             runPulseAnimationOnly()
