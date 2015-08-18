@@ -84,16 +84,18 @@ class CentralRing: NibDesignable {
         var isIPhone4 = UIDevice.isIPhone4()
         var isIPhone6 = UIDevice.isIPhone6()
         var isIPhone6Plus = UIDevice.isIPhone6plus()
+        var isIPad = UIDevice.isIPad()
         if isIPhone6 {
             cptLabel.font = Font.SteelfishRg.get(210)
         } else if isIPhone6Plus {
             cptLabel.font = Font.SteelfishRg.get(220)
         } else if isIPhone4 {
             cptLabel.font = Font.SteelfishRg.get(140)
+        } else if isIPad {
+            cptLabel.font = Font.SteelfishRg.get(300)
         } else {
             cptLabel.font = Font.SteelfishRg.get(165)
         }
-        
     }
     
     deinit {

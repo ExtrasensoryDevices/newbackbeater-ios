@@ -71,4 +71,9 @@ public extension UIDevice {
         return res
     }
     
+    static func isIPad() -> Bool {
+        var range = modelName.rangeOfString("iPad", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil, locale: nil)
+        return range != nil
+    }
+    
 }
