@@ -49,15 +49,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Flurry.setCrashReportingEnabled(false)
         Flurry.startSession(BridgeConstants.FLURRY_API_KEY())
         
-//        FBSDKSettings.enableLoggingBehavior(FBSDKLoggingBehaviorAppEvents)
-        
-//        FBSDKSettings.enableLoggingBehavior(FBSDKLoggingBehaviorAccessTokens)
-//        FBSDKSettings.enableLoggingBehavior(FBSDKLoggingBehaviorDeveloperErrors)
-        FBSDKSettings.enableLoggingBehavior(FBSDKLoggingBehaviorNetworkRequests)
-//        FBSDKSettings.enableLoggingBehavior(FBSDKLoggingBehaviorGraphAPIDebugInfo)
-//        FBSDKSettings.enableLoggingBehavior(FBSDKLoggingBehaviorGraphAPIDebugWarning)
-        
-
         
         return FBSDKApplicationDelegate.sharedInstance().application(application,
             didFinishLaunchingWithOptions:launchOptions)
@@ -122,8 +113,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
  
         FBSDKAppEvents.activateApp()
-        
-        FBSDKAppEvents.logEvent("alinas_event")
         
 //        if lastOpenTime == nil || lastOpenTime!.timeIntervalSinceNow > INACTIVE_TIMEOUT {
             // log event

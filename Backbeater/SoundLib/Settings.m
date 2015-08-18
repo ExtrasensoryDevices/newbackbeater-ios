@@ -147,7 +147,7 @@ NSArray *_metronomeSoundFileNames;
         _strikesWindowSelectedIndex = [userDefaults integerForKey:@"strikesWindowSelectedIndex"];
     } else {
         changed = YES;
-        _strikesWindowSelectedIndex = 1;
+        _strikesWindowSelectedIndex = 0;
     }
     
     

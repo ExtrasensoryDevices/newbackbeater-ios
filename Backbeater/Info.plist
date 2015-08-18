@@ -28,7 +28,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1929</string>
+	<string>1969</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -43,7 +43,7 @@
 			</dict>
 		</array>
 	</dict>
-	<key>FacebookAppId</key>
+	<key>FacebookAppID</key>
 	<string>231862296860666</string>
 	<key>FacebookDisplayName</key>
 	<string>Backbeater</string>

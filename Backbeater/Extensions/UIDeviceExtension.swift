@@ -61,4 +61,14 @@ public extension UIDevice {
         return res
     }
     
+    static func isIPhone6() -> Bool {
+        var res = modelName == "iPhone 6"
+        return res
+    }
+    
+    static func isIPhone6plus() -> Bool {
+        var res = modelName == "iPhone 6 Plus"
+        return res
+    }
+    
 }
