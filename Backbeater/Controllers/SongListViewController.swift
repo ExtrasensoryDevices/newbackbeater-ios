@@ -263,6 +263,7 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
         if cell.contentView != inputTextField.superview {
             cell.contentView.addSubview(inputTextField)
         }
+        inputTextField.reloadInputViews()
         inputTextField.becomeFirstResponder()
         updateKeyboardToolbar()
     }

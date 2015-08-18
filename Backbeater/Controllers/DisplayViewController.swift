@@ -25,11 +25,20 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
     @IBOutlet weak var hamButton: UIButton!
     @IBOutlet weak var songListBottomLayoutConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var centralRingTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var centralRingBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var getSensorBottomConstraint: NSLayoutConstraint!
+    
+    
     var strikesWindowQueue:WindowQueue!
     
     var soundProcessor: SoundProcessor!
     
-    var currentTempo = 0
+    var currentTempo = 0 {
+        didSet {
+            Settings.sharedInstance().lastPlayedTempo = currentTempo
+        }
+    }
 
     
     var songList:[SongTempo]?
@@ -98,6 +107,12 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
         
         centralRing.setTranslatesAutoresizingMaskIntoConstraints(false)
         
+        if UIDevice.isIPhone4() {
+            centralRingTopConstraint.constant = 0
+            centralRingBottomConstraint.constant = 0
+        }
+        
+        
     }
     
     func applicationWillEnterForeground() {
@@ -163,15 +178,18 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
         metronomeTempoView.isOn = true
     }
     
+    @IBAction func didTapSongName(sender: AnyObject) {
+        if let tempo  = songList?[selectedSongIndex].tempoValue {
+            Settings.sharedInstance().metronomeTempo = tempo
+            metronomeTempoView.value = tempo
+        }
+    }
     
     //MARK: - NumericStepper delegate
     
     @IBAction func metronomeTempoValueChanged(sender: NumericStepper) {
         let newValue = metronomeTempoView.value
         Settings.sharedInstance().metronomeTempo = newValue
-        if songList != nil {
-            songList![selectedSongIndex].tempoValue = newValue
-        }
     }
     
     @IBAction func metronomeTempoPressed(sender: NumericStepper) {
@@ -201,7 +219,7 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
         let tempo:Float64 = bpm * multiplier
         
         currentTempo = strikesWindowQueue.enqueue(tempo).average
-        Settings.sharedInstance().lastPlayedTempo = currentTempo
+        
         centralRing.displayCPT(currentTempo, instantTempo: Int(tempo))
         
         

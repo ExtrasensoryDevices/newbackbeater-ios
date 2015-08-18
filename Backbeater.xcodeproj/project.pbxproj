@@ -14,6 +14,7 @@
 		C71511C71B5DC0C4007A0D18 /* PublicUtilityWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = C71511C61B5DC0C4007A0D18 /* PublicUtilityWrapper.mm */; };
 		C71512621B5DC803007A0D18 /* CAHostTimeBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C715121A1B5DC802007A0D18 /* CAHostTimeBase.cpp */; };
 		C71512711B5DC822007A0D18 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C71C55991B2A19A8007EDF51 /* CoreAudio.framework */; };
+		C71A4C991B813CC30098FB90 /* UIDeviceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71A4C981B813CC30098FB90 /* UIDeviceExtension.swift */; };
 		C71C55781B28C390007EDF51 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C71C55771B28C390007EDF51 /* AudioToolbox.framework */; };
 		C71C557A1B28C5C9007EDF51 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C71C55791B28C5C9007EDF51 /* Accelerate.framework */; };
 		C71C557C1B28C61F007EDF51 /* DisplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71C557B1B28C61F007EDF51 /* DisplayViewController.swift */; };
@@ -81,6 +82,7 @@
 		C71511C61B5DC0C4007A0D18 /* PublicUtilityWrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PublicUtilityWrapper.mm; sourceTree = "<group>"; };
 		C715121A1B5DC802007A0D18 /* CAHostTimeBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CAHostTimeBase.cpp; sourceTree = "<group>"; };
 		C715121B1B5DC802007A0D18 /* CAHostTimeBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAHostTimeBase.h; sourceTree = "<group>"; };
+		C71A4C981B813CC30098FB90 /* UIDeviceExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIDeviceExtension.swift; sourceTree = "<group>"; };
 		C71C55751B28C308007EDF51 /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
 		C71C55771B28C390007EDF51 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		C71C55791B28C5C9007EDF51 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
@@ -220,6 +222,7 @@
 				C7C0BA411B38CD17005B8D6D /* UILabelExtension.swift */,
 				C71511C11B5DBBBE007A0D18 /* NSObjectExtension.swift */,
 				661E409C1B6179F800945177 /* IntExtension.swift */,
+				C71A4C981B813CC30098FB90 /* UIDeviceExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -568,6 +571,7 @@
 				C774B1711B2F7224007625B3 /* SongListViewController.swift in Sources */,
 				C7C265411B77177800E11C73 /* AnimatedFrame.swift in Sources */,
 				C7C2653F1B77177800E11C73 /* Animatable.swift in Sources */,
+				C71A4C991B813CC30098FB90 /* UIDeviceExtension.swift in Sources */,
 				661E409B1B60373300945177 /* WindowQueue.m in Sources */,
 				C71511C71B5DC0C4007A0D18 /* PublicUtilityWrapper.mm in Sources */,
 				C7B9C8011B27828F00250686 /* AppDelegate.swift in Sources */,

@@ -15,11 +15,22 @@ class MainViewController: UIViewController, SidebarDelegate {
     
     @IBOutlet weak var settingsButton: UIButton!
     
-    var visualEffectView:UIView!
+    var visualEffectView:UIView?
+    
+    var isOS8orHigher = false
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        switch UIDevice.currentDevice().systemVersion.compare("8.0.0", options: NSStringCompareOptions.NumericSearch) {
+        case .OrderedSame, .OrderedDescending:
+            isOS8orHigher = true
+        case .OrderedAscending:
+            isOS8orHigher = false
+        }
+        
+        
         containerCenterXConstraint.constant = 0
         self.view.backgroundColor = ColorPalette.Pink.color()
         setupSidebar()
@@ -44,9 +55,10 @@ class MainViewController: UIViewController, SidebarDelegate {
         containerView.insertSubview(displayVC.view, atIndex: 0)
         displayVC.didMoveToParentViewController(self)
         
-        
-        visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark)) as UIVisualEffectView
-        visualEffectView.frame = displayVC.view.bounds
+        if isOS8orHigher {
+            visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark)) as UIVisualEffectView
+            visualEffectView!.frame = displayVC.view.bounds
+        }
     }
     
     
@@ -93,13 +105,15 @@ class MainViewController: UIViewController, SidebarDelegate {
     }
     
     func addBlurView() {
-        visualEffectView.alpha = blurAlpha(containerCenterXConstraint.constant)
-        displayVC.view.addSubview(visualEffectView)
-        
-        // fix for iphone 6: not covering all the screen
-        visualEffectView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        displayVC.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[visualEffectView]|", options: NSLayoutFormatOptions.allZeros, metrics: nil, views: ["visualEffectView":visualEffectView]))
-        displayVC.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[visualEffectView]|", options: NSLayoutFormatOptions.allZeros, metrics: nil, views: ["visualEffectView":visualEffectView]))
+        if let _visualEffectView = visualEffectView {
+            _visualEffectView.alpha = blurAlpha(containerCenterXConstraint.constant)
+            displayVC.view.addSubview(_visualEffectView)
+            
+            // fix for iphone 6: not covering all the screen
+            _visualEffectView.setTranslatesAutoresizingMaskIntoConstraints(false)
+            displayVC.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[visualEffectView]|", options: NSLayoutFormatOptions.allZeros, metrics: nil, views: ["visualEffectView":_visualEffectView]))
+            displayVC.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[visualEffectView]|", options: NSLayoutFormatOptions.allZeros, metrics: nil, views: ["visualEffectView":_visualEffectView]))
+        }
 
     }
     
@@ -116,15 +130,15 @@ class MainViewController: UIViewController, SidebarDelegate {
     func animateMenuPanel(#newState: MenuPanelState, animateMenuButton: Bool) {
         if newState == .Expanded {
             currentState = .Expanded
-            if visualEffectView.superview == nil {
+            if visualEffectView?.superview == nil {
                 addBlurView()
             }
             animateCenterPanelXPosition(targetPosition: centerPanelExpandedOffset)
         } else {
             animateCenterPanelXPosition(targetPosition: 0) { finished in
                 self.currentState = .Collapsed
-                self.visualEffectView.removeFromSuperview()
-                self.visualEffectView.alpha = 0.0
+                self.visualEffectView?.removeFromSuperview()
+                self.visualEffectView?.alpha = 0.0
             }
         }
     }
@@ -134,7 +148,7 @@ class MainViewController: UIViewController, SidebarDelegate {
         let currentPosition = self.containerCenterXConstraint.constant
         UIView.animateWithDuration(slideDuration(currentPosition), animations: {
             let alpha = self.blurAlpha(targetPosition)
-            self.visualEffectView.alpha = self.blurAlpha(targetPosition)
+            self.visualEffectView?.alpha = self.blurAlpha(targetPosition)
             self.containerCenterXConstraint.constant = targetPosition
             self.view.layoutIfNeeded()
         }, completion: completion)
@@ -172,7 +186,7 @@ class MainViewController: UIViewController, SidebarDelegate {
             newConstant = min(0, newConstant)
             containerCenterXConstraint.constant = newConstant
             containerView.setNeedsLayout()
-            visualEffectView.alpha = blurAlpha(newConstant)
+            visualEffectView?.alpha = blurAlpha(newConstant)
             recognizer.setTranslation(CGPointZero, inView: recognizer.view)
         case .Ended:
             let hasMovedGreaterThanHalfway = recognizer.view!.center.x > view.bounds.size.width

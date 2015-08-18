@@ -49,7 +49,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Flurry.setCrashReportingEnabled(false)
         Flurry.startSession(BridgeConstants.FLURRY_API_KEY())
         
-        return true
+//        FBSDKSettings.enableLoggingBehavior(FBSDKLoggingBehaviorAppEvents)
+        
+//        FBSDKSettings.enableLoggingBehavior(FBSDKLoggingBehaviorAccessTokens)
+//        FBSDKSettings.enableLoggingBehavior(FBSDKLoggingBehaviorDeveloperErrors)
+        FBSDKSettings.enableLoggingBehavior(FBSDKLoggingBehaviorNetworkRequests)
+//        FBSDKSettings.enableLoggingBehavior(FBSDKLoggingBehaviorGraphAPIDebugInfo)
+//        FBSDKSettings.enableLoggingBehavior(FBSDKLoggingBehaviorGraphAPIDebugWarning)
+        
+
+        
+        return FBSDKApplicationDelegate.sharedInstance().application(application,
+            didFinishLaunchingWithOptions:launchOptions)
     }
     
     func setupAppearance() {
@@ -110,6 +121,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
  
+        FBSDKAppEvents.activateApp()
+        
+        FBSDKAppEvents.logEvent("alinas_event")
+        
 //        if lastOpenTime == nil || lastOpenTime!.timeIntervalSinceNow > INACTIVE_TIMEOUT {
             // log event
             Flurry.logEvent(FlurryEvent.APP_OPENED())
@@ -123,5 +138,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
+        return FBSDKApplicationDelegate.sharedInstance().application(application,
+                openURL:url,
+                sourceApplication:sourceApplication,
+                annotation:annotation)
+    }
 }
 

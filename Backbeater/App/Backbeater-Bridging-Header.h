@@ -14,3 +14,5 @@
 #import "Updater.h"
 #import "MBProgressHUD.h"
 #import <FlurrySDK/Flurry.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKCoreKit/FBSDKSettings.h>

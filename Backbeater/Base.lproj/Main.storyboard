@@ -221,11 +221,15 @@
                                             <action selector="didTapNextButton:" destination="ri4-d8-4RD" eventType="touchUpInside" id="zca-9c-5mM"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yDh-T4-4gI" userLabel="SongName">
+                                    <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yDh-T4-4gI" userLabel="SongName">
                                         <rect key="frame" x="61" y="67" width="478" height="37"/>
+                                        <gestureRecognizers/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="uC3-UU-aWO" appends="YES" id="ofI-g8-dyt"/>
+                                        </connections>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jnP-U3-IJJ" userLabel="HamButton">
                                         <rect key="frame" x="282" y="8" width="37" height="37"/>
@@ -359,6 +363,9 @@ SENSOR</string>
                     </view>
                     <connections>
                         <outlet property="centralRing" destination="I8c-WM-xqu" id="24i-6w-wC4"/>
+                        <outlet property="centralRingBottomConstraint" destination="awi-31-XCa" id="uPQ-QV-WDU"/>
+                        <outlet property="centralRingTopConstraint" destination="OCx-cE-5rS" id="YpS-96-dlr"/>
+                        <outlet property="getSensorBottomConstraint" destination="trp-Am-ymW" id="21s-04-Jdo"/>
                         <outlet property="getSensorView" destination="QJn-dF-3EQ" id="fIG-uE-HsY"/>
                         <outlet property="hamButton" destination="jnP-U3-IJJ" id="ejP-Ub-jum"/>
                         <outlet property="metronomeTempoView" destination="tQT-Vc-gGK" id="mRX-SP-UJa"/>
@@ -375,6 +382,11 @@ SENSOR</string>
                 <tapGestureRecognizer id="Eh1-Gb-B1S" userLabel="GetSensor Tap Gesture Recognizer">
                     <connections>
                         <action selector="didTapGetSensorButton:" destination="ri4-d8-4RD" id="eDF-B4-aqS"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="uC3-UU-aWO" userLabel="SongNameTap Gesture Recognizer">
+                    <connections>
+                        <action selector="didTapSongName:" destination="ri4-d8-4RD" id="Qy5-qa-Vkr"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
