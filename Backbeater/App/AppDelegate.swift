@@ -16,8 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     
-    var updater: Updater!
-    var lastUpdateCheck: NSDate!
+//    var updater: Updater!
+//    var lastUpdateCheck: NSDate!
     
     var lastOpenTime:NSDate!
     let INACTIVE_TIMEOUT:NSTimeInterval = 60 // 1 min
@@ -42,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Fabric.with([Crashlytics()])
         
-        setupUpdates()
+//        setupUpdates()
         setupAppearance()
         
         Fabric.with([Crashlytics()])
@@ -77,11 +77,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             ], forState: .Normal)
     }
     
-    func setupUpdates() {
-        updater = Updater(plistUrl: PLIST_URL)
-        lastUpdateCheck = NSDate()
-        updater.checkForUpdate()
-    }
+//    func setupUpdates() {
+//        updater = Updater(plistUrl: PLIST_URL)
+//        lastUpdateCheck = NSDate()
+//        updater.checkForUpdate()
+//    }
     
     
     
@@ -103,10 +103,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillEnterForeground(application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
         
-        if NSDate().timeIntervalSinceDate(lastUpdateCheck) > CHECK_INTERVAL_SECONDS {
-            lastUpdateCheck = NSDate()
-            updater?.checkForUpdate()
-        }
+//        if NSDate().timeIntervalSinceDate(lastUpdateCheck) > CHECK_INTERVAL_SECONDS {
+//            lastUpdateCheck = NSDate()
+//            updater?.checkForUpdate()
+//        }
     }
 
     func applicationDidBecomeActive(application: UIApplication) {
