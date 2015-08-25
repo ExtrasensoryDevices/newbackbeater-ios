@@ -37,7 +37,6 @@ class CentralRing: NibDesignable {
     var pulseAnimation:CABasicAnimation!
     let PULSE_DURATION:Double = floor(60.0 / Double(BridgeConstants.MAX_TEMPO()) * 10) / 10 / 5
     
-//    var drumAnimationImages:[UIImage] = []
     var drumAnimationImagesLeft:[UIImage] = []
     var drumAnimationImagesRight:[UIImage] = []
     
@@ -54,7 +53,6 @@ class CentralRing: NibDesignable {
     let CPT_ANIMATION_KEY = "cptAnimation"
     let PULSE_ANIMATION_KEY = "pulseAnimation"
     
-    let TIME_SIGNATURE_KEY_PATH = "timeSignatureSelectedIndex"
     let METRONOME_TEMPO_KEY_PATH = "metronomeTempo"
     let METRONOME_ON_KEY_PATH = "metronomeIsOn"
     let METRONOME_SOUND_INDEX_KEY_PATH = "metronomeSoundSelectedIndex"
@@ -73,7 +71,6 @@ class CentralRing: NibDesignable {
         updateAudioPlayer()
         
        
-        settings.addObserver(self, forKeyPath: TIME_SIGNATURE_KEY_PATH, options: NSKeyValueObservingOptions.allZeros, context: nil)
         settings.addObserver(self, forKeyPath: METRONOME_TEMPO_KEY_PATH, options: NSKeyValueObservingOptions.allZeros, context: nil)
         settings.addObserver(self, forKeyPath: METRONOME_ON_KEY_PATH, options: NSKeyValueObservingOptions.allZeros, context: nil)
         settings.addObserver(self, forKeyPath: METRONOME_SOUND_INDEX_KEY_PATH, options: NSKeyValueObservingOptions.allZeros, context: nil)
@@ -100,7 +97,6 @@ class CentralRing: NibDesignable {
     
     deinit {
         ringView.removeObserver(self, forKeyPath: "bounds")
-        settings.removeObserver(self, forKeyPath: TIME_SIGNATURE_KEY_PATH)
         settings.removeObserver(self, forKeyPath: METRONOME_TEMPO_KEY_PATH)
         settings.removeObserver(self, forKeyPath: METRONOME_ON_KEY_PATH)
         settings.removeObserver(self, forKeyPath: METRONOME_SOUND_INDEX_KEY_PATH)
@@ -111,12 +107,10 @@ class CentralRing: NibDesignable {
             resetSublayers()
             handleMetronomeState()
         } else if let settings = object as? Settings {
-            if keyPath == TIME_SIGNATURE_KEY_PATH {
+            if keyPath == METRONOME_TEMPO_KEY_PATH {
                 if metronomeIsOn {
                     handleMetronomeState()
                 }
-            } else if keyPath == METRONOME_TEMPO_KEY_PATH {
-                handleMetronomeState()
             } else if keyPath == METRONOME_ON_KEY_PATH {
                 handleMetronomeState()
             } else if keyPath == METRONOME_SOUND_INDEX_KEY_PATH {
@@ -134,6 +128,18 @@ class CentralRing: NibDesignable {
             println(error!)
         }
     }
+    
+    func playSound() {
+        if player != nil  {
+            if player.playing {
+                player.stop()
+                player.currentTime = 0.0
+            }
+            player.play()
+        }
+    }
+
+    /// Reset all sublayers when frame changes
     
     func resetSublayers() {
         resetBorderSublayer()
@@ -233,14 +239,6 @@ class CentralRing: NibDesignable {
         pulseAnimation.repeatCount = 1
         pulseAnimation.removedOnCompletion = true
         
-        // drum hit animation
-//        let imageCount = 8
-//        for i in 0...imageCount-1 {
-//            let imageName = "drum_icon\(i)"
-//            if let image = UIImage(named: imageName) {
-//                drumAnimationImages.append(image)
-//            }
-//        }
         let imageCount = 16
         for i in 1...imageCount {
             let imageName = "LEFT_\(i)"
@@ -283,17 +281,15 @@ class CentralRing: NibDesignable {
         }
         // BPM
         
-        let fromValue: NSNumber = cptSublayer.presentationLayer().valueForKeyPath("transform.rotation.z")  as! NSNumber
-        if fromValue.floatValue > -correctHitAngleRad && fromValue.floatValue < correctHitAngleRad {
+        let currentRotationAngle = getCurrentRotationRad()
+        if currentRotationAngle > -correctHitAngleRad && currentRotationAngle < correctHitAngleRad {
             animateDrumImage()
         } else {
             runPulseAnimationOnly()
         }
-        bpmSublayer.transform = CATransform3DMakeRotation(CGFloat(fromValue.floatValue), 0, 0, 1.0)
+        bpmSublayer.transform = CATransform3DMakeRotation(CGFloat(currentRotationAngle), 0, 0, 1.0)
         bpmSublayer.removeAllAnimations()
         bpmSublayer.addAnimation(bpmAnimation, forKey: BPM_ANIMATION_KEY)
-
-        
     }
     
     func runPulseAnimationOnly() {
@@ -303,7 +299,6 @@ class CentralRing: NibDesignable {
     
     func handleMetronomeState()
     {
-        cptSublayer.removeAllAnimations()
         
         if let timer = metronomeTimer {
             dispatch_source_cancel(metronomeTimer!)
@@ -312,23 +307,41 @@ class CentralRing: NibDesignable {
         
         if metronomeIsOn {
             let duration = 60.0/Double(settings.metronomeTempo)
-            cptAnimation.duration = duration
-            cptSublayer.addAnimation(cptAnimation, forKey:CPT_ANIMATION_KEY)
+            // restart animation if needed 
+            let cnt = cptSublayer.animationKeys()?.count
+            let cptAnimationIsRunning = cptSublayer.animationKeys()?.count > 0
+            var animationShouldRestart = !cptAnimationIsRunning || (cptAnimationIsRunning && settings.lastPlayedTempo != settings.metronomeTempo)
+            if animationShouldRestart {
+                cptSublayer.removeAllAnimations()
+                cptAnimation.duration = duration
+                cptSublayer.addAnimation(cptAnimation, forKey:CPT_ANIMATION_KEY)
+            }
+            // add sound timer
             if let timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_main_queue()) {
                 dispatch_source_set_timer(timer, dispatch_walltime(nil, 0), UInt64(duration*Double(NSEC_PER_SEC)), 5);
                 dispatch_source_set_event_handler(timer, { [weak self] () -> Void in
-                    if let player = self?.player {
-                        if player.playing {
-                            player.stop()
-                            player.currentTime = 0.0
-                        }
-                        player.play()
-                    }
+                    self?.playSound()
                 })
-                dispatch_resume(timer)
+                if animationShouldRestart {
+                    dispatch_resume(timer)
+                } else {
+                    // animation continues, count time left till end of the animation loop
+                    let currentRotationAngle = getCurrentRotationRad()
+                    let timeLeft = duration * (1.0 - Double(currentRotationAngle) / (2 * M_PI))
+                    // 
+                    self.delay(timeLeft, callback: {  [weak self] () -> () in
+                        self?.playSound() // play sound when cptAnimation reaches end of the loop
+                        dispatch_resume(timer) // resume sound timer
+                    })
+                }
+                
+                
+                
                 metronomeTimer = timer
             }
             
+        } else {
+            cptSublayer.removeAllAnimations()
         }
     }
     
@@ -336,6 +349,11 @@ class CentralRing: NibDesignable {
         drumImage.stopAnimating()
         switchDrumAnimation()
         drumImage.startAnimating()
+    }
+    
+    
+    func getCurrentRotationRad() -> Float {
+        return (cptSublayer.presentationLayer().valueForKeyPath("transform.rotation.z")  as! NSNumber).floatValue
     }
     
     
@@ -347,10 +365,6 @@ class CentralRing: NibDesignable {
     var tapCount:UInt64 = 0;
     
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
-//        if !listenToTaps {
-//            return
-//        }
-        
         newTapTime = PublicUtilityWrapper.CAHostTimeBase_GetCurrentTime()
         
         var timeElapsedNs:UInt64 = PublicUtilityWrapper.CAHostTimeBase_AbsoluteHostDeltaToNanos(newTapTime, oldTapTime: oldTapTime)

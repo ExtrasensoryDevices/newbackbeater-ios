@@ -174,8 +174,8 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
     
     func didTapSetTempoButton() {
         metronomeTempoView.value = currentTempo
-        Settings.sharedInstance().metronomeIsOn = true
         metronomeTempoView.isOn = true
+        Settings.sharedInstance().metronomeIsOn = true
     }
     
     @IBAction func didTapSongName(sender: AnyObject) {
@@ -269,7 +269,6 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
         let sensorIn = Settings.sharedInstance().sensorIn
         getSensorView.hidden = sensorIn
         setTempoView.hidden = !sensorIn
-        //        centralRing.listenToTaps = !sensorIn
     }
     
     
