@@ -318,25 +318,23 @@ class CentralRing: NibDesignable {
             }
             // add sound timer
             if let timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_main_queue()) {
-                dispatch_source_set_timer(timer, dispatch_walltime(nil, 0), UInt64(duration*Double(NSEC_PER_SEC)), 5);
+                
+                var delta:Int64 = 0
+                if !animationShouldRestart {
+                    let currentRotationAngle = Double(getCurrentRotationRad())
+                    let rotationToGo = currentRotationAngle > 0 ? currentRotationAngle : 2*M_PI - abs(currentRotationAngle)
+                    let timeLeft = duration * rotationToGo / (2 * M_PI)
+                    delta = Int64(timeLeft * Double(NSEC_PER_SEC))
+//                    println("angle: \(currentRotationAngle), toGo: \(rotationToGo)")
+//                    println("duration: \(duration), timeLeft: \(timeLeft)")
+//                    println("---")
+               }
+                
+                dispatch_source_set_timer(timer, dispatch_walltime(nil, delta), UInt64(duration*Double(NSEC_PER_SEC)), 5);
                 dispatch_source_set_event_handler(timer, { [weak self] () -> Void in
                     self?.playSound()
-                })
-                if animationShouldRestart {
-                    dispatch_resume(timer)
-                } else {
-                    // animation continues, count time left till end of the animation loop
-                    let currentRotationAngle = getCurrentRotationRad()
-                    let timeLeft = duration * (1.0 - Double(currentRotationAngle) / (2 * M_PI))
-                    // 
-                    self.delay(timeLeft, callback: {  [weak self] () -> () in
-                        self?.playSound() // play sound when cptAnimation reaches end of the loop
-                        dispatch_resume(timer) // resume sound timer
                     })
-                }
-                
-                
-                
+                dispatch_resume(timer)
                 metronomeTimer = timer
             }
             
