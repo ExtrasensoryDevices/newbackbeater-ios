@@ -425,9 +425,8 @@ SENSOR</string>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.14901960784313725" green="0.14901960784313725" blue="0.14901960784313725" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="Cgc-be-cKy" firstAttribute="trailing" secondItem="661-oL-OY7" secondAttribute="trailingMargin" constant="9" id="48i-7l-iRP"/>
                             <constraint firstItem="eqQ-o4-OsR" firstAttribute="leading" secondItem="661-oL-OY7" secondAttribute="leading" id="7LS-uY-gRz"/>
                             <constraint firstItem="50w-eZ-RBj" firstAttribute="top" secondItem="eqQ-o4-OsR" secondAttribute="bottom" id="FZ0-ms-KzI"/>
                             <constraint firstItem="Cgc-be-cKy" firstAttribute="leading" secondItem="661-oL-OY7" secondAttribute="leading" constant="16" id="UKf-WN-pe5"/>
@@ -435,11 +434,6 @@ SENSOR</string>
                             <constraint firstItem="eqQ-o4-OsR" firstAttribute="top" secondItem="661-oL-OY7" secondAttribute="top" id="iSR-vs-Ixg"/>
                             <constraint firstItem="Cgc-be-cKy" firstAttribute="top" secondItem="sQw-bI-1GT" secondAttribute="bottom" constant="5" id="kOk-WM-RiC"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="48i-7l-iRP"/>
-                            </mask>
-                        </variation>
                     </view>
                     <connections>
                         <outlet property="webView" destination="eqQ-o4-OsR" id="vOJ-MA-Atj"/>

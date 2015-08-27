@@ -49,6 +49,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Flurry.setCrashReportingEnabled(false)
         Flurry.startSession(BridgeConstants.FLURRY_API_KEY())
         
+        application.idleTimerDisabled = true
+        
         
         return FBSDKApplicationDelegate.sharedInstance().application(application,
             didFinishLaunchingWithOptions:launchOptions)

@@ -11,8 +11,15 @@ class WebViewController: UIViewController, UIWebViewDelegate {
 
     @IBOutlet weak var webView: UIWebView!
     
-    
     var url = HELP_URL
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        webView.backgroundColor = ColorPalette.Black.color()
+        view.backgroundColor = ColorPalette.Black.color()
+        webView.opaque = false
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,12 +42,19 @@ class WebViewController: UIViewController, UIWebViewDelegate {
     }
     
     func webView(webView: UIWebView, didFailLoadWithError error: NSError) {
-        MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
-        let alertVC = UIAlertController(title: nil, message: "Please check your internet connection or try again later.", preferredStyle: .Alert)
-        let okAction = UIAlertAction(title: "OK", style: .Default, handler: { (action) -> Void in})
         
-        alertVC.addAction(okAction)
-        self.presentViewController(alertVC, animated: true, completion: nil)
+        MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
+        
+        if objc_getClass("UIAlertController") != nil {
+            let alertVC = UIAlertController(title: nil, message: "Please check your internet connection or try again later.", preferredStyle: .Alert)
+            let okAction = UIAlertAction(title: "OK", style: .Default, handler: { (action) -> Void in})
+            
+            alertVC.addAction(okAction)
+            self.presentViewController(alertVC, animated: true, completion: nil)
+        } else {
+            let alert = UIAlertView(title: nil, message: "Please check your internet connection or try again later.", delegate: nil, cancelButtonTitle: "OK")
+            alert.show()
+        }
     }
     
     

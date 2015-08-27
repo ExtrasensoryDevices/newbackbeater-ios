@@ -30,10 +30,12 @@ class CentralRing: NibDesignable {
     
     var cptSublayer:CAShapeLayer!
     var bpmSublayer:CAShapeLayer!
+    var strikeSublayer:CAShapeLayer!
     var borderSublayer:CAShapeLayer!
     
     var cptAnimation:CABasicAnimation!
     var bpmAnimation:CAKeyframeAnimation!
+    var strikeAnimation:CAKeyframeAnimation!
     var pulseAnimation:CABasicAnimation!
     let PULSE_DURATION:Double = floor(60.0 / Double(BridgeConstants.MAX_TEMPO()) * 10) / 10 / 5
     
@@ -49,8 +51,9 @@ class CentralRing: NibDesignable {
     var metronomeTimer: dispatch_source_t?
     
     
-    let BPM_ANIMATION_KEY = "bpmAnimation"
     let CPT_ANIMATION_KEY = "cptAnimation"
+    let BPM_ANIMATION_KEY = "bpmAnimation"
+    let STRIKE_ANIMATION_KEY = "strikeAnimation"
     let PULSE_ANIMATION_KEY = "pulseAnimation"
     
     let METRONOME_TEMPO_KEY_PATH = "metronomeTempo"
@@ -145,6 +148,7 @@ class CentralRing: NibDesignable {
         resetBorderSublayer()
         resetCptSublayer()
         resetBpmSublayer()
+        resetStrikeSublayer()
         ringView.layer.masksToBounds = false
         ringView.clipsToBounds = false
     }
@@ -168,7 +172,7 @@ class CentralRing: NibDesignable {
         cptSublayer = CAShapeLayer()
         cptSublayer.frame = ringView.bounds
         cptSublayer.strokeColor = ColorPalette.Pink.color().CGColor
-        cptSublayer.fillColor = ColorPalette.Black.color().CGColor
+        cptSublayer.fillColor = ColorPalette.Pink.color().CGColor
         cptSublayer.lineWidth = BORDER_WIDTH
         
         
@@ -188,8 +192,8 @@ class CentralRing: NibDesignable {
         
         bpmSublayer = CAShapeLayer()
         bpmSublayer.frame = ringView.bounds
-        bpmSublayer.strokeColor = ColorPalette.Pink.color().CGColor
-        bpmSublayer.fillColor = ColorPalette.Pink.color().CGColor
+        bpmSublayer.strokeColor = UIColor.whiteColor().CGColor
+        bpmSublayer.fillColor = UIColor.whiteColor().CGColor
         bpmSublayer.lineWidth = BORDER_WIDTH
         bpmSublayer.opacity = 0.0
         
@@ -203,10 +207,22 @@ class CentralRing: NibDesignable {
         ringView.layer.insertSublayer(bpmSublayer, above: cptSublayer)
         
     }
+    func resetStrikeSublayer() {
+        
+        strikeSublayer?.removeFromSuperlayer()
+        
+        // border
+        strikeSublayer = CAShapeLayer()
+        strikeSublayer.frame = ringView.bounds
+        strikeSublayer.opacity = 0.0
+        ringView.layer.addSublayer(strikeSublayer)
+        ringView.drawBorderForLayer(strikeSublayer, color: UIColor.whiteColor(), width: BORDER_WIDTH)
+        
+    }
     
     
     func initAnimations() {
-        // CPT rotation
+        // CPT/metronome rotation
         cptAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
         cptAnimation.fromValue = 0
         cptAnimation.toValue = -M_PI * 2.0  //   /* full rotation*/ * rotations * duration ];
@@ -214,6 +230,7 @@ class CentralRing: NibDesignable {
         cptAnimation.repeatCount = Float.infinity
         cptAnimation.removedOnCompletion = true
         
+        // fading strike imprint
         bpmAnimation = CAKeyframeAnimation(keyPath:"opacity")
         bpmAnimation.duration = 1.5
         bpmAnimation.keyTimes = [0.0, 0.01, 1.5]
@@ -223,8 +240,18 @@ class CentralRing: NibDesignable {
         bpmAnimation.cumulative = false
         bpmAnimation.repeatCount = 1
         
+        //correct strike border flash
+        strikeAnimation = CAKeyframeAnimation(keyPath:"opacity")
+        strikeAnimation.duration = 1.5
+        strikeAnimation.keyTimes = [0.0, 0.2, 0.4]
+        strikeAnimation.values =   [0.0, 1.0, 0.0]
+        strikeAnimation.beginTime = 0.0;
+        strikeAnimation.removedOnCompletion = true
+        strikeAnimation.cumulative = false
+        strikeAnimation.repeatCount = 1
         
-        // drum frame animation
+        
+        // incorrect strike, drum pulse animation
         let dSize:CGFloat = 15
         let startBounds = drumImage.bounds;
         let stopBounds = CGRectMake(0, 0, startBounds.width+dSize, startBounds.height+dSize);
@@ -239,6 +266,8 @@ class CentralRing: NibDesignable {
         pulseAnimation.repeatCount = 1
         pulseAnimation.removedOnCompletion = true
         
+        
+        // correct strike drum sticks animation
         let imageCount = 16
         for i in 1...imageCount {
             let imageName = "LEFT_\(i)"
@@ -283,7 +312,7 @@ class CentralRing: NibDesignable {
         
         let currentRotationAngle = getCurrentRotationRad()
         if currentRotationAngle > -correctHitAngleRad && currentRotationAngle < correctHitAngleRad {
-            animateDrumImage()
+            animateStrike()
         } else {
             runPulseAnimationOnly()
         }
@@ -343,10 +372,13 @@ class CentralRing: NibDesignable {
         }
     }
     
-    func  animateDrumImage() {
+    func  animateStrike() {
         drumImage.stopAnimating()
         switchDrumAnimation()
         drumImage.startAnimating()
+        
+        strikeSublayer.removeAllAnimations()
+        strikeSublayer.addAnimation(strikeAnimation, forKey: STRIKE_ANIMATION_KEY)
     }
     
     

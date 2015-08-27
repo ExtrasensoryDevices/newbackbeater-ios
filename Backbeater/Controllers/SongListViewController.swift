@@ -11,7 +11,7 @@ protocol SongListViewControllerDelegate: class {
     func songListViewControllerDidReturnSongList(songList: [SongTempo]?, updated:Bool)
 }
 
-class SongListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
+class SongListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UIAlertViewDelegate {
     
     weak var delegate:SongListViewControllerDelegate?
     
@@ -275,25 +275,6 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     
-    func didTapDeleteButton(button: UIButton) {
-        if let path = getIndexPathForCellWithView(button) {
-            
-            inputTextField?.resignFirstResponder()
-            
-            let alert = UIAlertController(title: nil, message: "Delete \(newSongList[path.row].songName)?", preferredStyle: UIAlertControllerStyle.Alert)
-            let deleteAction = UIAlertAction(title: "Delete", style: UIAlertActionStyle.Destructive){ (action) in
-                self.newSongList.removeAtIndex(path.row)
-                self.tableView.deleteRowsAtIndexPaths([path], withRowAnimation: UITableViewRowAnimation.Automatic)
-                Settings.sharedInstance().songList = prepareToSaveSongTempoList(self.newSongList)
-                self.updateEmptyState()
-            }
-            let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
-            alert.addAction(cancelAction)
-            alert.addAction(deleteAction)
-            self.presentViewController(alert, animated: true, completion: nil)
-        }
-    }
-    
     func didTapAddButton(button: UIButton) {
         inputTextField?.resignFirstResponder()
         
@@ -312,6 +293,45 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
             updateEmptyState()
         }
     }
+
+    
+    func didTapDeleteButton(button: UIButton) {
+        if let path = getIndexPathForCellWithView(button) {
+            
+            inputTextField?.resignFirstResponder()
+
+            if objc_getClass("UIAlertController") != nil {
+                let alert = UIAlertController(title: nil, message: "Delete \(newSongList[path.row].songName)?", preferredStyle: UIAlertControllerStyle.Alert)
+                let deleteAction = UIAlertAction(title: "Delete", style: UIAlertActionStyle.Destructive){ (action) in
+                    self.deleteSongAtIndex(path.row)
+                }
+                let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
+                alert.addAction(cancelAction)
+                alert.addAction(deleteAction)
+                self.presentViewController(alert, animated: true, completion: nil)
+            } else {
+                let alert = UIAlertView(title: nil, message: "Delete \(newSongList[path.row].songName)?", delegate: self, cancelButtonTitle: "Cancel")
+                alert.addButtonWithTitle("Delete")
+                alert.tag = path.row  // set tag equal to song index
+                alert.show()
+            }
+        }
+    }
+    
+    func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
+        if buttonIndex == 1 {
+            // delete
+            deleteSongAtIndex(alertView.tag)
+        }
+    }
+    
+    func deleteSongAtIndex(index:Int) {
+        newSongList.removeAtIndex(index)
+        tableView.deleteRowsAtIndexPaths([NSIndexPath(forRow: index, inSection: 0)], withRowAnimation: UITableViewRowAnimation.Automatic)
+        Settings.sharedInstance().songList = prepareToSaveSongTempoList(newSongList)
+        updateEmptyState()
+    }
+    
     
     
     // MARK: - Keyboard
