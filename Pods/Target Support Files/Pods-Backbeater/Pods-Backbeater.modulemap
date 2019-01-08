@@ -1,0 +1,6 @@
+framework module Pods_Backbeater {
+  umbrella header "Pods-Backbeater-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NumericStepper" customModule="Backbeater" customModuleProvider="target">
+            <connections>
+                <outlet property="bottomConstraint" destination="Dgp-21-I6t" id="KwH-w0-nfw"/>
+                <outlet property="frameView" destination="Afr-0B-KrB" id="Ims-3L-zF3"/>
+                <outlet property="label" destination="dPg-pc-dTp" id="xcU-e5-FF4"/>
+                <outlet property="labelVCenterConstraint" destination="tlh-EA-LC6" id="kQA-OL-9nM"/>
+                <outlet property="panGestureRecognizer" destination="Jtd-Ya-RaV" id="LUs-zH-KRK"/>
+                <outlet property="topConstraint" destination="Ks5-pu-sTW" id="8YL-cX-pgb"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="-1" width="167" height="421"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Afr-0B-KrB">
+                    <rect key="frame" x="0.0" y="105" width="167" height="211"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="120" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dPg-pc-dTp">
+                            <rect key="frame" x="0.0" y="22" width="167" height="167"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <gestureRecognizers/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="dPg-pc-dTp" secondAttribute="height" multiplier="1:1" id="ucw-p9-cQY"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="37"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="dPg-pc-dTp" firstAttribute="leading" secondItem="Afr-0B-KrB" secondAttribute="leading" id="kxA-k5-HMt"/>
+                        <constraint firstAttribute="trailing" secondItem="dPg-pc-dTp" secondAttribute="trailing" id="rvc-y3-AfR"/>
+                        <constraint firstAttribute="centerY" secondItem="dPg-pc-dTp" secondAttribute="centerY" id="tlh-EA-LC6"/>
+                    </constraints>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="Xyd-Kc-b9F" appends="YES" id="Ing-fN-rbn"/>
+                        <outletCollection property="gestureRecognizers" destination="Jtd-Ya-RaV" appends="YES" id="2tl-OD-Fwe"/>
+                    </connections>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="Afr-0B-KrB" secondAttribute="bottom" constant="105" id="Dgp-21-I6t"/>
+                <constraint firstItem="Afr-0B-KrB" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="105" id="Ks5-pu-sTW"/>
+                <constraint firstAttribute="trailing" secondItem="Afr-0B-KrB" secondAttribute="trailing" id="R3u-7R-IL4"/>
+                <constraint firstItem="Afr-0B-KrB" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="RLW-T0-Blz"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="229.5" y="139.5"/>
+        </view>
+        <tapGestureRecognizer id="Xyd-Kc-b9F">
+            <connections>
+                <action selector="didTapView:" destination="-1" id="09g-IW-5c6"/>
+                <outlet property="delegate" destination="-1" id="xjy-6o-inT"/>
+            </connections>
+        </tapGestureRecognizer>
+        <panGestureRecognizer minimumNumberOfTouches="1" id="Jtd-Ya-RaV">
+            <connections>
+                <action selector="didPanView:" destination="-1" id="DfF-j4-Nv7"/>
+                <outlet property="delegate" destination="-1" id="aL9-QH-Jd1"/>
+            </connections>
+        </panGestureRecognizer>
+    </objects>
+</document>
