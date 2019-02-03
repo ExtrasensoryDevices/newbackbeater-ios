@@ -2,7 +2,7 @@
 //  SongListCell.swift
 //  Backbeater
 //
-//  Created by Alina Khgolcheva on 2015-06-16.
+//  Created by Alina Kholcheva on 2015-06-16.
 //
 
 import UIKit

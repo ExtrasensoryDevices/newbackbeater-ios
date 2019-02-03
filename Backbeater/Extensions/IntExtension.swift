@@ -1,7 +1,7 @@
 //
 //  IntExtension.swift
 //
-//  Created by Alina Khgolcheva on 10/11/14.
+//  Created by Alina Kholcheva on 10/11/14.
 //
 
 

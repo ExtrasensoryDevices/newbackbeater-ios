@@ -2,7 +2,7 @@
 //  HelpViewController.swift
 //  Backbeater
 //
-//  Created by Alina Khgolcheva on 2015-06-10.
+//  Created by Alina Kholcheva on 2015-06-10.
 //
 
 import UIKit

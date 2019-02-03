@@ -2,7 +2,7 @@
 //  SegmentedControl.swift
 //  Backbeater
 //
-//  Created by Alina Khgolcheva on 2015-06-02.
+//  Created by Alina Kholcheva on 2015-06-02.
 //
 
 import UIKit

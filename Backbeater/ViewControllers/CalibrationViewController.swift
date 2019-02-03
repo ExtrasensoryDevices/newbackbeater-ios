@@ -2,7 +2,7 @@
 //  CalibrationViewController.swift
 //  Backbeater
 //
-//  Created by Alina Khgolcheva on 2015-07-09.
+//  Created by Alina Kholcheva on 2015-07-09.
 //
 
 import UIKit

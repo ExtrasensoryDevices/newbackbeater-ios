@@ -2,7 +2,7 @@
 //  Constants.swift
 //  Backbeater
 //
-//  Created by Alina Khgolcheva on 2018-12-28.
+//  Created by Alina Kholcheva on 2018-12-28.
 //
 
 /**

@@ -2,7 +2,7 @@
 //  Backbeater-Bridging-Header.h
 //  Backbeater
 //
-//  Created by Alina Khgolcheva on 2015-06-04.
+//  Created by Alina Kholcheva on 2015-06-04.
 //
 
 #import <UIKit/UIKit.h> 

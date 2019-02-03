@@ -2,7 +2,7 @@
 //  UIColor+Extensions.swift
 //  Canvas
 //
-//  Created by Alina Khgolcheva on 11/24/14.
+//  Created by Alina Kholcheva on 11/24/14.
 //
 
 import Foundation
