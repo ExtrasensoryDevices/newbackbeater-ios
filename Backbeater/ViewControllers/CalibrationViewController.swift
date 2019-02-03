@@ -29,10 +29,10 @@ class CalibrationViewController: UIViewController, UITextFieldDelegate, SoundPro
         
         super.viewWillAppear(animated)
         
-        self.view.backgroundColor = ColorPalette.black.color()
-        startTh.backgroundColor = ColorPalette.black.color()
-        stopTh.backgroundColor = ColorPalette.black.color()
-        timeout.backgroundColor = ColorPalette.black.color()
+        self.view.backgroundColor = ColorPalette.black.color
+        startTh.backgroundColor = ColorPalette.black.color
+        stopTh.backgroundColor = ColorPalette.black.color
+        timeout.backgroundColor = ColorPalette.black.color
         clearButton.setTitleColor(UIColor.blue, for: UIControl.State())
         clearButton.setTitleColor(UIColor.blue, for: UIControl.State.selected)
         
@@ -59,12 +59,12 @@ class CalibrationViewController: UIViewController, UITextFieldDelegate, SoundPro
         let frame = CGRect(x: 0, y: 0, width: 320, height: 50)
         
         keyboardToolbar = UIToolbar(frame: frame)
-        keyboardToolbar.barTintColor = ColorPalette.keyboardBg.color()
+        keyboardToolbar.barTintColor = ColorPalette.keyboardBg.color
         keyboardToolbar.items = [flexibleSpace, submitButton]
         
         // create bottom line
         let borderView = UIView(frame: CGRect(x: 0, y: 49, width: 320, height: 1))
-        borderView.backgroundColor = ColorPalette.keyboardBorder.color()
+        borderView.backgroundColor = ColorPalette.keyboardBorder.color
         borderView.isUserInteractionEnabled = false
         borderView.translatesAutoresizingMaskIntoConstraints = false
         keyboardToolbar.addSubview(borderView)

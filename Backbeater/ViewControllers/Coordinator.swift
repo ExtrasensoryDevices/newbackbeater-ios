@@ -9,9 +9,39 @@
 import Foundation
 import Flurry_iOS_SDK
 
+// MARK: - Constants
+
+struct Tempo {
+    static let min:Int       =  20
+    static let max:Int       = 200
+    static let `default`:Int = 120
+
+    static func normalized(value: Int) -> Int {
+        return value.normalized(min: Tempo.min, max: Tempo.max)
+    }
+}
+
+struct Sensitivity {
+    static let min:Int       =   0
+    static let max:Int       = 100
+    static let `default`:Int = 100
+    
+    static func normalized(value: Int) -> Int {
+        return value.normalized(min: Sensitivity.min, max: Sensitivity.max)
+    }
+}
+
+
+// MARK: - Protocols
+
+
 protocol HelpPresenter: class {
     func showHelp(url: String)
 }
+
+
+// MARK: - Structs and Enums
+
 
 enum MetronomeState: Int {
     case on  = 1
@@ -19,12 +49,14 @@ enum MetronomeState: Int {
 }
 
 
+// MARK: - Coordinator
+
+
 class Coordinator {
-    // protocols
+
     private weak var helpPresenter:HelpPresenter?
     
-    
-    private struct LocalConstants { // TODO: rename
+    private struct Constants { // TODO: rename
         static let strikesWindowValues = [2, 3, 4, 5]
         static let timeSignatureValues = [1, 2, 3, 4]
         static let soundFiles = ["sideStick.wav", "stick.wav", "metronome.wav", "surprise.wav"]
@@ -45,7 +77,7 @@ class Coordinator {
             if strikesWindowIdx != oldValue {
                 UserDefaults.set(integer: strikesWindowIdx, for: .strikesWindowIndex)
                 Flurry.logEvent(.strikesWindowValueChanged,
-                                value: LocalConstants.strikesWindowValues[strikesWindowIdx])
+                                value: Constants.strikesWindowValues[strikesWindowIdx])
             }
         }
     }
@@ -55,7 +87,7 @@ class Coordinator {
             if timeSignatureIdx != oldValue {
                 UserDefaults.set(integer: timeSignatureIdx, for: .timeSignatureIndex)
                 Flurry.logEvent(.timeSignatureValueChanged,
-                                value: LocalConstants.timeSignatureValues[timeSignatureIdx])
+                                value: Constants.timeSignatureValues[timeSignatureIdx])
             }
         }
     }
@@ -69,7 +101,7 @@ class Coordinator {
     }
 
     private var soundUrl:URL {
-        return URL(fileURLWithPath: LocalConstants.soundFiles[metronomeSoundIdx])
+        return URL(fileURLWithPath: Constants.soundFiles[metronomeSoundIdx])
     }
 
     
@@ -98,7 +130,7 @@ class Coordinator {
 
     var lastPlayedTempo: Int {
         get {
-            return UserDefaults.integer(for: .lastPlayedTempo) ?? Constants.DEFAULT_TEMPO
+            return UserDefaults.integer(for: .lastPlayedTempo) ?? Tempo.default
         }
         
         set {
@@ -115,12 +147,12 @@ class Coordinator {
         metronomeState = .off
         
         // init form saved values
-        sensitivity = UserDefaults.integer(for: .sensitivity) ?? 100
+        sensitivity = UserDefaults.integer(for: .sensitivity) ?? Sensitivity.default
         strikesWindowIdx  = UserDefaults.integer(for: .strikesWindowIndex)  ?? 0
         timeSignatureIdx  = UserDefaults.integer(for: .timeSignatureIndex)  ?? 0
         metronomeSoundIdx = UserDefaults.integer(for: .metronomeSoundIndex) ?? 0
 
-        metronomeTempo = UserDefaults.integer(for: .metronomeTempo) ?? Constants.DEFAULT_TEMPO
+        metronomeTempo = UserDefaults.integer(for: .metronomeTempo) ?? Tempo.default
         
         //  TODO: Init songList from UserDefaults
         
@@ -130,11 +162,13 @@ class Coordinator {
 }
 
 
+// MARK: - SidebarDelegate
+
 extension Coordinator: SidebarDelegate {
     
     func readyToRender(_ sidebar: Sidebar) {
-        sidebar.setupOptions(strikesWindowValues: LocalConstants.strikesWindowValues,
-                             timeSignatureValues: LocalConstants.timeSignatureValues)
+        sidebar.setupOptions(strikesWindowValues: Constants.strikesWindowValues,
+                             timeSignatureValues: Constants.timeSignatureValues)
         
         sidebar.displayValuesFromLastSession(sensitivityIdx:    sensitivity,
                                              metronomeSoundIdx: metronomeSoundIdx,
@@ -143,8 +177,7 @@ extension Coordinator: SidebarDelegate {
     }
     
     func helpRequested() {
-        // TODO
-       // HelpPresenter.showHelp(url: HELP_URL)
+        helpPresenter?.showHelp(url: HELP_URL)
     }
     
     func sensitivityChanged(newValue: Int) {
@@ -155,21 +188,21 @@ extension Coordinator: SidebarDelegate {
     }
     
     func metronomeSoundChanged(newIndex: Int) {
-        guard LocalConstants.soundFiles.isSafe(index: newIndex) else {
+        guard Constants.soundFiles.isSafe(index: newIndex) else {
             return
         }
         metronomeSoundIdx = newIndex
     }
     
     func strikesWindowChanged(newIndex: Int) {
-        guard LocalConstants.strikesWindowValues.isSafe(index: newIndex) else {
+        guard Constants.strikesWindowValues.isSafe(index: newIndex) else {
             return
         }
         strikesWindowIdx = newIndex
     }
     
     func timeSignatureChanged(newIndex: Int) {
-        guard LocalConstants.timeSignatureValues.isSafe(index: newIndex) else {
+        guard Constants.timeSignatureValues.isSafe(index: newIndex) else {
             return
         }
         timeSignatureIdx = newIndex

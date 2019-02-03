@@ -259,7 +259,7 @@ UInt64 _tapCount = 0;
     Float64 delayFator = 0.1;
     Float64 timeElapsedInSec = ((Float64)timeElapsedNs) * 10.0e-9 * delayFator;
         
-    BOOL isNewTapSeq = (timeElapsedInSec > [Constants IDLE_TIMEOUT]) ? YES : NO;
+    BOOL isNewTapSeq = (timeElapsedInSec > [ObjcConstants IDLE_TIMEOUT]) ? YES : NO;
         
     if (isNewTapSeq) {
         _tapCount = 0;

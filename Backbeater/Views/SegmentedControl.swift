@@ -25,7 +25,7 @@ import UIKit
         }
     }
     
-    @IBInspectable var selectedLabelColor : UIColor = ColorPalette.pink.color() {
+    @IBInspectable var selectedLabelColor : UIColor = ColorPalette.pink.color {
         didSet {
             setSelectedColors()
         }

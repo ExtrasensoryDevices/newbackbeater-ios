@@ -25,12 +25,12 @@ class WebViewController: UIViewController { // fixme, WKNavigationDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = ColorPalette.black.color()
+        view.backgroundColor = ColorPalette.black.color
         
         //fixme
 //        let webView = WKWebView(frame: .zero, configuration: WKWebViewConfiguration())
 //        webView.navigationDelegate = self
-//        webView.backgroundColor = ColorPalette.black.color()
+//        webView.backgroundColor = ColorPalette.black.color
 //        webView.isOpaque = false
 //
 //        self.view.addSubview(webView)

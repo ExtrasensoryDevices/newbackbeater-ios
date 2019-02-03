@@ -13,14 +13,18 @@ let BORDER_WIDTH:CGFloat = 3.2 // UI elements border width
 
 
 enum ColorPalette: Int {
-    case black = 0x262626
-    case pink = 0xDD2F44
-    case grey = 0x4C4C4C
-    case keyboardBg = 0xC7CDD1
+    case black          = 0x262626
+    case pink           = 0xDD2F44
+    case grey           = 0x4C4C4C
+    case keyboardBg     = 0xC7CDD1
     case keyboardBorder = 0xE7E7E7
     
-    func color() -> UIColor {
+    var color: UIColor {
         return UIColor(hex: self.rawValue)
+    }
+    
+    var cgColor: CGColor {
+        return UIColor(hex: self.rawValue).cgColor
     }
     
 }

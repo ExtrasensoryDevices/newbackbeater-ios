@@ -8,28 +8,23 @@
 import UIKit
 
 extension UIView {
-    func removeBorder()
-    {
+    func removeBorder() {
         layer.borderWidth = 0
     }
     
-    func drawBorder()
-    {
-        drawBorder(color: ColorPalette.pink.color())
+    func drawBorder() {
+        drawBorder(color: ColorPalette.pink.color)
     }
     
-    func drawBorder(width: CGFloat)
-    {
-        drawBorder(color: ColorPalette.pink.color(), width: width)
+    func drawBorder(width: CGFloat) {
+        drawBorder(color: ColorPalette.pink.color, width: width)
     }
     
-    func drawBorder(color: UIColor)
-    {
+    func drawBorder(color: UIColor) {
         drawBorder(color: color, width: BORDER_WIDTH)
     }
     
-    func drawBorder(color: UIColor, width: CGFloat)
-    {
+    func drawBorder(color: UIColor, width: CGFloat) {
         layer.borderColor = color.cgColor
         layer.borderWidth = width
         layer.cornerRadius = self.bounds.size.height / 2
@@ -37,8 +32,7 @@ extension UIView {
     }
     
     
-    func drawBorder(for layer:CALayer, color: UIColor, width: CGFloat)
-    {
+    func drawBorder(for layer:CALayer, color: UIColor, width: CGFloat) {
         layer.borderColor = color.cgColor
         layer.borderWidth = width
         layer.cornerRadius = self.bounds.size.height / 2

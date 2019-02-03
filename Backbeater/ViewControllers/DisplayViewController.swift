@@ -90,20 +90,20 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
     }
     
     func setupUI() {
-        view.backgroundColor = ColorPalette.black.color()
+        view.backgroundColor = ColorPalette.black.color
         
         setTempoView.drawBorder()
-        setTempoView.backgroundColor = ColorPalette.black.color()
+        setTempoView.backgroundColor = ColorPalette.black.color
         setTempoView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(DisplayViewController.didTapSetTempoButton)))
         
         metronomeTempoView.font = Font.FuturaBook.get(33)
-        metronomeTempoView.bgrColor = ColorPalette.black.color()
+        metronomeTempoView.bgrColor = ColorPalette.black.color
 
         getSensorView.drawBorder()
         getSensorView.clipsToBounds = true
-        getSensorView.backgroundColor = ColorPalette.pink.color()
+        getSensorView.backgroundColor = ColorPalette.pink.color
         getSensorView.font = Font.FuturaDemi.get(14)
-        getSensorView.textColor = ColorPalette.black.color()
+        getSensorView.textColor = ColorPalette.black.color
         
         centralRing.translatesAutoresizingMaskIntoConstraints = false
         
@@ -225,14 +225,14 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
         
         
         if !Settings.sharedInstance().metronomeIsOn {
-            self.delay(Constants.IDLE_TIMEOUT, callback: { () -> () in
+            self.delay(ObjcConstants.IDLE_TIMEOUT, callback: { () -> () in
                 let now:UInt64 = PublicUtilityWrapper.caHostTimeBase_GetCurrentTime()
                 let timeElapsedNs:UInt64 = PublicUtilityWrapper.caHostTimeBase_AbsoluteHostDelta(toNanos: now, oldTapTime: self.lastStrikeTime)
                 
                 let delayFator:Float64 = 0.1
                 
                 let timeElapsedInSec:Float64 = Float64(timeElapsedNs) * 10.0e-9 * delayFator;
-                if timeElapsedInSec > Constants.IDLE_TIMEOUT {
+                if timeElapsedInSec > ObjcConstants.IDLE_TIMEOUT {
                     if !Settings.sharedInstance().metronomeIsOn {
                         self.strikesWindowQueue.clear()
                         self.centralRing.reset()
@@ -303,7 +303,7 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
             hamButton.tintColor = UIColor.white
         } else {   // hide
             songListBottomLayoutConstraint.constant = -songListView.bounds.height / 2
-            hamButton.tintColor = ColorPalette.grey.color()
+            hamButton.tintColor = ColorPalette.grey.color
         }
         songNameLabel.text = songList?[selectedSongIndex].songName ?? ""
         

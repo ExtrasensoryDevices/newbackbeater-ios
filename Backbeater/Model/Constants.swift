@@ -7,16 +7,9 @@
 
 import UIKit
 
-
 @objcMembers
-public class Constants: NSObject {
-    //public static let DEFAULT_SENSITIVITY:Int = 100
-    public static let DEFAULT_TEMPO:Int       = 120
-    
-    public static let MAX_TEMPO:Int           = 200
-    public static let MIN_TEMPO:Int           =  20
-    
-    public static let IDLE_TIMEOUT:Double     =  10.0
+public class ObjcConstants: NSObject {
+    static let IDLE_TIMEOUT:Double = 10.0
 }
 
 public var appVersion:String {

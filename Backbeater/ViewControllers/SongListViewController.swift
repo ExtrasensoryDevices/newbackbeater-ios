@@ -52,8 +52,8 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = ColorPalette.black.color()
-        tableView.backgroundColor = ColorPalette.black.color()
+        self.view.backgroundColor = ColorPalette.black.color
+        tableView.backgroundColor = ColorPalette.black.color
         tableView.backgroundView = nil
 //        tableView.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(SongListViewController.didLongPressTableViewCell(_:))))
         tableView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapTableViewCell(_:))))
@@ -82,12 +82,12 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
         let frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 51)
         
         keyboardToolbar = UIToolbar(frame: frame)
-        keyboardToolbar.barTintColor = ColorPalette.keyboardBg.color()
+        keyboardToolbar.barTintColor = ColorPalette.keyboardBg.color
         keyboardToolbar.items = [prevButton, nextButton, flexibleSpace, submitButton]
         
         // create bottom line
         let borderView = UIView(frame: CGRect(x: 0, y: 50, width: frame.size.width, height: 1))
-        borderView.backgroundColor = ColorPalette.keyboardBorder.color()
+        borderView.backgroundColor = ColorPalette.keyboardBorder.color
         borderView.isUserInteractionEnabled = false
         borderView.translatesAutoresizingMaskIntoConstraints = false
         keyboardToolbar.addSubview(borderView)
@@ -102,7 +102,7 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
             inputTextField = UITextField()
         }
         inputTextField.inputAccessoryView = keyboardToolbar
-        inputTextField.backgroundColor = ColorPalette.black.color()
+        inputTextField.backgroundColor = ColorPalette.black.color
         
         inputTextField.autocapitalizationType = .allCharacters
         
@@ -180,7 +180,7 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
             cell = addSongCell
         }
         
-        cell.backgroundColor = ColorPalette.black.color()
+        cell.backgroundColor = ColorPalette.black.color
         return cell
     }
     
@@ -391,11 +391,8 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
             cell.songNameLabel.text = inputTextField.text
             
         } else {
-            if let value = Int(inputTextField.text?.trim() ?? "") , value >= 0 {
-                songTempo.tempoValue = value.normalized(min: Constants.MIN_TEMPO, max: Constants.MAX_TEMPO)
-            } else {
-                songTempo.tempoValue = Constants.DEFAULT_TEMPO
-            }
+            let value:Int = Int(inputTextField.text?.trim() ?? "") ?? Tempo.default
+            songTempo.tempoValue = Tempo.normalized(tempo: value)
             inputTextField.text = "\(songTempo.tempoValue)"
             cell.tempoValueLabel.text = inputTextField.text
         }

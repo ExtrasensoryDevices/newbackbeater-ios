@@ -35,7 +35,7 @@ class NumericStepper: UIControlNibDesignable {
             return _value
         }
         set (newValue) {
-            _value = newValue.normalized(min: Constants.MIN_TEMPO, max: Constants.MAX_TEMPO)
+            _value = Tempo.normalized(tempo: newValue) // TODO: use Min/Max locally, remove Tempo from here
             label.text = "\(_value)"
         }
     }
@@ -93,9 +93,9 @@ class NumericStepper: UIControlNibDesignable {
     
     private func updateOnOffState() {
         if isOn {
-            setColorForBorder(ColorPalette.pink.color(), labelColor: UIColor.white)
+            setColorForBorder(ColorPalette.pink.color, labelColor: UIColor.white)
         } else {
-            setColorForBorder(ColorPalette.grey.color(), labelColor: ColorPalette.grey.color())
+            setColorForBorder(ColorPalette.grey.color, labelColor: ColorPalette.grey.color)
         }
     }
     
@@ -158,7 +158,7 @@ class NumericStepper: UIControlNibDesignable {
     
     private func incrementValue(_ increment:Int) {
         let newValue = _value + increment
-        value = newValue.normalized(min: Constants.MIN_TEMPO, max: Constants.MAX_TEMPO)
+        value = Tempo.normalized(tempo: newValue)
     }
     
     

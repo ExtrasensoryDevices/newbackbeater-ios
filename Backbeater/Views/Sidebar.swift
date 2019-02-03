@@ -50,7 +50,7 @@ class Sidebar: NibDesignable {
     
     override func setup() {
         super.setup()
-        self.backgroundColor = ColorPalette.pink.color()
+        self.backgroundColor = ColorPalette.pink.color
         soundButtonCollection = [sideStickButton, stickButton, metronomeButton, surpriseButton]
         
         soundButtonCollection.first?.isSelected = true

@@ -85,9 +85,9 @@ class CentralRing: NibDesignable {
 
     func display(cpt:Int, timeSignature: Int, metronomeState:MetronomeState) {
         // display numbers
-        if cpt > Constants.MAX_TEMPO || cpt < Constants.MIN_TEMPO {
+        if cpt > Tempo.max || cpt < Tempo.min {
             // We do not need BPM outside this range.
-            cptLabel.text = cpt > Constants.MAX_TEMPO ? "MAX" : "MIN"
+            cptLabel.text = cpt > Tempo.max ? "MAX" : "MIN"
             runPulseAnimation()
         } else {
             cptLabel.text = "\(cpt)"
@@ -174,7 +174,7 @@ class CentralRing: NibDesignable {
         let delayFator:Float64 = 0.1
         let timeElapsedInSec:Float64 = Float64(timeElapsedNs) * 10.0e-9 * delayFator;
         
-        let isNewTapSeq = (timeElapsedInSec > Constants.IDLE_TIMEOUT) ? true : false
+        let isNewTapSeq = (timeElapsedInSec > ObjcConstants.IDLE_TIMEOUT) ? true : false
         
         if isNewTapSeq {
             tapCount = 0;
@@ -335,7 +335,7 @@ class CentralRing: NibDesignable {
         borderSublayer = CAShapeLayer()
         borderSublayer.frame = ringView.bounds
         ringView.layer.addSublayer(borderSublayer)
-        ringView.drawBorder(for: borderSublayer, color: ColorPalette.pink.color(), width: BORDER_WIDTH)
+        ringView.drawBorder(for: borderSublayer, color: ColorPalette.pink.color, width: BORDER_WIDTH)
     }
     
     private func resetCptSublayer() {
@@ -344,8 +344,8 @@ class CentralRing: NibDesignable {
         
         cptSublayer = CAShapeLayer()
         cptSublayer.frame = ringView.bounds
-        cptSublayer.strokeColor = ColorPalette.pink.color().cgColor
-        cptSublayer.fillColor = ColorPalette.pink.color().cgColor
+        cptSublayer.strokeColor = ColorPalette.pink.cgColor
+        cptSublayer.fillColor = ColorPalette.pink.cgColor
         cptSublayer.lineWidth = BORDER_WIDTH
         
         
@@ -392,8 +392,4 @@ class CentralRing: NibDesignable {
         ringView.drawBorder(for: strikeSublayer, color: UIColor.white, width: BORDER_WIDTH)
         
     }
-    
-    
-    
-    
 }

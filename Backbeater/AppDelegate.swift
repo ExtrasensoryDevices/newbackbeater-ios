@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
         // play animation
-        window?.rootViewController?.view.backgroundColor = ColorPalette.black.color()
+        window?.rootViewController?.view.backgroundColor = ColorPalette.black.color
         if let imageView = window?.rootViewController?.view.viewWithTag(1) as? GIFImageView {
             imageView.animate(withGIFNamed: "bblogoanimation5.gif")
         }

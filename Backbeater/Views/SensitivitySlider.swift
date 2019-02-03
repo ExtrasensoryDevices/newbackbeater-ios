@@ -19,7 +19,7 @@ class SensitivitySlider: UIControlNibDesignable{
     
     @IBOutlet weak var thumbLeadingConstraint: NSLayoutConstraint!
     
-    private let minValue:Int = 0
+    private let minValue:Int = 0  // TODO: use Sensitivity MinMAx
     private let maxValue:Int = 100
     
     var value:Int = 0 {
@@ -41,7 +41,7 @@ class SensitivitySlider: UIControlNibDesignable{
     
     private func setupThumb() {
         thumbView.translatesAutoresizingMaskIntoConstraints = false
-        thumbView.backgroundColor = ColorPalette.pink.color()
+        thumbView.backgroundColor = ColorPalette.pink.color
         thumbView.layer.cornerRadius = thumbView.frame.size.height / 2 // - BORDER_WIDTH * 1.5
         thumbView.layer.borderWidth = BORDER_WIDTH_THIN
         thumbView.layer.borderColor = UIColor.white.cgColor
@@ -80,8 +80,6 @@ class SensitivitySlider: UIControlNibDesignable{
         return thumbOffsetX
     }
     
-    
-
     
     private func updateThumbPosition(_ animated: Bool) {
         thumbLabel.text = String(value)

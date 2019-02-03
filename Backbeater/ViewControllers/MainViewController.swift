@@ -27,7 +27,7 @@ class MainViewController: UIViewController, HelpPresenter {
         sidebar.delegate = coordinator
         
         containerCenterXConstraint.constant = 0
-        self.view.backgroundColor = ColorPalette.pink.color()
+        self.view.backgroundColor = ColorPalette.pink.color
         setupDisplayViewController()
     }
     
