@@ -2,12 +2,14 @@
 //  ViewController.swift
 //  Backbeater
 //
-//  Created by Alina Khgolcheva on 2015-06-01.
+//  Created by Alina Kholcheva on 2015-06-01.
 //
 
 import UIKit
 
-class MainViewController: UIViewController, SidebarDelegate {
+class MainViewController: UIViewController, HelpPresenter {
+    
+    private var coordinator:Coordinator!
 
     @IBOutlet weak var sidebar: Sidebar!
     @IBOutlet weak var containerView: UIView!
@@ -20,17 +22,16 @@ class MainViewController: UIViewController, SidebarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // FIXME: initialize with coordinator
+        coordinator = Coordinator(helpPresenter: self)
+        sidebar.delegate = coordinator
+        
         containerCenterXConstraint.constant = 0
         self.view.backgroundColor = ColorPalette.pink.color()
-        setupSidebar()
         setupDisplayViewController()
     }
     
-    func setupSidebar() {
-        sidebar.delegate = self
-    }
-    
-    func setupDisplayViewController() {
+    private func setupDisplayViewController() {
         guard let displayVC = storyboard?.instantiateViewController(withIdentifier: "DisplayViewController") as? DisplayViewController else {
             fatalError("DisplayViewController not found")
         }
@@ -51,14 +52,14 @@ class MainViewController: UIViewController, SidebarDelegate {
     // MARK: - toggle menu
     @IBOutlet weak var containerCenterXConstraint: NSLayoutConstraint!
     
-    let centerPanelExpandedOffset: CGFloat = -260.0
+    private let centerPanelExpandedOffset: CGFloat = -260.0
     
-    enum MenuPanelState {
+    private enum MenuPanelState {
         case collapsed
         case expanded
     }
     
-    var currentState: MenuPanelState = .collapsed {
+    private var currentState: MenuPanelState = .collapsed {
         didSet {
             showShadow(currentState == .expanded)
             settingsButton.isSelected = (currentState == .expanded)
@@ -66,7 +67,7 @@ class MainViewController: UIViewController, SidebarDelegate {
         }
     }
     
-    func showShadow(_ shouldShowShadow: Bool) {
+    private func showShadow(_ shouldShowShadow: Bool) {
         if (shouldShowShadow) {
             containerView.layer.shadowOpacity = 0.8
         } else {
@@ -74,11 +75,11 @@ class MainViewController: UIViewController, SidebarDelegate {
         }
     }
     
-    func blurAlpha(_ position:CGFloat) -> CGFloat {
+    private func blurAlpha(_ position:CGFloat) -> CGFloat {
         return position / centerPanelExpandedOffset
     }
     
-    func slideDuration(_ currentPosition:CGFloat) -> TimeInterval {
+    private func slideDuration(_ currentPosition:CGFloat) -> TimeInterval {
         let coeff: CGFloat
         if centerPanelExpandedOffset == currentPosition {
             coeff = 1
@@ -88,7 +89,7 @@ class MainViewController: UIViewController, SidebarDelegate {
         return TimeInterval(0.5 * coeff)
     }
     
-    func addBlurView() {
+    private func addBlurView() {
         if let _visualEffectView = visualEffectView {
             _visualEffectView.alpha = blurAlpha(containerCenterXConstraint.constant)
             displayVC.view.addSubview(_visualEffectView)
@@ -105,12 +106,12 @@ class MainViewController: UIViewController, SidebarDelegate {
     }
     
     
-    func toggleMenuPanel(_ animateMenuButton: Bool) {
+    private func toggleMenuPanel(_ animateMenuButton: Bool) {
         let newState: MenuPanelState = (currentState == .collapsed) ? .expanded : .collapsed
         animateMenuPanel(newState, animateMenuButton: animateMenuButton)
     }
     
-    func animateMenuPanel(_ newState: MenuPanelState, animateMenuButton: Bool) {
+    private func animateMenuPanel(_ newState: MenuPanelState, animateMenuButton: Bool) {
         if newState == .expanded {
             currentState = .expanded
             if visualEffectView?.superview == nil {
@@ -126,7 +127,7 @@ class MainViewController: UIViewController, SidebarDelegate {
         }
     }
     
-    func animateCenterPanelXPosition(_ targetPosition: CGFloat, completion: ((Bool) -> Void)! = nil) {
+    private func animateCenterPanelXPosition(_ targetPosition: CGFloat, completion: ((Bool) -> Void)! = nil) {
         let currentPosition = self.containerCenterXConstraint.constant
         UIView.animate(withDuration: slideDuration(currentPosition), animations: {
             self.visualEffectView?.alpha = self.blurAlpha(targetPosition)
@@ -171,13 +172,15 @@ class MainViewController: UIViewController, SidebarDelegate {
     }
     
     
-    // MARK: SidebarDelegate
-    func didTapHelp() {
+    func showHelp(url: String) {
+        
+        // TODO: Toggle state
+        
         // present help
         guard let helpVC = storyboard?.instantiateViewController(withIdentifier: "WebViewController") as? WebViewController else {
             fatalError("WebViewController not found")
         }
-        helpVC.url = HELP_URL
+        helpVC.url = url
         self.present(helpVC, animated: true) {
             self.toggleMenuPanel(false)
         }

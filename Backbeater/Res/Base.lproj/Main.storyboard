@@ -555,7 +555,7 @@ SENSOR</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vn5-es-uVC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1910" y="1143"/>
+            <point key="canvasLocation" x="1910" y="1254"/>
         </scene>
         <!--Song List View Controller-->
         <scene sceneID="NX7-Ws-Z6t">
@@ -719,7 +719,7 @@ SENSOR</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T8x-yg-PaE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1227" y="1143"/>
+            <point key="canvasLocation" x="1190" y="1254"/>
         </scene>
     </scenes>
     <resources>

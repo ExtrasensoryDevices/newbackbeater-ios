@@ -10,16 +10,17 @@ import UIKit
 @IBDesignable class SegmentedControl: UIControl {
     
     private var labels = [UILabel]()
-    var thumbView = UIView()
+    private var thumbView = UIView()
     
-    var items: [String] = ["2", "4", "8", "16"] {
+    var items: [String] = [] {
         didSet {
             setupLabels()
         }
     }
     
-    var selectedIndex : Int = 0 {
+    var selectedIndex : Int = -1 {
         didSet {
+            guard selectedIndex != oldValue else { return }
             displayNewSelectedIndex()
         }
     }
@@ -52,21 +53,14 @@ import UIKit
         setup()
     }
     
-    func setup() {
-        
+    private func setup() {
         backgroundColor = UIColor.clear
-        
         setupLabels()
-        
         insertSubview(thumbView, at: 0)
     }
     
-    func setupLabels(){
-        
-        for label in labels {
-            label.removeFromSuperview()
-        }
-        
+    private func setupLabels(){
+        labels.forEach { $0.removeFromSuperview() }
         labels.removeAll(keepingCapacity: true)
         
         let height = self.frame.height
@@ -79,8 +73,12 @@ import UIKit
             label.textAlignment = .center
             label.font = label.font.withSize(height - BORDER_WIDTH * 2 - 8)
             label.textColor = index == selectedIndex ? selectedLabelColor : unselectedLabelColor
-            label.drawBorderWithColor(unselectedLabelColor)
+            label.drawBorder(color: unselectedLabelColor)
             label.translatesAutoresizingMaskIntoConstraints = false
+            
+            label.tag = index + 1
+            label.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapLabel(_:))))
+            
             self.addSubview(label)
             labels.append(label)
         }
@@ -94,7 +92,7 @@ import UIKit
         displayNewSelectedIndex()
     }
     
-    func setupThumb() {
+    private func setupThumb() {
         var selectFrame = self.bounds
         selectFrame.size.width = selectFrame.size.height
         thumbView.frame = selectFrame
@@ -102,40 +100,33 @@ import UIKit
         thumbView.layer.cornerRadius = thumbView.frame.height / 2
     }
     
-    override func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
+    
+    @objc func didTapLabel(_ sender: UITapGestureRecognizer) {
+        guard let tag = sender.view?.tag else { return }
+        let newIndex = tag - 1
+        guard labels.isSafe(index: newIndex) else { return }
+        guard selectedIndex != newIndex else { return }
         
-        let location = touch.location(in: self)
-        
-        var calculatedIndex : Int?
-        for (index, item) in labels.enumerated() {
-            if item.frame.contains(location) {
-                calculatedIndex = index
-            }
-        }
-        
-        
-        if calculatedIndex != nil {
-            selectedIndex = calculatedIndex!
-            sendActions(for: .valueChanged)
-        }
-        
-        return false
+        selectedIndex = newIndex
+        sendActions(for: .valueChanged)
     }
     
-    func displayNewSelectedIndex(){
+    private func displayNewSelectedIndex(){
         labels.forEach{ $0.textColor = unselectedLabelColor }
         
         let label = labels[selectedIndex]
         label.textColor = selectedLabelColor
         
-        UIView.animate(withDuration:0.5, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.8, options: UIView.AnimationOptions(rawValue: 0), animations: {
-            
-            self.thumbView.frame = label.frame
-            
-            }, completion: nil)
+        UIView.animate(withDuration:0.5,
+                       delay: 0.0,
+                       usingSpringWithDamping: 0.5,
+                       initialSpringVelocity: 0.8,
+                       options: UIView.AnimationOptions(rawValue: 0),
+                       animations: { self.thumbView.frame = label.frame },
+                       completion: nil)
     }
     
-    func addIndividualItemConstraints(_ items: [UIView], mainView: UIView, padding: CGFloat) {
+    private func addIndividualItemConstraints(_ items: [UIView], mainView: UIView, padding: CGFloat) {
         
         for (index, button) in items.enumerated() {
             
@@ -154,15 +145,9 @@ import UIKit
         }
     }
     
-    func setSelectedColors(){
-        for item in labels {
-            item.textColor = unselectedLabelColor
-        }
-        
-        if labels.count > 0 {
-            labels[0].textColor = selectedLabelColor
-        }
-        
+    private func setSelectedColors(){
+        labels.forEach { $0.textColor = unselectedLabelColor }
+        labels[safe: 0]?.textColor = selectedLabelColor
         thumbView.backgroundColor = thumbColor
     }
     

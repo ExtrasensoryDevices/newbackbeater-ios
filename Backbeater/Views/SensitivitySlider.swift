@@ -19,24 +19,13 @@ class SensitivitySlider: UIControlNibDesignable{
     
     @IBOutlet weak var thumbLeadingConstraint: NSLayoutConstraint!
     
-    var MIN_VALUE:Int = 0 {
-        didSet {
-            updateThumbPosition(true)
-        }
-    }
-    var MAX_VALUE:Int = 100 {
-        didSet {
-            updateThumbPosition(true)
-        }
-    }
-    
+    private let MIN_VALUE:Int = 0
+    private let MAX_VALUE:Int = 100
     
     var value:Int = 0 {
         didSet {
-            if (value != oldValue) {
-                self.sendActions(for: UIControl.Event.valueChanged)
-                updateThumbPosition(true)
-            }
+            guard value != oldValue else { return }
+            updateThumbPosition(true)
         }
     }
     
@@ -50,7 +39,7 @@ class SensitivitySlider: UIControlNibDesignable{
         setupThumb()
     }
     
-    func setupThumb() {
+    private func setupThumb() {
         thumbView.translatesAutoresizingMaskIntoConstraints = false
         thumbView.backgroundColor = ColorPalette.pink.color()
         thumbView.layer.cornerRadius = thumbView.frame.size.height / 2 // - BORDER_WIDTH * 1.5
@@ -94,7 +83,7 @@ class SensitivitySlider: UIControlNibDesignable{
     
 
     
-    func updateThumbPosition(_ animated: Bool) {
+    private func updateThumbPosition(_ animated: Bool) {
         thumbLabel.text = String(value)
         setThumbOffset(thumbOffsetForValue(self.value), animated: animated)
     }
@@ -111,7 +100,7 @@ class SensitivitySlider: UIControlNibDesignable{
         }
     }
     
-    func pointValid(_ centerPointX:CGFloat) -> Bool {
+    private func pointValid(_ centerPointX:CGFloat) -> Bool {
         let thumbOffset = thumbView.frame.width / 2
         return centerPointX >= trackView.frame.minX+thumbOffset && centerPointX <= trackView.frame.maxX-thumbOffset
     }
@@ -121,30 +110,24 @@ class SensitivitySlider: UIControlNibDesignable{
     // MARK: - Gestures
     
     private func setupGestures() {
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(SensitivitySlider.didTapView(_:)))
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
         self.addGestureRecognizer(tapGestureRecognizer)
         
-        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(SensitivitySlider.didPanThumbView(_:)))
+        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(didPanThumbView(_:)))
         thumbView.addGestureRecognizer(panGestureRecognizer)
     }
     
     @objc func didTapView(_ gestureRecognizer:UITapGestureRecognizer) {
         let tapPoint = gestureRecognizer.location(in: self)
-//        if CGRectContainsPoint(leftImage.frame, tapPoint) {
-//            // left image tapped  - set min value
-//            value = MIN_VALUE
-//        } else if CGRectContainsPoint(rightImage.frame, tapPoint) {
-//            // right image tapped  - set max value
-//            value = MAX_VALUE
-//        } else
-            if let val = valueForTrackPointX(tapPoint.x) {
+        if let val = valueForTrackPointX(tapPoint.x) {
             value = val
+            self.sendActions(for: .valueChanged)
         }
     }
 
     
-    var dragging = true
-    var initialValue:Int = 0
+    private var dragging = false
+    private var initialValue:Int = 0
     
     @objc func didPanThumbView(_ gestureRecognizer:UIPanGestureRecognizer) {
         let point = gestureRecognizer.translation(in: self)
@@ -167,6 +150,7 @@ class SensitivitySlider: UIControlNibDesignable{
             dragging = false
             if let val = valueForThumbCenterPointX(thumbView.center.x) {
                 value = val
+                self.sendActions(for: .valueChanged)
             }
         case .cancelled, .failed :
             dragging = false

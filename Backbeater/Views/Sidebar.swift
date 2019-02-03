@@ -7,15 +7,28 @@
 
 import UIKit
 
-protocol SidebarDelegate {
-    func didTapHelp()
+protocol SidebarDelegate: class {
+    func readyToRender(_ sidebar: Sidebar)
+    
+    func helpRequested()
+    
+    func sensitivityChanged(newValue:Int)
+    func strikesWindowChanged(newIndex:Int)
+    func timeSignatureChanged(newIndex:Int)
+    func metronomeSoundChanged(newIndex:Int)
 }
 
 
 @IBDesignable
 class Sidebar: NibDesignable {
     
-    var delegate: SidebarDelegate?
+    weak var delegate: SidebarDelegate? {
+        didSet {
+            if !initialized {
+                delegate?.readyToRender(self)
+            }
+        }
+    }
 
     @IBOutlet weak var sensitivitySlider: SensitivitySlider!
     @IBOutlet weak var windowSegmentedControl: SegmentedControl!
@@ -33,8 +46,7 @@ class Sidebar: NibDesignable {
     
     @IBOutlet weak var versionLabel: UILabel!
     
-    private let settings = Settings.sharedInstance()
-    
+    private var initialized = false
     
     override func setup() {
         super.setup()
@@ -43,50 +55,50 @@ class Sidebar: NibDesignable {
         
         soundButtonCollection.first?.isSelected = true
         
-        windowSegmentedControl.items = toStringArray(Settings.sharedInstance().strikesWindowValues as NSArray)
-        beatSegmentedControl.items = toStringArray(Settings.sharedInstance().timeSignatureValues as NSArray)
+        versionLabel.text = "Version \(appVersion)"
         
-        displayValuesFromSettings()
-        
-        setupVersionLabel()
+        delegate?.readyToRender(self)
     }
     
-    private func setupVersionLabel() {
-        if let versionNumber = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as? String {
-            if let buldNumber = Bundle.main.infoDictionary!["CFBundleVersion"] as? String {
-                versionLabel.text = String(format:"Version %@ (%@)", versionNumber, buldNumber)
-            }
+    func setupOptions(strikesWindowValues:[Int], timeSignatureValues:[Int]) {
+        
+        objc_sync_enter(self)
+        defer { objc_sync_exit(self) }
+        
+        guard !initialized else {
+            return
         }
+        initialized = true
+        windowSegmentedControl.items = strikesWindowValues.map { "\($0)" }
+        beatSegmentedControl.items = timeSignatureValues.map { "\($0)" }
     }
     
-    
-    private func displayValuesFromSettings()
-    {
-        let settings = Settings.sharedInstance()
-        sensitivitySlider.value = (settings?.sensitivity)!
+    func displayValuesFromLastSession(sensitivityIdx:    Int,
+                                      metronomeSoundIdx: Int,
+                                      strikesWindowIdx:  Int,
+                                      timeSignatureIdx:  Int) {
+        sensitivitySlider.value = sensitivityIdx
         
-        let selectedIndex = settings?.metronomeSoundSelectedIndex
         for (index, button) in soundButtonCollection.enumerated() {
-            button.isSelected = index == selectedIndex
+            button.isSelected = (index == metronomeSoundIdx)
         }
         
-        windowSegmentedControl.selectedIndex = (settings?.strikesWindowSelectedIndex)!
-        beatSegmentedControl.selectedIndex = (settings?.timeSignatureSelectedIndex)!
-        
+        windowSegmentedControl.selectedIndex = strikesWindowIdx
+        beatSegmentedControl.selectedIndex = timeSignatureIdx
     }
     
-    
+
     
     @IBAction func didTapSoundButton(_ sender: UIButton) {
+        guard !sender.isSelected else {
+            // do nothing if already selected
+            return
+        }
+        // selection changed
         for (index, button) in soundButtonCollection.enumerated() {
             if sender == button {
-                if sender.isSelected {
-                    return
-                } else {
-                    // set new sound
-                    settings?.metronomeSoundSelectedIndex = index
-                 }
-                sender.isSelected = !sender.isSelected
+                delegate?.metronomeSoundChanged(newIndex: index)
+                button.isSelected = true
             } else {
                 button.isSelected = false
             }
@@ -101,28 +113,18 @@ class Sidebar: NibDesignable {
     
     
     @IBAction func sensitivityValueChanged(_ sender: SensitivitySlider) {
-        settings?.sensitivity = sender.value
+        delegate?.sensitivityChanged(newValue: sender.value)
     }
     
     @IBAction func windowValueChanged(_ sender: SegmentedControl) {
-        settings?.strikesWindowSelectedIndex = sender.selectedIndex
+        delegate?.strikesWindowChanged(newIndex: sender.selectedIndex)
     }
     
     @IBAction func beatValueChanged(_ sender: SegmentedControl) {
-        settings?.timeSignatureSelectedIndex = sender.selectedIndex
+        delegate?.timeSignatureChanged(newIndex: sender.selectedIndex)
     }
     
     @IBAction func didTapHelp(_ sender: AnyObject) {
-        delegate?.didTapHelp()
-    }
-    
-    
-    // Helper methods
-    func toStringArray(_ intArray: NSArray) -> [String] {
-        var strArray = [String]()
-        for value in intArray {
-            strArray.append("\(value)")
-        }
-        return strArray
+        delegate?.helpRequested()
     }
 }

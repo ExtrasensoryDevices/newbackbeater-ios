@@ -127,7 +127,7 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBAction func didTapClose(_ sender: AnyObject) {
         // log list created
         if oldSongList.isEmpty && !newSongList.isEmpty {
-            Flurry.logEvent(FlurryEvent.TEMPO_LIST_CREATED)
+            Flurry.logEvent(.tempoListCreated)
         }
         let listToReturn:[SongTempo]? = newSongList.isEmpty ? nil : newSongList
         delegate?.songListViewControllerDidReturnSongList(listToReturn, updated: isUpdated())

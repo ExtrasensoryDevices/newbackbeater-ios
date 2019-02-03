@@ -15,20 +15,20 @@ extension UIView {
     
     func drawBorder()
     {
-        drawBorderWithColor(ColorPalette.pink.color())
+        drawBorder(color: ColorPalette.pink.color())
     }
     
-    func drawBorderWithWidth(_ width: CGFloat)
+    func drawBorder(width: CGFloat)
     {
-        drawBorderWithColor(ColorPalette.pink.color(), width: width)
+        drawBorder(color: ColorPalette.pink.color(), width: width)
     }
     
-    func drawBorderWithColor(_ color: UIColor)
+    func drawBorder(color: UIColor)
     {
-        drawBorderWithColor(color, width: BORDER_WIDTH)
+        drawBorder(color: color, width: BORDER_WIDTH)
     }
     
-    func drawBorderWithColor(_ color: UIColor, width: CGFloat)
+    func drawBorder(color: UIColor, width: CGFloat)
     {
         layer.borderColor = color.cgColor
         layer.borderWidth = width
@@ -37,10 +37,10 @@ extension UIView {
     }
     
     
-    func drawBorderForLayer(_ aLayer:CALayer, color: UIColor, width: CGFloat)
+    func drawBorder(for layer:CALayer, color: UIColor, width: CGFloat)
     {
-        aLayer.borderColor = color.cgColor
-        aLayer.borderWidth = width
-        aLayer.cornerRadius = self.bounds.size.height / 2
+        layer.borderColor = color.cgColor
+        layer.borderWidth = width
+        layer.cornerRadius = self.bounds.size.height / 2
     }
 }

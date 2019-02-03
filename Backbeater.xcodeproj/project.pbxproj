@@ -25,7 +25,6 @@
 		C766577521DDE3D500D703C8 /* stick.wav in Resources */ = {isa = PBXBuildFile; fileRef = C766576521DDE3BA00D703C8 /* stick.wav */; };
 		C766577621DDE3D500D703C8 /* surprise.wav in Resources */ = {isa = PBXBuildFile; fileRef = C766576421DDE3BA00D703C8 /* surprise.wav */; };
 		C766578421DDE44700D703C8 /* EnergyFunctionQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = C766577C21DDE44600D703C8 /* EnergyFunctionQueue.m */; };
-		C766578521DDE44700D703C8 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = C766577D21DDE44600D703C8 /* Settings.m */; };
 		C766578621DDE44700D703C8 /* PublicUtilityWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = C766577E21DDE44600D703C8 /* PublicUtilityWrapper.mm */; };
 		C766578721DDE44700D703C8 /* SoundProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = C766578021DDE44600D703C8 /* SoundProcessor.m */; };
 		C766578821DDE44700D703C8 /* WindowQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = C766578121DDE44600D703C8 /* WindowQueue.m */; };
@@ -50,6 +49,13 @@
 		C766590B21DDEB7000D703C8 /* ATDCRejectionFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C766586221DDE5FF00D703C8 /* ATDCRejectionFilter.m */; };
 		C766590C21DDEB7000D703C8 /* ATSoundSessionIO.m in Sources */ = {isa = PBXBuildFile; fileRef = C766585F21DDE5FF00D703C8 /* ATSoundSessionIO.m */; };
 		C766590E21E46A7700D703C8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C766590D21E46A7700D703C8 /* Foundation.framework */; };
+		C766591621E5D24D00D703C8 /* SongList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C766591521E5D24C00D703C8 /* SongList.swift */; };
+		C766591821E5D2C100D703C8 /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = C766591721E5D2C100D703C8 /* Analytics.swift */; };
+		C766591A21E5D2FE00D703C8 /* Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = C766591921E5D2FE00D703C8 /* Appearance.swift */; };
+		C766591C21E5D34400D703C8 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = C766591B21E5D34400D703C8 /* Fonts.swift */; };
+		C766592021E5D57700D703C8 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C766591F21E5D57700D703C8 /* Coordinator.swift */; };
+		C766592221EB12EF00D703C8 /* CollectionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C766592121EB12EF00D703C8 /* CollectionExtension.swift */; };
+		C76659242200313A00D703C8 /* UserDefaultsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76659232200313A00D703C8 /* UserDefaultsExtension.swift */; };
 		C7E929A021DC959300E950AA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E9299F21DC959300E950AA /* AppDelegate.swift */; };
 		C7E929A521DC959300E950AA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7E929A321DC959300E950AA /* Main.storyboard */; };
 		C7E929A721DC959600E950AA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7E929A621DC959600E950AA /* Assets.xcassets */; };
@@ -84,12 +90,10 @@
 		C766577A21DDE44500D703C8 /* EnergyFunctionQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnergyFunctionQueue.h; sourceTree = "<group>"; };
 		C766577B21DDE44600D703C8 /* SoundProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundProcessor.h; sourceTree = "<group>"; };
 		C766577C21DDE44600D703C8 /* EnergyFunctionQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnergyFunctionQueue.m; sourceTree = "<group>"; };
-		C766577D21DDE44600D703C8 /* Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Settings.m; sourceTree = "<group>"; };
 		C766577E21DDE44600D703C8 /* PublicUtilityWrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PublicUtilityWrapper.mm; sourceTree = "<group>"; };
 		C766577F21DDE44600D703C8 /* PublicUtilityWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublicUtilityWrapper.h; sourceTree = "<group>"; };
 		C766578021DDE44600D703C8 /* SoundProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundProcessor.m; sourceTree = "<group>"; };
 		C766578121DDE44600D703C8 /* WindowQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WindowQueue.m; sourceTree = "<group>"; };
-		C766578221DDE44700D703C8 /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
 		C766578321DDE44700D703C8 /* WindowQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WindowQueue.h; sourceTree = "<group>"; };
 		C766578A21DDE4CA00D703C8 /* Sidebar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Sidebar.xib; sourceTree = "<group>"; };
 		C766578B21DDE4CA00D703C8 /* SongListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongListCell.swift; sourceTree = "<group>"; };
@@ -118,6 +122,13 @@
 		C76658A821DDE62500D703C8 /* CADebugPrintf.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CADebugPrintf.cpp; sourceTree = "<group>"; };
 		C76658D521DDE62800D703C8 /* CADebugPrintf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADebugPrintf.h; sourceTree = "<group>"; };
 		C766590D21E46A7700D703C8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		C766591521E5D24C00D703C8 /* SongList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongList.swift; sourceTree = "<group>"; };
+		C766591721E5D2C100D703C8 /* Analytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Analytics.swift; sourceTree = "<group>"; };
+		C766591921E5D2FE00D703C8 /* Appearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appearance.swift; sourceTree = "<group>"; };
+		C766591B21E5D34400D703C8 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
+		C766591F21E5D57700D703C8 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		C766592121EB12EF00D703C8 /* CollectionExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionExtension.swift; sourceTree = "<group>"; };
+		C76659232200313A00D703C8 /* UserDefaultsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsExtension.swift; sourceTree = "<group>"; };
 		C7E9299C21DC959300E950AA /* Backbeater.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Backbeater.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7E9299F21DC959300E950AA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7E929A421DC959300E950AA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -172,6 +183,8 @@
 				C766574421DDE18C00D703C8 /* ScreenUtil.swift */,
 				C766574521DDE18C00D703C8 /* UILabelExtension.swift */,
 				C766574921DDE18C00D703C8 /* UIViewExtension.swift */,
+				C766592121EB12EF00D703C8 /* CollectionExtension.swift */,
+				C76659232200313A00D703C8 /* UserDefaultsExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -179,6 +192,10 @@
 		C766575721DDE34100D703C8 /* Res */ = {
 			isa = PBXGroup;
 			children = (
+				C7E929A321DC959300E950AA /* Main.storyboard */,
+				C7E929B321DC9EBE00E950AA /* LaunchScreen.xib */,
+				C7E929AB21DC959600E950AA /* Info.plist */,
+				C7E929A621DC959600E950AA /* Assets.xcassets */,
 				C766577821DDE3FB00D703C8 /* Fonts */,
 				C766577721DDE3E900D703C8 /* Sounds */,
 				C766575421DDE31C00D703C8 /* bblogoanimation5.gif */,
@@ -214,8 +231,6 @@
 				C766577C21DDE44600D703C8 /* EnergyFunctionQueue.m */,
 				C766577F21DDE44600D703C8 /* PublicUtilityWrapper.h */,
 				C766577E21DDE44600D703C8 /* PublicUtilityWrapper.mm */,
-				C766578221DDE44700D703C8 /* Settings.h */,
-				C766577D21DDE44600D703C8 /* Settings.m */,
 				C766577B21DDE44600D703C8 /* SoundProcessor.h */,
 				C766578021DDE44600D703C8 /* SoundProcessor.m */,
 				C766578321DDE44700D703C8 /* WindowQueue.h */,
@@ -249,6 +264,7 @@
 				C76657A021DDE4F000D703C8 /* MainViewController.swift */,
 				C76657A221DDE4F100D703C8 /* SongListViewController.swift */,
 				C766579F21DDE4F000D703C8 /* WebViewController.swift */,
+				C766591F21E5D57700D703C8 /* Coordinator.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -287,6 +303,18 @@
 			path = SoundWaveVisualiser;
 			sourceTree = "<group>";
 		};
+		C766591421E5D24C00D703C8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C766572B21DDDD9700D703C8 /* Constants.swift */,
+				C766591521E5D24C00D703C8 /* SongList.swift */,
+				C766591721E5D2C100D703C8 /* Analytics.swift */,
+				C766591921E5D2FE00D703C8 /* Appearance.swift */,
+				C766591B21E5D34400D703C8 /* Fonts.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		C7E9299321DC959300E950AA = {
 			isa = PBXGroup;
 			children = (
@@ -309,11 +337,7 @@
 			isa = PBXGroup;
 			children = (
 				C7E9299F21DC959300E950AA /* AppDelegate.swift */,
-				C766572B21DDDD9700D703C8 /* Constants.swift */,
-				C7E929A321DC959300E950AA /* Main.storyboard */,
-				C7E929A621DC959600E950AA /* Assets.xcassets */,
-				C7E929B321DC9EBE00E950AA /* LaunchScreen.xib */,
-				C7E929AB21DC959600E950AA /* Info.plist */,
+				C766591421E5D24C00D703C8 /* Model */,
 				C76657AE21DDE52A00D703C8 /* ThirdPartyLibs */,
 				C76657A921DDE4FB00D703C8 /* ViewControllers */,
 				C766579E21DDE4D400D703C8 /* Views */,
@@ -490,7 +514,7 @@
 				C766590B21DDEB7000D703C8 /* ATDCRejectionFilter.m in Sources */,
 				C766590C21DDEB7000D703C8 /* ATSoundSessionIO.m in Sources */,
 				C766578821DDE44700D703C8 /* WindowQueue.m in Sources */,
-				C766578521DDE44700D703C8 /* Settings.m in Sources */,
+				C766592221EB12EF00D703C8 /* CollectionExtension.swift in Sources */,
 				C766578721DDE44700D703C8 /* SoundProcessor.m in Sources */,
 				C766578421DDE44700D703C8 /* EnergyFunctionQueue.m in Sources */,
 				C7E929A021DC959300E950AA /* AppDelegate.swift in Sources */,
@@ -503,16 +527,22 @@
 				C76657A421DDE4F100D703C8 /* WebViewController.swift in Sources */,
 				C766575121DDE18D00D703C8 /* StringExtension.swift in Sources */,
 				C766579621DDE4CB00D703C8 /* NumericStepper.swift in Sources */,
+				C766591821E5D2C100D703C8 /* Analytics.swift in Sources */,
 				C766579A21DDE4CB00D703C8 /* SegmentedControl.swift in Sources */,
 				C766574B21DDE18D00D703C8 /* ScreenUtil.swift in Sources */,
 				C766579721DDE4CB00D703C8 /* SensitivitySlider.swift in Sources */,
 				C766574C21DDE18D00D703C8 /* UILabelExtension.swift in Sources */,
 				C766574D21DDE18D00D703C8 /* UIColorExtensions.swift in Sources */,
+				C766591C21E5D34400D703C8 /* Fonts.swift in Sources */,
 				C766579D21DDE4CB00D703C8 /* CentralRing.swift in Sources */,
+				C766591A21E5D2FE00D703C8 /* Appearance.swift in Sources */,
+				C766592021E5D57700D703C8 /* Coordinator.swift in Sources */,
 				C76657A621DDE4F100D703C8 /* CalibrationViewController.swift in Sources */,
 				C76657A721DDE4F100D703C8 /* SongListViewController.swift in Sources */,
+				C76659242200313A00D703C8 /* UserDefaultsExtension.swift in Sources */,
 				C766574F21DDE18D00D703C8 /* IntExtension.swift in Sources */,
 				C766575021DDE18D00D703C8 /* UIViewExtension.swift in Sources */,
+				C766591621E5D24D00D703C8 /* SongList.swift in Sources */,
 				C766579921DDE4CB00D703C8 /* Sidebar.swift in Sources */,
 				C766572C21DDDD9700D703C8 /* Constants.swift in Sources */,
 			);

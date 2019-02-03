@@ -30,34 +30,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // replace root VC
         let mainVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainViewController")
         self.delay(2.0, callback: { [unowned self] () -> () in
-            UIView.transition(with: self.window!, duration: 0.5, options: UIView.AnimationOptions.transitionFlipFromLeft, animations: { () -> Void in
+            UIView.transition(with: self.window!, duration: 0.5, options: .transitionFlipFromLeft, animations: { () -> Void in
                 self.window?.rootViewController = mainVC
             }, completion: nil)
         })
         
         setupAppearance()
         
-        var appVersion = ""
-        if let versionNumber = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as? String {
-            appVersion = versionNumber
-            if let buldNumber = Bundle.main.infoDictionary!["CFBundleVersion"] as? String {
-                appVersion += "\(buldNumber)"
-            }
-        }
-
         let builder = FlurrySessionBuilder.init()
             .withAppVersion(appVersion)
             .withLogLevel(FlurryLogLevelAll)
             .withCrashReporting(true)
             .withSessionContinueSeconds(Int(INACTIVE_TIMEOUT))
         
-        // Replace YOUR_API_KEY with the api key in the downloaded package
         Flurry.startSession(FLURRY_API_KEY, with: builder)
         
         application.isIdleTimerDisabled = true
-        
-        
-        
+
         return true
     }
     
@@ -79,7 +68,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         textField.textColor = .white
         
         let barButton = UIBarButtonItem.appearance()
-        barButton.setTitleTextAttributes([NSAttributedString.Key.font: Font.FuturaDemi.get(16)], for: UIControl.State())
+        barButton.setTitleTextAttributes([.font: Font.FuturaDemi.get(16)], for: UIControl.State())
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
@@ -91,7 +80,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
         // log event
-        Flurry.logEvent(FlurryEvent.APP_CLOSED, withParameters: ["sessionLength": -lastOpenTime!.timeIntervalSinceNow])
+        Flurry.logEvent(.appClosed, params: ["sessionLength": -lastOpenTime!.timeIntervalSinceNow])
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -100,7 +89,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-        Flurry.logEvent(FlurryEvent.APP_OPENED)
+        Flurry.logEvent(.appOpened)
         lastOpenTime = Date()
     }
 

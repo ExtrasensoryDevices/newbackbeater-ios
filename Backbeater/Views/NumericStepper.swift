@@ -17,8 +17,8 @@ class NumericStepper: UIControlNibDesignable {
     @IBOutlet weak var bottomConstraint:NSLayoutConstraint!
     
     
-    var V_CONSTRAINT_CONSTANT:CGFloat = 0
-    let ANIMATION_DURATION = 0.3
+    private var vConstraintConstant:CGFloat = 0
+    private let animationDuration = 0.3
     
     var font:UIFont! {
         didSet {
@@ -35,11 +35,8 @@ class NumericStepper: UIControlNibDesignable {
             return _value
         }
         set (newValue) {
-            if _value != newValue.normalized(min: Constants.MIN_TEMPO, max: Constants.MAX_TEMPO) {
-                _value = newValue
-                label.text = "\(_value)"
-                sendActions(for: UIControl.Event.valueChanged)
-            }
+            _value = newValue.normalized(min: Constants.MIN_TEMPO, max: Constants.MAX_TEMPO)
+            label.text = "\(_value)"
         }
     }
     
@@ -57,11 +54,11 @@ class NumericStepper: UIControlNibDesignable {
     }
     
     
-    enum Direction {
+    private enum Direction {
         case up, down
     }
     
-    enum State: CustomStringConvertible {
+    private enum State: CustomStringConvertible {
         case expandedUp, expandedDown, collapsed
         
         var description: String {
@@ -73,9 +70,9 @@ class NumericStepper: UIControlNibDesignable {
         }
     }
     
-    var currentState = State.collapsed
-    var gestureStarted = false
-    var gestureMoved = false
+    private var currentState = State.collapsed
+    private var gestureStarted = false
+    private var gestureMoved = false
     
     
     override func awakeFromNib() {
@@ -84,9 +81,9 @@ class NumericStepper: UIControlNibDesignable {
         self.backgroundColor = UIColor.clear
         self.frameView.backgroundColor = bgrColor
         
-        V_CONSTRAINT_CONSTANT = (self.bounds.size.height - self.bounds.size.width)/2
-        topConstraint.constant = V_CONSTRAINT_CONSTANT
-        bottomConstraint.constant = V_CONSTRAINT_CONSTANT
+        vConstraintConstant = (self.bounds.size.height - self.bounds.size.width)/2
+        topConstraint.constant = vConstraintConstant
+        bottomConstraint.constant = vConstraintConstant
         layoutIfNeeded()
         
         updateOnOffState()
@@ -104,24 +101,21 @@ class NumericStepper: UIControlNibDesignable {
     
     
     private func setColorForBorder(_ borderColor:UIColor, labelColor:UIColor) {
-        self.frameView?.drawBorderWithColor(borderColor)
+        self.frameView?.drawBorder(color: borderColor)
         self.label.textColor = labelColor
     }
-    
-    
-    
-    
-    
-    var prevPoint:CGPoint!
-    var prevPointTimeStamp:Date!
-    func expand(_ direction:Direction) {
+ 
+
+    private var prevPoint:CGPoint!
+    private var prevPointTimeStamp:Date!
+    private func expand(_ direction:Direction) {
         let constraint = direction == .up ? topConstraint : bottomConstraint
-        let offset: CGFloat = direction == .up ? V_CONSTRAINT_CONSTANT : -V_CONSTRAINT_CONSTANT
+        let offset: CGFloat = direction == .up ? vConstraintConstant : -vConstraintConstant
         
         constraint?.constant = 0
         self.labelVCenterConstraint.constant = offset/2
         
-        UIView.animate(withDuration: ANIMATION_DURATION, delay: 0, options: UIView.AnimationOptions.curveEaseOut, animations: { () -> Void in
+        UIView.animate(withDuration: animationDuration, delay: 0, options: UIView.AnimationOptions.curveEaseOut, animations: { () -> Void in
             self.layoutIfNeeded()
         }) { (completed:Bool) -> Void in
             self.currentState = direction == .up ? .expandedUp : .expandedDown
@@ -129,30 +123,30 @@ class NumericStepper: UIControlNibDesignable {
     }
     
     
-    func collapse() {
-        topConstraint.constant = V_CONSTRAINT_CONSTANT
-        bottomConstraint.constant = V_CONSTRAINT_CONSTANT
+    private func collapse() {
+        topConstraint.constant = vConstraintConstant
+        bottomConstraint.constant = vConstraintConstant
         labelVCenterConstraint.constant = 0
         
-        UIView.animate(withDuration: ANIMATION_DURATION, delay: 0, options: UIView.AnimationOptions.curveEaseOut, animations: { () -> Void in
+        UIView.animate(withDuration: animationDuration, delay: 0, options: UIView.AnimationOptions.curveEaseOut, animations: { () -> Void in
             self.layoutIfNeeded()
         }) { (completed:Bool) -> Void in
             self.currentState = .collapsed
         }
     }
     
-    func switchState(_ direction:Direction) {
+    private func switchState(_ direction:Direction) {
         let constraint1 = direction == .up ? topConstraint : bottomConstraint
         let constraint2 = direction == .up ? bottomConstraint : topConstraint
         
-        let offset: CGFloat = direction == .up ? V_CONSTRAINT_CONSTANT : -V_CONSTRAINT_CONSTANT
+        let offset: CGFloat = direction == .up ? vConstraintConstant : -vConstraintConstant
         
         constraint1?.constant = 0
-        constraint2?.constant = V_CONSTRAINT_CONSTANT
+        constraint2?.constant = vConstraintConstant
         
         self.labelVCenterConstraint.constant = offset/2
         
-        UIView.animate(withDuration: ANIMATION_DURATION, delay: 0, options: UIView.AnimationOptions.curveEaseOut, animations: { () -> Void in
+        UIView.animate(withDuration: animationDuration, delay: 0, options: UIView.AnimationOptions.curveEaseOut, animations: { () -> Void in
             self.layoutIfNeeded()
             self.superview?.layoutIfNeeded()
         }) { (completed:Bool) -> Void in
@@ -162,7 +156,7 @@ class NumericStepper: UIControlNibDesignable {
     }
     
     
-    func incrementValue(_ increment:Int) {
+    private func incrementValue(_ increment:Int) {
         let newValue = _value + increment
         value = newValue.normalized(min: Constants.MIN_TEMPO, max: Constants.MAX_TEMPO)
     }
@@ -172,15 +166,15 @@ class NumericStepper: UIControlNibDesignable {
     @IBOutlet var panGestureRecognizer: UIPanGestureRecognizer!
     @IBAction func didTapView(_ sender: AnyObject) {
         isOn = !isOn
-        self.sendActions(for: UIControl.Event.touchUpInside)
+        self.sendActions(for: .touchUpInside)
     }
     
     
-    @IBAction func didPanView(_ gesture: UIPanGestureRecognizer) {
-        let point = gesture.location(in: self)
-        let velocity = gesture.velocity(in: self)
+    @IBAction func didPanView(_ gestureRecognizer: UIPanGestureRecognizer) {
+        let point = gestureRecognizer.location(in: self)
+        let velocity = gestureRecognizer.velocity(in: self)
         
-        switch gesture.state {
+        switch gestureRecognizer.state {
         case .began:
             gestureStarted = true
             prevPoint = point
@@ -217,7 +211,8 @@ class NumericStepper: UIControlNibDesignable {
             gestureStarted = false
             prevPoint = nil
             collapse()
-            updateOnOffState() 
+            updateOnOffState()
+            sendActions(for: .valueChanged)
         default:
             break;
         }
@@ -225,8 +220,8 @@ class NumericStepper: UIControlNibDesignable {
     }
     
     
-    var skipStep = false
-    func getIncrement(_ velocityY:CGFloat) -> Int {
+    private var skipStep = false
+    private func getIncrement(_ velocityY:CGFloat) -> Int {
         var increment = 0
         switch abs(velocityY) {
         case 0..<20     : increment = 0

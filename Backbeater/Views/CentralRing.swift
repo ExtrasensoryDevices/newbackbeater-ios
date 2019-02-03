@@ -7,6 +7,8 @@
 
 import UIKit
 import AVFoundation
+
+// FIXME: WOW ???
 private func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   switch (lhs, rhs) {
   case let (l?, r?):
@@ -175,7 +177,7 @@ class CentralRing: NibDesignable {
         borderSublayer = CAShapeLayer()
         borderSublayer.frame = ringView.bounds
         ringView.layer.addSublayer(borderSublayer)
-        ringView.drawBorderForLayer(borderSublayer, color: ColorPalette.pink.color(), width: BORDER_WIDTH)
+        ringView.drawBorder(for: borderSublayer, color: ColorPalette.pink.color(), width: BORDER_WIDTH)
     }
         
     private func resetCptSublayer() {
@@ -229,7 +231,7 @@ class CentralRing: NibDesignable {
         strikeSublayer.frame = ringView.bounds
         strikeSublayer.opacity = 0.0
         ringView.layer.addSublayer(strikeSublayer)
-        ringView.drawBorderForLayer(strikeSublayer, color: UIColor.white, width: BORDER_WIDTH)
+        ringView.drawBorder(for: strikeSublayer, color: UIColor.white, width: BORDER_WIDTH)
         
     }
     
