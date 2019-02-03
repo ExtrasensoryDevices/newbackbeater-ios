@@ -215,12 +215,13 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
     var lastStrikeTime:UInt64 = 0;
     func processBPM(_ bpm: Float64){
         let multiplier = Settings.sharedInstance().metronomeIsOn ? 1 : Float64(Settings.sharedInstance().timeSignature)
+        let timeSignature = Settings.sharedInstance().timeSignature
         
         let tempo:Float64 = bpm * multiplier
         
         currentTempo = strikesWindowQueue.enqueue(tempo).average
         
-        centralRing.displayCPT(currentTempo, instantTempo: Int(tempo))
+        centralRing.displayCPT(currentTempo, timeSignature: timeSignature, instantTempo: Int(tempo))
         
         
         if !Settings.sharedInstance().metronomeIsOn {
@@ -234,7 +235,7 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
                 if timeElapsedInSec > Constants.IDLE_TIMEOUT {
                     if !Settings.sharedInstance().metronomeIsOn {
                         self.strikesWindowQueue.clear()
-                        self.centralRing.clear()
+                        self.centralRing.reset()
                     }
                 }
             })

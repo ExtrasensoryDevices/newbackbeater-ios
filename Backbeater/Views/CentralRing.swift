@@ -8,27 +8,6 @@
 import UIKit
 import AVFoundation
 
-// FIXME: WOW ???
-private func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
-}
-
-private func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l > r
-  default:
-    return rhs < lhs
-  }
-}
-
 
 protocol CentralRingDelegate: class {
     func centralRingFoundTapBPM(_ bpm:Float64)
@@ -38,9 +17,6 @@ protocol CentralRingDelegate: class {
 class CentralRing: NibDesignable {
     
     weak var delegate: CentralRingDelegate?
-    
-//    var listenToTaps = false
-
 
     @IBOutlet weak var drumImage: UIImageView!
     @IBOutlet weak var ringView: UIView!
@@ -64,14 +40,7 @@ class CentralRing: NibDesignable {
     private var drumAnimationImagesLeft:[UIImage] = []
     private var drumAnimationImagesRight:[UIImage] = []
     
-    private let settings = Settings.sharedInstance()
-    
-    private var metronomeIsOn:Bool {
-        return settings!.metronomeIsOn && settings!.metronomeTempo >= Constants.MIN_TEMPO && settings!.metronomeTempo <= Constants.MAX_TEMPO
-    }
-    
     private var metronomeTimer: DispatchSourceTimer?
-    
     
     private let CPT_ANIMATION_KEY = "cptAnimation"
     private let BPM_ANIMATION_KEY = "bpmAnimation"
@@ -86,23 +55,8 @@ class CentralRing: NibDesignable {
         super.setup()
         self.backgroundColor = UIColor.clear
         self.ringView.backgroundColor = UIColor.clear
-        ringView.addObserver(self, forKeyPath: "bounds", options: NSKeyValueObservingOptions(rawValue: 0), context: nil)
+//        ringView.addObserver(self, forKeyPath: "bounds", options: NSKeyValueObservingOptions(rawValue: 0), context: nil)
         
-        
-        cptLabel.text = "\(settings?.lastPlayedTempo ?? Constants.DEFAULT_TEMPO)"
-        
-        resetSublayers()
-        initAnimations()
-        updateAudioPlayer()
-        
-       
-        settings?.addObserver(self, forKeyPath: METRONOME_TEMPO_KEY_PATH, options: NSKeyValueObservingOptions(rawValue: 0), context: nil)
-        settings?.addObserver(self, forKeyPath: METRONOME_ON_KEY_PATH, options: NSKeyValueObservingOptions(rawValue: 0), context: nil)
-        settings?.addObserver(self, forKeyPath: METRONOME_SOUND_INDEX_KEY_PATH, options: NSKeyValueObservingOptions(rawValue: 0), context: nil)
-        
-    }
-    
-    override func didMoveToWindow() {
         let fontSize:CGFloat
         switch ScreenUtil.screenSizeClass {
             case .xsmall: fontSize = 140
@@ -112,40 +66,90 @@ class CentralRing: NibDesignable {
             case .xlarge: fontSize = 300
         }
         cptLabel.font = Font.SteelfishRg.get(fontSize)
+        
+        resetSublayers()
+        initAnimations()
     }
     
-    deinit {
-        ringView.removeObserver(self, forKeyPath: "bounds")
-        settings?.removeObserver(self, forKeyPath: METRONOME_TEMPO_KEY_PATH)
-        settings?.removeObserver(self, forKeyPath: METRONOME_ON_KEY_PATH)
-        settings?.removeObserver(self, forKeyPath: METRONOME_SOUND_INDEX_KEY_PATH)
+    
+    func setLastPlayedTempo(tempo:Int) {
+        cptLabel.text = "\(tempo)"
     }
     
-    private func observeValue(forKeyPath keyPath: String, of object: Any, change: [AnyHashable: Any], context: UnsafeMutableRawPointer) {
-        if (object as? UIView) === ringView && keyPath == "bounds" {
-            resetSublayers()
-            handleMetronomeState()
-        } else if settings != nil {
-            if keyPath == METRONOME_TEMPO_KEY_PATH {
-                if metronomeIsOn {
-                    handleMetronomeState()
-                }
-            } else if keyPath == METRONOME_ON_KEY_PATH {
-                handleMetronomeState()
-            } else if keyPath == METRONOME_SOUND_INDEX_KEY_PATH {
-                updateAudioPlayer()
-            }
-        }
-    }
-    
-    private func updateAudioPlayer() {
+    func setSound(url:URL) {
         do {
-            player = try AVAudioPlayer(contentsOf: settings!.urlForSound)
+            player = try AVAudioPlayer(contentsOf: url)
             player.prepareToPlay()
         } catch  {
             print(error)
         }
     }
+
+    func display(cpt:Int, timeSignature: Int, metronomeState:MetronomeState) {
+        // display numbers
+        if cpt > Constants.MAX_TEMPO || cpt < Constants.MIN_TEMPO {
+            // We do not need BPM outside this range.
+            cptLabel.text = cpt > Constants.MAX_TEMPO ? "MAX" : "MIN"
+            runPulseAnimation()
+        } else {
+            cptLabel.text = "\(cpt)"
+            let cptAnimationDuration = 60.0/(Double(cpt)/Double(timeSignature)) // =60sec/actual_hits_per_min
+            let resetCptAnimation = metronomeState == .off
+            runAnimation(resetCptAnimation: resetCptAnimation, cptAnimationDuration: cptAnimationDuration)
+        }
+    }
+    
+    func handleMetronomeState(_ metronomeState:MetronomeState, metronomeTempo:Int, tempoChanged:Bool) {
+        
+        metronomeTimer?.cancel()
+        metronomeTimer = nil
+        
+        switch metronomeState {
+        case .on:
+            let duration = 60.0/Double(metronomeTempo)
+            // restart animation if needed
+            let cptAnimationIsRunning = (cptSublayer.animationKeys()?.count ?? 0) > 0
+            let animationShouldRestart = !cptAnimationIsRunning || (cptAnimationIsRunning && tempoChanged)
+            if animationShouldRestart {
+                cptSublayer.removeAllAnimations()
+                cptAnimation.duration = duration
+                cptSublayer.add(cptAnimation, forKey:CPT_ANIMATION_KEY)
+            }
+            // add sound timer
+            let timer = DispatchSource.makeTimerSource(flags: DispatchSource.TimerFlags(rawValue: UInt(0)), queue: DispatchQueue.main)
+            let interval = duration * Double(NSEC_PER_SEC)
+            timer.schedule(wallDeadline: DispatchWallTime.now(), repeating:interval, leeway: .nanoseconds(5))
+            
+            timer.setEventHandler{ [weak self] in
+                self?.playSound()
+            }
+            timer.resume()
+            metronomeTimer = timer
+            
+        case .off:
+            cptSublayer.removeAllAnimations()
+        }
+    }
+    
+    func reset() {
+        oldTapTime = 0
+        newTapTime = 0
+        tapCount = 0
+        cptSublayer.removeAllAnimations()
+    }
+    
+    
+
+//    deinit {
+//        ringView.removeObserver(self, forKeyPath: "bounds")
+//    }
+//
+//    private func observeValue(forKeyPath keyPath: String, of object: Any, change: [AnyHashable: Any], context: UnsafeMutableRawPointer) {
+//        if (object as? UIView) === ringView && keyPath == "bounds" {
+//            resetSublayers()
+//            handleMetronomeState() // FIX: DO SOMETHING ABOUT IT
+//        }
+//    }
     
     private func playSound() {
         if player != nil  {
@@ -157,84 +161,65 @@ class CentralRing: NibDesignable {
         }
     }
 
-    /// Reset all sublayers when frame changes
+
+    //MARK: - Tap recognizer
     
-    private func resetSublayers() {
-        resetBorderSublayer()
-        resetCptSublayer()
-        resetBpmSublayer()
-        resetStrikeSublayer()
-        ringView.layer.masksToBounds = false
-        ringView.clipsToBounds = false
-    }
+    private var newTapTime:UInt64 = 0;
+    private var oldTapTime:UInt64 = 0;
+    private var tapCount:UInt64 = 0;
     
-    
-    private func resetBorderSublayer() {
+    private func touchesBegan(_ touches: Set<NSObject>, with event: UIEvent) {
+        newTapTime = PublicUtilityWrapper.caHostTimeBase_GetCurrentTime()
         
-        borderSublayer?.removeFromSuperlayer()
+        let timeElapsedNs:UInt64 = PublicUtilityWrapper.caHostTimeBase_AbsoluteHostDelta(toNanos: newTapTime, oldTapTime: oldTapTime)
         
-        // border 
-        borderSublayer = CAShapeLayer()
-        borderSublayer.frame = ringView.bounds
-        ringView.layer.addSublayer(borderSublayer)
-        ringView.drawBorder(for: borderSublayer, color: ColorPalette.pink.color(), width: BORDER_WIDTH)
-    }
+        let delayFator:Float64 = 0.1
+        let timeElapsedInSec:Float64 = Float64(timeElapsedNs) * 10.0e-9 * delayFator;
         
-    private func resetCptSublayer() {
-        cptSublayer?.removeAllAnimations()
-        cptSublayer?.removeFromSuperlayer()
+        let isNewTapSeq = (timeElapsedInSec > Constants.IDLE_TIMEOUT) ? true : false
         
-        cptSublayer = CAShapeLayer()
-        cptSublayer.frame = ringView.bounds
-        cptSublayer.strokeColor = ColorPalette.pink.color().cgColor
-        cptSublayer.fillColor = ColorPalette.pink.color().cgColor
-        cptSublayer.lineWidth = BORDER_WIDTH
+        if isNewTapSeq {
+            tapCount = 0;
+            runPulseAnimation()
+        } else {
+            let figertapBPM = 60.0 / timeElapsedInSec
+            self.foundFigertapBPM(figertapBPM)
+        }
         
-        
-        let diameter:CGFloat = 15
-        let smallCircleFrame = CGRect(x: ringView.bounds.midX-diameter/2, y: -diameter/2+1, width: diameter, height: diameter)
-        let path = UIBezierPath(ovalIn: smallCircleFrame)
-        cptSublayer.path = path.cgPath
-        cptSublayer.masksToBounds = false
-        
-        ringView.layer.insertSublayer(cptSublayer, above: borderSublayer)
+        oldTapTime = newTapTime;
+        tapCount += 1;
         
     }
     
-    private func resetBpmSublayer() {
+    private func foundFigertapBPM(_ figertapBPM: Float64) {
+        // apply time signature
+        delegate?.centralRingFoundTapBPM(figertapBPM);
+    }
+    
+    // MARK: - Animation
+    
+    private let correctHitAngleRad:Float = 0.131
+    private func runAnimation(resetCptAnimation: Bool, cptAnimationDuration:Double) {
+        
         bpmSublayer?.removeAllAnimations()
-        bpmSublayer?.removeFromSuperlayer()
+        // CPT
+        if resetCptAnimation {
+            cptSublayer.removeAllAnimations()
+            cptAnimation.duration = cptAnimationDuration
+            cptSublayer.add(cptAnimation, forKey:CPT_ANIMATION_KEY)
+        }
+        // BPM
         
-        bpmSublayer = CAShapeLayer()
-        bpmSublayer.frame = ringView.bounds
-        bpmSublayer.strokeColor = UIColor.white.cgColor
-        bpmSublayer.fillColor = UIColor.white.cgColor
-        bpmSublayer.lineWidth = BORDER_WIDTH
-        bpmSublayer.opacity = 0.0
-        
-        
-        let diameter:CGFloat = 15
-        let smallCircleFrame = CGRect(x: ringView.bounds.midX-diameter/2, y: -diameter/2+1, width: diameter, height: diameter)
-        let path = UIBezierPath(ovalIn: smallCircleFrame)
-        bpmSublayer.path = path.cgPath
-        bpmSublayer.masksToBounds = false
-        
-        ringView.layer.insertSublayer(bpmSublayer, above: cptSublayer)
-        
+        let currentRotationAngle = getCurrentRotationRad()
+        if currentRotationAngle > -correctHitAngleRad && currentRotationAngle < correctHitAngleRad {
+            animateStrike()
+        } else {
+            runPulseAnimation()
+        }
+        bpmSublayer.transform = CATransform3DMakeRotation(CGFloat(currentRotationAngle), 0, 0, 1.0)
+        bpmSublayer.removeAllAnimations()
+        bpmSublayer.add(bpmAnimation, forKey: BPM_ANIMATION_KEY)
     }
-    private func resetStrikeSublayer() {
-        
-        strikeSublayer?.removeFromSuperlayer()
-        
-        // border
-        strikeSublayer = CAShapeLayer()
-        strikeSublayer.frame = ringView.bounds
-        strikeSublayer.opacity = 0.0
-        ringView.layer.addSublayer(strikeSublayer)
-        ringView.drawBorder(for: strikeSublayer, color: UIColor.white, width: BORDER_WIDTH)
-        
-    }
-    
     
     private func initAnimations() {
         // CPT/metronome rotation
@@ -304,88 +289,12 @@ class CentralRing: NibDesignable {
     }
     
     
-    private var useDrumAnimationLeft = true
-    private func switchDrumAnimation() {
-        useDrumAnimationLeft = !useDrumAnimationLeft
-        drumImage.animationImages = useDrumAnimationLeft ? drumAnimationImagesLeft : drumAnimationImagesRight
-        drumImage.image = drumImage.animationImages!.last
-    }
-    
-    
-    
-    private let correctHitAngleRad:Float = 0.131
-    private func runAnimationWithCPT(_ cpt:Int, instantTempo:Int) {
-        
-        bpmSublayer?.removeAllAnimations()
-        // CPT
-        if !metronomeIsOn {
-            cptSublayer.removeAllAnimations()
-            cptAnimation.duration = 60.0/(Double(cpt)/Double((settings?.timeSignature)!)) // =60sec/actual_hits_per_min
-            cptSublayer.add(cptAnimation, forKey:CPT_ANIMATION_KEY)
-        }
-        // BPM
-        
-        let currentRotationAngle = getCurrentRotationRad()
-        if currentRotationAngle > -correctHitAngleRad && currentRotationAngle < correctHitAngleRad {
-            animateStrike()
-        } else {
-            runPulseAnimationOnly()
-        }
-        bpmSublayer.transform = CATransform3DMakeRotation(CGFloat(currentRotationAngle), 0, 0, 1.0)
-        bpmSublayer.removeAllAnimations()
-        bpmSublayer.add(bpmAnimation, forKey: BPM_ANIMATION_KEY)
-    }
-    
-    func runPulseAnimationOnly() {
+    func runPulseAnimation() {
         drumImage?.layer.removeAllAnimations()
         drumImage?.layer.add(pulseAnimation, forKey: PULSE_ANIMATION_KEY)
     }
     
-    func handleMetronomeState() {
-        
-        metronomeTimer?.cancel()
-        metronomeTimer = nil
-        
-        if metronomeIsOn {
-            let duration = 60.0/Double((settings?.metronomeTempo)!)
-            // restart animation if needed 
-//            let cnt = cptSublayer.animationKeys()?.count
-            let cptAnimationIsRunning = cptSublayer.animationKeys()?.count > 0
-            let animationShouldRestart = !cptAnimationIsRunning || (cptAnimationIsRunning && settings?.lastPlayedTempo != settings?.metronomeTempo)
-            if animationShouldRestart {
-                cptSublayer.removeAllAnimations()
-                cptAnimation.duration = duration
-                cptSublayer.add(cptAnimation, forKey:CPT_ANIMATION_KEY)
-            }
-            // add sound timer
-            let timer = DispatchSource.makeTimerSource(flags: DispatchSource.TimerFlags(rawValue: UInt(0)), queue: DispatchQueue.main)
-                
-//            var delta:Int64 = 0
-//            if !animationShouldRestart {
-//                let currentRotationAngle = Double(getCurrentRotationRad())
-//                let rotationToGo = currentRotationAngle > 0 ? currentRotationAngle : 2 * .pi - abs(currentRotationAngle)
-//                let timeLeft = duration * rotationToGo / (2 * .pi)
-//                delta = Int64(timeLeft * Double(NSEC_PER_SEC))
-//                    println("angle: \(currentRotationAngle), toGo: \(rotationToGo)")
-//                    println("duration: \(duration), timeLeft: \(timeLeft)")
-//                    println("---")
-//           }
-            let interval = duration * Double(NSEC_PER_SEC)
-            timer.schedule(wallDeadline: DispatchWallTime.now(), repeating:interval, leeway: .nanoseconds(5))
-                
-            timer.setEventHandler(handler: { [weak self] () -> Void in
-                self?.playSound()
-                })
-            timer.resume()
-            metronomeTimer = timer
-            
-            
-        } else {
-            cptSublayer.removeAllAnimations()
-        }
-    }
-    
-    private func  animateStrike() {
+    private func animateStrike() {
         drumImage.stopAnimating()
         switchDrumAnimation()
         drumImage.startAnimating()
@@ -395,68 +304,98 @@ class CentralRing: NibDesignable {
     }
     
     
+    private var useDrumAnimationLeft = true
+    private func switchDrumAnimation() {
+        useDrumAnimationLeft = !useDrumAnimationLeft
+        drumImage.animationImages = useDrumAnimationLeft ? drumAnimationImagesLeft : drumAnimationImagesRight
+        drumImage.image = drumImage.animationImages!.last
+    }
+    
+
     private func getCurrentRotationRad() -> Float {
         return (cptSublayer.presentation()!.value(forKeyPath: "transform.rotation.z")  as! NSNumber).floatValue
     }
     
     
-    //MARK: - Tap recognizer
+    /// Reset all sublayers when frame changes
     
-    private var newTapTime:UInt64 = 0;
-    private var oldTapTime:UInt64 = 0;
-    
-    private var tapCount:UInt64 = 0;
-    
-    
-    private func touchesBegan(_ touches: Set<NSObject>, with event: UIEvent) {
-        newTapTime = PublicUtilityWrapper.caHostTimeBase_GetCurrentTime()
-        
-        let timeElapsedNs:UInt64 = PublicUtilityWrapper.caHostTimeBase_AbsoluteHostDelta(toNanos: newTapTime, oldTapTime: oldTapTime)
-        
-        let delayFator:Float64 = 0.1
-        let timeElapsedInSec:Float64 = Float64(timeElapsedNs) * 10.0e-9 * delayFator;
-        
-        let isNewTapSeq = (timeElapsedInSec > Constants.IDLE_TIMEOUT) ? true : false
-        
-        if isNewTapSeq {
-            tapCount = 0;
-            runPulseAnimationOnly()
-        } else {
-            let figertapBPM = 60.0 / timeElapsedInSec
-            self.foundFigertapBPM(figertapBPM)
-        }
-        
-        oldTapTime = newTapTime;
-        tapCount += 1;
-    
+    private func resetSublayers() {
+        resetBorderSublayer()
+        resetCptSublayer()
+        resetBpmSublayer()
+        resetStrikeSublayer()
+        ringView.layer.masksToBounds = false
+        ringView.clipsToBounds = false
     }
-
-    private func foundFigertapBPM(_ figertapBPM: Float64) {
-        // apply time signature 
-        delegate?.centralRingFoundTapBPM(figertapBPM);
-    }
-
-    func displayCPT(_ cpt:Int, instantTempo:Int) {
-        // display numbers
-        if cpt > Constants.MAX_TEMPO || cpt < Constants.MIN_TEMPO {
-            // We do not need BPM outside this range.
-            cptLabel.text = cpt > Constants.MAX_TEMPO ? "MAX" : "MIN"
-            runPulseAnimationOnly()
-        } else {
-            cptLabel.text = "\(cpt)"
-            runAnimationWithCPT(cpt, instantTempo:instantTempo)
-        }
+    
+    
+    private func resetBorderSublayer() {
         
+        borderSublayer?.removeFromSuperlayer()
+        
+        // border
+        borderSublayer = CAShapeLayer()
+        borderSublayer.frame = ringView.bounds
+        ringView.layer.addSublayer(borderSublayer)
+        ringView.drawBorder(for: borderSublayer, color: ColorPalette.pink.color(), width: BORDER_WIDTH)
+    }
+    
+    private func resetCptSublayer() {
+        cptSublayer?.removeAllAnimations()
+        cptSublayer?.removeFromSuperlayer()
+        
+        cptSublayer = CAShapeLayer()
+        cptSublayer.frame = ringView.bounds
+        cptSublayer.strokeColor = ColorPalette.pink.color().cgColor
+        cptSublayer.fillColor = ColorPalette.pink.color().cgColor
+        cptSublayer.lineWidth = BORDER_WIDTH
+        
+        
+        let diameter:CGFloat = 15
+        let smallCircleFrame = CGRect(x: ringView.bounds.midX-diameter/2, y: -diameter/2+1, width: diameter, height: diameter)
+        let path = UIBezierPath(ovalIn: smallCircleFrame)
+        cptSublayer.path = path.cgPath
+        cptSublayer.masksToBounds = false
+        
+        ringView.layer.insertSublayer(cptSublayer, above: borderSublayer)
         
     }
     
-    func clear() {
-        oldTapTime = 0
-        newTapTime = 0
-        tapCount = 0
-        cptSublayer.removeAllAnimations()
+    private func resetBpmSublayer() {
+        bpmSublayer?.removeAllAnimations()
+        bpmSublayer?.removeFromSuperlayer()
+        
+        bpmSublayer = CAShapeLayer()
+        bpmSublayer.frame = ringView.bounds
+        bpmSublayer.strokeColor = UIColor.white.cgColor
+        bpmSublayer.fillColor = UIColor.white.cgColor
+        bpmSublayer.lineWidth = BORDER_WIDTH
+        bpmSublayer.opacity = 0.0
+        
+        
+        let diameter:CGFloat = 15
+        let smallCircleFrame = CGRect(x: ringView.bounds.midX-diameter/2, y: -diameter/2+1, width: diameter, height: diameter)
+        let path = UIBezierPath(ovalIn: smallCircleFrame)
+        bpmSublayer.path = path.cgPath
+        bpmSublayer.masksToBounds = false
+        
+        ringView.layer.insertSublayer(bpmSublayer, above: cptSublayer)
+        
+    }
+    private func resetStrikeSublayer() {
+        
+        strikeSublayer?.removeFromSuperlayer()
+        
+        // border
+        strikeSublayer = CAShapeLayer()
+        strikeSublayer.frame = ringView.bounds
+        strikeSublayer.opacity = 0.0
+        ringView.layer.addSublayer(strikeSublayer)
+        ringView.drawBorder(for: strikeSublayer, color: UIColor.white, width: BORDER_WIDTH)
+        
     }
     
-
+    
+    
     
 }
