@@ -35,21 +35,19 @@ class CentralRing: NibDesignable {
     private var bpmAnimation:CAKeyframeAnimation!
     private var strikeAnimation:CAKeyframeAnimation!
     private var pulseAnimation:CABasicAnimation!
-    private let PULSE_DURATION:Double = floor(60.0 / Double(Constants.MAX_TEMPO) * 10) / 10 / 5
+    private let pulseDuration:Double = floor(60.0 / Double(Constants.MAX_TEMPO) * 10) / 10 / 5
     
     private var drumAnimationImagesLeft:[UIImage] = []
     private var drumAnimationImagesRight:[UIImage] = []
     
     private var metronomeTimer: DispatchSourceTimer?
     
-    private let CPT_ANIMATION_KEY = "cptAnimation"
-    private let BPM_ANIMATION_KEY = "bpmAnimation"
-    private let STRIKE_ANIMATION_KEY = "strikeAnimation"
-    private let PULSE_ANIMATION_KEY = "pulseAnimation"
-    
-    private let METRONOME_TEMPO_KEY_PATH = "metronomeTempo"
-    private let METRONOME_ON_KEY_PATH = "metronomeIsOn"
-    private let METRONOME_SOUND_INDEX_KEY_PATH = "metronomeSoundSelectedIndex"
+    private struct AnimationKey {
+        static let cpt    = "cptAnimation"
+        static let bpm    = "bpmAnimation"
+        static let strike = "strikeAnimation"
+        static let pulse  = "pulseAnimation"
+    }
     
     override func setup() {
         super.setup()
@@ -113,7 +111,7 @@ class CentralRing: NibDesignable {
             if animationShouldRestart {
                 cptSublayer.removeAllAnimations()
                 cptAnimation.duration = duration
-                cptSublayer.add(cptAnimation, forKey:CPT_ANIMATION_KEY)
+                cptSublayer.add(cptAnimation, forKey: AnimationKey.cpt)
             }
             // add sound timer
             let timer = DispatchSource.makeTimerSource(flags: DispatchSource.TimerFlags(rawValue: UInt(0)), queue: DispatchQueue.main)
@@ -206,7 +204,7 @@ class CentralRing: NibDesignable {
         if resetCptAnimation {
             cptSublayer.removeAllAnimations()
             cptAnimation.duration = cptAnimationDuration
-            cptSublayer.add(cptAnimation, forKey:CPT_ANIMATION_KEY)
+            cptSublayer.add(cptAnimation, forKey: AnimationKey.cpt)
         }
         // BPM
         
@@ -218,7 +216,7 @@ class CentralRing: NibDesignable {
         }
         bpmSublayer.transform = CATransform3DMakeRotation(CGFloat(currentRotationAngle), 0, 0, 1.0)
         bpmSublayer.removeAllAnimations()
-        bpmSublayer.add(bpmAnimation, forKey: BPM_ANIMATION_KEY)
+        bpmSublayer.add(bpmAnimation, forKey: AnimationKey.bpm)
     }
     
     private func initAnimations() {
@@ -261,7 +259,7 @@ class CentralRing: NibDesignable {
         pulseAnimation.fromValue = NSValue(cgRect:startBounds)
         pulseAnimation.toValue = NSValue(cgRect:stopBounds)
         pulseAnimation.autoreverses = true
-        pulseAnimation.duration = PULSE_DURATION
+        pulseAnimation.duration = pulseDuration
         pulseAnimation.isCumulative = false
         pulseAnimation.repeatCount = 1
         pulseAnimation.isRemovedOnCompletion = true
@@ -291,7 +289,7 @@ class CentralRing: NibDesignable {
     
     func runPulseAnimation() {
         drumImage?.layer.removeAllAnimations()
-        drumImage?.layer.add(pulseAnimation, forKey: PULSE_ANIMATION_KEY)
+        drumImage?.layer.add(pulseAnimation, forKey: AnimationKey.pulse)
     }
     
     private func animateStrike() {
@@ -300,7 +298,7 @@ class CentralRing: NibDesignable {
         drumImage.startAnimating()
         
         strikeSublayer.removeAllAnimations()
-        strikeSublayer.add(strikeAnimation, forKey: STRIKE_ANIMATION_KEY)
+        strikeSublayer.add(strikeAnimation, forKey: AnimationKey.strike)
     }
     
     

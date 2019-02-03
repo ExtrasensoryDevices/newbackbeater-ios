@@ -19,8 +19,8 @@ class SensitivitySlider: UIControlNibDesignable{
     
     @IBOutlet weak var thumbLeadingConstraint: NSLayoutConstraint!
     
-    private let MIN_VALUE:Int = 0
-    private let MAX_VALUE:Int = 100
+    private let minValue:Int = 0
+    private let maxValue:Int = 100
     
     var value:Int = 0 {
         didSet {
@@ -55,7 +55,7 @@ class SensitivitySlider: UIControlNibDesignable{
         let minX = trackView.frame.minX
         let maxX = trackView.frame.maxX
         if pointX >= minX && pointX <= maxX {
-            let val = (pointX - minX) * CGFloat(MAX_VALUE - MIN_VALUE) / (maxX - minX)
+            let val = (pointX - minX) * CGFloat(maxValue - minValue) / (maxX - minX)
             return Int(round(val))
         }
         return nil
@@ -66,7 +66,7 @@ class SensitivitySlider: UIControlNibDesignable{
         let minX = trackView.frame.minX + thumbHalfWidth
         let maxX = trackView.frame.maxX - thumbHalfWidth
         if pointX >= minX && pointX <= maxX {
-            let val = (pointX - minX) * CGFloat(MAX_VALUE - MIN_VALUE) / (maxX - minX)
+            let val = (pointX - minX) * CGFloat(maxValue - minValue) / (maxX - minX)
             return Int(round(val))
         }
         return nil
