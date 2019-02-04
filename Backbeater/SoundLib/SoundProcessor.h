@@ -8,7 +8,7 @@
 #import <Foundation/Foundation.h>
 
 
-@protocol SoundProcessorDelegate <NSObject>
+@protocol SoundProcessorDelegate
 
 -(void)soundProcessorDidDetectSensorIn:(BOOL) sensorIn;
 -(void)soundProcessorDidDetectFirstStrike;
@@ -38,9 +38,10 @@
 @property (nonatomic, readonly) BOOL sensorIn;
 
 
--(BOOL)start:(NSError**)error;
+-(BOOL)start:(NSInteger) sensivity error: (NSError**)error;
 -(BOOL)stop:(NSError**)error;
 
+-(void)setSensivity:(NSInteger) sensivity;
 
 
 // test functionality

@@ -35,7 +35,7 @@ class NumericStepper: UIControlNibDesignable {
             return _value
         }
         set (newValue) {
-            _value = Tempo.normalized(tempo: newValue) // TODO: use Min/Max locally, remove Tempo from here
+            _value = Tempo.normalized(value: newValue) // TODO: use Min/Max locally, remove Tempo from here
             label.text = "\(_value)"
         }
     }
@@ -158,7 +158,7 @@ class NumericStepper: UIControlNibDesignable {
     
     private func incrementValue(_ increment:Int) {
         let newValue = _value + increment
-        value = Tempo.normalized(tempo: newValue)
+        value = Tempo.normalized(value: newValue)
     }
     
     

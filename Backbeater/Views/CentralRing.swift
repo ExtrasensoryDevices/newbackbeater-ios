@@ -10,7 +10,8 @@ import AVFoundation
 
 
 protocol CentralRingDelegate: class {
-    func centralRingFoundTapBPM(_ bpm:Float64)
+    func centralRingFoundTap(bpm:Float64)
+    func centralRingDidDetectFirstTap()
 }
 
 
@@ -35,7 +36,7 @@ class CentralRing: NibDesignable {
     private var bpmAnimation:CAKeyframeAnimation!
     private var strikeAnimation:CAKeyframeAnimation!
     private var pulseAnimation:CABasicAnimation!
-    private let pulseDuration:Double = floor(60.0 / Double(Constants.MAX_TEMPO) * 10) / 10 / 5
+    private let pulseDuration:Double = floor(60.0 / Double(Tempo.max) * 10) / 10 / 5  /// FIXME: *10/10 ???
     
     private var drumAnimationImagesLeft:[UIImage] = []
     private var drumAnimationImagesRight:[UIImage] = []
@@ -92,30 +93,36 @@ class CentralRing: NibDesignable {
         } else {
             cptLabel.text = "\(cpt)"
             let cptAnimationDuration = 60.0/(Double(cpt)/Double(timeSignature)) // =60sec/actual_hits_per_min
-            let resetCptAnimation = metronomeState == .off
+            let resetCptAnimation:Bool
+            if case MetronomeState.off = metronomeState {
+                resetCptAnimation = true
+            } else {
+                resetCptAnimation = false
+            }
             runAnimation(resetCptAnimation: resetCptAnimation, cptAnimationDuration: cptAnimationDuration)
         }
     }
     
-    func handleMetronomeState(_ metronomeState:MetronomeState, metronomeTempo:Int, tempoChanged:Bool) {
+    func handleMetronomeState(_ metronomeState:MetronomeState) {
         
         metronomeTimer?.cancel()
         metronomeTimer = nil
         
         switch metronomeState {
-        case .on:
-            let duration = 60.0/Double(metronomeTempo)
+        case .on(let metronomeTempo):
+            let newDuration = 60.0/Double(metronomeTempo)
             // restart animation if needed
+            let tempoChanged = cptAnimation.duration != newDuration
             let cptAnimationIsRunning = (cptSublayer.animationKeys()?.count ?? 0) > 0
             let animationShouldRestart = !cptAnimationIsRunning || (cptAnimationIsRunning && tempoChanged)
             if animationShouldRestart {
                 cptSublayer.removeAllAnimations()
-                cptAnimation.duration = duration
+                cptAnimation.duration = newDuration
                 cptSublayer.add(cptAnimation, forKey: AnimationKey.cpt)
             }
             // add sound timer
             let timer = DispatchSource.makeTimerSource(flags: DispatchSource.TimerFlags(rawValue: UInt(0)), queue: DispatchQueue.main)
-            let interval = duration * Double(NSEC_PER_SEC)
+            let interval = newDuration * Double(NSEC_PER_SEC)
             timer.schedule(wallDeadline: DispatchWallTime.now(), repeating:interval, leeway: .nanoseconds(5))
             
             timer.setEventHandler{ [weak self] in
@@ -178,7 +185,7 @@ class CentralRing: NibDesignable {
         
         if isNewTapSeq {
             tapCount = 0;
-            runPulseAnimation()
+            delegate?.centralRingDidDetectFirstTap()
         } else {
             let figertapBPM = 60.0 / timeElapsedInSec
             self.foundFigertapBPM(figertapBPM)
@@ -191,7 +198,7 @@ class CentralRing: NibDesignable {
     
     private func foundFigertapBPM(_ figertapBPM: Float64) {
         // apply time signature
-        delegate?.centralRingFoundTapBPM(figertapBPM);
+        delegate?.centralRingFoundTap(bpm: figertapBPM);
     }
     
     // MARK: - Animation

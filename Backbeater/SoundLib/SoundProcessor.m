@@ -9,7 +9,6 @@
 #import "ATSoundSessionIO.h"
 #import "EnergyFunctionQueue.h"
 #import "PublicUtilityWrapper.h"
-#import "Settings.h"
 
 #import "Backbeater-Swift.h"
 
@@ -67,7 +66,7 @@ BOOL _strikeState;
 //        _endThreshold = kEndThreshold;
         _timeout = kTimeout;
         
-        [self updateStartThreshold];
+        [self updateStartThreshold:0];
         
         // init test data
         _testStartThreshold = _startThreshold;
@@ -197,12 +196,9 @@ BOOL _insideTimeout = false;
     }
 }
 
--(BOOL)start:(NSError**)error
+-(BOOL)start:(NSInteger) sensivity error: (NSError**)error
 {
-    //TODO: uncomment
-//    if (!_sensorIn){
-//        return NO;
-//    }
+    [self updateStartThreshold:sensivity];
     _strikeState = NO;
     _strikeCount = 0;
     [_energyFunctionQueue clear];
@@ -223,6 +219,9 @@ BOOL _insideTimeout = false;
 }
 
 
+-(void)setSensivity:(NSInteger) sensivity {
+    [self updateStartThreshold:sensivity];
+}
 
 
 #pragma mark - Properties
@@ -278,7 +277,7 @@ UInt64 _tapCount = 0;
     _tapCount += 1;
 }
 
--(void) updateStartThreshold
+-(void) updateStartThreshold:(NSInteger) sensitivity
 {
 //    float sensitivity = (float)Settings.sharedInstance.sensitivity;
 //    float A = 0;
@@ -295,7 +294,6 @@ UInt64 _tapCount = 0;
 //    
 //    _startThreshold = - (A * sensitivity - B ) / C;
     
-    NSInteger sensitivity = Settings.sharedInstance.sensitivity;
     _startThreshold = ((NSNumber*)_startThresholdArray[sensitivity]).floatValue;
     _endThreshold = 1.1 * _startThreshold;
 //    NSLog(@"%f - %f", _startThreshold, _endThreshold);
@@ -349,8 +347,6 @@ UInt64 _tapCount = 0;
                                                  name: AVAudioSessionMediaServicesWereResetNotification
                                                object: session];
     
-    [[Settings sharedInstance] addObserver:self forKeyPath:@"sensitivity" options:NSKeyValueObservingOptionNew context:nil];
-
 }
 
 -(void)removeObservers
@@ -358,18 +354,7 @@ UInt64 _tapCount = 0;
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"AVAudioSessionRouteChangeNotification" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"AVAudioSessionInterruptionNotification" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"AVAudioSessionMediaServicesWereResetNotification" object:nil];
-    
-    [[Settings sharedInstance] removeObserver:self forKeyPath:@"sensitivity"];
-
 }
-
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-    if (object == Settings.sharedInstance && [keyPath isEqualToString:@"sensitivity"]) {
-        [self updateStartThreshold];
-    }
-}
-
 
 -(void)handleMediaServicesWereReset:(NSNotification*)notification{
     //  If the media server resets for any reason, handle this notification to reconfigure audio or do any housekeeping, if necessary

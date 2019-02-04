@@ -194,7 +194,6 @@
 			children = (
 				C7E929A321DC959300E950AA /* Main.storyboard */,
 				C7E929B321DC9EBE00E950AA /* LaunchScreen.xib */,
-				C7E929AB21DC959600E950AA /* Info.plist */,
 				C7E929A621DC959600E950AA /* Assets.xcassets */,
 				C766577821DDE3FB00D703C8 /* Fonts */,
 				C766577721DDE3E900D703C8 /* Sounds */,
@@ -344,6 +343,7 @@
 				C766575321DDE21200D703C8 /* Extensions */,
 				C766578921DDE46000D703C8 /* SoundLib */,
 				C766575721DDE34100D703C8 /* Res */,
+				C7E929AB21DC959600E950AA /* Info.plist */,
 				C766577921DDE44500D703C8 /* Backbeater-Bridging-Header.h */,
 			);
 			path = Backbeater;

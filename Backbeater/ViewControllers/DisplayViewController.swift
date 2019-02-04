@@ -8,41 +8,39 @@
 import UIKit
 
 
-class DisplayViewController: UIViewController, SongListViewControllerDelegate, CentralRingDelegate, SoundProcessorDelegate {
+protocol DisplayViewControllerDelegate:class {
+    func readyToRender()
+    func foundTap(bpm:Float64)
+    func didDetectFirstTap()
+    func metronomeStateChanged(_ newValue:MetronomeState)
+    func startMetronomeWithCurrentTempo()
+}
 
+
+class DisplayViewController: UIViewController, SongListViewControllerDelegate, CentralRingDelegate, CoordinatorDelegate {
+    @IBOutlet weak var hamButton: UIButton!
+    
     @IBOutlet weak var centralRing: CentralRing!
-    
-    @IBOutlet weak var songListView: UIView!
-    
+    @IBOutlet weak var centralRingTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var centralRingBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var getSensorBottomConstraint: NSLayoutConstraint!
+
     @IBOutlet weak var getSensorView: UILabel!
     @IBOutlet weak var setTempoView: UIView!
     
     @IBOutlet weak var metronomeTempoView: NumericStepper!
     
+    @IBOutlet weak var songListView: UIView!
     @IBOutlet weak var prevSongButton: UIButton!
     @IBOutlet weak var nextSongButton: UIButton!
     @IBOutlet weak var songNameLabel: UILabel!
-    @IBOutlet weak var hamButton: UIButton!
     @IBOutlet weak var songListBottomLayoutConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak var centralRingTopConstraint: NSLayoutConstraint!
-    @IBOutlet weak var centralRingBottomConstraint: NSLayoutConstraint!
-    @IBOutlet weak var getSensorBottomConstraint: NSLayoutConstraint!
+    weak var delegate: DisplayViewControllerDelegate?
     
     
-    var strikesWindowQueue:WindowQueue!
-    
-    var soundProcessor: SoundProcessor!
-    
-    var currentTempo = 0 {
-        didSet {
-            Settings.sharedInstance().lastPlayedTempo = currentTempo
-        }
-    }
-
-    
-    var songList:[SongTempo]?
-    var selectedSongIndex:Int = 0 {
+    private var songList:[SongTempo]?
+    private var selectedSongIndex:Int = 0 {
         didSet {
             updateSongListView()
         }
@@ -50,38 +48,17 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
     
     
     override func viewDidLoad() {
-        
         super.viewDidLoad()
-        
         setupUI()
-
-        registerForNotifications()
-        
-        
-        soundProcessor = SoundProcessor.sharedInstance()
-        soundProcessor.delegate = self;
-        Settings.sharedInstance().sensorIn = soundProcessor.sensorIn
-        
-        strikesWindowQueue = WindowQueue(capacity:Settings.sharedInstance().strikesWindow)
         centralRing.delegate = self
-        
-        metronomeTempoView.value = Settings.sharedInstance().metronomeTempo
-        metronomeTempoView.isOn = Settings.sharedInstance().metronomeIsOn
-        
         
         let image = UIImage(named:"tempo_list")!.withRenderingMode(.alwaysTemplate)
         hamButton.setImage(image, for: UIControl.State())
-        
-        songList = restoreSongTempoList(Settings.sharedInstance().songList as? [NSDictionary])
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        updateSensorView()
-        updateSongListView()
-        
+        delegate?.readyToRender()
     }
     
     override func didReceiveMemoryWarning() {
@@ -89,7 +66,7 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
         // Dispose of any resources that can be recreated.
     }
     
-    func setupUI() {
+    private func setupUI() {
         view.backgroundColor = ColorPalette.black.color
         
         setTempoView.drawBorder()
@@ -111,172 +88,104 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
             centralRingTopConstraint.constant = 0
             centralRingBottomConstraint.constant = 0
         }
-        
-        
     }
     
-    @objc func applicationWillEnterForeground() {
-//        metronomeTempoView.isOn = Settings.sharedInstance().metronomeIsOn
-    }
     
-    @objc func applicationDidBecomeActive() {
-        centralRing.handleMetronomeState()
-    }
+    // MARK: - CoordinatorDelegate
     
-    @objc func applicationWillResignActive() {
-//        Settings.sharedInstance().metronomeIsOn = false
-//        Settings.sharedInstance().saveState()
-    }
-    
-    @objc func applicationDidEnterBackground() {
-        Settings.sharedInstance().metronomeIsOn = false
+    func setupView(lastPlayedTempo:Int,
+                   metronomeTempo: Int,
+                   sensorDetected: Bool) {
+        centralRing.setLastPlayedTempo(tempo: lastPlayedTempo)
+        metronomeTempoView.value = metronomeTempo
         metronomeTempoView.isOn = false
-        Settings.sharedInstance().saveState()
-    }
-    
-    
-    
-    func registerForNotifications() {
-        let settings = Settings.sharedInstance()
-        settings?.addObserver(self, forKeyPath: "strikesWindowSelectedIndex", options: NSKeyValueObservingOptions(rawValue: 0), context: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(DisplayViewController.applicationWillEnterForeground), name:UIApplication.willEnterForegroundNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(DisplayViewController.applicationDidBecomeActive), name:UIApplication.didBecomeActiveNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(DisplayViewController.applicationWillResignActive), name:UIApplication.willResignActiveNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(DisplayViewController.applicationDidEnterBackground), name:UIApplication.didEnterBackgroundNotification, object: nil)
-
-    }
-    
-    deinit {
-        let settings = Settings.sharedInstance()
-        settings?.removeObserver(self, forKeyPath: "strikesWindowSelectedIndex")
+        updateSensorState(sensorDetected: sensorDetected)
         
-        NotificationCenter.default.removeObserver(self, name: UIApplication.willEnterForegroundNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIApplication.willResignActiveNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIApplication.didEnterBackgroundNotification, object: nil)
+        songList = SongTempo.deserialize(data: UserDefaults.object(for: .songList) as? Data)
+        updateSongListView()
     }
     
+    func turnOffMetronome() {
+        stopAnimation()
+        metronomeTempoView.isOn = false
+    }
     
-    func observeValue(forKeyPath keyPath: String, of object: Any, change: [AnyHashable: Any], context: UnsafeMutableRawPointer) {
-        switch keyPath {
-        case "strikesWindowSelectedIndex":
-            strikesWindowQueue.capacity = Settings.sharedInstance().strikesWindow
-        default:
-            break
-            
+    func stopAnimation() {
+        centralRing.reset()
+    }
+    
+    func updateMetronomeState(metronomeState: MetronomeState) {
+        switch metronomeState {
+        case .on(let tempo):
+            metronomeTempoView.value = tempo
+            metronomeTempoView.isOn = true
+        case .off(let tempo):
+            metronomeTempoView.value = tempo
+            metronomeTempoView.isOn = false
         }
+        centralRing.handleMetronomeState(metronomeState)
     }
     
+    func updateSensorState(sensorDetected:Bool) {
+        getSensorView.isHidden = sensorDetected
+        setTempoView.isHidden = !sensorDetected
+    }
+    
+    
+    func setSound(url:URL) {
+        centralRing.setSound(url: url)
+    }
+    
+    func display(cpt:Int, timeSignature: Int, metronomeState:MetronomeState) {
+        centralRing.display(cpt: cpt, timeSignature: timeSignature, metronomeState: metronomeState)
+    }
+
+    func handleFirstStrike() {
+        centralRing.runPulseAnimation()
+    }
+    
+
     @IBAction func didTapGetSensorButton(_ sender: AnyObject) {
         UIApplication.shared.openURL(URL(string: BUY_SENSOR_URL)!)
     }
     
     @objc func didTapSetTempoButton() {
-        metronomeTempoView.value = currentTempo
-        metronomeTempoView.isOn = true
-        Settings.sharedInstance().metronomeIsOn = true
+        delegate?.startMetronomeWithCurrentTempo()
     }
     
     @IBAction func didTapSongName(_ sender: AnyObject) {
         if let tempo  = songList?[selectedSongIndex].tempoValue {
-            Settings.sharedInstance().metronomeTempo = tempo
-            metronomeTempoView.value = tempo
+            reportMetronomeState(isOn: metronomeTempoView.isOn, tempo: tempo)
         }
     }
     
     //MARK: - NumericStepper delegate
     
     @IBAction func metronomeTempoValueChanged(_ sender: NumericStepper) {
-        let newValue = metronomeTempoView.value
-        Settings.sharedInstance().metronomeTempo = newValue
+        reportMetronomeState(isOn: sender.isOn, tempo: sender.value)
     }
     
     @IBAction func metronomeTempoPressed(_ sender: NumericStepper) {
-        if Settings.sharedInstance().metronomeTempo != metronomeTempoView.value {
-            Settings.sharedInstance().metronomeTempo = metronomeTempoView.value
-        }
-        Settings.sharedInstance().metronomeIsOn = sender.isOn
+        reportMetronomeState(isOn: sender.isOn, tempo: sender.value)
     }
     
+    private func reportMetronomeState(isOn: Bool, tempo: Int) {
+        let newState:MetronomeState  =  isOn ? .on(tempo: tempo) : .off(tempo: tempo)
+        delegate?.metronomeStateChanged(newState)
+    }
+
     
     
     
-   // MARK: - BPM processing
-    
-    
-    
-    func centralRingFoundTapBPM(_ bpm: Float64) {
-        processBPM(bpm)
+    // MARK: - CentralRingDelegate
+    func centralRingFoundTap(bpm: Float64) {
+        delegate?.foundTap(bpm: bpm)
     }
     
-    
-    
-    var lastStrikeTime:UInt64 = 0;
-    func processBPM(_ bpm: Float64){
-        let multiplier = Settings.sharedInstance().metronomeIsOn ? 1 : Float64(Settings.sharedInstance().timeSignature)
-        let timeSignature = Settings.sharedInstance().timeSignature
-        
-        let tempo:Float64 = bpm * multiplier
-        
-        currentTempo = strikesWindowQueue.enqueue(tempo).average
-        
-        centralRing.displayCPT(currentTempo, timeSignature: timeSignature, instantTempo: Int(tempo))
-        
-        
-        if !Settings.sharedInstance().metronomeIsOn {
-            self.delay(ObjcConstants.IDLE_TIMEOUT, callback: { () -> () in
-                let now:UInt64 = PublicUtilityWrapper.caHostTimeBase_GetCurrentTime()
-                let timeElapsedNs:UInt64 = PublicUtilityWrapper.caHostTimeBase_AbsoluteHostDelta(toNanos: now, oldTapTime: self.lastStrikeTime)
-                
-                let delayFator:Float64 = 0.1
-                
-                let timeElapsedInSec:Float64 = Float64(timeElapsedNs) * 10.0e-9 * delayFator;
-                if timeElapsedInSec > ObjcConstants.IDLE_TIMEOUT {
-                    if !Settings.sharedInstance().metronomeIsOn {
-                        self.strikesWindowQueue.clear()
-                        self.centralRing.reset()
-                    }
-                }
-            })
-        }
-        lastStrikeTime = PublicUtilityWrapper.caHostTimeBase_GetCurrentTime()
-        
+    func centralRingDidDetectFirstTap() {
+         delegate?.didDetectFirstTap()
     }
-    
-    // MARK: - SoundProcessorDelegate
-    
-    func soundProcessorDidDetectSensor(in sensorIn: Bool) {
-        Settings.sharedInstance().sensorIn = sensorIn
-        updateSensorView()
-        
-        //fixme try-catch
-        do {
-            if sensorIn {
-                try soundProcessor.start()
-            } else {
-                try soundProcessor.stop()
-            }
-        } catch {
-            print(error.localizedDescription)
-        }
-    }
-    
-    func soundProcessorDidDetectFirstStrike() {
-        centralRing.runPulseAnimationOnly()
-    }
-    
-    func soundProcessorDidFindBPM(_ bpm: Float64) {
-        processBPM(bpm)
-    }
-    
-    
-    func updateSensorView() {
-        let sensorIn = Settings.sharedInstance().sensorIn
-        getSensorView.isHidden = sensorIn
-        setTempoView.isHidden = !sensorIn
-    }
-    
     
 
     
@@ -293,15 +202,17 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
     
     func updateSongListView() {
         
-        var hideButtons = true
-        var hideLabel = true
+        var hideButtons:Bool
+        var hideLabel:Bool
         if let count = songList?.count , count > 0 { // show
-            hideButtons = count <= 1
-            hideLabel = count < 1
-            metronomeTempoView.value = songList![selectedSongIndex].tempoValue
+            hideButtons = count == 1
+            hideLabel   = false
             songListBottomLayoutConstraint.constant = 0
             hamButton.tintColor = UIColor.white
+            reportMetronomeState(isOn: metronomeTempoView.isOn, tempo: songList![selectedSongIndex].tempoValue)
         } else {   // hide
+            hideButtons = true
+            hideLabel   = true
             songListBottomLayoutConstraint.constant = -songListView.bounds.height / 2
             hamButton.tintColor = ColorPalette.grey.color
         }

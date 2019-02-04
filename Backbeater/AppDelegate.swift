@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let INACTIVE_TIMEOUT:TimeInterval = 60 // 1 min
     
     
-    private func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
         // play animation
         window?.rootViewController?.view.backgroundColor = ColorPalette.black.color

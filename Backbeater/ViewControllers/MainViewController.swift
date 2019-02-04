@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MainViewController: UIViewController, HelpPresenter {
+class MainViewController: UIViewController, WebPagePresenter {
     
     private var coordinator:Coordinator!
 
@@ -22,13 +22,13 @@ class MainViewController: UIViewController, HelpPresenter {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // FIXME: initialize with coordinator
-        coordinator = Coordinator(helpPresenter: self)
-        sidebar.delegate = coordinator
-        
         containerCenterXConstraint.constant = 0
         self.view.backgroundColor = ColorPalette.pink.color
         setupDisplayViewController()
+        
+        coordinator = Coordinator(webPagePresenter: self, output: displayVC)
+        sidebar.delegate = coordinator
+        
     }
     
     private func setupDisplayViewController() {
@@ -41,6 +41,8 @@ class MainViewController: UIViewController, HelpPresenter {
         displayVC.view.frame = containerView.bounds
         containerView.insertSubview(displayVC.view, at: 0)
         displayVC.didMove(toParent: self)
+        
+        self.displayVC = displayVC
         
         visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
         visualEffectView!.frame = displayVC.view.bounds
@@ -172,17 +174,18 @@ class MainViewController: UIViewController, HelpPresenter {
     }
     
     
-    func showHelp(url: String) {
-        
-        // TODO: Toggle state
-        
+    // MARK: - WebPagePresenter
+    
+    func showWebPage(url: String) {
         // present help
-        guard let helpVC = storyboard?.instantiateViewController(withIdentifier: "WebViewController") as? WebViewController else {
+        guard let webVC = storyboard?.instantiateViewController(withIdentifier: "WebViewController") as? WebViewController else {
             fatalError("WebViewController not found")
         }
-        helpVC.url = url
-        self.present(helpVC, animated: true) {
-            self.toggleMenuPanel(false)
+        webVC.url = url
+        self.present(webVC, animated: true) {
+            if self.currentState == .expanded {
+                self.toggleMenuPanel(false)
+            }
         }
     }
 }

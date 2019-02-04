@@ -17,24 +17,18 @@ struct SongTempo: Equatable, Codable {
         self.songName = songName.uppercased()
         self.tempoValue = tempoValue
     }
+    
+    func serialize() -> Data? {
+        return try? JSONEncoder().encode(self)
+    }
+    
+    static func deserialize(data: Data?) -> [SongTempo]? {
+        guard let data = data else { return nil }
+        return try? JSONDecoder().decode(Array<SongTempo>.self, from: data)
+    }
 }
 
 
 func ==(lhs: SongTempo, rhs: SongTempo) -> Bool {
     return lhs.songName == rhs.songName && lhs.tempoValue == rhs.tempoValue
-}
-
-
-extension Array where Element == SongTempo {
-
-    func prepareToSave(_ songList:[SongTempo]?) -> Data? {
-        return try? JSONEncoder().encode(songList)
-    }
-
-    static func restoreSongTempoList(_ data:Data) -> [SongTempo]? {
-        //if let data = UserDefaults.standard.value(forKey:"songs") as? Data {
-            return try? JSONDecoder().decode(Array<SongTempo>.self, from: data)
-        //}
-    }
-
 }
