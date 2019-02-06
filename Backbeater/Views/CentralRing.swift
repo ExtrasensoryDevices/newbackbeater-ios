@@ -54,7 +54,6 @@ class CentralRing: NibDesignable {
         super.setup()
         self.backgroundColor = UIColor.clear
         self.ringView.backgroundColor = UIColor.clear
-//        ringView.addObserver(self, forKeyPath: "bounds", options: NSKeyValueObservingOptions(rawValue: 0), context: nil)
         
         let fontSize:CGFloat
         switch ScreenUtil.screenSizeClass {
@@ -64,9 +63,9 @@ class CentralRing: NibDesignable {
             case .large:  fontSize = 220
             case .xlarge: fontSize = 300
         }
-        cptLabel.font = Font.SteelfishRg.get(fontSize)
         
-        resetSublayers()
+        UILabel.appearance(whenContainedInInstancesOf: [CentralRing.self]).font = Font.SteelfishRg.get(fontSize)
+
         initAnimations()
     }
     
@@ -82,6 +81,10 @@ class CentralRing: NibDesignable {
         } catch  {
             print(error)
         }
+    }
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        resetSublayers()
     }
 
     func display(cpt:Int, timeSignature: Int, metronomeState:MetronomeState) {
@@ -143,19 +146,6 @@ class CentralRing: NibDesignable {
         cptSublayer.removeAllAnimations()
     }
     
-    
-
-//    deinit {
-//        ringView.removeObserver(self, forKeyPath: "bounds")
-//    }
-//
-//    private func observeValue(forKeyPath keyPath: String, of object: Any, change: [AnyHashable: Any], context: UnsafeMutableRawPointer) {
-//        if (object as? UIView) === ringView && keyPath == "bounds" {
-//            resetSublayers()
-//            handleMetronomeState() // FIX: DO SOMETHING ABOUT IT
-//        }
-//    }
-    
     private func playSound() {
         if player != nil  {
             if player.isPlaying {
@@ -173,7 +163,8 @@ class CentralRing: NibDesignable {
     private var oldTapTime:UInt64 = 0;
     private var tapCount:UInt64 = 0;
     
-    private func touchesBegan(_ touches: Set<NSObject>, with event: UIEvent) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    
         newTapTime = PublicUtilityWrapper.caHostTimeBase_GetCurrentTime()
         
         let timeElapsedNs:UInt64 = PublicUtilityWrapper.caHostTimeBase_AbsoluteHostDelta(toNanos: newTapTime, oldTapTime: oldTapTime)
@@ -230,7 +221,7 @@ class CentralRing: NibDesignable {
         // CPT/metronome rotation
         cptAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
         cptAnimation.fromValue = 0
-        cptAnimation.toValue = .pi * 2.0  //   /* full rotation*/ * rotations * duration ];
+        cptAnimation.toValue = -.pi * 2.0  //   /* full rotation*/ * rotations * duration ];
         cptAnimation.isCumulative = false
         cptAnimation.repeatCount = Float.infinity
         cptAnimation.isRemovedOnCompletion = true

@@ -35,6 +35,6 @@ extension UIView {
     func drawBorder(for layer:CALayer, color: UIColor, width: CGFloat) {
         layer.borderColor = color.cgColor
         layer.borderWidth = width
-        layer.cornerRadius = self.bounds.size.height / 2
+        layer.cornerRadius = layer.bounds.size.height / 2
     }
 }

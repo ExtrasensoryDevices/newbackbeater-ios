@@ -28,7 +28,7 @@ class MainViewController: UIViewController, WebPagePresenter {
         
         coordinator = Coordinator(webPagePresenter: self, output: displayVC)
         sidebar.delegate = coordinator
-        
+        displayVC.delegate = coordinator
     }
     
     private func setupDisplayViewController() {

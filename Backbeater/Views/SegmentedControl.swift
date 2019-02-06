@@ -71,12 +71,13 @@ import UIKit
             label.text = items[index]
             label.backgroundColor = UIColor.clear
             label.textAlignment = .center
-            label.font = label.font.withSize(height - BORDER_WIDTH * 2 - 8)
+            label.font = UILabel.appearance().font
             label.textColor = index == selectedIndex ? selectedLabelColor : unselectedLabelColor
             label.drawBorder(color: unselectedLabelColor)
             label.translatesAutoresizingMaskIntoConstraints = false
             
             label.tag = index + 1
+            label.isUserInteractionEnabled = true
             label.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapLabel(_:))))
             
             self.addSubview(label)
