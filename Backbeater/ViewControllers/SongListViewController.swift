@@ -29,7 +29,7 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
                 tableView.deselectRow(at: oldValue!, animated: false)
             }
             if selectedIndexPath != nil {
-                tableView.selectRow(at: selectedIndexPath, animated: true, scrollPosition: UITableView.ScrollPosition.middle)
+                tableView.selectRow(at: selectedIndexPath, animated: true, scrollPosition: .middle)
             }
         }
     }
@@ -63,8 +63,8 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
         
         setupKeyboardAceessory()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(SongListViewController.keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(SongListViewController.keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector( keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector( keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         
     }
     
@@ -150,20 +150,20 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
     
     private func deleteSongAtIndex(_ index:Int) {
         newSongList.remove(at: index)
-        tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: UITableView.RowAnimation.automatic)
+        tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
         saveTempoList()
         updateEmptyState()
     }
     
     private func updateCurrentSong() {
-        if selectedIndexPath == nil {
+        guard let selectedPath = selectedIndexPath else {
             return
         }
-        let cell  = tableView.cellForRow(at: selectedIndexPath!) as! SongListCell
-        var songTempo = newSongList[(selectedIndexPath! as NSIndexPath).row]
+        let cell  = tableView.cellForRow(at: selectedPath) as! SongListCell
+        var songTempo = newSongList[selectedPath.row]
         if inputTextField.tag == Tag.songName {
-            let value = inputTextField.text?.trim()
-            songTempo.songName = value! == "" ? "Song #\(selectedIndexPath!.row+1)" : value!
+            let value = inputTextField.text?.trim() ?? ""
+            songTempo.songName = value.isEmpty ? "Song #\(selectedPath.row+1)" : value
             inputTextField.text = songTempo.songName
             cell.songNameLabel.text = inputTextField.text
             
@@ -173,11 +173,13 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
             inputTextField.text = "\(songTempo.tempoValue)"
             cell.tempoValueLabel.text = inputTextField.text
         }
-        newSongList[(selectedIndexPath! as NSIndexPath).row] = songTempo
+        newSongList[selectedPath.row] = songTempo
     }
     
     private func saveTempoList() {
-        UserDefaults.set(object: newSongList, for: .songList)
+        if let data = newSongList.serialize() {
+            UserDefaults.set(data: data, for: .songList)
+        }
     }
     
     // MARK: - Actions
@@ -185,18 +187,18 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
     @objc func didTapAddButton(_ button: UIButton) {
         inputTextField?.resignFirstResponder()
         
-        
         let indexPath = IndexPath(row: newSongList.count, section: 0)
         
-        newSongList.append(SongTempo(songName:"Song #\((indexPath as NSIndexPath).row+1)", tempoValue: Tempo.default))
+        newSongList.append(SongTempo(songName:"Song #\(indexPath.row+1)", tempoValue: Tempo.default))
         
         tableView.beginUpdates()
-        tableView.insertRows(at: [indexPath], with: UITableView.RowAnimation.bottom)
+        tableView.insertRows(at: [indexPath], with: .bottom)
         tableView.endUpdates()
         
         if let cell = tableView.cellForRow(at: indexPath) as? SongListCell {
             editTextWithTag(Tag.songName, inCell: cell, atIndexPath: indexPath)
-            inputTextField.textRange(from: inputTextField.beginningOfDocument, to: inputTextField.endOfDocument)
+            let fullRange = inputTextField.textRange(from: inputTextField.beginningOfDocument, to: inputTextField.endOfDocument)
+            inputTextField.selectedTextRange = fullRange
             updateEmptyState()
         }
     }
@@ -207,11 +209,13 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
             
             inputTextField?.resignFirstResponder()
             
-            let alert = UIAlertController(title: nil, message: "Delete \(newSongList[(path as NSIndexPath).row].songName)?", preferredStyle: UIAlertController.Style.alert)
-            let deleteAction = UIAlertAction(title: "Delete", style: UIAlertAction.Style.destructive){ (action) in
-                self.deleteSongAtIndex((path as NSIndexPath).row)
-            }
-            let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil)
+            let alert = UIAlertController(title: nil,
+                                          message: "Delete \(newSongList[path.row].songName)?",
+                                          preferredStyle: .alert)
+            let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (action) in
+                                                self.deleteSongAtIndex(path.row)
+                                             }
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
             alert.addAction(cancelAction)
             alert.addAction(deleteAction)
             self.present(alert, animated: true, completion: nil)
@@ -231,18 +235,19 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
         let cell:UITableViewCell
         if (indexPath as NSIndexPath).row < newSongList.count {
             let songListCell = tableView.dequeueReusableCell(withIdentifier: songListCellReuseID, for: indexPath) as! SongListCell
-            songListCell.songNameLabel.text = newSongList[(indexPath as NSIndexPath).row].songName.uppercased()
-            songListCell.tempoValueLabel.text = "\(newSongList[(indexPath as NSIndexPath).row].tempoValue)"
+            songListCell.songNameLabel.text = newSongList[indexPath.row].songName.uppercased()
+            songListCell.tempoValueLabel.text = "\(newSongList[indexPath.row].tempoValue)"
             songListCell.songNameLabel.tag = Tag.songName
             songListCell.tempoValueLabel.tag = Tag.tempo
             
-            songListCell.deleteButton.addTarget(self, action: #selector(SongListViewController.didTapDeleteButton(_:)), for: UIControl.Event.touchUpInside)
+            songListCell.deleteButton.addTarget(self, action: #selector(didTapDeleteButton(_:)),
+                                                for: .touchUpInside)
             
             cell = songListCell
         } else {
             let addSongCell = tableView.dequeueReusableCell(withIdentifier: addSongCellReuseID, for: indexPath)
             if let addButton = addSongCell.viewWithTag(Tag.add) as? UIButton {
-                addButton.addTarget(self, action: #selector(SongListViewController.didTapAddButton(_:)), for: UIControl.Event.touchUpInside)
+                addButton.addTarget(self, action: #selector(didTapAddButton(_:)), for: .touchUpInside)
             }
             
             cell = addSongCell
@@ -312,14 +317,14 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
         inputTextField.delegate = self
     }
     
-    private func textFieldDidBeginEditing(_ textField: UITextField) {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
         if let cellIndexPath = getIndexPathForCellWithView(textField) {
             selectedIndexPath = cellIndexPath
             updateKeyboardToolbar()
         }
     }
     
-    private func textFieldDidEndEditing(_ textField: UITextField) {
+    func textFieldDidEndEditing(_ textField: UITextField) {
         updateCurrentSong()
         selectedIndexPath = nil
         textField.removeFromSuperview()
@@ -327,7 +332,7 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
         saveTempoList()
     }
     
-    private func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
@@ -338,9 +343,9 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
     private func setupKeyboardAceessory() {
         // create toolbar with "DONE" button
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let submitButton = UIBarButtonItem(title: "DONE", style: UIBarButtonItem.Style.plain, target: self, action: #selector(SongListViewController.didTapDoneButton))
-        nextButton = UIBarButtonItem(title: "❯", style: UIBarButtonItem.Style.plain, target: self, action: #selector(SongListViewController.didTapNextButton))
-        prevButton = UIBarButtonItem(title: "❮", style: UIBarButtonItem.Style.plain, target: self, action: #selector(SongListViewController.didTapPrevButton))
+        let submitButton = UIBarButtonItem(title: "DONE", style:  .plain, target: self, action: #selector(didTapDoneButton))
+        nextButton = UIBarButtonItem(title: "❯", style: .plain, target: self, action: #selector(didTapNextButton))
+        prevButton = UIBarButtonItem(title: "❮", style: .plain, target: self, action: #selector(didTapPrevButton))
         
         let frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 51)
         
@@ -354,8 +359,8 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
         borderView.isUserInteractionEnabled = false
         borderView.translatesAutoresizingMaskIntoConstraints = false
         keyboardToolbar.addSubview(borderView)
-        keyboardToolbar.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[borderView]|", options: NSLayoutConstraint.FormatOptions(rawValue:0), metrics: nil, views: ["borderView": borderView]))
-        keyboardToolbar.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[borderView(==1)]|", options: NSLayoutConstraint.FormatOptions(rawValue:0), metrics: nil, views: ["borderView": borderView]))
+        keyboardToolbar.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[borderView]|", options:[], metrics: nil, views: ["borderView": borderView]))
+        keyboardToolbar.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[borderView(==1)]|", options: [], metrics: nil, views: ["borderView": borderView]))
         keyboardToolbar.layoutIfNeeded()
     }
     
@@ -365,12 +370,13 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     @objc func didTapNextButton() {
+        guard let selectedPath = selectedIndexPath else { return }
         if inputTextField.tag == Tag.songName {
-            if let cell = tableView.cellForRow(at: selectedIndexPath!) as? SongListCell {
-                editTextWithTag(Tag.tempo, inCell: cell, atIndexPath: selectedIndexPath!)
+            if let cell = tableView.cellForRow(at: selectedPath) as? SongListCell {
+                editTextWithTag(Tag.tempo, inCell: cell, atIndexPath: selectedPath)
             }
         } else {
-            let newIndexPath = IndexPath(row: (selectedIndexPath! as NSIndexPath).row+1, section: (selectedIndexPath! as NSIndexPath).section)
+            let newIndexPath = IndexPath(row: selectedPath.row+1, section: selectedPath.section)
             if let cell = tableView.cellForRow(at: newIndexPath)  as? SongListCell {
                 editTextWithTag(Tag.songName, inCell: cell, atIndexPath: newIndexPath)
             }
@@ -378,12 +384,13 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     @objc func didTapPrevButton() {
+        guard let selectedPath = selectedIndexPath else { return }
         if inputTextField.tag == Tag.tempo {
-            if let cell = tableView.cellForRow(at: selectedIndexPath!) as? SongListCell {
-                editTextWithTag(Tag.songName, inCell: cell, atIndexPath: selectedIndexPath!)
+            if let cell = tableView.cellForRow(at: selectedPath) as? SongListCell {
+                editTextWithTag(Tag.songName, inCell: cell, atIndexPath: selectedPath)
             }
         } else {
-            let newIndexPath = IndexPath(row: (selectedIndexPath! as NSIndexPath).row-1, section: (selectedIndexPath! as NSIndexPath).section)
+            let newIndexPath = IndexPath(row: selectedPath.row-1, section: selectedPath.section)
             if let cell = tableView.cellForRow(at: newIndexPath)  as? SongListCell {
                 editTextWithTag(Tag.tempo, inCell: cell, atIndexPath: newIndexPath)
             }
@@ -392,10 +399,11 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
     
     
     private func updateKeyboardToolbar() {
-        if selectedIndexPath != nil && inputTextField != nil {
-            nextButton.isEnabled = (selectedIndexPath! as NSIndexPath).row < newSongList.count-1 || inputTextField.tag != Tag.tempo
-            prevButton.isEnabled = (selectedIndexPath! as NSIndexPath).row > 0 || inputTextField.tag != Tag.songName
-        }
+        guard let selectedPath = selectedIndexPath else { return }
+        guard inputTextField !=  nil else { return }
+
+        nextButton.isEnabled = selectedPath.row < newSongList.count-1 || inputTextField.tag != Tag.tempo
+        prevButton.isEnabled = selectedPath.row > 0 || inputTextField.tag != Tag.songName
     }
     
 
@@ -428,7 +436,7 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
             self.view.layoutIfNeeded()
         }){ (completed:Bool) in
             if let selectedRow = self.tableView.indexPathForSelectedRow {
-                self.tableView.scrollToRow(at: selectedRow, at: UITableView.ScrollPosition.middle, animated: true)
+                self.tableView.scrollToRow(at: selectedRow, at: .middle, animated: true)
             }
         }
     }

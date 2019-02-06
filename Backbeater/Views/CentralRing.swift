@@ -135,7 +135,7 @@ class CentralRing: NibDesignable {
             metronomeTimer = timer
             
         case .off:
-            cptSublayer.removeAllAnimations()
+            cptSublayer?.removeAllAnimations()
         }
     }
     

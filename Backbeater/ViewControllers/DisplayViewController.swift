@@ -40,7 +40,7 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
     
     
     private var songList:[SongTempo]?
-    private var selectedSongIndex:Int = 0 {
+    private var selectedSongIndex:Int = -1 {
         didSet {
             updateSongListView()
         }
@@ -102,7 +102,7 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
         
         updateSensorState(sensorDetected: sensorDetected)
         
-        songList = SongTempo.deserialize(data: UserDefaults.object(for: .songList) as? Data)
+        songList = SongTempo.deserialize(data: UserDefaults.data(for: .songList) as? Data)
         updateSongListView()
     }
     
@@ -216,7 +216,8 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
             songListBottomLayoutConstraint.constant = -songListView.bounds.height / 2
             hamButton.tintColor = ColorPalette.grey.color
         }
-        songNameLabel.text = songList?[selectedSongIndex].songName ?? ""
+        
+        songNameLabel.text = songList?[safe: selectedSongIndex]?.songName ?? ""
         
         prevSongButton.isHidden = hideButtons
         nextSongButton.isHidden = hideButtons
@@ -233,8 +234,13 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
     
     func songListViewControllerDidReturnSongList(_ songList: [SongTempo]?, updated: Bool) {
         if updated {
-            self.songList = songList
-            selectedSongIndex = 0
+            if songList == nil {
+                self.songList = nil
+                selectedSongIndex = -1
+            } else {
+                self.songList = songList
+                selectedSongIndex =  0
+            }
         }
     }
     

@@ -32,12 +32,13 @@ extension UserDefaults {
     }
     
     // Object
-    static func set(object: Any?, for key: UserDefaults.Key) {
+    static func set(data: Data?, for key: UserDefaults.Key) {
         let  userDefaults = UserDefaults.standard
-        userDefaults.set(object, forKey: key.rawValue)
+        userDefaults.set(data, forKey: key.rawValue)
+    
         userDefaults.synchronize()
     }
-    static func object(for key: UserDefaults.Key) -> Any? {
-        return UserDefaults.standard.object(forKey: key.rawValue)
+    static func data(for key: UserDefaults.Key) -> Any? {
+        return UserDefaults.standard.data(forKey: key.rawValue)
     }
 }
