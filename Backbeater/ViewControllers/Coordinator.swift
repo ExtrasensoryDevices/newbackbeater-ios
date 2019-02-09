@@ -41,7 +41,7 @@ protocol WebPagePresenter: class {
 
 protocol CoordinatorDelegate: class {
     func setupView(lastPlayedTempo: Int, metronomeTempo: Int, sensorDetected: Bool, sound: URL)
-    func turnOffMetronome()
+    func stopMetronome()
     func stopAnimation()
     func updateMetronomeState(metronomeState: MetronomeState)
     func updateSensorState(sensorDetected:Bool)
@@ -82,10 +82,11 @@ class Coordinator {
     private weak var webPagePresenter:WebPagePresenter?
     private weak var output: CoordinatorDelegate?
     
-    private struct Constants { // TODO: rename
+    struct Constants {
         static let strikesWindowValues = [2, 3, 4, 5]
         static let timeSignatureValues = [1, 2, 3, 4]
         static let soundFiles = ["sideStick.wav", "stick.wav", "metronome.wav", "surprise.wav"]
+        static let idleTimeout:Double = 10.0
     }
     
     // side selected bar
@@ -176,7 +177,7 @@ class Coordinator {
         
         // init form saved values
         sensitivity = UserDefaults.integer(for: .sensitivity) ?? Sensitivity.default
-        strikesWindowIdx  = UserDefaults.integer(for: .strikesWindowIndex)  ?? 0
+        strikesWindowIdx  = UserDefaults.integer(for: .strikesWindowIndex)  ?? Constants.strikesWindowValues.count-1
         timeSignatureIdx  = UserDefaults.integer(for: .timeSignatureIndex)  ?? 0
         metronomeSoundIdx = UserDefaults.integer(for: .metronomeSoundIndex) ?? 0
 
@@ -184,7 +185,7 @@ class Coordinator {
         metronomeState = .off(tempo: metronomeTempo)
         
         // Sound
-        soundProcessor = SoundProcessor.sharedInstance()
+        soundProcessor = SoundProcessor(idleTimeout: Constants.idleTimeout)
         soundProcessor.delegate = self;
         strikesWindowQueue = WindowQueue(capacity: strikesWindow)
         
@@ -204,14 +205,14 @@ class Coordinator {
     }
     
     @objc func applicationDidBecomeActive() {
-        output?.turnOffMetronome()
+        output?.stopMetronome()
     }
     
     @objc func applicationDidEnterBackground() {
         // turn off metronome
         let tempo = metronomeState.tempo
         metronomeState = .off(tempo:tempo)
-        output?.turnOffMetronome()
+        output?.stopMetronome()
     }
     
 
@@ -238,7 +239,7 @@ class Coordinator {
         output?.display(cpt: currentTempo, timeSignature: timeSignature, metronomeState: metronomeState)
         
         if !metronomeState.isOn {
-            delay(ObjcConstants.IDLE_TIMEOUT, callback: { [weak self] () -> () in
+            delay(Constants.idleTimeout, callback: { [weak self] () -> () in
                 guard let self = self else { return }
                 
                 let now:UInt64 = PublicUtilityWrapper.caHostTimeBase_GetCurrentTime()
@@ -247,7 +248,7 @@ class Coordinator {
                 let delayFator:Float64 = 0.1
                 
                 let timeElapsedInSec:Float64 = Float64(timeElapsedNs) * 10.0e-9 * delayFator;
-                if timeElapsedInSec > ObjcConstants.IDLE_TIMEOUT {
+                if timeElapsedInSec > Constants.idleTimeout {
                     if !self.metronomeState.isOn {
                         self.strikesWindowQueue.clear()
                         self.output?.stopAnimation()
@@ -337,7 +338,7 @@ extension Coordinator: SidebarDelegate {
         sidebar.setupOptions(strikesWindowValues: Constants.strikesWindowValues,
                              timeSignatureValues: Constants.timeSignatureValues)
         
-        sidebar.displayValuesFromLastSession(sensitivityIdx:    sensitivity,
+        sidebar.displayValuesFromLastSession(sensitivity:    sensitivity,
                                              metronomeSoundIdx: metronomeSoundIdx,
                                              strikesWindowIdx:  strikesWindowIdx,
                                              timeSignatureIdx:  timeSignatureIdx)

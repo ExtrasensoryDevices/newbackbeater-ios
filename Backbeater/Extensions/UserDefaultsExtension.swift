@@ -28,14 +28,17 @@ extension UserDefaults {
         userDefaults.synchronize()
     }
     static func integer(for key: UserDefaults.Key) -> Int? {
-        return UserDefaults.standard.integer(forKey: key.rawValue)
+        if UserDefaults.standard.object(forKey: key.rawValue) != nil {
+            return UserDefaults.standard.integer(forKey: key.rawValue)
+        } else {
+            return nil
+        }
     }
     
     // Object
     static func set(data: Data?, for key: UserDefaults.Key) {
         let  userDefaults = UserDefaults.standard
         userDefaults.set(data, forKey: key.rawValue)
-    
         userDefaults.synchronize()
     }
     static func data(for key: UserDefaults.Key) -> Any? {

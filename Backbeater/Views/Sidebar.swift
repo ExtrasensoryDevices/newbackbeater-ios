@@ -73,11 +73,11 @@ class Sidebar: NibDesignable {
         beatSegmentedControl.items = timeSignatureValues.map { "\($0)" }
     }
     
-    func displayValuesFromLastSession(sensitivityIdx:    Int,
+    func displayValuesFromLastSession(sensitivity:       Int,
                                       metronomeSoundIdx: Int,
                                       strikesWindowIdx:  Int,
                                       timeSignatureIdx:  Int) {
-        sensitivitySlider.value = sensitivityIdx
+        sensitivitySlider.value = sensitivity
         
         for (index, button) in soundButtonCollection.enumerated() {
             button.isSelected = (index == metronomeSoundIdx)

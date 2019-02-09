@@ -7,11 +7,6 @@
 
 import UIKit
 
-@objcMembers
-public class ObjcConstants: NSObject {
-    static let IDLE_TIMEOUT:Double = 10.0
-}
-
 public var appVersion:String {
     let versionNumber = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as? String ?? ""
     let buldNumber    = Bundle.main.infoDictionary!["CFBundleVersion"] as? String ?? ""

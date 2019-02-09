@@ -117,14 +117,16 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
         }
     }
     
-    func turnOffMetronome() {
-        stopAnimation()
+    
+    func stopMetronome() {
+        centralRing.stopMetronome()
         metronomeTempoView.isOn = false
     }
     
     func stopAnimation() {
-        centralRing.reset()
+        centralRing.stopAnimation()
     }
+    
     
     func updateMetronomeState(metronomeState: MetronomeState) {
         switch metronomeState {
@@ -159,7 +161,8 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
     
 
     @IBAction func didTapGetSensorButton(_ sender: AnyObject) {
-        UIApplication.shared.openURL(URL(string: BUY_SENSOR_URL)!)
+        UIApplication.shared.open(URL(string: BUY_SENSOR_URL)!, options: [:], completionHandler: nil)
+
     }
     
     @objc func didTapSetTempoButton() {

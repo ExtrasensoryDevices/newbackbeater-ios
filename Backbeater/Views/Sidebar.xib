@@ -1,19 +1,18 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <mutableArray key="FuturaRound-Demi.ttf">
+        <array key="FuturaRound-Demi.ttf">
             <string>FuturaRound-Demi</string>
-            <string>FuturaRound-Demi</string>
-            <string>FuturaRound-Demi</string>
-            <string>FuturaRound-Demi</string>
-            <string>FuturaRound-Demi</string>
-        </mutableArray>
+        </array>
     </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="Sidebar" customModule="Backbeater" customModuleProvider="target">
@@ -40,15 +39,12 @@
                         <constraint firstAttribute="height" constant="21" id="vBO-WL-wUC"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="FuturaRound-Demi" family="Futura Round Demi" pointSize="13"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
-                    <variation key="widthClass=compact" fixedFrame="YES">
-                        <rect key="frame" x="8" y="27" width="292" height="21"/>
-                    </variation>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ngt-p1-cqv" customClass="SensitivitySlider" customModule="Backbeater" customModuleProvider="target">
                     <rect key="frame" x="8" y="64" width="284" height="37"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="37" id="OZs-zU-CHU"/>
                     </constraints>
@@ -62,81 +58,66 @@
                         <constraint firstAttribute="height" constant="21" id="ZLy-Az-BdH"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="FuturaRound-Demi" family="Futura Round Demi" pointSize="13"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                     <variation key="default">
                         <mask key="constraints">
                             <exclude reference="ZLy-Az-BdH"/>
                         </mask>
                     </variation>
-                    <variation key="widthClass=compact" fixedFrame="YES">
-                        <rect key="frame" x="8" y="88" width="292" height="21"/>
-                    </variation>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yLu-PE-aXK" userLabel="SideStickSound">
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yLu-PE-aXK" userLabel="SideStickSound">
                     <rect key="frame" x="29" y="146" width="42" height="35"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="35" id="Lig-YY-5nj"/>
                         <constraint firstAttribute="width" secondItem="yLu-PE-aXK" secondAttribute="height" multiplier="45:37" id="UcI-Er-A9H"/>
                     </constraints>
                     <state key="normal" image="side_stick">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                     <state key="selected" image="side_stick_selected"/>
-                    <variation key="widthClass=compact" fixedFrame="YES">
-                        <rect key="frame" x="22" y="117" width="46" height="30"/>
-                    </variation>
                     <connections>
                         <action selector="didTapSoundButton:" destination="-1" eventType="touchUpInside" id="Bnw-jO-naX"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nvU-mV-gsJ" userLabel="SticksSound">
-                    <rect key="frame" x="102" y="146" width="30" height="34"/>
+                    <rect key="frame" x="102" y="146" width="29.5" height="34"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="34" id="MbF-sN-Jmv"/>
                         <constraint firstAttribute="width" secondItem="nvU-mV-gsJ" secondAttribute="height" multiplier="32:37" id="MzZ-Or-aod"/>
                     </constraints>
                     <state key="normal" image="sticks">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                     <state key="selected" image="sticks_selected"/>
-                    <variation key="widthClass=compact" fixedFrame="YES">
-                        <rect key="frame" x="90" y="117" width="46" height="30"/>
-                    </variation>
                     <connections>
                         <action selector="didTapSoundButton:" destination="-1" eventType="touchUpInside" id="hjC-3c-boY"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tgE-Fo-Hcs" userLabel="MetronomeSound">
-                    <rect key="frame" x="169" y="146" width="29" height="34"/>
+                    <rect key="frame" x="169" y="146" width="28.5" height="34"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="34" id="Cmw-GV-sOD"/>
                         <constraint firstAttribute="width" secondItem="tgE-Fo-Hcs" secondAttribute="height" multiplier="31:37" id="gb7-vB-pLW"/>
                     </constraints>
                     <state key="normal" image="metronome">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                     <state key="selected" image="metronome_slected"/>
-                    <variation key="widthClass=compact" fixedFrame="YES">
-                        <rect key="frame" x="159" y="117" width="46" height="30"/>
-                    </variation>
                     <connections>
                         <action selector="didTapSoundButton:" destination="-1" eventType="touchUpInside" id="1L0-1k-XDs"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2V4-JI-dUS" userLabel="SurpriseSound">
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2V4-JI-dUS" userLabel="SurpriseSound">
                     <rect key="frame" x="224" y="146" width="53" height="34"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="2V4-JI-dUS" secondAttribute="height" multiplier="57:37" id="Abk-e9-Zzp"/>
                         <constraint firstAttribute="height" constant="34" id="gxw-SE-WBZ"/>
                     </constraints>
                     <state key="normal" image="surprise">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                     <state key="selected" image="surprise_selected"/>
-                    <variation key="widthClass=compact" fixedFrame="YES">
-                        <rect key="frame" x="159" y="117" width="46" height="30"/>
-                    </variation>
                     <connections>
                         <action selector="didTapSoundButton:" destination="-1" eventType="touchUpInside" id="7kp-F1-iv9"/>
                     </connections>
@@ -147,11 +128,8 @@
                         <constraint firstAttribute="height" constant="21" id="HiS-bn-qYr"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="FuturaRound-Demi" family="Futura Round Demi" pointSize="13"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
-                    <variation key="widthClass=compact" fixedFrame="YES">
-                        <rect key="frame" x="8" y="172" width="292" height="21"/>
-                    </variation>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BEAT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1mw-Bo-w6h">
                     <rect key="frame" x="8" y="278" width="284" height="21"/>
@@ -159,15 +137,12 @@
                         <constraint firstAttribute="height" constant="21" id="zLN-Hb-KxB"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="FuturaRound-Demi" family="Futura Round Demi" pointSize="13"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
-                    <variation key="widthClass=compact" fixedFrame="YES">
-                        <rect key="frame" x="8" y="230" width="292" height="21"/>
-                    </variation>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J23-eY-XOo" userLabel="Beat Segmented Control" customClass="SegmentedControl" customModule="Backbeater" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="307" width="300" height="37"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="37" id="0Ru-d6-8Nh"/>
                     </constraints>
@@ -177,7 +152,7 @@
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LQS-dh-hCe" userLabel="Window Segmented Control" customClass="SegmentedControl" customModule="Backbeater" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="225" width="300" height="37"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="37" id="1lT-qz-F6E"/>
                     </constraints>
@@ -186,18 +161,15 @@
                     </connections>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cX9-Tu-Ylt">
-                    <rect key="frame" x="132" y="535" width="37" height="37"/>
+                    <rect key="frame" x="131.5" y="535" width="37" height="37"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="37" id="OBr-Xe-05c"/>
                         <constraint firstAttribute="height" constant="37" id="p4k-yY-rw0"/>
                     </constraints>
                     <state key="normal" image="help">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
-                    <variation key="widthClass=compact" fixedFrame="YES">
-                        <rect key="frame" x="131" y="537" width="46" height="30"/>
-                    </variation>
                     <connections>
                         <action selector="didTapHelp:" destination="-1" eventType="touchUpInside" id="qJs-ko-mDf"/>
                     </connections>
@@ -208,11 +180,11 @@
                         <constraint firstAttribute="height" constant="17" id="rsK-uM-dwv"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="FuturaRound-Demi" family="Futura Round Demi" pointSize="10"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
-            <color key="backgroundColor" red="0.8666666666666667" green="0.18431372549019609" blue="0.26666666666666666" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" red="0.82383286952972412" green="0.091536104679107666" blue="0.20732223987579346" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="Ngt-p1-cqv" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="0MO-P8-8FR"/>
                 <constraint firstItem="FZR-9P-Sk9" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="2Ou-g3-KA5"/>
@@ -225,7 +197,7 @@
                 <constraint firstAttribute="trailing" secondItem="XED-ML-FH5" secondAttribute="trailing" id="C5J-P1-5iF"/>
                 <constraint firstAttribute="centerX" secondItem="nvU-mV-gsJ" secondAttribute="centerX" multiplier="9:7" id="E6e-j7-jTA"/>
                 <constraint firstItem="2pf-lL-cEf" firstAttribute="height" secondItem="FZR-9P-Sk9" secondAttribute="height" id="EB8-3B-Ba1"/>
-                <constraint firstAttribute="bottom" secondItem="XED-ML-FH5" secondAttribute="bottom" constant="8" id="EmV-3e-e72"/>
+                <constraint firstItem="pGO-l1-5LO" firstAttribute="bottom" secondItem="XED-ML-FH5" secondAttribute="bottom" constant="8" id="EmV-3e-e72"/>
                 <constraint firstItem="1mw-Bo-w6h" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="FCp-Sa-IT7"/>
                 <constraint firstItem="2pf-lL-cEf" firstAttribute="top" secondItem="Ngt-p1-cqv" secondAttribute="bottom" constant="16" id="LPV-E7-d4L"/>
                 <constraint firstAttribute="trailing" secondItem="kL1-CA-mOY" secondAttribute="trailing" constant="8" id="MZY-op-Jxe"/>
@@ -239,7 +211,7 @@
                 <constraint firstItem="J23-eY-XOo" firstAttribute="top" secondItem="1mw-Bo-w6h" secondAttribute="bottom" constant="8" id="cta-on-fBa"/>
                 <constraint firstItem="XED-ML-FH5" firstAttribute="top" secondItem="cX9-Tu-Ylt" secondAttribute="bottom" constant="3" id="dS9-Wa-Zxx"/>
                 <constraint firstItem="1mw-Bo-w6h" firstAttribute="top" secondItem="LQS-dh-hCe" secondAttribute="bottom" constant="16" id="gAK-Cc-Wdz"/>
-                <constraint firstItem="FZR-9P-Sk9" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="35" id="hfX-Ih-3hG"/>
+                <constraint firstItem="FZR-9P-Sk9" firstAttribute="top" secondItem="pGO-l1-5LO" secondAttribute="top" constant="20" id="hfX-Ih-3hG"/>
                 <constraint firstItem="nvU-mV-gsJ" firstAttribute="top" secondItem="tgE-Fo-Hcs" secondAttribute="top" id="hqG-R8-W7z"/>
                 <constraint firstAttribute="trailing" secondItem="2pf-lL-cEf" secondAttribute="trailing" constant="8" id="oZN-t5-LpT"/>
                 <constraint firstItem="Ngt-p1-cqv" firstAttribute="top" secondItem="FZR-9P-Sk9" secondAttribute="bottom" constant="8" id="oqy-24-TXJ"/>
@@ -251,17 +223,18 @@
                 <constraint firstItem="LQS-dh-hCe" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="xj2-Jg-jNb"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="pGO-l1-5LO"/>
         </view>
     </objects>
     <resources>
         <image name="help" width="75" height="75"/>
-        <image name="metronome" width="31" height="37"/>
-        <image name="metronome_slected" width="31" height="37"/>
-        <image name="side_stick" width="45" height="37"/>
-        <image name="side_stick_selected" width="45" height="37"/>
-        <image name="sticks" width="32" height="37"/>
-        <image name="sticks_selected" width="32" height="37"/>
+        <image name="metronome" width="30" height="37"/>
+        <image name="metronome_slected" width="30" height="37"/>
+        <image name="side_stick" width="45.5" height="37"/>
+        <image name="side_stick_selected" width="45.5" height="37"/>
+        <image name="sticks" width="31.5" height="37"/>
+        <image name="sticks_selected" width="31.5" height="37"/>
         <image name="surprise" width="57" height="37"/>
-        <image name="surprise_selected" width="57" height="37"/>
+        <image name="surprise_selected" width="56" height="37"/>
     </resources>
 </document>

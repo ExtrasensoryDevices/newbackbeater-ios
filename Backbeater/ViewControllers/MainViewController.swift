@@ -97,7 +97,7 @@ class MainViewController: UIViewController, WebPagePresenter {
             displayVC.view.addSubview(_visualEffectView)
             
             _visualEffectView.translatesAutoresizingMaskIntoConstraints = false
-            displayVC.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[visualEffectView]|", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: ["visualEffectView":_visualEffectView]))
+            displayVC.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[visualEffectView]|", options:[ NSLayoutConstraint.FormatOptions(rawValue: 0)], metrics: nil, views: ["visualEffectView":_visualEffectView]))
             displayVC.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[visualEffectView]|", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: ["visualEffectView":_visualEffectView]))
         }
 

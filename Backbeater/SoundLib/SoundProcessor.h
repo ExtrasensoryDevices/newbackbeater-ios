@@ -31,13 +31,12 @@
 
 @interface SoundProcessor : NSObject
 
-+(instancetype) sharedInstance;
-
 @property (nonatomic, weak) id<SoundProcessorDelegate> delegate;
 
 @property (nonatomic, readonly) BOOL sensorIn;
 
 
+-(instancetype)initWithIdleTimeout:(Float64) idleTimeout;
 -(BOOL)start:(NSInteger) sensivity error: (NSError**)error;
 -(BOOL)stop:(NSError**)error;
 

@@ -61,7 +61,7 @@ class CentralRing: NibDesignable {
             case .small:  fontSize = 165
             case .medium: fontSize = 210
             case .large:  fontSize = 220
-            case .xlarge: fontSize = 300
+            case .xlarge: fontSize = 260
         }
         
         UILabel.appearance(whenContainedInInstancesOf: [CentralRing.self]).font = Font.SteelfishRg.get(fontSize)
@@ -149,11 +149,17 @@ class CentralRing: NibDesignable {
         }
     }
     
-    func reset() {
+    func stopAnimation() {
         oldTapTime = 0
         newTapTime = 0
         tapCount = 0
         cptSublayer?.removeAllAnimations()
+    }
+    
+    func stopMetronome() {
+        metronomeTimer?.cancel()
+        metronomeTimer = nil
+        stopAnimation()
     }
     
     private func setDisplayTempo(_ cpt: Int) {
@@ -205,7 +211,7 @@ class CentralRing: NibDesignable {
         let delayFator:Float64 = 0.1
         let timeElapsedInSec:Float64 = Float64(timeElapsedNs) * 10.0e-9 * delayFator;
         
-        let isNewTapSeq = (timeElapsedInSec > ObjcConstants.IDLE_TIMEOUT) ? true : false
+        let isNewTapSeq = (timeElapsedInSec > Coordinator.Constants.idleTimeout) ? true : false
         
         if isNewTapSeq {
             tapCount = 0;

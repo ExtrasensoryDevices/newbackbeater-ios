@@ -9,9 +9,6 @@
 #import "ATSoundSessionIO.h"
 #import "EnergyFunctionQueue.h"
 #import "PublicUtilityWrapper.h"
-
-#import "Backbeater-Swift.h"
-
 #import <UIKit/UIKit.h>
 
 
@@ -38,6 +35,8 @@ Float32 _startThreshold;
 Float32 _endThreshold;
 Float32 _timeout;
 
+Float64 _idleTimeout;
+
 NSArray *_startThresholdArray;
 //= @[@10, @9, @8, @7, @6, @5, @4.5, @4, @3.5, @3, @2.5, @2.4, @2.3, @2.2, @2.1, @2, @1.95, @1.9, @1.85, @1.8, @1.75, @1.7, @1.65, @1.6, @1.55, @1.54, @1.53, @1.52, @1.51, @1.5, @1.475, @1.45, @1.425, @1.4, @1.39, @1.38, @1.37, @1.36, @1.35, @1.34, @1.33, @1.32, @1.31, @1.3, @1.29, @1.28, @1.27, @1.26, @1.25, @1.24, @1.23, @1.22, @1.21, @1.2, @1.19, @1.18, @1.17, @1.16, @1.15, @1.14, @1.12, @1.1, @1.07, @1.03, @1, @0.95, @0.9, @0.83, @0.75, @0.65, @0.55, @0.45, @0.35, @0.25, @0.15, @0.1, @0.09, @0.08, @0.06, @0.02, @0.015, @0.01, @0.0075, @0.005, @0.003, @0.002, @0.0015, @0.001, @0.0009, @0.0008, @0.0007, @0.0006, @0.0005, @0.00045, @0.0004, @0.00035, @0.0003, @0.00025, @0.0002, @0.00015, @0.0001];
 
@@ -46,19 +45,12 @@ int _strikeCount;
 BOOL _strikeState;
 
 
-+(instancetype)sharedInstance {
-    static dispatch_once_t once;
-    static id _sharedInstance;
-    dispatch_once(&once, ^{
-        _sharedInstance = [[self alloc] init];
-    });
-    return _sharedInstance;
-}
+-(instancetype)initWithIdleTimeout:(Float64) idleTimeout {
 
--(instancetype)init {
-    
     self = [super init];
     if (self != nil) {
+        
+        _idleTimeout = idleTimeout;
         
         _startThresholdArray = @[@10, @9, @8, @7, @6, @5, @4.5, @4, @3.5, @3, @2.5, @2.4, @2.3, @2.2, @2.1, @2, @1.95, @1.9, @1.85, @1.8, @1.75, @1.7, @1.65, @1.6, @1.55, @1.54, @1.53, @1.52, @1.51, @1.5, @1.475, @1.45, @1.425, @1.4, @1.39, @1.38, @1.37, @1.36, @1.35, @1.34, @1.33, @1.32, @1.31, @1.3, @1.29, @1.28, @1.27, @1.26, @1.25, @1.24, @1.23, @1.22, @1.21, @1.2, @1.19, @1.18, @1.17, @1.16, @1.15, @1.14, @1.12, @1.1, @1.07, @1.03, @1, @0.95, @0.9, @0.83, @0.75, @0.65, @0.55, @0.45, @0.35, @0.25, @0.15, @0.1, @0.09, @0.08, @0.06, @0.02, @0.015, @0.01, @0.0075, @0.005, @0.003, @0.002, @0.0015, @0.001, @0.0009, @0.0008, @0.0007, @0.0006, @0.0005, @0.00045, @0.0004, @0.00035, @0.0003, @0.00025, @0.0002, @0.00015, @0.0001];
         
@@ -185,14 +177,6 @@ BOOL _insideTimeout = false;
             
             [self didDetectStrike];
         }
-
-        
-        
-        
-        
-        
-        
-        
     }
 }
 
@@ -258,7 +242,7 @@ UInt64 _tapCount = 0;
     Float64 delayFator = 0.1;
     Float64 timeElapsedInSec = ((Float64)timeElapsedNs) * 10.0e-9 * delayFator;
         
-    BOOL isNewTapSeq = (timeElapsedInSec > [ObjcConstants IDLE_TIMEOUT]) ? YES : NO;
+    BOOL isNewTapSeq = (timeElapsedInSec > _idleTimeout) ? YES : NO;
         
     if (isNewTapSeq) {
         _tapCount = 0;
@@ -455,16 +439,11 @@ UInt64 _tapCount = 0;
 
 -(void) updateInputChannel
 {
-    
-//    static let headsetMic: AVAudioSession.Port
-//    static let usbAudio: AVAudioSession.Port
-
-    
-
     AVAudioSession *session = [AVAudioSession sharedInstance];
     NSArray *inputs = session.currentRoute.inputs;
     AVAudioSessionPortDescription *input = inputs.count > 0 ? inputs[0] : nil;
-    if ([input.portType isEqualToString: AVAudioSessionPortHeadsetMic]) {
+    if ([input.portType isEqualToString: AVAudioSessionPortHeadsetMic] ||
+        [input.portType isEqualToString: AVAudioSessionPortUSBAudio]) {
         // sensor plugged in
         [self setSensorPluggedIn:true];
     } else { // AVAudioSessionPortBuiltInMic

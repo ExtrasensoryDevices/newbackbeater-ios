@@ -20,7 +20,7 @@ class CalibrationViewController: UIViewController, UITextFieldDelegate, SoundPro
     
     var keyboardToolbar:UIToolbar!
     
-    let soundProcessor = SoundProcessor.sharedInstance()
+    var soundProcessor: SoundProcessor?
     
     let timeoutCoeff:UInt64 = 1000000
     

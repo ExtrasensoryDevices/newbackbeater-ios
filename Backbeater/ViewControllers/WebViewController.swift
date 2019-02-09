@@ -7,16 +7,16 @@
 
 import UIKit
 import WebKit
-import MBProgressHUD
 
 
-class WebViewController: UIViewController { // fixme, WKNavigationDelegate {
+class WebViewController: UIViewController, WKNavigationDelegate {
 
-//    weak var webView: WKWebView?
+    weak var webView: WKWebView?
     
     var url = HELP_URL
     
-    var spinner:MBProgressHUD?
+    @IBOutlet weak var closeButton: UIButton!
+    var spinner: UIActivityIndicatorView?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -27,20 +27,25 @@ class WebViewController: UIViewController { // fixme, WKNavigationDelegate {
         super.viewDidLoad()
         view.backgroundColor = ColorPalette.black.color
         
-        //fixme
-//        let webView = WKWebView(frame: .zero, configuration: WKWebViewConfiguration())
-//        webView.navigationDelegate = self
-//        webView.backgroundColor = ColorPalette.black.color
-//        webView.isOpaque = false
-//
-//        self.view.addSubview(webView)
-//        webView.translatesAutoresizingMaskIntoConstraints = false
-//        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[webView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["webView":webView]))
-//        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[webView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["webView":webView]))
-//
-//        _ = webView.load(URLRequest(url: URL(string: url)!))
-//
-//        self.webView = webView
+        let webView = WKWebView(frame: .zero, configuration: WKWebViewConfiguration())
+        webView.navigationDelegate = self
+        webView.backgroundColor = ColorPalette.black.color
+        webView.isOpaque = false
+
+//        webView.frame = self.view.bounds
+//        webView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        self.view.insertSubview(webView, belowSubview: closeButton)
+//        self.view.autoresizesSubviews = true
+        
+
+        webView.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[webView]|", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: ["webView":webView]))
+        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[webView]|", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: ["webView":webView]))
+
+        _ = webView.load(URLRequest(url: URL(string: url)!))
+
+        webView.isHidden = true
+        self.webView = webView
     }
     
     
@@ -50,51 +55,40 @@ class WebViewController: UIViewController { // fixme, WKNavigationDelegate {
     
 
     // MARK: - UIWebViewDelegate
-//    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
-//        spinner = MBProgressHUD.showAdded(to: self.view, animated: true)
-//    }
-//    
-//    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-//        spinner?.hide(animated: true)
-//    }
-//    
-//    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
-//        processError()
-//    }
-//    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-//        processError()
-//    }
+    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        showSpinner()
+    }
     
-    //FIXME:
-//    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-//        if navigationAction.navigationType == WKNavigationType.linkActivated {
-//            if let urlString = navigationAction.request.url?.absoluteString {
-//                if urlString.contains(HELP_URL) {
-//                    decisionHandler(.allow)
-//                    return
-//                }
-//            }
-//            decisionHandler(.allow)
-//        }
-//        decisionHandler(.allow)
-//    }
-//    
-//    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-//        if (navigationType == UIWebViewNavigationType.linkClicked){
-//            if let urlString = request.url?.absoluteString {
-//                if (urlString.lowercased().range(of: "apphelp") != nil) {
-//                    return true
-//                }
-//            }
-//            return !UIApplication.shared.openURL(request.url!)
-//        } else {
-//            return true
-//            
-//        }
-//    }
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        webView.isHidden = false
+        hideSpinner()
+    }
     
-    private func processError() {
-        spinner?.hide(animated: true)
+    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+        processError(error)
+    }
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        processError(error)
+    }
+    
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        
+        if navigationAction.navigationType == .linkActivated {
+            if let url = navigationAction.request.url {
+               if url.absoluteString.contains("apphelp") {
+                    decisionHandler(.allow)
+                    return
+                }
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+            decisionHandler(.cancel)
+        } else {
+            decisionHandler(.allow)
+        }
+    }
+    
+    private func processError(_ error: Error) {
+        hideSpinner()
         
         let alertVC = UIAlertController(title: nil, message: "Please check your internet connection or try again later.", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in})
@@ -104,5 +98,16 @@ class WebViewController: UIViewController { // fixme, WKNavigationDelegate {
     }
     
 
-    
+    private func showSpinner() {
+        hideSpinner()
+        let spinner = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.whiteLarge)
+        spinner.center = view.center
+        spinner.startAnimating()
+        view.addSubview(spinner)
+        self.spinner = spinner
+    }
+    private func hideSpinner() {
+        spinner?.removeFromSuperview()
+        spinner = nil
+    }
 }
