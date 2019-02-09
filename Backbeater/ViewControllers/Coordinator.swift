@@ -40,7 +40,7 @@ protocol WebPagePresenter: class {
 }
 
 protocol CoordinatorDelegate: class {
-    func setupView(lastPlayedTempo: Int, metronomeTempo: Int, sensorDetected: Bool)
+    func setupView(lastPlayedTempo: Int, metronomeTempo: Int, sensorDetected: Bool, sound: URL)
     func turnOffMetronome()
     func stopAnimation()
     func updateMetronomeState(metronomeState: MetronomeState)
@@ -92,6 +92,7 @@ class Coordinator {
     private var sensitivity: Int {  // [0..100]
         didSet {
             if sensitivity != oldValue {
+                soundProcessor?.setSensivity(sensitivity)
                 UserDefaults.set(integer: sensitivity, for: .sensitivity)
                 Flurry.logEvent(.sensitivityValueChanged, value: sensitivity)
             }
@@ -120,6 +121,7 @@ class Coordinator {
     private var metronomeSoundIdx: Int {   // [0..3]
         didSet {
             if metronomeSoundIdx != oldValue {
+                output?.setSound(url: soundUrl)
                 UserDefaults.set(integer: metronomeSoundIdx, for: .metronomeSoundIndex)
             }
         }
@@ -128,11 +130,14 @@ class Coordinator {
     private var strikesWindow: Int {
         return Constants.strikesWindowValues[strikesWindowIdx]
     }
+    
     private var timeSignature: Int {
         return Constants.timeSignatureValues[timeSignatureIdx]
     }
+    
     private var soundUrl:URL {
-        return URL(fileURLWithPath: Constants.soundFiles[metronomeSoundIdx])
+        let path = Bundle.main.path(forResource: Constants.soundFiles[metronomeSoundIdx], ofType: nil)!
+        return URL(fileURLWithPath: path)
     }
 
     
@@ -146,7 +151,6 @@ class Coordinator {
             switch (metronomeState, oldValue) {
             case (.on(let newTempo), .on(let oldTempo)):
                 if newTempo != oldTempo {
-                    UserDefaults.set(integer: newTempo, for: .metronomeTempo)
                     Flurry.logEvent(.metronomeTempoValueChanged, value: newTempo)
                 }
             case (.off, .off):
@@ -155,6 +159,10 @@ class Coordinator {
                 Flurry.logEvent(.metronomeStateChanged, value: 1 ) // is ON
             case (.off, .on):
                 Flurry.logEvent(.metronomeStateChanged, value: 0 ) // is OFF
+            }
+            
+            if (metronomeState.tempo !=  oldValue.tempo) {
+                UserDefaults.set(integer: metronomeState.tempo , for: .metronomeTempo)
             }
         }
     }
@@ -220,6 +228,7 @@ class Coordinator {
     }
     
     private func processBPM(_ bpm: Float64){
+        print("[a] C.processBPM(\(bpm))")
         let timeSignature = self.timeSignature
         let multiplier = metronomeState.isOn ? 1 :  Float64(timeSignature)
         let instantTempo:Float64 = bpm * multiplier
@@ -227,7 +236,6 @@ class Coordinator {
         currentTempo = strikesWindowQueue.enqueue(instantTempo).average
         
         output?.display(cpt: currentTempo, timeSignature: timeSignature, metronomeState: metronomeState)
-        
         
         if !metronomeState.isOn {
             delay(ObjcConstants.IDLE_TIMEOUT, callback: { [weak self] () -> () in
@@ -248,14 +256,18 @@ class Coordinator {
             })
         }
         lastStrikeTime = PublicUtilityWrapper.caHostTimeBase_GetCurrentTime()
-        
     }
 }
 
 
+// MARK: - DisplayViewControllerDelegate
+
 extension Coordinator: DisplayViewControllerDelegate {
     func readyToRender() {
-        output?.setupView(lastPlayedTempo: lastPlayedTempo, metronomeTempo: metronomeState.tempo, sensorDetected: sensorDetected)
+        output?.setupView(lastPlayedTempo: lastPlayedTempo,
+                          metronomeTempo: metronomeState.tempo,
+                          sensorDetected: sensorDetected,
+                          sound: soundUrl)
     }
     
     
@@ -292,8 +304,6 @@ extension Coordinator: DisplayViewControllerDelegate {
 
 extension Coordinator: SoundProcessorDelegate {
     
-    // MARK: - SoundProcessorDelegate
-    
     func soundProcessorDidDetectSensor(in sensorIn: Bool) {
         sensorDetected = sensorIn
         output?.updateSensorState(sensorDetected: sensorDetected)
@@ -316,7 +326,6 @@ extension Coordinator: SoundProcessorDelegate {
     func soundProcessorDidFindBPM(_ bpm: Float64) {
         processBPM(bpm)
     }
-    
 }
 
 

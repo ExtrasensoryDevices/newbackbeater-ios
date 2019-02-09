@@ -47,7 +47,7 @@ class NumericStepper: UIControlNibDesignable {
         }
     }
     
-    var isOn = true {
+    var isOn = false {
         didSet {
             updateOnOffState()
         }

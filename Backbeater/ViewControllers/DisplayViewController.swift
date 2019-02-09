@@ -102,8 +102,10 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
     
     func setupView(lastPlayedTempo:Int,
                    metronomeTempo: Int,
-                   sensorDetected: Bool) {
+                   sensorDetected: Bool,
+                   sound: URL) {
         centralRing.setLastPlayedTempo(tempo: lastPlayedTempo)
+        centralRing.setSound(url: sound)
         metronomeTempoView.value = metronomeTempo
         metronomeTempoView.isOn = false
         

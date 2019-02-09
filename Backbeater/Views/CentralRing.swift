@@ -25,7 +25,7 @@ class CentralRing: NibDesignable {
     
     @IBOutlet weak var ringTopConstraint: NSLayoutConstraint!
     
-    private var player:AVAudioPlayer!
+    private var player:AVAudioPlayer?
     
     private var cptSublayer:CAShapeLayer?
     private var bpmSublayer:CAShapeLayer?
@@ -71,13 +71,15 @@ class CentralRing: NibDesignable {
     
     
     func setLastPlayedTempo(tempo:Int) {
-        cptLabel.text = "\(tempo)"
+       setDisplayTempo(tempo)
     }
     
     func setSound(url:URL) {
         do {
+            try AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .default)
+            try AVAudioSession.sharedInstance().setActive(true)
             player = try AVAudioPlayer(contentsOf: url)
-            player.prepareToPlay()
+            player?.prepareToPlay()
         } catch  {
             print(error)
         }
@@ -89,12 +91,11 @@ class CentralRing: NibDesignable {
 
     func display(cpt:Int, timeSignature: Int, metronomeState:MetronomeState) {
         // display numbers
+        setDisplayTempo(cpt)
         if cpt > Tempo.max || cpt < Tempo.min {
             // We do not need BPM outside this range.
-            cptLabel.text = cpt > Tempo.max ? "MAX" : "MIN"
             runPulseAnimation()
         } else {
-            cptLabel.text = "\(cpt)"
             let cptAnimationDuration = 60.0/(Double(cpt)/Double(timeSignature)) // =60sec/actual_hits_per_min
             let resetCptAnimation:Bool
             if case MetronomeState.off = metronomeState {
@@ -106,35 +107,44 @@ class CentralRing: NibDesignable {
         }
     }
     
+    
     func handleMetronomeState(_ metronomeState:MetronomeState) {
         
-        metronomeTimer?.cancel()
-        metronomeTimer = nil
+//        metronomeTimer?.cancel()
+//        metronomeTimer = nil
         
         switch metronomeState {
         case .on(let metronomeTempo):
             let newDuration = 60.0/Double(metronomeTempo)
-            // restart animation if needed
             let tempoChanged = cptAnimation.duration != newDuration
             let cptAnimationIsRunning = (cptSublayer?.animationKeys()?.count ?? 0) > 0
-            let animationShouldRestart = !cptAnimationIsRunning || (cptAnimationIsRunning && tempoChanged)
-            if animationShouldRestart {
+            
+            // restart metronome if needed
+            if metronomeTimer == nil || tempoChanged || !cptAnimationIsRunning {
+                
+                // reset animation
                 cptSublayer?.removeAllAnimations()
                 cptAnimation?.duration = newDuration
                 cptSublayer?.add(cptAnimation, forKey: AnimationKey.cpt)
-            }
-            // add sound timer
-            let timer = DispatchSource.makeTimerSource(flags: DispatchSource.TimerFlags(rawValue: UInt(0)), queue: DispatchQueue.main)
-            let interval = newDuration * Double(NSEC_PER_SEC)
-            timer.schedule(wallDeadline: DispatchWallTime.now(), repeating:interval, leeway: .nanoseconds(5))
+                
+                // reset timer
+                metronomeTimer?.cancel()
+                metronomeTimer = nil
             
-            timer.setEventHandler{ [weak self] in
-                self?.playSound()
+                let timer = DispatchSource.makeTimerSource()
+                timer.schedule(wallDeadline: .now(), repeating:newDuration, leeway: .nanoseconds(5))
+                
+                timer.setEventHandler{ [weak self] in
+                    self?.playSound()
+                }
+                timer.resume()
+                metronomeTimer = timer
             }
-            timer.resume()
-            metronomeTimer = timer
             
         case .off:
+            // stop metronome
+            metronomeTimer?.cancel()
+            metronomeTimer = nil
             cptSublayer?.removeAllAnimations()
         }
     }
@@ -146,13 +156,36 @@ class CentralRing: NibDesignable {
         cptSublayer?.removeAllAnimations()
     }
     
+    private func setDisplayTempo(_ cpt: Int) {
+        if cpt > Tempo.max || cpt < Tempo.min {
+            // We do not need BPM outside this range.
+            cptLabel.text = cpt > Tempo.max ? "MAX" : "MIN"
+        } else {
+            cptLabel.text = "\(cpt)"
+        }
+    }
+    
+    
+//    deinit {
+//        timer?.setEventHandler {}
+//        timer?.cancel()
+//        /*
+//         If the timer is suspended, calling cancel without resuming
+//         triggers a crash. This is documented here
+//         https://forums.developer.apple.com/thread/15902
+//         */
+//        resume()
+//        eventHandler = nil
+//    }
     private func playSound() {
-        if player != nil  {
+        if let player = self.player  {
             if player.isPlaying {
                 player.stop()
                 player.currentTime = 0.0
             }
             player.play()
+        } else {
+            print("Player not found")
         }
     }
 
