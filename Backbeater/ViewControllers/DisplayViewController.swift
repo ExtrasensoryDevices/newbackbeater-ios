@@ -39,10 +39,17 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
     weak var delegate: DisplayViewControllerDelegate?
     
     
-    private var songList:[SongTempo]?
+    private var songList:[SongTempo]? {
+        didSet {
+            let doShow = (songList?.count ?? 0) > 0
+            showSongView(doShow)
+        }
+    }
     private var selectedSongIndex:Int = -1 {
         didSet {
-            updateSongListView()
+            if selectedSongIndex != -1 {
+                updateSongListView()
+            }
         }
     }
     
@@ -103,7 +110,9 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
         updateSensorState(sensorDetected: sensorDetected)
         
         songList = SongTempo.deserialize(data: UserDefaults.data(for: .songList) as? Data)
-        updateSongListView()
+        if let count = songList?.count, count > 0 {
+            selectedSongIndex = 0
+        }
     }
     
     func turnOffMetronome() {
@@ -138,6 +147,7 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
     }
     
     func display(cpt:Int, timeSignature: Int, metronomeState:MetronomeState) {
+        print("[a] VC.display(\(cpt)")
         centralRing.display(cpt: cpt, timeSignature: timeSignature, metronomeState: metronomeState)
     }
 
@@ -155,7 +165,7 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
     }
     
     @IBAction func didTapSongName(_ sender: AnyObject) {
-        if let tempo  = songList?[selectedSongIndex].tempoValue {
+        if let tempo  = songList?[safe: selectedSongIndex]?.tempoValue {
             reportMetronomeState(isOn: metronomeTempoView.isOn, tempo: tempo)
         }
     }
@@ -200,50 +210,61 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
         }
     }
     
-    func updateSongListView() {
-        
-        var hideButtons:Bool
-        var hideLabel:Bool
-        if let count = songList?.count , count > 0 { // show
-            hideButtons = count == 1
-            hideLabel   = false
+    private func showSongView(_ doShow: Bool) {
+        prevSongButton.isHidden = !doShow
+        nextSongButton.isHidden = !doShow
+        songNameLabel.isHidden  = !doShow
+        if doShow {
             songListBottomLayoutConstraint.constant = 0
             hamButton.tintColor = UIColor.white
-            reportMetronomeState(isOn: metronomeTempoView.isOn, tempo: songList![selectedSongIndex].tempoValue)
-        } else {   // hide
-            hideButtons = true
-            hideLabel   = true
+        } else {
             songListBottomLayoutConstraint.constant = -songListView.bounds.height / 2
             hamButton.tintColor = ColorPalette.grey.color
         }
+    }
+    
+    private func updateSongListView() {
+        guard let songList = songList, songList.count > 0 else {
+            assertionFailure("SongList is nil or empty")
+            return
+        }
         
-        songNameLabel.text = songList?[safe: selectedSongIndex]?.songName ?? ""
+        guard let song = songList[safe: selectedSongIndex] else {
+            assertionFailure("SelectedSongIndex out of range")
+            return
+        }
+        
+        let hideButtons = songList.count == 1
+        
+        songNameLabel.text = song.songName
         
         prevSongButton.isHidden = hideButtons
         nextSongButton.isHidden = hideButtons
-        songNameLabel.isHidden = hideLabel
-        
+        songNameLabel.isHidden = false
+        reportMetronomeState(isOn: metronomeTempoView.isOn, tempo: song.tempoValue)
     }
+    
+    
     @IBAction func didTapPrevButton(_ sender: AnyObject) {
-        selectedSongIndex  = selectedSongIndex >= 1 ? selectedSongIndex-1 : songList!.count-1
+        guard let songList = songList else {
+            assertionFailure("SongList is nil")
+            return
+        }
+        selectedSongIndex  = selectedSongIndex >= 1 ? selectedSongIndex-1 : songList.count-1
     }
 
     @IBAction func didTapNextButton(_ sender: AnyObject) {
-        selectedSongIndex  = selectedSongIndex < songList!.count-1 ? selectedSongIndex+1 : 0
+        guard let songList = songList else {
+            assertionFailure("SongList is nil")
+            return
+        }
+        selectedSongIndex  = selectedSongIndex < songList.count-1 ? selectedSongIndex+1 : 0
     }
     
-    func songListViewControllerDidReturnSongList(_ songList: [SongTempo]?, updated: Bool) {
+    func songListViewControllerDidReturnSongList(_ newSongList: [SongTempo]?, updated: Bool) {
         if updated {
-            if songList == nil {
-                self.songList = nil
-                selectedSongIndex = -1
-            } else {
-                self.songList = songList
-                selectedSongIndex =  0
-            }
+            self.songList = newSongList
+            self.selectedSongIndex = (newSongList == nil) ? -1 : 0
         }
     }
-    
-    
-    
 }

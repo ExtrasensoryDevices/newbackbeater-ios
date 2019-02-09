@@ -27,10 +27,10 @@ class CentralRing: NibDesignable {
     
     private var player:AVAudioPlayer!
     
-    private var cptSublayer:CAShapeLayer!
-    private var bpmSublayer:CAShapeLayer!
-    private var strikeSublayer:CAShapeLayer!
-    private var borderSublayer:CAShapeLayer!
+    private var cptSublayer:CAShapeLayer?
+    private var bpmSublayer:CAShapeLayer?
+    private var strikeSublayer:CAShapeLayer?
+    private var borderSublayer:CAShapeLayer?
     
     private var cptAnimation:CABasicAnimation!
     private var bpmAnimation:CAKeyframeAnimation!
@@ -116,12 +116,12 @@ class CentralRing: NibDesignable {
             let newDuration = 60.0/Double(metronomeTempo)
             // restart animation if needed
             let tempoChanged = cptAnimation.duration != newDuration
-            let cptAnimationIsRunning = (cptSublayer.animationKeys()?.count ?? 0) > 0
+            let cptAnimationIsRunning = (cptSublayer?.animationKeys()?.count ?? 0) > 0
             let animationShouldRestart = !cptAnimationIsRunning || (cptAnimationIsRunning && tempoChanged)
             if animationShouldRestart {
-                cptSublayer.removeAllAnimations()
-                cptAnimation.duration = newDuration
-                cptSublayer.add(cptAnimation, forKey: AnimationKey.cpt)
+                cptSublayer?.removeAllAnimations()
+                cptAnimation?.duration = newDuration
+                cptSublayer?.add(cptAnimation, forKey: AnimationKey.cpt)
             }
             // add sound timer
             let timer = DispatchSource.makeTimerSource(flags: DispatchSource.TimerFlags(rawValue: UInt(0)), queue: DispatchQueue.main)
@@ -143,7 +143,7 @@ class CentralRing: NibDesignable {
         oldTapTime = 0
         newTapTime = 0
         tapCount = 0
-        cptSublayer.removeAllAnimations()
+        cptSublayer?.removeAllAnimations()
     }
     
     private func playSound() {
@@ -200,9 +200,9 @@ class CentralRing: NibDesignable {
         bpmSublayer?.removeAllAnimations()
         // CPT
         if resetCptAnimation {
-            cptSublayer.removeAllAnimations()
-            cptAnimation.duration = cptAnimationDuration
-            cptSublayer.add(cptAnimation, forKey: AnimationKey.cpt)
+            cptSublayer?.removeAllAnimations()
+            cptAnimation?.duration = cptAnimationDuration
+            cptSublayer?.add(cptAnimation, forKey: AnimationKey.cpt)
         }
         // BPM
         
@@ -212,9 +212,9 @@ class CentralRing: NibDesignable {
         } else {
             runPulseAnimation()
         }
-        bpmSublayer.transform = CATransform3DMakeRotation(CGFloat(currentRotationAngle), 0, 0, 1.0)
-        bpmSublayer.removeAllAnimations()
-        bpmSublayer.add(bpmAnimation, forKey: AnimationKey.bpm)
+        bpmSublayer?.transform = CATransform3DMakeRotation(CGFloat(currentRotationAngle), 0, 0, 1.0)
+        bpmSublayer?.removeAllAnimations()
+        bpmSublayer?.add(bpmAnimation, forKey: AnimationKey.bpm)
     }
     
     private func initAnimations() {
@@ -295,8 +295,8 @@ class CentralRing: NibDesignable {
         switchDrumAnimation()
         drumImage.startAnimating()
         
-        strikeSublayer.removeAllAnimations()
-        strikeSublayer.add(strikeAnimation, forKey: AnimationKey.strike)
+        strikeSublayer?.removeAllAnimations()
+        strikeSublayer?.add(strikeAnimation, forKey: AnimationKey.strike)
     }
     
     
@@ -309,7 +309,7 @@ class CentralRing: NibDesignable {
     
 
     private func getCurrentRotationRad() -> Float {
-        return (cptSublayer.presentation()!.value(forKeyPath: "transform.rotation.z")  as! NSNumber).floatValue
+        return (cptSublayer?.presentation()?.value(forKeyPath: "transform.rotation.z")  as? NSNumber)?.floatValue ?? 0
     }
     
     
@@ -329,65 +329,62 @@ class CentralRing: NibDesignable {
         
         borderSublayer?.removeFromSuperlayer()
         
-        // border
-        borderSublayer = CAShapeLayer()
-        borderSublayer.frame = ringView.bounds
-        ringView.layer.addSublayer(borderSublayer)
-        ringView.drawBorder(for: borderSublayer, color: ColorPalette.pink.color, width: BORDER_WIDTH)
+        let border = CAShapeLayer()
+        border.frame = ringView.bounds
+        ringView.layer.addSublayer(border)
+        ringView.drawBorder(for: border, color: ColorPalette.pink.color, width: BORDER_WIDTH)
+        borderSublayer = border
     }
     
     private func resetCptSublayer() {
         cptSublayer?.removeAllAnimations()
         cptSublayer?.removeFromSuperlayer()
         
-        cptSublayer = CAShapeLayer()
-        cptSublayer.frame = ringView.bounds
-        cptSublayer.strokeColor = ColorPalette.pink.cgColor
-        cptSublayer.fillColor = ColorPalette.pink.cgColor
-        cptSublayer.lineWidth = BORDER_WIDTH
-        
+        let cptLayer = CAShapeLayer()
+        cptLayer.frame = ringView.bounds
+        cptLayer.strokeColor = ColorPalette.pink.cgColor
+        cptLayer.fillColor = ColorPalette.pink.cgColor
+        cptLayer.lineWidth = BORDER_WIDTH
         
         let diameter:CGFloat = 15
         let smallCircleFrame = CGRect(x: ringView.bounds.midX-diameter/2, y: -diameter/2+1, width: diameter, height: diameter)
         let path = UIBezierPath(ovalIn: smallCircleFrame)
-        cptSublayer.path = path.cgPath
-        cptSublayer.masksToBounds = false
+        cptLayer.path = path.cgPath
+        cptLayer.masksToBounds = false
         
-        ringView.layer.insertSublayer(cptSublayer, above: borderSublayer)
-        
+        ringView.layer.insertSublayer(cptLayer, above: borderSublayer)
+        cptSublayer = cptLayer
     }
     
     private func resetBpmSublayer() {
         bpmSublayer?.removeAllAnimations()
         bpmSublayer?.removeFromSuperlayer()
         
-        bpmSublayer = CAShapeLayer()
-        bpmSublayer.frame = ringView.bounds
-        bpmSublayer.strokeColor = UIColor.white.cgColor
-        bpmSublayer.fillColor = UIColor.white.cgColor
-        bpmSublayer.lineWidth = BORDER_WIDTH
-        bpmSublayer.opacity = 0.0
-        
+        let bpmLayer = CAShapeLayer()
+        bpmLayer.frame = ringView.bounds
+        bpmLayer.strokeColor = UIColor.white.cgColor
+        bpmLayer.fillColor = UIColor.white.cgColor
+        bpmLayer.lineWidth = BORDER_WIDTH
+        bpmLayer.opacity = 0.0
         
         let diameter:CGFloat = 15
         let smallCircleFrame = CGRect(x: ringView.bounds.midX-diameter/2, y: -diameter/2+1, width: diameter, height: diameter)
         let path = UIBezierPath(ovalIn: smallCircleFrame)
-        bpmSublayer.path = path.cgPath
-        bpmSublayer.masksToBounds = false
+        bpmLayer.path = path.cgPath
+        bpmLayer.masksToBounds = false
         
-        ringView.layer.insertSublayer(bpmSublayer, above: cptSublayer)
-        
+        ringView.layer.insertSublayer(bpmLayer, above: cptSublayer)
+        bpmSublayer = bpmLayer
     }
     private func resetStrikeSublayer() {
         
         strikeSublayer?.removeFromSuperlayer()
         
-        // border
-        strikeSublayer = CAShapeLayer()
-        strikeSublayer.frame = ringView.bounds
-        strikeSublayer.opacity = 0.0
-        ringView.layer.addSublayer(strikeSublayer)
-        ringView.drawBorder(for: strikeSublayer, color: UIColor.white, width: BORDER_WIDTH)
-        
+        let strikeLayer = CAShapeLayer()
+        strikeLayer.frame = ringView.bounds
+        strikeLayer.opacity = 0.0
+        ringView.layer.addSublayer(strikeLayer)
+        ringView.drawBorder(for: strikeLayer, color: UIColor.white, width: BORDER_WIDTH)
+        strikeSublayer = strikeLayer
     }
 }
