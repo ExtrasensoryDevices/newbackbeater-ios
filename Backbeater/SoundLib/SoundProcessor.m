@@ -79,8 +79,6 @@ BOOL _strikeState;
             return noErr;
         };
         
-        [_soundSessionIO prepareSoundProcessingGraph:nil];
-
         [self addObservers];
         
         [self updateInputChannel];
@@ -165,6 +163,8 @@ BOOL _insideTimeout = false;
     _strikeState = NO;
     _strikeCount = 0;
     [_energyFunctionQueue clear];
+    
+    [_soundSessionIO prepareSoundProcessingGraph:nil];
     [_soundSessionIO startSoundProcessing:error];
     
     return error == nil;

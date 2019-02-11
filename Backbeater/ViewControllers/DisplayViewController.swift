@@ -158,7 +158,35 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
         centralRing.runPulseAnimation()
     }
     
+    func showMicrophonePermissionAlert() {
+        let alert = UIAlertController(
+            title: "Microphone permission required",
+            message: "Allow Backbeater to access your microphone?",
+            preferredStyle: .alert)
+        let settingsAction = UIAlertAction(title: "Settings", style: .default) { [weak self] (action) in
+            self?.openSettings()
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        alert.addAction(settingsAction)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    private func openSettings() {
+        guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+            return
+        }
+        
+        if UIApplication.shared.canOpenURL(settingsUrl) {
+            UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
+                print("Settings opened: \(success)") // Prints true
+            })
+        }
+    }
+    
 
+    //MARK: - User interaction
+    
     @IBAction func didTapGetSensorButton(_ sender: AnyObject) {
         UIApplication.shared.open(URL(string: BUY_SENSOR_URL)!, options: [:], completionHandler: nil)
 

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import AVFoundation
 import Flurry_iOS_SDK
 
 // MARK: - Constants
@@ -48,6 +49,7 @@ protocol CoordinatorDelegate: class {
     func setSound(url:URL)
     func display(cpt:Int, timeSignature: Int, metronomeState:MetronomeState)
     func handleFirstStrike()
+    func showMicrophonePermissionAlert()
 }
 
 
@@ -257,7 +259,39 @@ class Coordinator {
         }
         lastStrikeTime = PublicUtilityWrapper.caHostTimeBase_GetCurrentTime()
     }
+    
+    
+    // MARK: - Permissions
+    private func checkMicrophonePermission() {
+        // ww know that sensor is plugged in
+        let audioSession = AVAudioSession.sharedInstance()
+        
+        switch audioSession.recordPermission {
+        case .denied:
+            output?.showMicrophonePermissionAlert()
+        case .granted:
+            startAudioSession()
+        case .undetermined :
+            audioSession.requestRecordPermission { granted in
+                if granted {
+                    DispatchQueue.main.async { [weak self] in
+                        self?.startAudioSession()
+                    }
+                }
+            }
+        }
+    }
+    
+    private func startAudioSession() {
+        // after permission granted
+        sensorDetected = true
+        output?.updateSensorState(sensorDetected: true)
+        try? soundProcessor.start(sensitivity)
+    }
+    
+    
 }
+
 
 
 // MARK: - DisplayViewControllerDelegate
@@ -297,6 +331,7 @@ extension Coordinator: DisplayViewControllerDelegate {
     func didDetectFirstTap() {
         output?.handleFirstStrike()
     }
+    
 }
 
 
@@ -305,17 +340,13 @@ extension Coordinator: DisplayViewControllerDelegate {
 extension Coordinator: SoundProcessorDelegate {
     
     func soundProcessorDidDetectSensor(in sensorIn: Bool) {
-        sensorDetected = sensorIn
-        output?.updateSensorState(sensorDetected: sensorDetected)
         
-        do {
-            if sensorIn {
-                try soundProcessor.start(sensitivity)
-            } else {
-                try soundProcessor.stop()
-            }
-        } catch {
-            print(error.localizedDescription)
+        if sensorIn {
+            checkMicrophonePermission()
+        } else {
+            sensorDetected = false
+            output?.updateSensorState(sensorDetected: false)
+            try? soundProcessor.stop()
         }
     }
     
