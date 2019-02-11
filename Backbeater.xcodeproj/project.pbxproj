@@ -56,13 +56,13 @@
 		C766592021E5D57700D703C8 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C766591F21E5D57700D703C8 /* Coordinator.swift */; };
 		C766592221EB12EF00D703C8 /* CollectionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C766592121EB12EF00D703C8 /* CollectionExtension.swift */; };
 		C76659242200313A00D703C8 /* UserDefaultsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76659232200313A00D703C8 /* UserDefaultsExtension.swift */; };
+		C78C3DA42210B7F000780725 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7E929BA21DCA08800E950AA /* AVFoundation.framework */; };
 		C7E929A021DC959300E950AA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E9299F21DC959300E950AA /* AppDelegate.swift */; };
 		C7E929A521DC959300E950AA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7E929A321DC959300E950AA /* Main.storyboard */; };
 		C7E929A721DC959600E950AA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7E929A621DC959600E950AA /* Assets.xcassets */; };
 		C7E929B521DC9EBE00E950AA /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7E929B321DC9EBE00E950AA /* LaunchScreen.xib */; };
 		C7E929B721DCA07300E950AA /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7E929B621DCA07300E950AA /* WebKit.framework */; };
 		C7E929B921DCA08100E950AA /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7E929B821DCA08100E950AA /* CoreAudio.framework */; };
-		C7E929BB21DCA08800E950AA /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7E929BA21DCA08800E950AA /* AVFoundation.framework */; };
 		C7E929BD21DCA09800E950AA /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7E929BC21DCA09800E950AA /* Accelerate.framework */; };
 		C7E929BF21DCA0A000E950AA /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7E929BE21DCA0A000E950AA /* AudioToolbox.framework */; };
 		C7E929C121DCA0B600E950AA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7E929C021DCA0B500E950AA /* QuartzCore.framework */; };
@@ -150,11 +150,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C78C3DA42210B7F000780725 /* AVFoundation.framework in Frameworks */,
 				C766590E21E46A7700D703C8 /* Foundation.framework in Frameworks */,
 				C7E929C121DCA0B600E950AA /* QuartzCore.framework in Frameworks */,
 				C7E929BF21DCA0A000E950AA /* AudioToolbox.framework in Frameworks */,
 				C7E929BD21DCA09800E950AA /* Accelerate.framework in Frameworks */,
-				C7E929BB21DCA08800E950AA /* AVFoundation.framework in Frameworks */,
 				C7E929B921DCA08100E950AA /* CoreAudio.framework in Frameworks */,
 				C7E929B721DCA07300E950AA /* WebKit.framework in Frameworks */,
 				2EF398B6B639ED6E2F9264E6 /* Pods_Backbeater.framework in Frameworks */,

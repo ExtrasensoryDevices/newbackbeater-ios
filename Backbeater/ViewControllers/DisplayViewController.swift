@@ -151,7 +151,6 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
     }
     
     func display(cpt:Int, timeSignature: Int, metronomeState:MetronomeState) {
-        print("[a] VC.display(\(cpt)")
         centralRing.display(cpt: cpt, timeSignature: timeSignature, metronomeState: metronomeState)
     }
 

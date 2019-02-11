@@ -110,25 +110,6 @@ BOOL _insideTimeout = false;
     Float32 *data = left;
     int i;
     for (i=0; i<numFrames; i++) {
-
-//        Float32 energyLevel = [_energyFunctionQueue push:data[i]];
-//        if (_strikeState == NO && energyLevel >= _startThreshold) {
-//            UInt64 newTime = [PublicUtilityWrapper CAHostTimeBase_GetCurrentTime];
-//            
-//            UInt64 timeElapsedNs = [PublicUtilityWrapper CAHostTimeBase_AbsoluteHostDeltaToNanos:newTime oldTapTime:_strikeEndTime];
-//            
-//            if (timeElapsedNs < _timeout) {
-//                // ignore
-//            } else {
-//                _strikeState = YES;
-//                _strikeStartTime = newTime;
-//            }
-//        } else if (_strikeState == YES && energyLevel <= _endThreshold) {
-//            _strikeState = NO;
-//            
-//            _strikeEndTime = [PublicUtilityWrapper CAHostTimeBase_GetCurrentTime];
-//            [self didDetectStrike];
-//        }
         
         Float32 __startTh = self.testing ? _testStartThreshold : _startThreshold;
         Float32 __endTh = self.testing ? _testEndThreshold : _endThreshold;
@@ -173,8 +154,6 @@ BOOL _insideTimeout = false;
             if (self.testing) {
                 [self testDidDetectStrikeEnd:energyLevel];
             }
-            
-            
             [self didDetectStrike];
         }
     }
@@ -216,16 +195,6 @@ BOOL _insideTimeout = false;
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.delegate soundProcessorDidDetectSensorIn: self.sensorIn];
         });
-        //TODO: uncomment
-//        if (_sensorIn) {
-//            NSError *error
-//            [self startSoundProcessing:&error];
-//            if (error) {
-//                NSLog(@"Cannot start sound processing: %@", error);
-//            }
-//        } else {
-//            [self stopSoundProcessing:nil];
-//        }
     }
 }
 
@@ -246,7 +215,6 @@ UInt64 _tapCount = 0;
         
     if (isNewTapSeq) {
         _tapCount = 0;
-        // flash sensitivity
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.delegate soundProcessorDidDetectFirstStrike];
         });
@@ -263,24 +231,8 @@ UInt64 _tapCount = 0;
 
 -(void) updateStartThreshold:(NSInteger) sensitivity
 {
-//    float sensitivity = (float)Settings.sharedInstance.sensitivity;
-//    float A = 0;
-//    float B = 0;
-//    float C = 0;
-//    
-//    if (sensitivity < 20){
-//        A = 7; B = 197; C = 19;
-//    } else if (sensitivity < 90) {
-//        A = 1; B = 95; C = 25;
-//    } else {
-//        A = 3; B = 310; C = 200;
-//    }
-//    
-//    _startThreshold = - (A * sensitivity - B ) / C;
-    
     _startThreshold = ((NSNumber*)_startThresholdArray[sensitivity]).floatValue;
     _endThreshold = 1.1 * _startThreshold;
-//    NSLog(@"%f - %f", _startThreshold, _endThreshold);
 }
 
 
@@ -316,141 +268,61 @@ UInt64 _tapCount = 0;
 
 -(void)addObservers
 {
-    AVAudioSession *session = [ AVAudioSession sharedInstance ];
     // Register for Route Change notifications
     [[NSNotificationCenter defaultCenter] addObserver: self
                                              selector: @selector(handleRouteChange:)
                                                  name: AVAudioSessionRouteChangeNotification
-                                               object: session];
+                                               object: nil];
     [[NSNotificationCenter defaultCenter] addObserver: self
                                              selector: @selector(handleInterruption:)
                                                  name: AVAudioSessionInterruptionNotification
-                                               object: session];
-    [[NSNotificationCenter defaultCenter] addObserver: self
-                                             selector: @selector(handleMediaServicesWereReset:)
-                                                 name: AVAudioSessionMediaServicesWereResetNotification
-                                               object: session];
-    
+                                               object: nil];
+
 }
 
 -(void)removeObservers
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"AVAudioSessionRouteChangeNotification" object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"AVAudioSessionInterruptionNotification" object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"AVAudioSessionMediaServicesWereResetNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name: AVAudioSessionRouteChangeNotification  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name: AVAudioSessionInterruptionNotification object:nil];
 }
-
--(void)handleMediaServicesWereReset:(NSNotification*)notification{
-    //  If the media server resets for any reason, handle this notification to reconfigure audio or do any housekeeping, if necessary
-    //    • No userInfo dictionary for this notification
-    //      • Audio streaming objects are invalidated (zombies)
-    //      • Handle this notification by fully reconfiguring audio
-//    NSLog(@"handleMediaServicesWereReset: %@ ",[notification name]);
-    
-}
-
 
 -(void)handleInterruption:(NSNotification*)notification{
     NSInteger reason = 0;
-    NSString* reasonStr=@"";
-    if ([notification.name isEqualToString:@"AVAudioSessionInterruptionNotification"]) {
+    if ([notification.name isEqualToString:AVAudioSessionInterruptionNotification]) {
         //Posted when an audio interruption occurs.
-        reason = [[[notification userInfo] objectForKey:@" AVAudioSessionInterruptionTypeKey"] integerValue];
-        if (reason == AVAudioSessionInterruptionTypeBegan) {
-            //       Audio has stopped, already inactive
-            //       Change state of UI, etc., to reflect non-playing state
-            if(_soundSessionIO.isProcessingSound)[_soundSessionIO stopSoundProcessing:nil];
+        reason = [[[notification userInfo] objectForKey: AVAudioSessionInterruptionTypeKey] integerValue];
+        switch (reason) {
+        case AVAudioSessionInterruptionTypeBegan:
+            // Audio has stopped, already inactive, change state of UI, etc., to reflect non-playing state
+            [self stop:nil];
+        case AVAudioSessionInterruptionTypeEnded:
+            // Make session active, update user interface
+            [_soundSessionIO prepareSoundProcessingGraph:nil];
         }
-        
-        if (reason == AVAudioSessionInterruptionTypeEnded) {
-            //       Make session active
-            //       Update user interface
-            //       AVAudioSessionInterruptionOptionShouldResume option
-            reasonStr = @"AVAudioSessionInterruptionTypeEnded";
-            NSNumber* seccondReason = [[notification userInfo] objectForKey:@"AVAudioSessionInterruptionOptionKey"] ;
-            switch ([seccondReason integerValue]) {
-                case AVAudioSessionInterruptionOptionShouldResume:
-                    //          Indicates that the audio session is active and immediately ready to be used. Your app can resume the audio operation that was interrupted.
-                    break;
-                default:
-                    break;
-            }
-        }
-        
-        
-        if ([notification.name isEqualToString:@"AVAudioSessionDidBeginInterruptionNotification"]) {
-            if (_soundSessionIO.isProcessingSound) {
-                
-            }
-            //      Posted after an interruption in your audio session occurs.
-            //      This notification is posted on the main thread of your app. There is no userInfo dictionary.
-        }
-        if ([notification.name isEqualToString:@"AVAudioSessionDidEndInterruptionNotification"]) {
-            //      Posted after an interruption in your audio session ends.
-            //      This notification is posted on the main thread of your app. There is no userInfo dictionary.
-        }
-        if ([notification.name isEqualToString:@"AVAudioSessionInputDidBecomeAvailableNotification"]) {
-            //      Posted when an input to the audio session becomes available.
-            //      This notification is posted on the main thread of your app. There is no userInfo dictionary.
-        }
-        if ([notification.name isEqualToString:@"AVAudioSessionInputDidBecomeUnavailableNotification"]) {
-            //      Posted when an input to the audio session becomes unavailable.
-            //      This notification is posted on the main thread of your app. There is no userInfo dictionary.
-        }
-        
     };
-    NSLog(@"handleInterruption: %@ reason %@",[notification name],reasonStr);
 }
 
 -(void)handleRouteChange:(NSNotification*)notification{
-//    AVAudioSession *session = [AVAudioSession sharedInstance];
-//    NSString* reasonStr = @"";
-//    NSInteger  reason = [[[notification userInfo] objectForKey:AVAudioSessionRouteChangeReasonKey] integerValue];
-//    //  AVAudioSessionRouteDescription* prevRoute = [[notification userInfo] objectForKey:AVAudioSessionRouteChangePreviousRouteKey];
-//    switch (reason) {
-//        case AVAudioSessionRouteChangeReasonNoSuitableRouteForCategory:
-//            reasonStr = @"The route changed because no suitable route is now available for the specified category.";
-//            break;
-//        case AVAudioSessionRouteChangeReasonWakeFromSleep:
-//            reasonStr = @"The route changed when the device woke up from sleep.";
-//            break;
-//        case AVAudioSessionRouteChangeReasonOverride:
-//            reasonStr = @"The input route was overridden by the app.";
-//            break;
-//        case AVAudioSessionRouteChangeReasonCategoryChange:
-//            reasonStr = @"The category of the session object changed.";
-//            break;
-//        case AVAudioSessionRouteChangeReasonOldDeviceUnavailable:
-//            reasonStr = @"The previous audio input path is no longer available.";
-//            break;
-//        case AVAudioSessionRouteChangeReasonNewDeviceAvailable:
-//            reasonStr = @"A preferred new audio output path is now available.";
-//            break;
-//        case AVAudioSessionRouteChangeReasonUnknown:
-//        default:
-//            reasonStr = @"The reason for the change is unknown.";
-//            break;
-//    }
-    
     [self updateInputChannel];
-    
 }
 
 
 -(void) updateInputChannel
 {
-    AVAudioSession *session = [AVAudioSession sharedInstance];
-    NSArray *inputs = session.currentRoute.inputs;
-    AVAudioSessionPortDescription *input = inputs.count > 0 ? inputs[0] : nil;
-    if ([input.portType isEqualToString: AVAudioSessionPortHeadsetMic] ||
-        [input.portType isEqualToString: AVAudioSessionPortUSBAudio]) {
-        // sensor plugged in
-        [self setSensorPluggedIn:true];
-    } else { // AVAudioSessionPortBuiltInMic
-        // sensor unplugged
-        [self setSensorPluggedIn:false];
+    @synchronized(self) {
+        AVAudioSession *session = [AVAudioSession sharedInstance];
+        NSArray<AVAudioSessionPortDescription*> *inputs = session.currentRoute.inputs;
+        AVAudioSessionPortDescription *input = inputs.count > 0 ? inputs[0] : nil;
+        
+        if ([input.portType isEqualToString: AVAudioSessionPortHeadsetMic] ||
+            [input.portType isEqualToString: AVAudioSessionPortUSBAudio]) {
+            // sensor plugged in
+            [self setSensorPluggedIn:true];
+        } else {
+            // sensor unplugged
+            [self setSensorPluggedIn:false];
+        }
     }
-    
 }
 
 @end

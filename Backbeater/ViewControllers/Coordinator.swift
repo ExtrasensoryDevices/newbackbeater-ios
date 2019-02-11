@@ -197,7 +197,7 @@ class Coordinator {
     }
     
     
-    // MARK: -
+    // MARK: - NotificationCenter observers
     
     func registerForNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive), name:UIApplication.didBecomeActiveNotification, object: nil)
@@ -229,7 +229,6 @@ class Coordinator {
     }
     
     private func processBPM(_ bpm: Float64){
-        print("[a] C.processBPM(\(bpm))")
         let timeSignature = self.timeSignature
         let multiplier = metronomeState.isOn ? 1 :  Float64(timeSignature)
         let instantTempo:Float64 = bpm * multiplier
@@ -376,5 +375,5 @@ extension Coordinator: SidebarDelegate {
         }
         timeSignatureIdx = newIndex
     }
-
 }
+
