@@ -161,7 +161,7 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
     func showMicrophonePermissionAlert() {
         let alert = UIAlertController(
             title: "Microphone permission required",
-            message: "Allow Backbeater to access your microphone?",
+            message: "Mic permissions are required in order to connect to the sensor.",
             preferredStyle: .alert)
         let settingsAction = UIAlertAction(title: "Settings", style: .default) { [weak self] (action) in
             self?.openSettings()
