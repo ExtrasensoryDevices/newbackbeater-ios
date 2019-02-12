@@ -189,7 +189,6 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
     
     @IBAction func didTapGetSensorButton(_ sender: AnyObject) {
         UIApplication.shared.open(URL(string: BUY_SENSOR_URL)!, options: [:], completionHandler: nil)
-
     }
     
     @objc func didTapSetTempoButton() {

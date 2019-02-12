@@ -47,6 +47,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         application.isIdleTimerDisabled = true
 
+//        NSSetUncaughtExceptionHandler { exception in
+//            print(exception)
+//            print(exception.callStackSymbols)
+//        }
+        
         return true
     }
     
