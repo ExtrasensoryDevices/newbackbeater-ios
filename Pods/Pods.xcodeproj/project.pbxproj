@@ -7,365 +7,401 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0103EFBD1B5FCC622C4BA908E486ED32 /* Animator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082FE82135046462989D8E287AE47EBE /* Animator.swift */; };
-		02EBC8806606196E732B1CFD922EAC58 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B768FA10292C80A99234FFC599BBF2C7 /* SystemConfiguration.framework */; };
-		08DFA7CDAAD56C895B97E3E19F682B89 /* Gifu.h in Headers */ = {isa = PBXBuildFile; fileRef = C2981E8A3BE4BD89745FA405C733CB96 /* Gifu.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0AA1E118D86A19221113F6F53813A5A6 /* Flurry-iOS-SDK-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 84BD4C79EBE63701E9679126948F74D2 /* Flurry-iOS-SDK-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		16AA7AD8639F8EC5FA1B517E46126308 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 551D03E6D27FBCA293CDFEE4D3C354BE /* Foundation.framework */; };
-		242FE685E5EC3312E63863E28D441980 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14D7A9FDA215B989D19D7500FAB3C91 /* UIImageView.swift */; };
-		2BA0714C909E6B77BD66162B559B888A /* GIFImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2C9BB4D1A67A97A395EA3E43E53C3A /* GIFImageView.swift */; };
-		3073F23389DBB0A933FF17E98A7F89DE /* CGSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393227A1E8E6438F154B72804606ACBA /* CGSize.swift */; };
-		3211511C6C228800AE936BE4829E18FE /* Gifu-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7394DF98CF554A673983562D476B6BB7 /* Gifu-dummy.m */; };
-		3A7296993D20BC6E7F3C65FBAE2F5CB4 /* Gifu-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 35DC2486B8D504F62E1316C8AB0C4C3D /* Gifu-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5439C5A34D6E4871C493AFDEBE5DF127 /* Pods-Backbeater-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1979A14A86821F747F34BB402E877B99 /* Pods-Backbeater-dummy.m */; };
-		5B13DB4F8AE5EBB8DF6B110BAA3F1D7A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A4F11AFB139401569DCB81C94B914E0 /* UIKit.framework */; };
-		6C73DD538B7AA161602456713A38A7F0 /* GIFAnimatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B6407FAA7B6AB4ADFFEF988C874B38 /* GIFAnimatable.swift */; };
-		716EFA645402FF72ED969D4A22D0A09F /* FrameStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD60B13FB092F6A802850E637932CF5 /* FrameStore.swift */; };
-		79E37316773DD7A7C5D6094C20579DB5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 551D03E6D27FBCA293CDFEE4D3C354BE /* Foundation.framework */; };
-		7C4EA71E2BE0F7B5FC02E3C9CDABCC13 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE29A720084DED730D6E1CA50B73187D /* Security.framework */; };
-		8A4A7524DBD3A11FE9E8A255B001C843 /* AnimatedFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5364857B1FB97C14FF2A5980D50D63ED /* AnimatedFrame.swift */; };
-		9A0D28C58607779FDA8159A8A706BA35 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE9EB017EC4168042CB8845AEE0A96E /* Array.swift */; };
-		B604E64A822B74899D5D446D8E72E982 /* Pods-Backbeater-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = C94C6BFF52EC2A22D59743F502BB6053 /* Pods-Backbeater-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CF4FED77FEE81E0F4A3F6024EFD7160F /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B870EC57E1F21A9EA4ADAB84177DA517 /* UIImage.swift */; };
-		DD301131C5CD60238301236B98B0AAC3 /* FlurryEmpty.m in Sources */ = {isa = PBXBuildFile; fileRef = 389E3F79F83B008F002969BD0C554FFE /* FlurryEmpty.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		DFFD574DD0421C3B688213D824EAA21E /* Flurry-iOS-SDK-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1235923589E588F9375CC11CC463A9BC /* Flurry-iOS-SDK-dummy.m */; };
-		E1590ADCE99ED5433626EF67255CC071 /* Flurry.h in Headers */ = {isa = PBXBuildFile; fileRef = E598A980CF9930D78C7D58A6648DA648 /* Flurry.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E1F53F28A8B81B608F9888CB4F4944ED /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 551D03E6D27FBCA293CDFEE4D3C354BE /* Foundation.framework */; };
-		E219868C1144A7DF5E085567CBB87945 /* ImageSourceHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10447128F0B1BD4330228D60EE051FD /* ImageSourceHelpers.swift */; };
-		EE46245F15385377086A2C3D40C8ADDD /* FlurrySessionBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = F978CDEBE8A5CB9CBEB8922BAAA2944A /* FlurrySessionBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		FB2BC55495888191B200C873961065F8 /* FlurryConsent.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BCF58B0130223BD4FE6B6576019B791 /* FlurryConsent.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		046761E3254849FC1067FCAF4D42BD1E /* FlurrySessionBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A73F92996A5B6D4806CAF68318D45F1 /* FlurrySessionBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0C4E89DF20913D5FADC6103CA7C3D9E1 /* FlurryConsent.h in Headers */ = {isa = PBXBuildFile; fileRef = 3816F9456497FA495F5A02199C906462 /* FlurryConsent.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1F5433A1EF2BE0B39E3DBD7332E12926 /* Gifu-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = BF7D71A9575FD00F24E15718D0C43F0B /* Gifu-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		201460987A3D897892620C9C5B4B0F42 /* SwiftReorder-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = BB18144905B1E7AB63CF222F2842DD14 /* SwiftReorder-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		275E02344DBEC0711A40E7CC0F7AF2FD /* ReorderController+GestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925FC1E40B19D38067F828FEA461CC50 /* ReorderController+GestureRecognizer.swift */; };
+		2BB388059CAFE23C8870BDEE0433DD1E /* SwiftReorder-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B9030A9C1586807A238A0658A9DDA352 /* SwiftReorder-dummy.m */; };
+		2C47D8B5D6C149B7A8EC5C5ED9941FF8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E7EBC535604EB2CDBC6D7F17BC0CFBE /* Foundation.framework */; };
+		30DE0FB149963B36112EB87DD1AD46FA /* UITableView+Reorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4B4FA3B678412D6E9B7AE1D8CA1DDE /* UITableView+Reorder.swift */; };
+		31593E172937C45B89C4D4855A138F9E /* GIFAnimatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F713B8E3D5ECB70F9124927147687C6 /* GIFAnimatable.swift */; };
+		392FF5002FA9F334513BD7357FC1FAD6 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60DE9A5B8916D37A8A70975841B9D920 /* Security.framework */; };
+		3AB25F7F3B904762F88B6798CE4A1EF0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E7EBC535604EB2CDBC6D7F17BC0CFBE /* Foundation.framework */; };
+		3D37FC30AF9BEA0960B2D9F55B1A3BB0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E7EBC535604EB2CDBC6D7F17BC0CFBE /* Foundation.framework */; };
+		45A5AECA23953B3ED1F8C3531DDE619E /* CGSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CFC0BD57CADA73509520E3BD74F4C8 /* CGSize.swift */; };
+		5A66DA8C205F928AF63A16CD6890DC51 /* FlurryEmpty.m in Sources */ = {isa = PBXBuildFile; fileRef = 2684A56C83FB97E1EB484755241B8B79 /* FlurryEmpty.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		6AA1C34F4D67E32F79B06A62DB2E5A37 /* AnimatedFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC4D2252A54DBE760D55869A7E1A6A1 /* AnimatedFrame.swift */; };
+		6FDA60AAA9FAD29EA13BFC87BF4FE62C /* Pods-Backbeater-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 97D7575723316D0E502258F378184423 /* Pods-Backbeater-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		74760C0A899062793A250BA937E30C83 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A09F9CC15D943EBB73B4696D21A810A /* UIKit.framework */; };
+		7CF43EC74378C9AAEE652B83D8C2B2AB /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E6F03D0A5CBC2FF44A083B81174B2B /* UIImage.swift */; };
+		84BACAC1C12CC74B57D17C510DACB5FB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE8B8826D2DD959CF5859EB955FB0FFE /* SystemConfiguration.framework */; };
+		8729085BCF52665DD243C726C47A16A4 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558EDA23EB3B0A229A67AD192504AA87 /* UIImageView.swift */; };
+		8DC366E3E9A0BEA6E65425A7E6C3F2B0 /* Flurry-iOS-SDK-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 887BC4FF29B8DE9C863C5C1DAD48DF04 /* Flurry-iOS-SDK-dummy.m */; };
+		984A5207B4B823198EA9879967C9511A /* Animator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E5D0EA076CA246A2236D2929FE2BA5 /* Animator.swift */; };
+		A0BE92E353617A117E492B6E8533C47B /* ReorderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F3B59F84B9E31EA4C1F27B5389F380 /* ReorderController.swift */; };
+		A460562891BCBC8F05810335256F6097 /* ImageSourceHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65511BFB1DFC337F75695721FA00B04A /* ImageSourceHelpers.swift */; };
+		A773A5517076059B430537DA76286E8C /* FrameStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB247F9C87E4F02F8EAD4209D5FA56F3 /* FrameStore.swift */; };
+		B19EFBAD376D72D1394C1D71038CB70F /* GIFImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87577548FB83C3ED7B602068CFBBD2EE /* GIFImageView.swift */; };
+		B28D70FCD14EF1750027838BD8C8E7D4 /* Flurry.h in Headers */ = {isa = PBXBuildFile; fileRef = D02F5F1F8520E5E640F4D3DDCBC3112A /* Flurry.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B4B2C319C1101F7BFBBD5A747FF5237C /* ReorderController+SnapshotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10701BE53B00C64CA3B6C8B648065E25 /* ReorderController+SnapshotView.swift */; };
+		CA17553FB1540758C616D047FB6C090A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E7EBC535604EB2CDBC6D7F17BC0CFBE /* Foundation.framework */; };
+		CB7C443C22222836081DF33B6DE8700E /* Gifu-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = CC999EF20CCA6D7DE37666EB3A89DAB5 /* Gifu-dummy.m */; };
+		D0243013B32A38EA17705F0FFDFDDE44 /* Flurry-iOS-SDK-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B8247573F639C3EEBCE75B8205BC75E /* Flurry-iOS-SDK-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D1805D51EB0F7EBC066F9A5D05719B5B /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8960598A949518CCDA820A5281B2EC13 /* Array.swift */; };
+		DE8251322617E20D48AB3174A44EF1F2 /* Gifu.h in Headers */ = {isa = PBXBuildFile; fileRef = AEBD062E79FA87871F7E3A025720F02A /* Gifu.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F7DB0559B27ACD6737985F5A6211C142 /* ReorderController+AutoScroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40F35EFCA5110732F991BA5EAD4434A /* ReorderController+AutoScroll.swift */; };
+		F8957B6ABAD718FCC599174EED14FFD9 /* Pods-Backbeater-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1254EF603C7D41DBDBE99399230C0A /* Pods-Backbeater-dummy.m */; };
+		FD3EF8EF1306246070C136A5E9588BDF /* ReorderController+DestinationRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FD3BE342780C1670475DDAB10342F0 /* ReorderController+DestinationRow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		A72265840FFE96C7CFD1C4CCB89CDD61 /* PBXContainerItemProxy */ = {
+		2B27FDB42014028D15A29334AAD5DD40 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 8DB313788639CA3AE8C5821CF844489B;
+			remoteGlobalIDString = A506373BDEE15D440A55BF45CC32AAB9;
+			remoteInfo = SwiftReorder;
+		};
+		39D14068A6F164685CD195036753CB54 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3C76B5B858770C3EBABB802146AEE869;
 			remoteInfo = Gifu;
 		};
-		B1DE24BE2E6000AB747FF680DA888AF0 /* PBXContainerItemProxy */ = {
+		6935B18548E256A412ECD5FEB9FC3F4D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = FC87B432C9A89FED1442F375C2553DF3;
+			remoteGlobalIDString = 0D0640B9B558E37337FDE66284A34E77;
 			remoteInfo = "Flurry-iOS-SDK";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		082FE82135046462989D8E287AE47EBE /* Animator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Animator.swift; path = Source/Classes/Animator.swift; sourceTree = "<group>"; };
-		0F54B4296668487D6B4576C502A69202 /* Gifu-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Gifu-prefix.pch"; sourceTree = "<group>"; };
-		1235923589E588F9375CC11CC463A9BC /* Flurry-iOS-SDK-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Flurry-iOS-SDK-dummy.m"; sourceTree = "<group>"; };
-		196AD0A8DA24EA4B8DEED90129A32E7F /* Pods-Backbeater.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Backbeater.release.xcconfig"; sourceTree = "<group>"; };
-		1979A14A86821F747F34BB402E877B99 /* Pods-Backbeater-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Backbeater-dummy.m"; sourceTree = "<group>"; };
-		1BB6721AAA1C713A334D142F1AEFC1CD /* Flurry-iOS-SDK.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Flurry-iOS-SDK.xcconfig"; sourceTree = "<group>"; };
-		2A4F11AFB139401569DCB81C94B914E0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
-		2BCD7DE21F2705D863137A86C5A4FDB2 /* Pods-Backbeater-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Backbeater-resources.sh"; sourceTree = "<group>"; };
-		2BCF58B0130223BD4FE6B6576019B791 /* FlurryConsent.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FlurryConsent.h; path = Flurry/FlurryConsent.h; sourceTree = "<group>"; };
-		2F74AE178C5550C006C2EAAB14FF9E9A /* Pods_Backbeater.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Backbeater.framework; path = "Pods-Backbeater.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		35DC2486B8D504F62E1316C8AB0C4C3D /* Gifu-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Gifu-umbrella.h"; sourceTree = "<group>"; };
-		36D45AE16A96F31D34628BA3E18FFB2E /* Flurry_iOS_SDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Flurry_iOS_SDK.framework; path = "Flurry-iOS-SDK.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		371E139442B94EA984FE53AE758D3051 /* Pods-Backbeater-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Backbeater-frameworks.sh"; sourceTree = "<group>"; };
-		389E3F79F83B008F002969BD0C554FFE /* FlurryEmpty.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FlurryEmpty.m; path = Flurry/FlurryEmpty.m; sourceTree = "<group>"; };
-		393227A1E8E6438F154B72804606ACBA /* CGSize.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CGSize.swift; path = Source/Extensions/CGSize.swift; sourceTree = "<group>"; };
-		51BFAB32986F0E386FA68F954C8E701A /* Pods-Backbeater.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Backbeater.modulemap"; sourceTree = "<group>"; };
-		5364857B1FB97C14FF2A5980D50D63ED /* AnimatedFrame.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AnimatedFrame.swift; path = Source/Classes/AnimatedFrame.swift; sourceTree = "<group>"; };
-		550F1C78FF5131CC900BB6B40CE778F1 /* Pods-Backbeater.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Backbeater.debug.xcconfig"; sourceTree = "<group>"; };
-		551D03E6D27FBCA293CDFEE4D3C354BE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		64BAA2C6FB65032105C79D37C37C0495 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6E135AA880C2C8C0CB509219A38582E4 /* libFlurry_9.2.3.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libFlurry_9.2.3.a; path = Flurry/libFlurry_9.2.3.a; sourceTree = "<group>"; };
-		6F7D6E3B08E2E90829EB133A4B9C22A5 /* Flurry-iOS-SDK.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Flurry-iOS-SDK.modulemap"; sourceTree = "<group>"; };
-		7394DF98CF554A673983562D476B6BB7 /* Gifu-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Gifu-dummy.m"; sourceTree = "<group>"; };
-		808BA2DF5D4171C539A71EFF0E1C494B /* Gifu.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = Gifu.modulemap; sourceTree = "<group>"; };
-		84BD4C79EBE63701E9679126948F74D2 /* Flurry-iOS-SDK-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Flurry-iOS-SDK-umbrella.h"; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		9946F339D108A632FE087225F9B3D9FA /* Flurry-iOS-SDK-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Flurry-iOS-SDK-prefix.pch"; sourceTree = "<group>"; };
-		A14D7A9FDA215B989D19D7500FAB3C91 /* UIImageView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = UIImageView.swift; path = Source/Extensions/UIImageView.swift; sourceTree = "<group>"; };
-		AC2C9BB4D1A67A97A395EA3E43E53C3A /* GIFImageView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GIFImageView.swift; path = Source/Classes/GIFImageView.swift; sourceTree = "<group>"; };
-		AE29A720084DED730D6E1CA50B73187D /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
-		AEF455C662AE3FBEA08A809ED0145101 /* Gifu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Gifu.framework; path = Gifu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		AFF024E8777B2AE051A3C15DDB24868A /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B556EB053A770614846BBA4B9D48C468 /* Gifu.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Gifu.xcconfig; sourceTree = "<group>"; };
-		B768FA10292C80A99234FFC599BBF2C7 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
-		B870EC57E1F21A9EA4ADAB84177DA517 /* UIImage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = UIImage.swift; path = Source/Extensions/UIImage.swift; sourceTree = "<group>"; };
-		BBE9EB017EC4168042CB8845AEE0A96E /* Array.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Array.swift; path = Source/Extensions/Array.swift; sourceTree = "<group>"; };
-		BDD60B13FB092F6A802850E637932CF5 /* FrameStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FrameStore.swift; path = Source/Classes/FrameStore.swift; sourceTree = "<group>"; };
-		C103637C625C6C7B8DB85586E843FA2F /* Pods-Backbeater-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Backbeater-acknowledgements.plist"; sourceTree = "<group>"; };
-		C2981E8A3BE4BD89745FA405C733CB96 /* Gifu.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Gifu.h; path = Source/Gifu.h; sourceTree = "<group>"; };
-		C33AF579F2CEE950ACD76239D702DD39 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C8B6407FAA7B6AB4ADFFEF988C874B38 /* GIFAnimatable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GIFAnimatable.swift; path = Source/Classes/GIFAnimatable.swift; sourceTree = "<group>"; };
-		C94C6BFF52EC2A22D59743F502BB6053 /* Pods-Backbeater-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Backbeater-umbrella.h"; sourceTree = "<group>"; };
-		D10447128F0B1BD4330228D60EE051FD /* ImageSourceHelpers.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageSourceHelpers.swift; path = Source/Helpers/ImageSourceHelpers.swift; sourceTree = "<group>"; };
-		E598A980CF9930D78C7D58A6648DA648 /* Flurry.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Flurry.h; path = Flurry/Flurry.h; sourceTree = "<group>"; };
-		F7F67036FEE43BB289336BB95FE4061A /* Pods-Backbeater-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Backbeater-acknowledgements.markdown"; sourceTree = "<group>"; };
-		F978CDEBE8A5CB9CBEB8922BAAA2944A /* FlurrySessionBuilder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FlurrySessionBuilder.h; path = Flurry/FlurrySessionBuilder.h; sourceTree = "<group>"; };
+		03BDB560F62E675689A10490412CC9E7 /* Pods-Backbeater.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Backbeater.modulemap"; sourceTree = "<group>"; };
+		088D944D4348D139637E6D5EE0A14A79 /* SwiftReorder-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "SwiftReorder-Info.plist"; sourceTree = "<group>"; };
+		10701BE53B00C64CA3B6C8B648065E25 /* ReorderController+SnapshotView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "ReorderController+SnapshotView.swift"; path = "Source/ReorderController+SnapshotView.swift"; sourceTree = "<group>"; };
+		19B1C1D4549C9D666D361AC92FA971B4 /* Flurry-iOS-SDK.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Flurry-iOS-SDK.modulemap"; sourceTree = "<group>"; };
+		1B1254EF603C7D41DBDBE99399230C0A /* Pods-Backbeater-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Backbeater-dummy.m"; sourceTree = "<group>"; };
+		1F047004C17C06FCAE43F96F44C8A21D /* Pods-Backbeater-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Backbeater-Info.plist"; sourceTree = "<group>"; };
+		2163C7F68B8122C31BE468F27E86132D /* SwiftReorder.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = SwiftReorder.modulemap; sourceTree = "<group>"; };
+		2684A56C83FB97E1EB484755241B8B79 /* FlurryEmpty.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FlurryEmpty.m; path = Flurry/FlurryEmpty.m; sourceTree = "<group>"; };
+		2E7EBC535604EB2CDBC6D7F17BC0CFBE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		3816F9456497FA495F5A02199C906462 /* FlurryConsent.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FlurryConsent.h; path = Flurry/FlurryConsent.h; sourceTree = "<group>"; };
+		39DBE9C403E7017EE7F1471966FBAE85 /* SwiftReorder-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftReorder-prefix.pch"; sourceTree = "<group>"; };
+		3DEFC787BC0EF2598A56E3195E704E4C /* Flurry-iOS-SDK-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Flurry-iOS-SDK-Info.plist"; sourceTree = "<group>"; };
+		3F713B8E3D5ECB70F9124927147687C6 /* GIFAnimatable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GIFAnimatable.swift; path = Source/Classes/GIFAnimatable.swift; sourceTree = "<group>"; };
+		47709F7D30614F51399BC6F9F64737FC /* libFlurry_9.2.3.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libFlurry_9.2.3.a; path = Flurry/libFlurry_9.2.3.a; sourceTree = "<group>"; };
+		532BD837A8423A73B170004B51F71A2A /* Gifu-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Gifu-prefix.pch"; sourceTree = "<group>"; };
+		558EDA23EB3B0A229A67AD192504AA87 /* UIImageView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = UIImageView.swift; path = Source/Extensions/UIImageView.swift; sourceTree = "<group>"; };
+		55A977D18150E89F658EC12D975AA24B /* Pods_Backbeater.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Backbeater.framework; path = "Pods-Backbeater.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5C86F749425BA74201D399ADC22D900E /* Flurry_iOS_SDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Flurry_iOS_SDK.framework; path = "Flurry-iOS-SDK.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		60DE9A5B8916D37A8A70975841B9D920 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
+		6260CA3B275ED653823523F865773656 /* Gifu.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = Gifu.modulemap; sourceTree = "<group>"; };
+		65511BFB1DFC337F75695721FA00B04A /* ImageSourceHelpers.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageSourceHelpers.swift; path = Source/Helpers/ImageSourceHelpers.swift; sourceTree = "<group>"; };
+		67FD3BE342780C1670475DDAB10342F0 /* ReorderController+DestinationRow.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "ReorderController+DestinationRow.swift"; path = "Source/ReorderController+DestinationRow.swift"; sourceTree = "<group>"; };
+		69893E0A23C3FF2B97FBCA41519B6428 /* Gifu.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Gifu.xcconfig; sourceTree = "<group>"; };
+		6A09F9CC15D943EBB73B4696D21A810A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		7FF84DBF2FA8D0B1410C12FE1068355C /* Pods-Backbeater-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Backbeater-acknowledgements.markdown"; sourceTree = "<group>"; };
+		87577548FB83C3ED7B602068CFBBD2EE /* GIFImageView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GIFImageView.swift; path = Source/Classes/GIFImageView.swift; sourceTree = "<group>"; };
+		887BC4FF29B8DE9C863C5C1DAD48DF04 /* Flurry-iOS-SDK-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Flurry-iOS-SDK-dummy.m"; sourceTree = "<group>"; };
+		8960598A949518CCDA820A5281B2EC13 /* Array.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Array.swift; path = Source/Extensions/Array.swift; sourceTree = "<group>"; };
+		904CDEA81A477622F9E2C4E86867A165 /* Pods-Backbeater-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Backbeater-acknowledgements.plist"; sourceTree = "<group>"; };
+		91CFC0BD57CADA73509520E3BD74F4C8 /* CGSize.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CGSize.swift; path = Source/Extensions/CGSize.swift; sourceTree = "<group>"; };
+		925FC1E40B19D38067F828FEA461CC50 /* ReorderController+GestureRecognizer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "ReorderController+GestureRecognizer.swift"; path = "Source/ReorderController+GestureRecognizer.swift"; sourceTree = "<group>"; };
+		97D7575723316D0E502258F378184423 /* Pods-Backbeater-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Backbeater-umbrella.h"; sourceTree = "<group>"; };
+		9A73F92996A5B6D4806CAF68318D45F1 /* FlurrySessionBuilder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FlurrySessionBuilder.h; path = Flurry/FlurrySessionBuilder.h; sourceTree = "<group>"; };
+		9B8247573F639C3EEBCE75B8205BC75E /* Flurry-iOS-SDK-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Flurry-iOS-SDK-umbrella.h"; sourceTree = "<group>"; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		ACC4D2252A54DBE760D55869A7E1A6A1 /* AnimatedFrame.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AnimatedFrame.swift; path = Source/Classes/AnimatedFrame.swift; sourceTree = "<group>"; };
+		AEBD062E79FA87871F7E3A025720F02A /* Gifu.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Gifu.h; path = Source/Gifu.h; sourceTree = "<group>"; };
+		B788CD1D5160A71672AE9F2278063927 /* Pods-Backbeater.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Backbeater.debug.xcconfig"; sourceTree = "<group>"; };
+		B812054ABA4B04B59AD0FCC5957EE287 /* Flurry-iOS-SDK-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Flurry-iOS-SDK-prefix.pch"; sourceTree = "<group>"; };
+		B8DFBF504546028F2D75356ED964DC3E /* Gifu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Gifu.framework; path = Gifu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B9030A9C1586807A238A0658A9DDA352 /* SwiftReorder-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SwiftReorder-dummy.m"; sourceTree = "<group>"; };
+		BB18144905B1E7AB63CF222F2842DD14 /* SwiftReorder-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftReorder-umbrella.h"; sourceTree = "<group>"; };
+		BDFB5FC81C0FDA2E52AFB6EE9EA56D7D /* Pods-Backbeater.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Backbeater.release.xcconfig"; sourceTree = "<group>"; };
+		BF7D71A9575FD00F24E15718D0C43F0B /* Gifu-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Gifu-umbrella.h"; sourceTree = "<group>"; };
+		C05C1B6BC40F01F71F2FE564F607E370 /* Flurry-iOS-SDK.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Flurry-iOS-SDK.xcconfig"; sourceTree = "<group>"; };
+		C3E5D0EA076CA246A2236D2929FE2BA5 /* Animator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Animator.swift; path = Source/Classes/Animator.swift; sourceTree = "<group>"; };
+		C9083C5DE6498532C30D7FF410E45ED3 /* SwiftReorder.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftReorder.xcconfig; sourceTree = "<group>"; };
+		CA4B4FA3B678412D6E9B7AE1D8CA1DDE /* UITableView+Reorder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UITableView+Reorder.swift"; path = "Source/UITableView+Reorder.swift"; sourceTree = "<group>"; };
+		CC999EF20CCA6D7DE37666EB3A89DAB5 /* Gifu-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Gifu-dummy.m"; sourceTree = "<group>"; };
+		CE8B8826D2DD959CF5859EB955FB0FFE /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
+		D02F5F1F8520E5E640F4D3DDCBC3112A /* Flurry.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Flurry.h; path = Flurry/Flurry.h; sourceTree = "<group>"; };
+		D3E6F03D0A5CBC2FF44A083B81174B2B /* UIImage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = UIImage.swift; path = Source/Extensions/UIImage.swift; sourceTree = "<group>"; };
+		DC997958847609CB27D573FFA5E946A5 /* Pods-Backbeater-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Backbeater-frameworks.sh"; sourceTree = "<group>"; };
+		E391E791760370A13C0D6E97D3F1F066 /* SwiftReorder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SwiftReorder.framework; path = SwiftReorder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E5F3B59F84B9E31EA4C1F27B5389F380 /* ReorderController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ReorderController.swift; path = Source/ReorderController.swift; sourceTree = "<group>"; };
+		E7BB811417A1F13A690ABFC210B1F93F /* Gifu-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Gifu-Info.plist"; sourceTree = "<group>"; };
+		F40F35EFCA5110732F991BA5EAD4434A /* ReorderController+AutoScroll.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "ReorderController+AutoScroll.swift"; path = "Source/ReorderController+AutoScroll.swift"; sourceTree = "<group>"; };
+		FB247F9C87E4F02F8EAD4209D5FA56F3 /* FrameStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FrameStore.swift; path = Source/Classes/FrameStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		0EA4FB61C374DDD5E6680E25D73EB8A1 /* Frameworks */ = {
+		036CEBEEBB00DF21ADC336C7260648A9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E1F53F28A8B81B608F9888CB4F4944ED /* Foundation.framework in Frameworks */,
-				7C4EA71E2BE0F7B5FC02E3C9CDABCC13 /* Security.framework in Frameworks */,
-				02EBC8806606196E732B1CFD922EAC58 /* SystemConfiguration.framework in Frameworks */,
-				5B13DB4F8AE5EBB8DF6B110BAA3F1D7A /* UIKit.framework in Frameworks */,
+				2C47D8B5D6C149B7A8EC5C5ED9941FF8 /* Foundation.framework in Frameworks */,
+				392FF5002FA9F334513BD7357FC1FAD6 /* Security.framework in Frameworks */,
+				84BACAC1C12CC74B57D17C510DACB5FB /* SystemConfiguration.framework in Frameworks */,
+				74760C0A899062793A250BA937E30C83 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9BC6A7F0BFC47C0EDF3D32EA5F310471 /* Frameworks */ = {
+		1784A5E2398762432D04A31949D18542 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				16AA7AD8639F8EC5FA1B517E46126308 /* Foundation.framework in Frameworks */,
+				3D37FC30AF9BEA0960B2D9F55B1A3BB0 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		BF403AC65B6B97C6410B6C6467358A27 /* Frameworks */ = {
+		1B20327242A68A5B04292A5F749BFC95 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				79E37316773DD7A7C5D6094C20579DB5 /* Foundation.framework in Frameworks */,
+				3AB25F7F3B904762F88B6798CE4A1EF0 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		58D1806C08CB506EAE545A3A3F3CBEE6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CA17553FB1540758C616D047FB6C090A /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		07E015051BB6F4E99F68878BB4D23193 /* Support Files */ = {
+		1D41A0042518D30C1B46DFA605AD7F4D /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				808BA2DF5D4171C539A71EFF0E1C494B /* Gifu.modulemap */,
-				B556EB053A770614846BBA4B9D48C468 /* Gifu.xcconfig */,
-				7394DF98CF554A673983562D476B6BB7 /* Gifu-dummy.m */,
-				0F54B4296668487D6B4576C502A69202 /* Gifu-prefix.pch */,
-				35DC2486B8D504F62E1316C8AB0C4C3D /* Gifu-umbrella.h */,
-				AFF024E8777B2AE051A3C15DDB24868A /* Info.plist */,
+				2E7EBC535604EB2CDBC6D7F17BC0CFBE /* Foundation.framework */,
+				60DE9A5B8916D37A8A70975841B9D920 /* Security.framework */,
+				CE8B8826D2DD959CF5859EB955FB0FFE /* SystemConfiguration.framework */,
+				6A09F9CC15D943EBB73B4696D21A810A /* UIKit.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		219A2F7D2D1E32D112AA920DF20CD94F /* FlurrySDK */ = {
+			isa = PBXGroup;
+			children = (
+				D02F5F1F8520E5E640F4D3DDCBC3112A /* Flurry.h */,
+				3816F9456497FA495F5A02199C906462 /* FlurryConsent.h */,
+				2684A56C83FB97E1EB484755241B8B79 /* FlurryEmpty.m */,
+				9A73F92996A5B6D4806CAF68318D45F1 /* FlurrySessionBuilder.h */,
+				EB044582DBD110021E45BF07372C7937 /* Frameworks */,
+			);
+			name = FlurrySDK;
+			sourceTree = "<group>";
+		};
+		38C17FF4DC924F10E06122E9255617E5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5C86F749425BA74201D399ADC22D900E /* Flurry_iOS_SDK.framework */,
+				B8DFBF504546028F2D75356ED964DC3E /* Gifu.framework */,
+				55A977D18150E89F658EC12D975AA24B /* Pods_Backbeater.framework */,
+				E391E791760370A13C0D6E97D3F1F066 /* SwiftReorder.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		67AB40E1E4AFA33B0F1C54DF9A911BB0 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				6260CA3B275ED653823523F865773656 /* Gifu.modulemap */,
+				69893E0A23C3FF2B97FBCA41519B6428 /* Gifu.xcconfig */,
+				CC999EF20CCA6D7DE37666EB3A89DAB5 /* Gifu-dummy.m */,
+				E7BB811417A1F13A690ABFC210B1F93F /* Gifu-Info.plist */,
+				532BD837A8423A73B170004B51F71A2A /* Gifu-prefix.pch */,
+				BF7D71A9575FD00F24E15718D0C43F0B /* Gifu-umbrella.h */,
 			);
 			name = "Support Files";
 			path = "../Target Support Files/Gifu";
 			sourceTree = "<group>";
 		};
-		14B8B9B15ECBE87983FF987239AB2D7B /* Frameworks */ = {
+		704D180DD7F8C6144922A8F7B81AA0F0 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				9B82E05762480FB8E41F26D24BCD7598 /* iOS */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		1990E963B93F58C76B1CA94C6569420B /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				6F7D6E3B08E2E90829EB133A4B9C22A5 /* Flurry-iOS-SDK.modulemap */,
-				1BB6721AAA1C713A334D142F1AEFC1CD /* Flurry-iOS-SDK.xcconfig */,
-				1235923589E588F9375CC11CC463A9BC /* Flurry-iOS-SDK-dummy.m */,
-				9946F339D108A632FE087225F9B3D9FA /* Flurry-iOS-SDK-prefix.pch */,
-				84BD4C79EBE63701E9679126948F74D2 /* Flurry-iOS-SDK-umbrella.h */,
-				64BAA2C6FB65032105C79D37C37C0495 /* Info.plist */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/Flurry-iOS-SDK";
-			sourceTree = "<group>";
-		};
-		325263231F1E7F6B095F1A8238588453 /* Flurry-iOS-SDK */ = {
-			isa = PBXGroup;
-			children = (
-				6F8AA5C9558B66EF63D26A96FEC05260 /* FlurrySDK */,
-				1990E963B93F58C76B1CA94C6569420B /* Support Files */,
-			);
-			name = "Flurry-iOS-SDK";
-			path = "Flurry-iOS-SDK";
-			sourceTree = "<group>";
-		};
-		37C772433DF031E6F9DFAFA33195330C /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				36D45AE16A96F31D34628BA3E18FFB2E /* Flurry_iOS_SDK.framework */,
-				AEF455C662AE3FBEA08A809ED0145101 /* Gifu.framework */,
-				2F74AE178C5550C006C2EAAB14FF9E9A /* Pods_Backbeater.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		3BEDF16EB8AC2982F98D70946204B22E /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				325263231F1E7F6B095F1A8238588453 /* Flurry-iOS-SDK */,
-				FB0854B409C4E950A6CE1F149ED595EB /* Gifu */,
+				E876D7FFA66F2002724E9A5778FD56DC /* Flurry-iOS-SDK */,
+				9DAB129747D4B012009EF5D9CC111A84 /* Gifu */,
+				8D47A6B5E04742B228AE78BACCBEFAFF /* SwiftReorder */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		4A2F7B2C74E0706931C9017B104533C4 /* Targets Support Files */ = {
+		8D47A6B5E04742B228AE78BACCBEFAFF /* SwiftReorder */ = {
 			isa = PBXGroup;
 			children = (
-				B5C345FCE9B802A3CB7C83DECFEF8DCC /* Pods-Backbeater */,
+				E5F3B59F84B9E31EA4C1F27B5389F380 /* ReorderController.swift */,
+				F40F35EFCA5110732F991BA5EAD4434A /* ReorderController+AutoScroll.swift */,
+				67FD3BE342780C1670475DDAB10342F0 /* ReorderController+DestinationRow.swift */,
+				925FC1E40B19D38067F828FEA461CC50 /* ReorderController+GestureRecognizer.swift */,
+				10701BE53B00C64CA3B6C8B648065E25 /* ReorderController+SnapshotView.swift */,
+				CA4B4FA3B678412D6E9B7AE1D8CA1DDE /* UITableView+Reorder.swift */,
+				9EBDC2BBAF8BC52F0D17E9D5A41B2283 /* Support Files */,
 			);
-			name = "Targets Support Files";
+			name = SwiftReorder;
+			path = SwiftReorder;
 			sourceTree = "<group>";
 		};
-		6F8AA5C9558B66EF63D26A96FEC05260 /* FlurrySDK */ = {
+		9DAB129747D4B012009EF5D9CC111A84 /* Gifu */ = {
 			isa = PBXGroup;
 			children = (
-				E598A980CF9930D78C7D58A6648DA648 /* Flurry.h */,
-				2BCF58B0130223BD4FE6B6576019B791 /* FlurryConsent.h */,
-				389E3F79F83B008F002969BD0C554FFE /* FlurryEmpty.m */,
-				F978CDEBE8A5CB9CBEB8922BAAA2944A /* FlurrySessionBuilder.h */,
-				91F9DCF33254CEAB09F9BC4F33C4DD3A /* Frameworks */,
-			);
-			name = FlurrySDK;
-			sourceTree = "<group>";
-		};
-		7DB346D0F39D3F0E887471402A8071AB = {
-			isa = PBXGroup;
-			children = (
-				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
-				14B8B9B15ECBE87983FF987239AB2D7B /* Frameworks */,
-				3BEDF16EB8AC2982F98D70946204B22E /* Pods */,
-				37C772433DF031E6F9DFAFA33195330C /* Products */,
-				4A2F7B2C74E0706931C9017B104533C4 /* Targets Support Files */,
-			);
-			sourceTree = "<group>";
-		};
-		91F9DCF33254CEAB09F9BC4F33C4DD3A /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				6E135AA880C2C8C0CB509219A38582E4 /* libFlurry_9.2.3.a */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		9B82E05762480FB8E41F26D24BCD7598 /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				551D03E6D27FBCA293CDFEE4D3C354BE /* Foundation.framework */,
-				AE29A720084DED730D6E1CA50B73187D /* Security.framework */,
-				B768FA10292C80A99234FFC599BBF2C7 /* SystemConfiguration.framework */,
-				2A4F11AFB139401569DCB81C94B914E0 /* UIKit.framework */,
-			);
-			name = iOS;
-			sourceTree = "<group>";
-		};
-		B5C345FCE9B802A3CB7C83DECFEF8DCC /* Pods-Backbeater */ = {
-			isa = PBXGroup;
-			children = (
-				C33AF579F2CEE950ACD76239D702DD39 /* Info.plist */,
-				51BFAB32986F0E386FA68F954C8E701A /* Pods-Backbeater.modulemap */,
-				F7F67036FEE43BB289336BB95FE4061A /* Pods-Backbeater-acknowledgements.markdown */,
-				C103637C625C6C7B8DB85586E843FA2F /* Pods-Backbeater-acknowledgements.plist */,
-				1979A14A86821F747F34BB402E877B99 /* Pods-Backbeater-dummy.m */,
-				371E139442B94EA984FE53AE758D3051 /* Pods-Backbeater-frameworks.sh */,
-				2BCD7DE21F2705D863137A86C5A4FDB2 /* Pods-Backbeater-resources.sh */,
-				C94C6BFF52EC2A22D59743F502BB6053 /* Pods-Backbeater-umbrella.h */,
-				550F1C78FF5131CC900BB6B40CE778F1 /* Pods-Backbeater.debug.xcconfig */,
-				196AD0A8DA24EA4B8DEED90129A32E7F /* Pods-Backbeater.release.xcconfig */,
-			);
-			name = "Pods-Backbeater";
-			path = "Target Support Files/Pods-Backbeater";
-			sourceTree = "<group>";
-		};
-		FB0854B409C4E950A6CE1F149ED595EB /* Gifu */ = {
-			isa = PBXGroup;
-			children = (
-				5364857B1FB97C14FF2A5980D50D63ED /* AnimatedFrame.swift */,
-				082FE82135046462989D8E287AE47EBE /* Animator.swift */,
-				BBE9EB017EC4168042CB8845AEE0A96E /* Array.swift */,
-				393227A1E8E6438F154B72804606ACBA /* CGSize.swift */,
-				BDD60B13FB092F6A802850E637932CF5 /* FrameStore.swift */,
-				C8B6407FAA7B6AB4ADFFEF988C874B38 /* GIFAnimatable.swift */,
-				AC2C9BB4D1A67A97A395EA3E43E53C3A /* GIFImageView.swift */,
-				C2981E8A3BE4BD89745FA405C733CB96 /* Gifu.h */,
-				D10447128F0B1BD4330228D60EE051FD /* ImageSourceHelpers.swift */,
-				B870EC57E1F21A9EA4ADAB84177DA517 /* UIImage.swift */,
-				A14D7A9FDA215B989D19D7500FAB3C91 /* UIImageView.swift */,
-				07E015051BB6F4E99F68878BB4D23193 /* Support Files */,
+				ACC4D2252A54DBE760D55869A7E1A6A1 /* AnimatedFrame.swift */,
+				C3E5D0EA076CA246A2236D2929FE2BA5 /* Animator.swift */,
+				8960598A949518CCDA820A5281B2EC13 /* Array.swift */,
+				91CFC0BD57CADA73509520E3BD74F4C8 /* CGSize.swift */,
+				FB247F9C87E4F02F8EAD4209D5FA56F3 /* FrameStore.swift */,
+				3F713B8E3D5ECB70F9124927147687C6 /* GIFAnimatable.swift */,
+				87577548FB83C3ED7B602068CFBBD2EE /* GIFImageView.swift */,
+				AEBD062E79FA87871F7E3A025720F02A /* Gifu.h */,
+				65511BFB1DFC337F75695721FA00B04A /* ImageSourceHelpers.swift */,
+				D3E6F03D0A5CBC2FF44A083B81174B2B /* UIImage.swift */,
+				558EDA23EB3B0A229A67AD192504AA87 /* UIImageView.swift */,
+				67AB40E1E4AFA33B0F1C54DF9A911BB0 /* Support Files */,
 			);
 			name = Gifu;
 			path = Gifu;
 			sourceTree = "<group>";
 		};
+		9EBDC2BBAF8BC52F0D17E9D5A41B2283 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				2163C7F68B8122C31BE468F27E86132D /* SwiftReorder.modulemap */,
+				C9083C5DE6498532C30D7FF410E45ED3 /* SwiftReorder.xcconfig */,
+				B9030A9C1586807A238A0658A9DDA352 /* SwiftReorder-dummy.m */,
+				088D944D4348D139637E6D5EE0A14A79 /* SwiftReorder-Info.plist */,
+				39DBE9C403E7017EE7F1471966FBAE85 /* SwiftReorder-prefix.pch */,
+				BB18144905B1E7AB63CF222F2842DD14 /* SwiftReorder-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/SwiftReorder";
+			sourceTree = "<group>";
+		};
+		BA4F31F07263C99FC76E66D632A59F09 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1D41A0042518D30C1B46DFA605AD7F4D /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C89AA1CC8A23A433E0A34D1007D8F32C /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				CB1BEB4DE96382FE58FDFCDEC5BF404C /* Pods-Backbeater */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		CB1BEB4DE96382FE58FDFCDEC5BF404C /* Pods-Backbeater */ = {
+			isa = PBXGroup;
+			children = (
+				03BDB560F62E675689A10490412CC9E7 /* Pods-Backbeater.modulemap */,
+				7FF84DBF2FA8D0B1410C12FE1068355C /* Pods-Backbeater-acknowledgements.markdown */,
+				904CDEA81A477622F9E2C4E86867A165 /* Pods-Backbeater-acknowledgements.plist */,
+				1B1254EF603C7D41DBDBE99399230C0A /* Pods-Backbeater-dummy.m */,
+				DC997958847609CB27D573FFA5E946A5 /* Pods-Backbeater-frameworks.sh */,
+				1F047004C17C06FCAE43F96F44C8A21D /* Pods-Backbeater-Info.plist */,
+				97D7575723316D0E502258F378184423 /* Pods-Backbeater-umbrella.h */,
+				B788CD1D5160A71672AE9F2278063927 /* Pods-Backbeater.debug.xcconfig */,
+				BDFB5FC81C0FDA2E52AFB6EE9EA56D7D /* Pods-Backbeater.release.xcconfig */,
+			);
+			name = "Pods-Backbeater";
+			path = "Target Support Files/Pods-Backbeater";
+			sourceTree = "<group>";
+		};
+		CC6658415DE95E981A1B2D9EACE80355 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				19B1C1D4549C9D666D361AC92FA971B4 /* Flurry-iOS-SDK.modulemap */,
+				C05C1B6BC40F01F71F2FE564F607E370 /* Flurry-iOS-SDK.xcconfig */,
+				887BC4FF29B8DE9C863C5C1DAD48DF04 /* Flurry-iOS-SDK-dummy.m */,
+				3DEFC787BC0EF2598A56E3195E704E4C /* Flurry-iOS-SDK-Info.plist */,
+				B812054ABA4B04B59AD0FCC5957EE287 /* Flurry-iOS-SDK-prefix.pch */,
+				9B8247573F639C3EEBCE75B8205BC75E /* Flurry-iOS-SDK-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/Flurry-iOS-SDK";
+			sourceTree = "<group>";
+		};
+		CF1408CF629C7361332E53B88F7BD30C = {
+			isa = PBXGroup;
+			children = (
+				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
+				BA4F31F07263C99FC76E66D632A59F09 /* Frameworks */,
+				704D180DD7F8C6144922A8F7B81AA0F0 /* Pods */,
+				38C17FF4DC924F10E06122E9255617E5 /* Products */,
+				C89AA1CC8A23A433E0A34D1007D8F32C /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		E876D7FFA66F2002724E9A5778FD56DC /* Flurry-iOS-SDK */ = {
+			isa = PBXGroup;
+			children = (
+				219A2F7D2D1E32D112AA920DF20CD94F /* FlurrySDK */,
+				CC6658415DE95E981A1B2D9EACE80355 /* Support Files */,
+			);
+			name = "Flurry-iOS-SDK";
+			path = "Flurry-iOS-SDK";
+			sourceTree = "<group>";
+		};
+		EB044582DBD110021E45BF07372C7937 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				47709F7D30614F51399BC6F9F64737FC /* libFlurry_9.2.3.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		771501F77B3C2E5510BBC5BE3BEAFEDE /* Headers */ = {
+		1D25BD138B1B7DC4F5532496E0A5435F /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0AA1E118D86A19221113F6F53813A5A6 /* Flurry-iOS-SDK-umbrella.h in Headers */,
-				E1590ADCE99ED5433626EF67255CC071 /* Flurry.h in Headers */,
-				FB2BC55495888191B200C873961065F8 /* FlurryConsent.h in Headers */,
-				EE46245F15385377086A2C3D40C8ADDD /* FlurrySessionBuilder.h in Headers */,
+				1F5433A1EF2BE0B39E3DBD7332E12926 /* Gifu-umbrella.h in Headers */,
+				DE8251322617E20D48AB3174A44EF1F2 /* Gifu.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9386CA006AEF3C67223F1ACAA86DA59E /* Headers */ = {
+		8A9EC66C8FC41F3AC5943AD9D84AD305 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B604E64A822B74899D5D446D8E72E982 /* Pods-Backbeater-umbrella.h in Headers */,
+				D0243013B32A38EA17705F0FFDFDDE44 /* Flurry-iOS-SDK-umbrella.h in Headers */,
+				B28D70FCD14EF1750027838BD8C8E7D4 /* Flurry.h in Headers */,
+				0C4E89DF20913D5FADC6103CA7C3D9E1 /* FlurryConsent.h in Headers */,
+				046761E3254849FC1067FCAF4D42BD1E /* FlurrySessionBuilder.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A7AF7B6976AB47233E2B0DBBB6F0A36B /* Headers */ = {
+		B7C8C1203EB8B241A7D6F6B5676ED624 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A7296993D20BC6E7F3C65FBAE2F5CB4 /* Gifu-umbrella.h in Headers */,
-				08DFA7CDAAD56C895B97E3E19F682B89 /* Gifu.h in Headers */,
+				201460987A3D897892620C9C5B4B0F42 /* SwiftReorder-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F4A1E21FE066BE9701669EE96807E8FC /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6FDA60AAA9FAD29EA13BFC87BF4FE62C /* Pods-Backbeater-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		2D3CF2AE1A3B5B6C0197526F3E176978 /* Pods-Backbeater */ = {
+		0D0640B9B558E37337FDE66284A34E77 /* Flurry-iOS-SDK */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8145F5855856C569BEB7DFC7B873014C /* Build configuration list for PBXNativeTarget "Pods-Backbeater" */;
+			buildConfigurationList = 7CD558C409BFB4F86EE326C7B035F006 /* Build configuration list for PBXNativeTarget "Flurry-iOS-SDK" */;
 			buildPhases = (
-				9386CA006AEF3C67223F1ACAA86DA59E /* Headers */,
-				E77E8D31BF9615FD06F505F2B24DA5E6 /* Sources */,
-				BF403AC65B6B97C6410B6C6467358A27 /* Frameworks */,
-				C201CB70354858E68EF18BDB6247C9CE /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				1F5568F9E63F278156243F2F3577B783 /* PBXTargetDependency */,
-				17ED901554EB89A492173EC7337ADE1F /* PBXTargetDependency */,
-			);
-			name = "Pods-Backbeater";
-			productName = "Pods-Backbeater";
-			productReference = 2F74AE178C5550C006C2EAAB14FF9E9A /* Pods_Backbeater.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		8DB313788639CA3AE8C5821CF844489B /* Gifu */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = E5F4F5126BE35F54B1923468D749416A /* Build configuration list for PBXNativeTarget "Gifu" */;
-			buildPhases = (
-				A7AF7B6976AB47233E2B0DBBB6F0A36B /* Headers */,
-				F499FB6FE3E9AD9B31D030FFEBB77161 /* Sources */,
-				9BC6A7F0BFC47C0EDF3D32EA5F310471 /* Frameworks */,
-				C56B7BE3CE902CDBC2B4C4DB8D38EB30 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = Gifu;
-			productName = Gifu;
-			productReference = AEF455C662AE3FBEA08A809ED0145101 /* Gifu.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		FC87B432C9A89FED1442F375C2553DF3 /* Flurry-iOS-SDK */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = E430167F66E6FD1B03300496232DB66C /* Build configuration list for PBXNativeTarget "Flurry-iOS-SDK" */;
-			buildPhases = (
-				771501F77B3C2E5510BBC5BE3BEAFEDE /* Headers */,
-				A48F045E547BBD3ED13F8FB00CB98CAE /* Sources */,
-				0EA4FB61C374DDD5E6680E25D73EB8A1 /* Frameworks */,
-				B02638600123B658C1B02BF2D2D79C9C /* Resources */,
+				8A9EC66C8FC41F3AC5943AD9D84AD305 /* Headers */,
+				6B42B7CD3AC6A8A7A7D7233B11502AF5 /* Sources */,
+				036CEBEEBB00DF21ADC336C7260648A9 /* Frameworks */,
+				AEFC08415733EB85E5394980B4220200 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -373,53 +409,118 @@
 			);
 			name = "Flurry-iOS-SDK";
 			productName = "Flurry-iOS-SDK";
-			productReference = 36D45AE16A96F31D34628BA3E18FFB2E /* Flurry_iOS_SDK.framework */;
+			productReference = 5C86F749425BA74201D399ADC22D900E /* Flurry_iOS_SDK.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		3C76B5B858770C3EBABB802146AEE869 /* Gifu */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BF9EF5BE17BFE19367EA825D16360BF1 /* Build configuration list for PBXNativeTarget "Gifu" */;
+			buildPhases = (
+				1D25BD138B1B7DC4F5532496E0A5435F /* Headers */,
+				243AA1C2CD30D5D56785F597E68A7B64 /* Sources */,
+				1B20327242A68A5B04292A5F749BFC95 /* Frameworks */,
+				4868EFE58EBF0827716EEDBE2AD5EFC3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Gifu;
+			productName = Gifu;
+			productReference = B8DFBF504546028F2D75356ED964DC3E /* Gifu.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		90494B4DEA71DCB1243B2E4C6987ABE5 /* Pods-Backbeater */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B6A14C93161DFBCEB6484495D7BCB9D5 /* Build configuration list for PBXNativeTarget "Pods-Backbeater" */;
+			buildPhases = (
+				F4A1E21FE066BE9701669EE96807E8FC /* Headers */,
+				08ACBC6582447FC6913C4F4C4668ACFE /* Sources */,
+				1784A5E2398762432D04A31949D18542 /* Frameworks */,
+				41B4993230D0EA209A60E2AD27CA1D88 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				ABC621B6BEABDAFA4F57505ADF362DDA /* PBXTargetDependency */,
+				7CDAAB773E1656BF46B07F73829FEA4F /* PBXTargetDependency */,
+				BB1C9B8BB663F2212520104B378EA17E /* PBXTargetDependency */,
+			);
+			name = "Pods-Backbeater";
+			productName = "Pods-Backbeater";
+			productReference = 55A977D18150E89F658EC12D975AA24B /* Pods_Backbeater.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		A506373BDEE15D440A55BF45CC32AAB9 /* SwiftReorder */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 78403435DC30EF344C56E873E34A52BB /* Build configuration list for PBXNativeTarget "SwiftReorder" */;
+			buildPhases = (
+				B7C8C1203EB8B241A7D6F6B5676ED624 /* Headers */,
+				2E3BCFD3275590E344D1817A9914A3E1 /* Sources */,
+				58D1806C08CB506EAE545A3A3F3CBEE6 /* Frameworks */,
+				AB33AC12475952E80BC4B2D3413E4D1D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SwiftReorder;
+			productName = SwiftReorder;
+			productReference = E391E791760370A13C0D6E97D3F1F066 /* SwiftReorder.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
+		BFDFE7DC352907FC980B868725387E98 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0930;
-				LastUpgradeCheck = 0930;
+				LastSwiftUpdateCheck = 1020;
+				LastUpgradeCheck = 1020;
 			};
-			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
-			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
-			productRefGroup = 37C772433DF031E6F9DFAFA33195330C /* Products */;
+			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
+			productRefGroup = 38C17FF4DC924F10E06122E9255617E5 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				FC87B432C9A89FED1442F375C2553DF3 /* Flurry-iOS-SDK */,
-				8DB313788639CA3AE8C5821CF844489B /* Gifu */,
-				2D3CF2AE1A3B5B6C0197526F3E176978 /* Pods-Backbeater */,
+				0D0640B9B558E37337FDE66284A34E77 /* Flurry-iOS-SDK */,
+				3C76B5B858770C3EBABB802146AEE869 /* Gifu */,
+				90494B4DEA71DCB1243B2E4C6987ABE5 /* Pods-Backbeater */,
+				A506373BDEE15D440A55BF45CC32AAB9 /* SwiftReorder */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		B02638600123B658C1B02BF2D2D79C9C /* Resources */ = {
+		41B4993230D0EA209A60E2AD27CA1D88 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C201CB70354858E68EF18BDB6247C9CE /* Resources */ = {
+		4868EFE58EBF0827716EEDBE2AD5EFC3 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C56B7BE3CE902CDBC2B4C4DB8D38EB30 /* Resources */ = {
+		AB33AC12475952E80BC4B2D3413E4D1D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AEFC08415733EB85E5394980B4220200 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -429,60 +530,187 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		A48F045E547BBD3ED13F8FB00CB98CAE /* Sources */ = {
+		08ACBC6582447FC6913C4F4C4668ACFE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DFFD574DD0421C3B688213D824EAA21E /* Flurry-iOS-SDK-dummy.m in Sources */,
-				DD301131C5CD60238301236B98B0AAC3 /* FlurryEmpty.m in Sources */,
+				F8957B6ABAD718FCC599174EED14FFD9 /* Pods-Backbeater-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E77E8D31BF9615FD06F505F2B24DA5E6 /* Sources */ = {
+		243AA1C2CD30D5D56785F597E68A7B64 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5439C5A34D6E4871C493AFDEBE5DF127 /* Pods-Backbeater-dummy.m in Sources */,
+				6AA1C34F4D67E32F79B06A62DB2E5A37 /* AnimatedFrame.swift in Sources */,
+				984A5207B4B823198EA9879967C9511A /* Animator.swift in Sources */,
+				D1805D51EB0F7EBC066F9A5D05719B5B /* Array.swift in Sources */,
+				45A5AECA23953B3ED1F8C3531DDE619E /* CGSize.swift in Sources */,
+				A773A5517076059B430537DA76286E8C /* FrameStore.swift in Sources */,
+				31593E172937C45B89C4D4855A138F9E /* GIFAnimatable.swift in Sources */,
+				B19EFBAD376D72D1394C1D71038CB70F /* GIFImageView.swift in Sources */,
+				CB7C443C22222836081DF33B6DE8700E /* Gifu-dummy.m in Sources */,
+				A460562891BCBC8F05810335256F6097 /* ImageSourceHelpers.swift in Sources */,
+				7CF43EC74378C9AAEE652B83D8C2B2AB /* UIImage.swift in Sources */,
+				8729085BCF52665DD243C726C47A16A4 /* UIImageView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F499FB6FE3E9AD9B31D030FFEBB77161 /* Sources */ = {
+		2E3BCFD3275590E344D1817A9914A3E1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8A4A7524DBD3A11FE9E8A255B001C843 /* AnimatedFrame.swift in Sources */,
-				0103EFBD1B5FCC622C4BA908E486ED32 /* Animator.swift in Sources */,
-				9A0D28C58607779FDA8159A8A706BA35 /* Array.swift in Sources */,
-				3073F23389DBB0A933FF17E98A7F89DE /* CGSize.swift in Sources */,
-				716EFA645402FF72ED969D4A22D0A09F /* FrameStore.swift in Sources */,
-				6C73DD538B7AA161602456713A38A7F0 /* GIFAnimatable.swift in Sources */,
-				2BA0714C909E6B77BD66162B559B888A /* GIFImageView.swift in Sources */,
-				3211511C6C228800AE936BE4829E18FE /* Gifu-dummy.m in Sources */,
-				E219868C1144A7DF5E085567CBB87945 /* ImageSourceHelpers.swift in Sources */,
-				CF4FED77FEE81E0F4A3F6024EFD7160F /* UIImage.swift in Sources */,
-				242FE685E5EC3312E63863E28D441980 /* UIImageView.swift in Sources */,
+				F7DB0559B27ACD6737985F5A6211C142 /* ReorderController+AutoScroll.swift in Sources */,
+				FD3EF8EF1306246070C136A5E9588BDF /* ReorderController+DestinationRow.swift in Sources */,
+				275E02344DBEC0711A40E7CC0F7AF2FD /* ReorderController+GestureRecognizer.swift in Sources */,
+				B4B2C319C1101F7BFBBD5A747FF5237C /* ReorderController+SnapshotView.swift in Sources */,
+				A0BE92E353617A117E492B6E8533C47B /* ReorderController.swift in Sources */,
+				2BB388059CAFE23C8870BDEE0433DD1E /* SwiftReorder-dummy.m in Sources */,
+				30DE0FB149963B36112EB87DD1AD46FA /* UITableView+Reorder.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6B42B7CD3AC6A8A7A7D7233B11502AF5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DC366E3E9A0BEA6E65425A7E6C3F2B0 /* Flurry-iOS-SDK-dummy.m in Sources */,
+				5A66DA8C205F928AF63A16CD6890DC51 /* FlurryEmpty.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		17ED901554EB89A492173EC7337ADE1F /* PBXTargetDependency */ = {
+		7CDAAB773E1656BF46B07F73829FEA4F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = Gifu;
-			target = 8DB313788639CA3AE8C5821CF844489B /* Gifu */;
-			targetProxy = A72265840FFE96C7CFD1C4CCB89CDD61 /* PBXContainerItemProxy */;
+			target = 3C76B5B858770C3EBABB802146AEE869 /* Gifu */;
+			targetProxy = 39D14068A6F164685CD195036753CB54 /* PBXContainerItemProxy */;
 		};
-		1F5568F9E63F278156243F2F3577B783 /* PBXTargetDependency */ = {
+		ABC621B6BEABDAFA4F57505ADF362DDA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "Flurry-iOS-SDK";
-			target = FC87B432C9A89FED1442F375C2553DF3 /* Flurry-iOS-SDK */;
-			targetProxy = B1DE24BE2E6000AB747FF680DA888AF0 /* PBXContainerItemProxy */;
+			target = 0D0640B9B558E37337FDE66284A34E77 /* Flurry-iOS-SDK */;
+			targetProxy = 6935B18548E256A412ECD5FEB9FC3F4D /* PBXContainerItemProxy */;
+		};
+		BB1C9B8BB663F2212520104B378EA17E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SwiftReorder;
+			target = A506373BDEE15D440A55BF45CC32AAB9 /* SwiftReorder */;
+			targetProxy = 2B27FDB42014028D15A29334AAD5DD40 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		5DE19CECB206ACCCACF04D62F93FFDA6 /* Release */ = {
+		0FF5BA111AFD27F5ECD5470A86397510 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C9083C5DE6498532C30D7FF410E45ED3 /* SwiftReorder.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/SwiftReorder/SwiftReorder-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SwiftReorder/SwiftReorder-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/SwiftReorder/SwiftReorder.modulemap";
+				PRODUCT_MODULE_NAME = SwiftReorder;
+				PRODUCT_NAME = SwiftReorder;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		1F60143D61E58DFD9AE7AC48388D865D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 69893E0A23C3FF2B97FBCA41519B6428 /* Gifu.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/Gifu/Gifu-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Gifu/Gifu-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/Gifu/Gifu.modulemap";
+				PRODUCT_MODULE_NAME = Gifu;
+				PRODUCT_NAME = Gifu;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		33BF4DD71EEB625AAC3957C18E75B5C3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 69893E0A23C3FF2B97FBCA41519B6428 /* Gifu.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/Gifu/Gifu-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Gifu/Gifu-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/Gifu/Gifu.modulemap";
+				PRODUCT_MODULE_NAME = Gifu;
+				PRODUCT_NAME = Gifu;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		8F17DC3A99F99FBAD606CE6963886315 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -514,8 +742,6 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGNING_ALLOWED = NO;
-				CODE_SIGNING_REQUIRED = NO;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -539,48 +765,12 @@
 				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Release;
 		};
-		7EB209EDFB76F20F06AF9EC83F815C24 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = B556EB053A770614846BBA4B9D48C468 /* Gifu.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/Gifu/Gifu-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/Gifu/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MODULEMAP_FILE = "Target Support Files/Gifu/Gifu.modulemap";
-				PRODUCT_MODULE_NAME = Gifu;
-				PRODUCT_NAME = Gifu;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		858D01EEFE984249A9581D18DBEA53F1 /* Debug */ = {
+		916E0404255105F480DC4950B7625F7A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -612,8 +802,6 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGNING_ALLOWED = NO;
-				CODE_SIGNING_REQUIRED = NO;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -641,14 +829,14 @@
 				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Debug;
 		};
-		B2B169DF14ECDBCFD20FDB72F48BB29A /* Release */ = {
+		9D7C11774A30A402424C381919C261C5 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 196AD0A8DA24EA4B8DEED90129A32E7F /* Pods-Backbeater.release.xcconfig */;
+			baseConfigurationReference = BDFB5FC81C0FDA2E52AFB6EE9EA56D7D /* Pods-Backbeater.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_IDENTITY = "";
@@ -660,7 +848,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-Backbeater/Info.plist";
+				INFOPLIST_FILE = "Target Support Files/Pods-Backbeater/Pods-Backbeater-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -684,9 +872,9 @@
 			};
 			name = Release;
 		};
-		B742276A6837FB0741FB368AC41EDFA9 /* Release */ = {
+		AFEB8CD7D1A99456390E44C33A0AA5C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1BB6721AAA1C713A334D142F1AEFC1CD /* Flurry-iOS-SDK.xcconfig */;
+			baseConfigurationReference = C05C1B6BC40F01F71F2FE564F607E370 /* Flurry-iOS-SDK.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -698,7 +886,42 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_PREFIX_HEADER = "Target Support Files/Flurry-iOS-SDK/Flurry-iOS-SDK-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/Flurry-iOS-SDK/Info.plist";
+				INFOPLIST_FILE = "Target Support Files/Flurry-iOS-SDK/Flurry-iOS-SDK-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/Flurry-iOS-SDK/Flurry-iOS-SDK.modulemap";
+				PRODUCT_MODULE_NAME = Flurry_iOS_SDK;
+				PRODUCT_NAME = Flurry_iOS_SDK;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		D35AD2D42E3A644970C124B594F65FDB /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C05C1B6BC40F01F71F2FE564F607E370 /* Flurry-iOS-SDK.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/Flurry-iOS-SDK/Flurry-iOS-SDK-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Flurry-iOS-SDK/Flurry-iOS-SDK-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -720,44 +943,9 @@
 			};
 			name = Release;
 		};
-		D19159B02E961AC78EA454CE69DE008B /* Debug */ = {
+		D6C9CCDE4E9B82A39DDE8A3EF9D93486 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1BB6721AAA1C713A334D142F1AEFC1CD /* Flurry-iOS-SDK.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/Flurry-iOS-SDK/Flurry-iOS-SDK-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/Flurry-iOS-SDK/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MODULEMAP_FILE = "Target Support Files/Flurry-iOS-SDK/Flurry-iOS-SDK.modulemap";
-				PRODUCT_MODULE_NAME = Flurry_iOS_SDK;
-				PRODUCT_NAME = Flurry_iOS_SDK;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		D46D5EE4895B185153295F0F2BDEC8A6 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 550F1C78FF5131CC900BB6B40CE778F1 /* Pods-Backbeater.debug.xcconfig */;
+			baseConfigurationReference = B788CD1D5160A71672AE9F2278063927 /* Pods-Backbeater.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_IDENTITY = "";
@@ -769,7 +957,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-Backbeater/Info.plist";
+				INFOPLIST_FILE = "Target Support Files/Pods-Backbeater/Pods-Backbeater-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -792,9 +980,9 @@
 			};
 			name = Debug;
 		};
-		E4DF03F378676CE8426E2C2674569AEE /* Debug */ = {
+		E6C0650D35F52A23736EE63F121C53CD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B556EB053A770614846BBA4B9D48C468 /* Gifu.xcconfig */;
+			baseConfigurationReference = C9083C5DE6498532C30D7FF410E45ED3 /* SwiftReorder.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -805,18 +993,18 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/Gifu/Gifu-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/Gifu/Info.plist";
+				GCC_PREFIX_HEADER = "Target Support Files/SwiftReorder/SwiftReorder-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SwiftReorder/SwiftReorder-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MODULEMAP_FILE = "Target Support Files/Gifu/Gifu.modulemap";
-				PRODUCT_MODULE_NAME = Gifu;
-				PRODUCT_NAME = Gifu;
+				MODULEMAP_FILE = "Target Support Files/SwiftReorder/SwiftReorder.modulemap";
+				PRODUCT_MODULE_NAME = SwiftReorder;
+				PRODUCT_NAME = SwiftReorder;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
@@ -830,43 +1018,52 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
+		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				858D01EEFE984249A9581D18DBEA53F1 /* Debug */,
-				5DE19CECB206ACCCACF04D62F93FFDA6 /* Release */,
+				916E0404255105F480DC4950B7625F7A /* Debug */,
+				8F17DC3A99F99FBAD606CE6963886315 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8145F5855856C569BEB7DFC7B873014C /* Build configuration list for PBXNativeTarget "Pods-Backbeater" */ = {
+		78403435DC30EF344C56E873E34A52BB /* Build configuration list for PBXNativeTarget "SwiftReorder" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D46D5EE4895B185153295F0F2BDEC8A6 /* Debug */,
-				B2B169DF14ECDBCFD20FDB72F48BB29A /* Release */,
+				E6C0650D35F52A23736EE63F121C53CD /* Debug */,
+				0FF5BA111AFD27F5ECD5470A86397510 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E430167F66E6FD1B03300496232DB66C /* Build configuration list for PBXNativeTarget "Flurry-iOS-SDK" */ = {
+		7CD558C409BFB4F86EE326C7B035F006 /* Build configuration list for PBXNativeTarget "Flurry-iOS-SDK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D19159B02E961AC78EA454CE69DE008B /* Debug */,
-				B742276A6837FB0741FB368AC41EDFA9 /* Release */,
+				AFEB8CD7D1A99456390E44C33A0AA5C7 /* Debug */,
+				D35AD2D42E3A644970C124B594F65FDB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E5F4F5126BE35F54B1923468D749416A /* Build configuration list for PBXNativeTarget "Gifu" */ = {
+		B6A14C93161DFBCEB6484495D7BCB9D5 /* Build configuration list for PBXNativeTarget "Pods-Backbeater" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				E4DF03F378676CE8426E2C2674569AEE /* Debug */,
-				7EB209EDFB76F20F06AF9EC83F815C24 /* Release */,
+				D6C9CCDE4E9B82A39DDE8A3EF9D93486 /* Debug */,
+				9D7C11774A30A402424C381919C261C5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BF9EF5BE17BFE19367EA825D16360BF1 /* Build configuration list for PBXNativeTarget "Gifu" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1F60143D61E58DFD9AE7AC48388D865D /* Debug */,
+				33BF4DD71EEB625AAC3957C18E75B5C3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+	rootObject = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 }

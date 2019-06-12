@@ -7,6 +7,7 @@
 
 import UIKit
 import Flurry_iOS_SDK
+import SwiftReorder
 
 protocol SongListViewControllerDelegate: class {
     func songListViewControllerDidReturnSongList(_ songList: [SongTempo]?, updated:Bool)
@@ -60,6 +61,7 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
         tableView.backgroundColor = ColorPalette.black.color
         tableView.backgroundView = nil
         tableView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapTableViewCell(_:))))
+        tableView.reorder.delegate = self
         
         setupKeyboardAceessory()
         
@@ -440,6 +442,13 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
             }
         }
     }
+}
 
-
+extension SongListViewController: TableViewReorderDelegate {
+    func tableView(_ tableView: UITableView, reorderRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        // Update data model
+        newSongList.swapAt(sourceIndexPath.row, destinationIndexPath.row)
+        oldSongList.swapAt(sourceIndexPath.row, destinationIndexPath.row)
+        saveTempoList()
+    }
 }

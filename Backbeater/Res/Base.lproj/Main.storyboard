@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="5ss-Td-a8F">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="5ss-Td-a8F">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment version="2304" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -139,7 +139,14 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TKZ-50-aAo">
                                 <rect key="frame" x="16" y="89" width="343" height="377"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I8c-WM-xqu" customClass="CentralRing" customModule="Backbeater" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wau-6O-XgO" customClass="CenterRing" customModule="Backbeater" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="377"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="wau-6O-XgO" secondAttribute="height" multiplier="343:377" id="5d4-Jn-Du5"/>
+                                        </constraints>
+                                    </view>
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I8c-WM-xqu" customClass="CentralRing" customModule="Backbeater" customModuleProvider="target">
                                         <rect key="frame" x="1" y="0.0" width="341" height="377"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -149,12 +156,16 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstItem="wau-6O-XgO" firstAttribute="centerX" secondItem="TKZ-50-aAo" secondAttribute="centerX" id="DPq-I3-gaI"/>
                                     <constraint firstAttribute="centerX" secondItem="I8c-WM-xqu" secondAttribute="centerX" id="EAM-da-bSc"/>
+                                    <constraint firstItem="wau-6O-XgO" firstAttribute="centerY" secondItem="TKZ-50-aAo" secondAttribute="centerY" id="Epz-of-WDe"/>
                                     <constraint firstItem="I8c-WM-xqu" firstAttribute="width" secondItem="TKZ-50-aAo" secondAttribute="width" priority="750" id="F6q-rQ-811"/>
                                     <constraint firstItem="I8c-WM-xqu" firstAttribute="top" secondItem="TKZ-50-aAo" secondAttribute="top" id="GLk-bF-geU"/>
                                     <constraint firstItem="I8c-WM-xqu" firstAttribute="height" relation="lessThanOrEqual" secondItem="TKZ-50-aAo" secondAttribute="height" id="RQw-yE-N30"/>
                                     <constraint firstItem="I8c-WM-xqu" firstAttribute="height" secondItem="TKZ-50-aAo" secondAttribute="height" priority="750" id="Ub8-ZE-wre"/>
+                                    <constraint firstItem="wau-6O-XgO" firstAttribute="width" secondItem="TKZ-50-aAo" secondAttribute="width" id="eFZ-08-swS"/>
                                     <constraint firstAttribute="centerX" secondItem="I8c-WM-xqu" secondAttribute="centerX" id="mE4-Ss-GiI"/>
+                                    <constraint firstItem="wau-6O-XgO" firstAttribute="height" secondItem="TKZ-50-aAo" secondAttribute="height" id="mvM-M2-wLi"/>
                                     <constraint firstAttribute="bottom" secondItem="I8c-WM-xqu" secondAttribute="bottom" id="oLW-ud-QsC"/>
                                     <constraint firstItem="I8c-WM-xqu" firstAttribute="width" relation="lessThanOrEqual" secondItem="TKZ-50-aAo" secondAttribute="width" id="ucG-eb-JEu"/>
                                     <constraint firstAttribute="centerY" secondItem="I8c-WM-xqu" secondAttribute="centerY" id="y5v-hQ-FQy"/>
@@ -353,6 +364,7 @@ SENSOR</string>
                         <viewLayoutGuide key="safeArea" id="sq8-qA-9sZ"/>
                     </view>
                     <connections>
+                        <outlet property="centerRing" destination="wau-6O-XgO" id="iPo-rN-aq4"/>
                         <outlet property="centralRing" destination="I8c-WM-xqu" id="24i-6w-wC4"/>
                         <outlet property="centralRingBottomConstraint" destination="awi-31-XCa" id="uPQ-QV-WDU"/>
                         <outlet property="centralRingTopConstraint" destination="OCx-cE-5rS" id="YpS-96-dlr"/>
@@ -391,8 +403,8 @@ SENSOR</string>
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cgc-be-cKy">
-                                <rect key="frame" x="16" y="25" width="37" height="37"/>
+                            <button opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cgc-be-cKy">
+                                <rect key="frame" x="16" y="28" width="37" height="37"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="37" id="FKt-dz-i5d"/>
                                     <constraint firstAttribute="width" constant="37" id="hhS-BV-GOU"/>
@@ -408,7 +420,7 @@ SENSOR</string>
                         <color key="backgroundColor" red="0.14901960784313725" green="0.14901960784313725" blue="0.14901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Cgc-be-cKy" firstAttribute="leading" secondItem="uae-79-P1Z" secondAttribute="leading" constant="16" id="UKf-WN-pe5"/>
-                            <constraint firstItem="Cgc-be-cKy" firstAttribute="top" secondItem="uae-79-P1Z" secondAttribute="top" constant="5" id="kOk-WM-RiC"/>
+                            <constraint firstItem="Cgc-be-cKy" firstAttribute="top" secondItem="uae-79-P1Z" secondAttribute="top" constant="8" id="kOk-WM-RiC"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="uae-79-P1Z"/>
                     </view>
@@ -569,7 +581,7 @@ SENSOR</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="top_logo" translatesAutoresizingMaskIntoConstraints="NO" id="cPK-qm-p5Q">
-                                <rect key="frame" x="141.5" y="20" width="92" height="43"/>
+                                <rect key="frame" x="141.5" y="30" width="92" height="43"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="cPK-qm-p5Q" secondAttribute="height" multiplier="162:76" id="abe-si-ytc"/>
                                     <constraint firstAttribute="width" constant="162" id="g8X-OM-iha"/>
@@ -582,7 +594,7 @@ SENSOR</string>
                                 </variation>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ron-SF-VKE">
-                                <rect key="frame" x="16" y="25" width="37" height="37"/>
+                                <rect key="frame" x="16" y="28" width="37" height="37"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="37" id="R0E-8R-Qas"/>
                                     <constraint firstAttribute="width" constant="37" id="V1C-5d-S9L"/>
@@ -594,8 +606,8 @@ SENSOR</string>
                                     <action selector="didTapClose:" destination="0VI-mf-dU7" eventType="touchUpInside" id="1VR-j2-sGG"/>
                                 </connections>
                             </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="55" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="J2i-Fe-j4C">
-                                <rect key="frame" x="0.0" y="71" width="375" height="596"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="55" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="J2i-Fe-j4C">
+                                <rect key="frame" x="0.0" y="81" width="375" height="586"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="sectionIndexBackgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
@@ -695,14 +707,14 @@ SENSOR</string>
                             <constraint firstItem="LRl-wi-tG6" firstAttribute="trailing" secondItem="nLz-t0-zZh" secondAttribute="trailing" id="FNT-65-kXd"/>
                             <constraint firstItem="LRl-wi-tG6" firstAttribute="bottom" secondItem="J2i-Fe-j4C" secondAttribute="bottom" id="IV9-u7-hXv"/>
                             <constraint firstItem="J2i-Fe-j4C" firstAttribute="top" secondItem="cPK-qm-p5Q" secondAttribute="bottom" constant="8" id="Lq5-Fw-b5i"/>
-                            <constraint firstItem="cPK-qm-p5Q" firstAttribute="top" secondItem="LRl-wi-tG6" secondAttribute="top" id="MAS-oa-H7J"/>
+                            <constraint firstItem="cPK-qm-p5Q" firstAttribute="top" secondItem="LRl-wi-tG6" secondAttribute="top" constant="10" id="MAS-oa-H7J"/>
                             <constraint firstItem="Ron-SF-VKE" firstAttribute="centerY" secondItem="cPK-qm-p5Q" secondAttribute="centerY" id="N0d-FP-1T2"/>
                             <constraint firstItem="LRl-wi-tG6" firstAttribute="centerX" secondItem="cPK-qm-p5Q" secondAttribute="centerX" id="R1F-Ad-Na7"/>
                             <constraint firstItem="LRl-wi-tG6" firstAttribute="trailing" secondItem="J2i-Fe-j4C" secondAttribute="trailing" id="Rxk-UU-rYi"/>
                             <constraint firstItem="nLz-t0-zZh" firstAttribute="leading" secondItem="LRl-wi-tG6" secondAttribute="leading" id="YiV-fN-8X0"/>
                             <constraint firstItem="cPK-qm-p5Q" firstAttribute="width" secondItem="cPK-qm-p5Q" secondAttribute="height" multiplier="162:76" id="dgw-UT-1Hq"/>
                             <constraint firstItem="Ron-SF-VKE" firstAttribute="leading" secondItem="LRl-wi-tG6" secondAttribute="leading" constant="16" id="lJB-TC-pKW"/>
-                            <constraint firstItem="Ron-SF-VKE" firstAttribute="top" secondItem="LRl-wi-tG6" secondAttribute="top" constant="5" id="nei-YG-Kx5"/>
+                            <constraint firstItem="Ron-SF-VKE" firstAttribute="top" secondItem="LRl-wi-tG6" secondAttribute="top" constant="8" id="nei-YG-Kx5"/>
                             <constraint firstItem="LRl-wi-tG6" firstAttribute="bottom" secondItem="nLz-t0-zZh" secondAttribute="bottom" constant="16" id="tXo-x0-S9B"/>
                             <constraint firstItem="J2i-Fe-j4C" firstAttribute="leading" secondItem="LRl-wi-tG6" secondAttribute="leading" id="veY-Hq-xXv"/>
                         </constraints>

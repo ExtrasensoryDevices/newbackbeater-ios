@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0462A8EF22A84D7F0083BFA9 /* GaugeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0462A8EE22A84D7E0083BFA9 /* GaugeView.swift */; };
+		0462A8F222A85FA00083BFA9 /* CenterRing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0462A8F022A85FA00083BFA9 /* CenterRing.swift */; };
+		0462A8F322A85FA00083BFA9 /* CenterRing.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0462A8F122A85FA00083BFA9 /* CenterRing.xib */; };
 		2EF398B6B639ED6E2F9264E6 /* Pods_Backbeater.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB08732C83FA9803F0056756 /* Pods_Backbeater.framework */; };
 		C766572C21DDDD9700D703C8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C766572B21DDDD9700D703C8 /* Constants.swift */; };
 		C766574B21DDE18D00D703C8 /* ScreenUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = C766574421DDE18C00D703C8 /* ScreenUtil.swift */; };
@@ -69,6 +72,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0462A8EE22A84D7E0083BFA9 /* GaugeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GaugeView.swift; sourceTree = "<group>"; };
+		0462A8F022A85FA00083BFA9 /* CenterRing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenterRing.swift; sourceTree = "<group>"; };
+		0462A8F122A85FA00083BFA9 /* CenterRing.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CenterRing.xib; sourceTree = "<group>"; };
 		C7237C2CFC0F2285281BB463 /* Pods-Backbeater.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Backbeater.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Backbeater/Pods-Backbeater.debug.xcconfig"; sourceTree = "<group>"; };
 		C766572B21DDDD9700D703C8 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		C766574421DDE18C00D703C8 /* ScreenUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenUtil.swift; sourceTree = "<group>"; };
@@ -241,6 +247,9 @@
 		C766579E21DDE4D400D703C8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0462A8EE22A84D7E0083BFA9 /* GaugeView.swift */,
+				0462A8F022A85FA00083BFA9 /* CenterRing.swift */,
+				0462A8F122A85FA00083BFA9 /* CenterRing.xib */,
 				C766579321DDE4CA00D703C8 /* CentralRing.swift */,
 				C766579221DDE4CA00D703C8 /* CentralRing.xib */,
 				C766578C21DDE4CA00D703C8 /* NumericStepper.swift */,
@@ -433,6 +442,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0462A8F322A85FA00083BFA9 /* CenterRing.xib in Resources */,
 				C766575521DDE31C00D703C8 /* bblogoanimation5.gif in Resources */,
 				C766577021DDE3D500D703C8 /* FuturaRound-Book.ttf in Resources */,
 				C766577121DDE3D500D703C8 /* FuturaRound-Demi.ttf in Resources */,
@@ -462,9 +472,10 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Backbeater/Pods-Backbeater-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Backbeater/Pods-Backbeater-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Flurry-iOS-SDK/Flurry_iOS_SDK.framework",
 				"${BUILT_PRODUCTS_DIR}/Gifu/Gifu.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftReorder/SwiftReorder.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
@@ -472,10 +483,11 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Flurry_iOS_SDK.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Gifu.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftReorder.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Backbeater/Pods-Backbeater-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Backbeater/Pods-Backbeater-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		BC2FB71CBCE16D3D62E36CCD /* [CP] Check Pods Manifest.lock */ = {
@@ -513,9 +525,11 @@
 				C766590C21DDEB7000D703C8 /* ATSoundSessionIO.m in Sources */,
 				C766578821DDE44700D703C8 /* WindowQueue.m in Sources */,
 				C766592221EB12EF00D703C8 /* CollectionExtension.swift in Sources */,
+				0462A8EF22A84D7F0083BFA9 /* GaugeView.swift in Sources */,
 				C766578721DDE44700D703C8 /* SoundProcessor.m in Sources */,
 				C766578421DDE44700D703C8 /* EnergyFunctionQueue.m in Sources */,
 				C7E929A021DC959300E950AA /* AppDelegate.swift in Sources */,
+				0462A8F222A85FA00083BFA9 /* CenterRing.swift in Sources */,
 				C766574E21DDE18D00D703C8 /* NSObjectExtension.swift in Sources */,
 				C76657AD21DDE52300D703C8 /* NibDesignable.swift in Sources */,
 				C76657AC21DDE52300D703C8 /* UIControlNibDesignable.swift in Sources */,

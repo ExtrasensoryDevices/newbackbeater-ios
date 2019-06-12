@@ -18,6 +18,8 @@ enum ColorPalette: Int {
     case grey           = 0x4C4C4C
     case keyboardBg     = 0xC7CDD1
     case keyboardBorder = 0xE7E7E7
+    case red            = 0xB51A00
+    case green          = 0x4F7A28
     
     var color: UIColor {
         return UIColor(hex: self.rawValue)

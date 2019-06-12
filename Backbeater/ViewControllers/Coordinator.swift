@@ -41,7 +41,7 @@ protocol WebPagePresenter: class {
 }
 
 protocol CoordinatorDelegate: class {
-    func setupView(lastPlayedTempo: Int, metronomeTempo: Int, sensorDetected: Bool, sound: URL)
+    func setupView(lastPlayedTempo: Int, metronomeTempo: Int, sensitivity: Int, sensorDetected: Bool, sound: URL)
     func stopMetronome()
     func stopAnimation()
     func updateMetronomeState(metronomeState: MetronomeState)
@@ -300,6 +300,7 @@ extension Coordinator: DisplayViewControllerDelegate {
     func readyToRender() {
         output?.setupView(lastPlayedTempo: lastPlayedTempo,
                           metronomeTempo: metronomeState.tempo,
+                          sensitivity: sensitivity,
                           sensorDetected: sensorDetected,
                           sound: soundUrl)
     }

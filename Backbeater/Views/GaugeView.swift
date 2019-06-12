@@ -32,6 +32,10 @@ class GaugeView: UIView {
                          ColorPalette.black.color,
                          ColorPalette.black.color]
 
+    var dotLabels = [UILabel]()
+    
+    var dotStrings = [-4, -3, -2, -1, 0, 1, 2, 3, 4]
+    
     var totalAngle: CGFloat = 180
     var rotation: CGFloat = -90
     
@@ -94,7 +98,16 @@ class GaugeView: UIView {
         }
     }
     
+    var tempo: Int = 0 {
+        didSet {
+            if let label = self.viewWithTag(10 + dotLabels.count/2) as? UILabel {
+                label.text = "\(tempo)"
+            }
+        }
+    }
+    
     func drawBackground(in rect: CGRect, context ctx: CGContext){
+        ctx.saveGState()
         //draw the outer bezel as the largest circle
         outerBezelColor.set()
         ctx.fillEllipse(in: rect)
@@ -112,12 +125,21 @@ class GaugeView: UIView {
         let halfRect = CGRect(x: 0, y: rect.height*0.5+2, width: rect.width, height: rect.height*0.5)
         insideColor.set()
         ctx.fill(halfRect)
+        
+        let edgeRect = CGRect(x: 0, y: rect.height*0.5-2, width: 6, height: 6)
+        outerBezelColor.set()
+        ctx.fillEllipse(in: edgeRect)
+        
+        let edgeRect2 = CGRect(x: rect.width-6, y: rect.height*0.5-2, width: 6, height: 6)
+        outerBezelColor.set()
+        ctx.fillEllipse(in: edgeRect2)
+        ctx.restoreGState()
     }
     
     override func draw(_ rect: CGRect) {
         guard let ctx = UIGraphicsGetCurrentContext() else { return}
         drawBackground(in: rect, context: ctx)
-        drawSegments(in: rect, context: ctx)
+//        drawSegments(in: rect, context: ctx)
         drawTicks(in: rect, context: ctx)
         drawCenterDisc(in: rect, context: ctx)
         
@@ -198,6 +220,7 @@ class GaugeView: UIView {
         let majorStart = majorEnd - majorTickLength
         
         for _ in 0 ... segmentColors.count {
+            ctx.setLineWidth(majorTickWidth)
             ctx.move(to: CGPoint(x: majorStart, y: 0))
             ctx.addLine(to: CGPoint(x: majorEnd, y: 0))
             ctx.drawPath(using: .stroke)
@@ -208,7 +231,7 @@ class GaugeView: UIView {
         ctx.restoreGState()
         //save it again, because we're about to draw the minor ticks
         ctx.saveGState()
-        
+
         //draw minor ticks
         ctx.setLineWidth(minorTickWidth)
         minorTickColor.set()
@@ -218,7 +241,7 @@ class GaugeView: UIView {
         let minorTickSize = segmentAngle / CGFloat(minorTickCount + 1) // The “plus one” part is important, because we draw the ticks inside the segments rather than at the ages. For example, if we had a segment angle of 100 and wanted three ticks, dividing 100 by three would place ticks at 33, 66, and 99 – there would be a tick right next to the major tick line at 100.
         for _ in 0 ..< segmentColors.count {
             ctx.rotate(by: minorTickSize)
-            
+
             for _ in 0 ..< minorTickCount{
                 ctx.move(to: CGPoint(x: minorStart, y: 0))
                 ctx.addLine(to: CGPoint(x: minorEnd, y: 0))
@@ -226,7 +249,7 @@ class GaugeView: UIView {
                 ctx.rotate(by: minorTickSize)
             }
         }
-        
+
         // go back to the graphics state where we've moved to the center and rotated towards the start of the first segement
         ctx.restoreGState()
         //go back to the original graphics state
@@ -275,6 +298,64 @@ class GaugeView: UIView {
 //            valueLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
 //            valueLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -80)
 //        ])
+        
+        DispatchQueue.main.async {
+            var fontSize:CGFloat
+            switch ScreenUtil.screenSizeClass {
+                case .xsmall: fontSize = 12
+                case .small:  fontSize = 14
+                case .medium: fontSize = 18
+                case .large:  fontSize = 20
+                case .xlarge: fontSize = 22
+            }
+            
+            let font10 = Font.FuturaBook.get(fontSize)
+            let font16 = Font.FuturaDemi.get(fontSize + 4)
+            var tag = 0
+            
+            let rect = self.bounds
+            let center = CGPoint(x: rect.midX, y: rect.midY)
+            let segmentAngle = self.deg2rad(self.totalAngle / CGFloat(self.segmentColors.count))
+            
+            let segmentRadius = (((rect.width - self.segmentWidth) / 2) - self.outerBezelWidth) - self.innerBezelWidth - self.segmentWidth - 16
+            let rotFrom = self.deg2rad(self.rotation) - (.pi / 2)
+            for num in self.dotStrings {
+                let label = UILabel()
+                label.backgroundColor = UIColor.clear
+                label.textAlignment = .center
+                label.font = font10
+                
+                label.tag = tag + 10
+//                label.isHidden = true
+                
+                if tag < 4 {
+                    label.text = "\(num)"
+                    label.textColor = ColorPalette.red.color
+                }
+                else if tag > 4 {
+                    label.text = "+\(num)"
+                    label.textColor = ColorPalette.green.color
+                }
+                else {
+                    label.font = font16
+                    label.textColor = UIColor.white
+                    label.text = "\(self.tempo)"
+                }
+                
+                let startAngle = rotFrom + CGFloat(tag) * segmentAngle
+                
+                let minDotCenter = CGPoint(x: CGFloat(segmentRadius * cos(startAngle)) + center.x,
+                                           y: center.y + CGFloat(segmentRadius * sin(startAngle)))
+                if tag != 4 {
+                    label.frame = CGRect(x: minDotCenter.x - 13, y: minDotCenter.y - 12, width: 26, height: 20)
+                } else {
+                    label.frame = CGRect(x: minDotCenter.x - 24, y: minDotCenter.y - 12, width: 48, height: 24)
+                }
+                
+                self.addSubview(label)
+                tag += 1
+            }
+        }
     }
     
     func deg2rad(_ number: CGFloat) -> CGFloat {

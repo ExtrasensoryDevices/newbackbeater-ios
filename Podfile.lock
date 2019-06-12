@@ -1,20 +1,24 @@
 PODS:
   - Flurry-iOS-SDK/FlurrySDK (9.2.3)
   - Gifu (3.2.0)
+  - SwiftReorder (6.0.2)
 
 DEPENDENCIES:
   - Flurry-iOS-SDK/FlurrySDK (~> 9.2.1)
   - Gifu (~> 3.2)
+  - SwiftReorder (~> 6.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Flurry-iOS-SDK
     - Gifu
+    - SwiftReorder
 
 SPEC CHECKSUMS:
   Flurry-iOS-SDK: 2ea1973a6c9c6b3675765d73ea290b281f8cb084
   Gifu: 7bcb6427457d85e0b4dff5a84ec5947ac19a93ea
+  SwiftReorder: 60ef1faf6446cf68f9a647cb975530db8efd6620
 
-PODFILE CHECKSUM: 7ae83f8af2175fbcd527bb5bf32a794746e59d83
+PODFILE CHECKSUM: dd3e31044135ee1e00fdf3a24432cc0ee942022a
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.6.1

@@ -20,6 +20,8 @@ protocol DisplayViewControllerDelegate:class {
 class DisplayViewController: UIViewController, SongListViewControllerDelegate, CentralRingDelegate, CoordinatorDelegate {
     @IBOutlet weak var hamButton: UIButton!
     
+    @IBOutlet weak var centerRing: CenterRing!
+    
     @IBOutlet weak var centralRing: CentralRing!
     @IBOutlet weak var centralRingTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var centralRingBottomConstraint: NSLayoutConstraint!
@@ -58,6 +60,7 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
         super.viewDidLoad()
         setupUI()
         centralRing.delegate = self
+        centerRing.delegate = self
         
         let image = UIImage(named:"tempo_list")!.withRenderingMode(.alwaysTemplate)
         hamButton.setImage(image, for: UIControl.State())
@@ -102,10 +105,14 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
     
     func setupView(lastPlayedTempo:Int,
                    metronomeTempo: Int,
+                   sensitivity: Int,
                    sensorDetected: Bool,
                    sound: URL) {
-        centralRing.setLastPlayedTempo(tempo: lastPlayedTempo)
-        centralRing.setSound(url: sound)
+        centerRing.setLastPlayedTempo(lastPlayedTempo)
+        centerRing.setTempo(sensitivity)
+        centerRing.setSound(url: sound)
+//        centralRing.setLastPlayedTempo(tempo: lastPlayedTempo)
+//        centralRing.setSound(url: sound)
         metronomeTempoView.value = metronomeTempo
         metronomeTempoView.isOn = false
         
@@ -119,12 +126,12 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
     
     
     func stopMetronome() {
-        centralRing.stopMetronome()
+//        centralRing.stopMetronome()
         metronomeTempoView.isOn = false
     }
     
     func stopAnimation() {
-        centralRing.stopAnimation()
+//        centralRing.stopAnimation()
     }
     
     
@@ -137,7 +144,8 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
             metronomeTempoView.value = tempo
             metronomeTempoView.isOn = false
         }
-        centralRing.handleMetronomeState(metronomeState)
+//        centralRing.handleMetronomeState(metronomeState)
+        centerRing.handleMetronomeState(metronomeState)
     }
     
     func updateSensorState(sensorDetected:Bool) {
@@ -147,15 +155,17 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
     
     
     func setSound(url:URL) {
-        centralRing.setSound(url: url)
+//        centralRing.setSound(url: url)
+        centerRing.setSound(url: url)
     }
     
     func display(cpt:Int, timeSignature: Int, metronomeState:MetronomeState) {
-        centralRing.display(cpt: cpt, timeSignature: timeSignature, metronomeState: metronomeState)
+//        centralRing.display(cpt: cpt, timeSignature: timeSignature, metronomeState: metronomeState)
+        centerRing.display(cpt: cpt, timeSignature: timeSignature, metronomeState: metronomeState)
     }
 
     func handleFirstStrike() {
-        centralRing.runPulseAnimation()
+//        centralRing.runPulseAnimation()
     }
     
     func showMicrophonePermissionAlert() {
