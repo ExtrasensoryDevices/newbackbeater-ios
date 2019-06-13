@@ -22,6 +22,9 @@ class MainViewController: UIViewController, WebPagePresenter {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if UIScreen.main.bounds.width == 320 {
+            centerPanelExpandedOffset = -260
+        }
         containerCenterXConstraint.constant = 0
         self.view.backgroundColor = ColorPalette.pink.color
         setupDisplayViewController()
@@ -54,7 +57,7 @@ class MainViewController: UIViewController, WebPagePresenter {
     // MARK: - toggle menu
     @IBOutlet weak var containerCenterXConstraint: NSLayoutConstraint!
     
-    private let centerPanelExpandedOffset: CGFloat = -260.0
+    private var centerPanelExpandedOffset: CGFloat = -300.0
     
     private enum MenuPanelState {
         case collapsed

@@ -109,7 +109,7 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
                    sensorDetected: Bool,
                    sound: URL) {
         centerRing.setLastPlayedTempo(lastPlayedTempo)
-        centerRing.setTempo(sensitivity)
+        centerRing.setTempo(metronomeTempo)
         centerRing.setSound(url: sound)
 //        centralRing.setLastPlayedTempo(tempo: lastPlayedTempo)
 //        centralRing.setSound(url: sound)
@@ -224,6 +224,7 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
     private func reportMetronomeState(isOn: Bool, tempo: Int) {
         let newState:MetronomeState  =  isOn ? .on(tempo: tempo) : .off(tempo: tempo)
         delegate?.metronomeStateChanged(newState)
+        centerRing.setTempo(tempo)
     }
 
     
