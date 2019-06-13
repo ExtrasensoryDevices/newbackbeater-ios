@@ -127,4 +127,42 @@ class Sidebar: NibDesignable {
     @IBAction func didTapHelp(_ sender: AnyObject) {
         delegate?.helpRequested()
     }
+    
+    
+    @IBAction func didTapHelpWindow(_ sender: Any) {
+        let controller = UIViewController()
+        controller.preferredContentSize = CGSize(width: 288, height: 144)
+        
+        let label = UILabel(frame: CGRect(x: 20, y: 4, width: 288-32, height: 144-8))
+        label.text = "This is how many beats are averaged to show your current tempo. \nA lower setting is more accurate, a higher setting is more foregiving."
+        label.numberOfLines = 0
+        
+        controller.view.addSubview(label)
+        
+        showPopup(controller, sourceView: sender as! UIView)
+    }
+    
+    
+    @IBAction func didTapHelpBeat(_ sender: Any) {
+        let controller = UIViewController()
+        controller.preferredContentSize = CGSize(width: 288, height: 240)
+        
+        let label = UILabel(frame: CGRect(x: 20, y: 4, width: 288-32, height: 240-8))
+        label.text = "This setting compensates for songs with unusual rhythms.\nA default setting of 1 is best for most music, like rock songs.\nExample: If your song is 90 BPM and the app says you're playing 45 BPM, you can switch this setting to 2 and the tempo reading will correctly read 90 BPM."
+        label.numberOfLines = 0
+        
+        controller.view.addSubview(label)
+        
+        showPopup(controller, sourceView: sender as! UIView)
+    }
+    
+    private func showPopup(_ controller: UIViewController, sourceView: UIView) {
+        let presentationController = AlwaysPresentAsPopover.configurePresentation(forController: controller)
+        presentationController.sourceView = sourceView
+        presentationController.sourceRect = sourceView.bounds
+        presentationController.permittedArrowDirections = [.down, .up]
+        if let vc = self.parentViewController {
+            vc.present(controller, animated: true)
+        }
+    }
 }

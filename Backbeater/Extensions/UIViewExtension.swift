@@ -37,4 +37,15 @@ extension UIView {
         layer.borderWidth = width
         layer.cornerRadius = layer.bounds.size.height / 2
     }
+    
+    var parentViewController: UIViewController? {
+        var parentResponder: UIResponder? = self
+        while parentResponder != nil {
+            parentResponder = parentResponder!.next
+            if let viewController = parentResponder as? UIViewController {
+                return viewController
+            }
+        }
+        return nil
+    }
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0420820022B21E0700D6D2A8 /* AlwaysPresentAsPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042081FF22B21E0700D6D2A8 /* AlwaysPresentAsPopover.swift */; };
 		0462A8EF22A84D7F0083BFA9 /* GaugeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0462A8EE22A84D7E0083BFA9 /* GaugeView.swift */; };
 		0462A8F222A85FA00083BFA9 /* CenterRing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0462A8F022A85FA00083BFA9 /* CenterRing.swift */; };
 		0462A8F322A85FA00083BFA9 /* CenterRing.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0462A8F122A85FA00083BFA9 /* CenterRing.xib */; };
@@ -72,6 +73,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		042081FF22B21E0700D6D2A8 /* AlwaysPresentAsPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlwaysPresentAsPopover.swift; sourceTree = "<group>"; };
 		0462A8EE22A84D7E0083BFA9 /* GaugeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GaugeView.swift; sourceTree = "<group>"; };
 		0462A8F022A85FA00083BFA9 /* CenterRing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenterRing.swift; sourceTree = "<group>"; };
 		0462A8F122A85FA00083BFA9 /* CenterRing.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CenterRing.xib; sourceTree = "<group>"; };
@@ -284,6 +286,7 @@
 				C766585521DDE56500D703C8 /* PublicUtility */,
 				C76657AB21DDE52300D703C8 /* NibDesignable.swift */,
 				C76657AA21DDE52300D703C8 /* UIControlNibDesignable.swift */,
+				042081FF22B21E0700D6D2A8 /* AlwaysPresentAsPopover.swift */,
 			);
 			path = ThirdPartyLibs;
 			sourceTree = "<group>";
@@ -557,6 +560,7 @@
 				C766591621E5D24D00D703C8 /* SongList.swift in Sources */,
 				C766579921DDE4CB00D703C8 /* Sidebar.swift in Sources */,
 				C766572C21DDDD9700D703C8 /* Constants.swift in Sources */,
+				0420820022B21E0700D6D2A8 /* AlwaysPresentAsPopover.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
