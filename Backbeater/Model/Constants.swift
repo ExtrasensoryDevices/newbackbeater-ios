@@ -16,7 +16,7 @@ public var appVersion:String {
 
 // urls
 let HELP_URL = "https://www.backbeater.com/apphelp/?app=ios"
-let BUY_SENSOR_URL = "https://www.backbeater.com/appbuy/?app=ios"
+let BUY_SENSOR_URL = "https://backbeater.com/buy-now"
 
 
 func delay(_ delay:Double, callback:@escaping ()->()) {
