@@ -32,8 +32,6 @@ class GaugeView: UIView {
                          ColorPalette.black.color,
                          ColorPalette.black.color]
 
-    var dotLabels = [UILabel]()
-    
     var dotStrings = [-4, -3, -2, -1, 0, 1, 2, 3, 4]
     
     var totalAngle: CGFloat = 180
@@ -57,11 +55,8 @@ class GaugeView: UIView {
     var needleWidth : CGFloat = 4
     let needle = UIView()
     
-    let valueLabel = UILabel()
-    var valueFont = UIFont.systemFont(ofSize: 56)
-    var valueColor = UIColor.black
-    
     let range = Tempo.max - Tempo.min
+    var offsetY: CGFloat = 0
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -75,8 +70,6 @@ class GaugeView: UIView {
     
     var value: Int = 0 {
         didSet {
-            //update the value label to show the exact number
-//            valueLabel.text = String(value)
             var v = value - Tempo.min
             if v < 0 {
                 v = 0
@@ -100,7 +93,7 @@ class GaugeView: UIView {
     
     var tempo: Int = 0 {
         didSet {
-            if let label = self.viewWithTag(10 + dotLabels.count/2) as? UILabel {
+            if let label = self.viewWithTag(10 + dotStrings.count/2) as? UILabel {
                 label.text = "\(tempo)"
             }
         }
@@ -109,11 +102,19 @@ class GaugeView: UIView {
     func drawBackground(in rect: CGRect, context ctx: CGContext){
         ctx.saveGState()
         //draw the outer bezel as the largest circle
+        var outerRect = rect
+        outerRect.origin.y += offsetY
+        var radius = rect.width
+        if radius > 540 {
+            radius = 540
+            outerRect = outerRect.insetBy(dx: (rect.width - 540)/2, dy: (rect.height-540)/2)
+        }
+        
         outerBezelColor.set()
-        ctx.fillEllipse(in: rect)
+        ctx.fillEllipse(in: outerRect)
         
         //move in a little on each edge, then draw the inner bezel
-        let innerBezelRect = rect.insetBy(dx: outerBezelWidth, dy: outerBezelWidth)
+        let innerBezelRect = outerRect.insetBy(dx: outerBezelWidth, dy: outerBezelWidth)
         innerBezelColor.set()
         ctx.fillEllipse(in: innerBezelRect)
         
@@ -122,15 +123,15 @@ class GaugeView: UIView {
         insideColor.set()
         ctx.fillEllipse(in: insideRect)
         
-        let halfRect = CGRect(x: 0, y: rect.height*0.5+2, width: rect.width, height: rect.height*0.5)
+        let halfRect = CGRect(x: 0, y: offsetY + rect.height*0.5+2, width: rect.width, height: rect.height*0.5)
         insideColor.set()
         ctx.fill(halfRect)
         
-        let edgeRect = CGRect(x: 0, y: rect.height*0.5-2, width: 6, height: 6)
+        let edgeRect = CGRect(x: outerRect.origin.x, y: outerRect.origin.y + outerRect.height*0.5-2, width: 6, height: 6)
         outerBezelColor.set()
         ctx.fillEllipse(in: edgeRect)
         
-        let edgeRect2 = CGRect(x: rect.width-6, y: rect.height*0.5-2, width: 6, height: 6)
+        let edgeRect2 = CGRect(x: outerRect.origin.x + outerRect.width-6, y: outerRect.origin.y + outerRect.height*0.5-2, width: 6, height: 6)
         outerBezelColor.set()
         ctx.fillEllipse(in: edgeRect2)
         ctx.restoreGState()
@@ -142,17 +143,6 @@ class GaugeView: UIView {
 //        drawSegments(in: rect, context: ctx)
         drawTicks(in: rect, context: ctx)
         drawCenterDisc(in: rect, context: ctx)
-        
-        let nheight = needle.bounds.height
-        let lbounds = CGRect(x: 0, y: 0, width: needleWidth, height: bounds.height / 3 )
-        if nheight != lbounds.height {
-            needle.layer.anchorPoint = CGPoint(x:0.5, y:1)
-            needle.center = CGPoint(x: bounds.midX, y: bounds.midY)
-            needle.setNeedsLayout()
-        }
-        if needle.isHidden == true {
-            needle.isHidden = false
-        }
     }
     
     //1. Save the current configuration of our drawing context. We're about to make changes, and we dont want to pollute what comes next
@@ -176,9 +166,12 @@ class GaugeView: UIView {
         
         //4: Calculate the size of each segment in the total guage
         let segmentAngle = deg2rad(totalAngle / CGFloat(segmentColors.count))
-        
+        var radius = rect.width
+        if radius > 540 {
+            radius = 540
+        }
         //5: Calculate how wide the segment arcs shouls be
-        let segmentRadius = (((rect.width - segmentWidth) / 2) - outerBezelWidth) - innerBezelWidth
+        let segmentRadius = (((radius - segmentWidth) / 2) - outerBezelWidth) - innerBezelWidth
         
         //6: Draw each segment
         for(index, segment) in segmentColors.enumerated() {
@@ -202,12 +195,15 @@ class GaugeView: UIView {
     func drawTicks (in rect: CGRect, context ctx: CGContext){
         //save our clean graphics state
         ctx.saveGState()
-        ctx.translateBy(x: rect.midX, y: rect.midY)
+        ctx.translateBy(x: rect.midX, y: rect.midY + offsetY)
         ctx.rotate(by: deg2rad(rotation) - (.pi / 2))
         
         let segmentAngle = deg2rad(totalAngle / CGFloat(segmentColors.count))
-        
-        let segmentRadius = (((rect.width - segmentWidth) / 2) - outerBezelWidth) - innerBezelWidth
+        var radius = rect.width
+        if radius > 540 {
+            radius = 540
+        }
+        let segmentRadius = (((radius - segmentWidth) / 2) - outerBezelWidth) - innerBezelWidth
         
         //save the graphics state where we've moved to the center and rotated towards the start fo the first segment
         ctx.saveGState()
@@ -221,6 +217,7 @@ class GaugeView: UIView {
         
         for _ in 0 ... segmentColors.count {
             ctx.setLineWidth(majorTickWidth)
+            ctx.setLineCap(.round)
             ctx.move(to: CGPoint(x: majorStart, y: 0))
             ctx.addLine(to: CGPoint(x: majorEnd, y: 0))
             ctx.drawPath(using: .stroke)
@@ -229,42 +226,42 @@ class GaugeView: UIView {
         
         //go back to the state we had before we drew the major ticks
         ctx.restoreGState()
-        //save it again, because we're about to draw the minor ticks
-        ctx.saveGState()
-
-        //draw minor ticks
-        ctx.setLineWidth(minorTickWidth)
-        minorTickColor.set()
-        let minorEnd = segmentRadius + (segmentWidth / 2)
-        let minorStart = minorEnd - minorTickLength
-
-        let minorTickSize = segmentAngle / CGFloat(minorTickCount + 1) // The “plus one” part is important, because we draw the ticks inside the segments rather than at the ages. For example, if we had a segment angle of 100 and wanted three ticks, dividing 100 by three would place ticks at 33, 66, and 99 – there would be a tick right next to the major tick line at 100.
-        for _ in 0 ..< segmentColors.count {
-            ctx.rotate(by: minorTickSize)
-
-            for _ in 0 ..< minorTickCount{
-                ctx.move(to: CGPoint(x: minorStart, y: 0))
-                ctx.addLine(to: CGPoint(x: minorEnd, y: 0))
-                ctx.drawPath(using: .stroke)
-                ctx.rotate(by: minorTickSize)
-            }
-        }
-
-        // go back to the graphics state where we've moved to the center and rotated towards the start of the first segement
-        ctx.restoreGState()
+//        //save it again, because we're about to draw the minor ticks
+//        ctx.saveGState()
+//
+//        //draw minor ticks
+//        ctx.setLineWidth(minorTickWidth)
+//        minorTickColor.set()
+//        let minorEnd = segmentRadius + (segmentWidth / 2)
+//        let minorStart = minorEnd - minorTickLength
+//
+//        let minorTickSize = segmentAngle / CGFloat(minorTickCount + 1) // The “plus one” part is important, because we draw the ticks inside the segments rather than at the ages. For example, if we had a segment angle of 100 and wanted three ticks, dividing 100 by three would place ticks at 33, 66, and 99 – there would be a tick right next to the major tick line at 100.
+//        for _ in 0 ..< segmentColors.count {
+//            ctx.rotate(by: minorTickSize)
+//
+//            for _ in 0 ..< minorTickCount{
+//                ctx.move(to: CGPoint(x: minorStart, y: 0))
+//                ctx.addLine(to: CGPoint(x: minorEnd, y: 0))
+//                ctx.drawPath(using: .stroke)
+//                ctx.rotate(by: minorTickSize)
+//            }
+//        }
+//
+//        // go back to the graphics state where we've moved to the center and rotated towards the start of the first segement
+//        ctx.restoreGState()
         //go back to the original graphics state
         ctx.restoreGState()
     }
     
     func drawCenterDisc(in rect: CGRect, context ctx: CGContext){
         ctx.saveGState()
-        ctx.translateBy(x: rect.midX, y: rect.midY)
+        ctx.translateBy(x: rect.midX, y: rect.midY + offsetY)
         
         let outerCenterRect = CGRect(x: -outerCenterDiscWidth / 2, y: -outerCenterDiscWidth / 2, width: outerCenterDiscWidth, height: outerCenterDiscWidth)
         outerCenterDiscColor.set()
         ctx.fillEllipse(in: outerCenterRect)
         
-        let innerCenterRect = CGRect(x: -innterCenterDiscWidth / 2, y: -innterCenterDiscWidth / 2 , width: innterCenterDiscWidth, height: innterCenterDiscWidth)
+        let innerCenterRect = CGRect(x: -innterCenterDiscWidth / 2, y: -innterCenterDiscWidth / 2, width: innterCenterDiscWidth, height: innterCenterDiscWidth)
         innerCenterDiscColor.set()
         ctx.fillEllipse(in: innerCenterRect)
         
@@ -272,33 +269,13 @@ class GaugeView: UIView {
     }
     
     func setUp() {
-        needle.backgroundColor = needColor
-        needle.translatesAutoresizingMaskIntoConstraints = false
-        
-        //make the needle a third of our height
-        needle.bounds = CGRect(x: 0, y: 0, width: needleWidth, height: bounds.height / 3 )
-        
-        // align it so that it is positioned and rotated from the bottom center
-        needle.layer.anchorPoint = CGPoint(x:0.5, y:1)
-        
-        // now center the needle over our center point
-        needle.center = CGPoint(x: bounds.midX, y: bounds.midY)
-        addSubview(needle)
-        
-        needle.isHidden = true
-//        valueFont = Font.SteelfishRg.get(fontSize)
-//        valueLabel.font = valueFont
-//        valueLabel.textColor = valueColor
-//        valueLabel.text = "999"
-//        valueLabel.translatesAutoresizingMaskIntoConstraints = false
-//
-//        addSubview(valueLabel)
-//
-//        NSLayoutConstraint.activate([
-//            valueLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-//            valueLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -80)
-//        ])
-        
+        let winSize = UIScreen.main.bounds.size
+        if (winSize.height / winSize.width) < 2 {
+            offsetY = 40
+            if winSize.width >= 768 {
+                offsetY = 80
+            }
+        }
         DispatchQueue.main.async {
             var fontSize:CGFloat
             switch ScreenUtil.screenSizeClass {
@@ -314,10 +291,15 @@ class GaugeView: UIView {
             var tag = 0
             
             let rect = self.bounds
-            let center = CGPoint(x: rect.midX, y: rect.midY)
+            let center = CGPoint(x: rect.midX, y: rect.midY + self.offsetY)
             let segmentAngle = self.deg2rad(self.totalAngle / CGFloat(self.segmentColors.count))
             
-            let segmentRadius = (((rect.width - self.segmentWidth) / 2) - self.outerBezelWidth) - self.innerBezelWidth - self.segmentWidth - 16
+            var radius = rect.width
+            if radius > 540 {
+                radius = 540
+            }
+            
+            let segmentRadius = (((radius - self.segmentWidth) / 2) - self.outerBezelWidth) - self.innerBezelWidth - self.segmentWidth - 16
             let rotFrom = self.deg2rad(self.rotation) - (.pi / 2)
             for num in self.dotStrings {
                 let label = UILabel()
@@ -355,6 +337,20 @@ class GaugeView: UIView {
                 self.addSubview(label)
                 tag += 1
             }
+            
+            let needle = self.needle
+            needle.backgroundColor = self.needColor
+            needle.translatesAutoresizingMaskIntoConstraints = false
+            
+            //make the needle a third of our height
+            needle.bounds = CGRect(x: 0, y: 0, width: self.needleWidth, height: radius / 3 )
+            
+            // align it so that it is positioned and rotated from the bottom center
+            needle.layer.anchorPoint = CGPoint(x:0.5, y:1)
+            
+            // now center the needle over our center point
+            needle.center = center
+            self.addSubview(needle)
         }
     }
     

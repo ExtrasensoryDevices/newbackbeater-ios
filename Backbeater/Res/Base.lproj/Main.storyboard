@@ -51,15 +51,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WFx-zl-RVz" userLabel="SideBar" customClass="Sidebar" customModule="Backbeater" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="260" height="667"/>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WFx-zl-RVz" userLabel="SideBar" customClass="Sidebar" customModule="Backbeater" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="300" height="667"/>
                                 <color key="backgroundColor" red="0.89730262756347656" green="0.89727580547332764" blue="0.89729094505310059" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="260" id="gau-uU-uL4"/>
+                                    <constraint firstAttribute="width" constant="300" id="gau-uU-uL4"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="snK-fl-aQa" userLabel="ContainerView">
-                                <rect key="frame" x="260" y="0.0" width="375" height="667"/>
+                            <view contentMode="scaleToFill" misplaced="YES" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="snK-fl-aQa" userLabel="ContainerView">
+                                <rect key="frame" x="300" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="syQ-P2-MNj">
                                         <rect key="frame" x="16" y="25" width="37" height="37"/>
@@ -101,7 +101,7 @@
                             <constraint firstItem="snK-fl-aQa" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="aEE-Eo-Olf"/>
                             <constraint firstItem="WFx-zl-RVz" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="c7i-I6-CfT"/>
                             <constraint firstItem="syQ-P2-MNj" firstAttribute="top" secondItem="Yep-gf-NDn" secondAttribute="top" constant="5" id="dGk-qL-hUW"/>
-                            <constraint firstItem="Yep-gf-NDn" firstAttribute="centerX" secondItem="snK-fl-aQa" secondAttribute="centerX" constant="-260" id="zti-u3-blu"/>
+                            <constraint firstItem="Yep-gf-NDn" firstAttribute="centerX" secondItem="snK-fl-aQa" secondAttribute="centerX" constant="-300" id="zti-u3-blu"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Yep-gf-NDn"/>
                     </view>
@@ -144,6 +144,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="wau-6O-XgO" secondAttribute="height" multiplier="343:377" id="5d4-Jn-Du5"/>
+                                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="400" id="ail-nR-9lq"/>
                                         </constraints>
                                     </view>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I8c-WM-xqu" customClass="CentralRing" customModule="Backbeater" customModuleProvider="target">

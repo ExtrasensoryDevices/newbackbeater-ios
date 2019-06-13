@@ -17,6 +17,7 @@ class CenterRing: NibDesignable {
     @IBOutlet weak var gaugeView: GaugeView!
     @IBOutlet weak var cptLabel: UILabel!
     
+    @IBOutlet weak var labelBottomConst: NSLayoutConstraint!
     @IBOutlet weak var ringTopConstraint: NSLayoutConstraint!
     
     private var player:AVAudioPlayer?
@@ -49,13 +50,18 @@ class CenterRing: NibDesignable {
         self.backgroundColor = UIColor.clear
         self.gaugeView.backgroundColor = UIColor.clear
         
+        let winSize = UIScreen.main.bounds.size
+        if (winSize.height / winSize.width) < 2 {
+            labelBottomConst.constant = -40
+        }
+        
         var fontSize:CGFloat
         switch ScreenUtil.screenSizeClass {
             case .xsmall: fontSize = 140
             case .small:  fontSize = 165
-            case .medium: fontSize = 210
-            case .large:  fontSize = 220
-            case .xlarge: fontSize = 260
+            case .medium: fontSize = 200
+            case .large:  fontSize = 200
+            case .xlarge: fontSize = 240
         }
         fontSize = fontSize/2
         UILabel.appearance(whenContainedInInstancesOf: [CenterRing.self]).font = Font.SteelfishRg.get(fontSize)

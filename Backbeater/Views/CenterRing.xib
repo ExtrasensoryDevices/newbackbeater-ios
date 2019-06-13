@@ -19,6 +19,7 @@
                 <outlet property="cptLabel" destination="dC7-h9-cZm" id="gQ4-Ka-htF"/>
                 <outlet property="drumImage" destination="Gvb-ZV-exZ" id="i0k-kd-vHb"/>
                 <outlet property="gaugeView" destination="qlr-Kh-p4Q" id="hdq-Hc-nXq"/>
+                <outlet property="labelBottomConst" destination="jSV-pE-HrI" id="kNT-38-PTf"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -31,7 +32,7 @@
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="140" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dC7-h9-cZm">
                             <rect key="frame" x="0.0" y="234" width="390" height="156"/>
-                            <fontDescription key="fontDescription" name="SteelfishRg-Regular" family="Steelfish" pointSize="140"/>
+                            <fontDescription key="fontDescription" name="SteelfishRg-Regular" family="Steelfish" pointSize="120"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
