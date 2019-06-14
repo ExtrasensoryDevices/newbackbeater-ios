@@ -68,18 +68,13 @@ class GaugeView: UIView {
         setUp()
     }
     
-    var value: Int = 0 {
+    var bpm: Float = 0 {
         didSet {
-            var v = value - Tempo.min
-            if v < 0 {
-                v = 0
-            }
-            else if v > range {
-                v = range
-            }
-            
+            var v = bpm
+            if bpm < 0 { v = 0 }
+            else if bpm > 1 { v = 1 }
             //figure out where the needle is, between 0 and 1
-            let needlePosition = CGFloat(v) / CGFloat(range)
+            let needlePosition = CGFloat(v)
             
             // create a lerp from teh start angle (rotation) through to the end angle (rotation + totalAngle)
             let lerpFrom = rotation
