@@ -97,6 +97,19 @@ class CenterRing: NibDesignable {
     func display(cpt:Int, timeSignature: Int, metronomeState:MetronomeState) {
         // display numbers
         setDisplayTempo(cpt)
+        var pos = cpt - metronomeState.tempo
+        if pos > 4 {
+            pos = 4
+        }
+        else if pos < -4 {
+            pos = -4
+        }
+        gaugeView.bpm = Float(pos + 4) / 8
+        
+        if pos == 0 {
+            self.screenFlash()
+        }
+        
         if cpt > Tempo.max || cpt < Tempo.min {
             // We do not need BPM outside this range.
             runPulseAnimation()
@@ -200,6 +213,26 @@ class CenterRing: NibDesignable {
         }
     }
 
+    func screenFlash() {
+        if let wnd = drumImage {
+            var rc = wnd.bounds
+            rc.origin.x = (rc.size.width - rc.size.height) / 2.0
+            rc.size.width = rc.size.height
+            
+            let v = UIView(frame: rc)
+            v.backgroundColor = UIColor.white
+            v.alpha = 0.8
+            v.layer.cornerRadius = rc.size.width / 2.0
+            
+            wnd.addSubview(v)
+            UIView.animate(withDuration: 0.5, animations: {
+                v.alpha = 0.0
+            }, completion: {(finished:Bool) in
+                v.removeFromSuperview()
+            })
+        }
+    }
+
 
     //MARK: - Tap recognizer
     
@@ -222,7 +255,7 @@ class CenterRing: NibDesignable {
             tapCount = 0;
             delegate?.centralRingDidDetectFirstTap()
         } else {
-            let bpm = 1.0 / timeElapsedInSec
+            let bpm = 6.0 / timeElapsedInSec
             var pos = 0
             if bpm > 4 {
                 pos = 4
@@ -249,7 +282,7 @@ class CenterRing: NibDesignable {
                 pos = -1
             }
             print("bpm = \(bpm)")
-            gaugeView.bpm = Float(pos + 4) / 8
+            //gaugeView.bpm = Float(pos + 4) / 8
             
             let figertapBPM = 60.0 / timeElapsedInSec
             self.foundFigertapBPM(figertapBPM)

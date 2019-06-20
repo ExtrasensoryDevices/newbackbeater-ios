@@ -205,7 +205,8 @@ class GaugeView: UIView {
         
         //draw major ticks
         
-        ctx.setLineWidth(majorTickWidth)
+//        ctx.setLineWidth(majorTickWidth)
+        
         majorTickColor.set()
         let majorEnd = segmentRadius + (segmentWidth / 2)
         let majorStart = majorEnd - majorTickLength
@@ -307,10 +308,16 @@ class GaugeView: UIView {
                 
                 if tag < 4 {
                     label.text = "\(num)"
+                    if tag == 0 {
+                        label.text = " slow"
+                    }
                     label.textColor = ColorPalette.red.color
                 }
                 else if tag > 4 {
                     label.text = "+\(num)"
+                    if tag == 8 {
+                        label.text = "fast "
+                    }
                     label.textColor = ColorPalette.green.color
                 }
                 else {
@@ -323,10 +330,10 @@ class GaugeView: UIView {
                 
                 let minDotCenter = CGPoint(x: CGFloat(segmentRadius * cos(startAngle)) + center.x,
                                            y: center.y + CGFloat(segmentRadius * sin(startAngle)))
-                if tag != 4 {
+                if tag != 4 && tag != 0 && tag != 8 {
                     label.frame = CGRect(x: minDotCenter.x - 13, y: minDotCenter.y - 12, width: 26, height: 20)
                 } else {
-                    label.frame = CGRect(x: minDotCenter.x - 24, y: minDotCenter.y - 12, width: 48, height: 24)
+                    label.frame = CGRect(x: minDotCenter.x - 27, y: minDotCenter.y - 12, width: 54, height: 24)
                 }
                 
                 self.addSubview(label)
@@ -342,6 +349,7 @@ class GaugeView: UIView {
             
             // align it so that it is positioned and rotated from the bottom center
             needle.layer.anchorPoint = CGPoint(x:0.5, y:1)
+            needle.layer.cornerRadius = self.needleWidth / 2
             
             // now center the needle over our center point
             needle.center = center
