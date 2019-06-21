@@ -225,6 +225,20 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
     
     private func reportMetronomeState(isOn: Bool, tempo: Int) {
         let newState:MetronomeState  =  isOn ? .on(tempo: tempo) : .off(tempo: tempo)
+        
+        if var songList = songList, songList.count > 0 {
+            if var song = songList[safe: selectedSongIndex] {
+                if song.tempoValue != tempo {
+                    song.tempoValue = tempo
+                    songList[selectedSongIndex] = song
+                    
+                    if let data = songList.serialize() {
+                        UserDefaults.set(data: data, for: .songList)
+                    }
+                }
+            }
+        }
+        
         delegate?.metronomeStateChanged(newState)
         centerRing.setTempo(tempo)
     }
