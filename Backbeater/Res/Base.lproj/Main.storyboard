@@ -13,6 +13,9 @@
         <array key="FuturaRound-Demi.ttf">
             <string>FuturaRound-Demi</string>
         </array>
+        <array key="SteelfishRg.ttf">
+            <string>SteelfishRg-Regular</string>
+        </array>
     </customFonts>
     <scenes>
         <!--View Controller-->
@@ -338,6 +341,16 @@ SENSOR</string>
                                     <segue destination="eYN-Vg-k7V" kind="presentation" id="jIg-gd-Yy3"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="set to new target" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="1Ii-ip-rzR">
+                                <rect key="frame" x="4.5" y="465" width="96" height="26"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="26" id="BSA-xi-HJH"/>
+                                    <constraint firstAttribute="width" constant="96" id="lLJ-3C-OoL"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="SteelfishRg-Regular" family="Steelfish" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.1118306964635849" green="0.11182737350463867" blue="0.1118292510509491" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -347,6 +360,7 @@ SENSOR</string>
                             <constraint firstItem="TKZ-50-aAo" firstAttribute="leading" secondItem="sq8-qA-9sZ" secondAttribute="leading" constant="16" id="EDn-RB-CGn"/>
                             <constraint firstItem="QJn-dF-3EQ" firstAttribute="width" secondItem="qeG-nt-Ow3" secondAttribute="width" id="ERR-wb-7Q7"/>
                             <constraint firstItem="sq8-qA-9sZ" firstAttribute="bottom" secondItem="ZVW-OY-ljc" secondAttribute="bottom" id="ESO-Kr-YQ0"/>
+                            <constraint firstItem="qeG-nt-Ow3" firstAttribute="top" secondItem="1Ii-ip-rzR" secondAttribute="bottom" constant="2" id="M7w-op-Ybh"/>
                             <constraint firstItem="QJn-dF-3EQ" firstAttribute="centerX" secondItem="qeG-nt-Ow3" secondAttribute="centerX" id="NTG-tK-rEQ"/>
                             <constraint firstItem="TKZ-50-aAo" firstAttribute="top" secondItem="HD3-4I-VRj" secondAttribute="bottom" constant="16" id="OCx-cE-5rS"/>
                             <constraint firstItem="QJn-dF-3EQ" firstAttribute="top" secondItem="TKZ-50-aAo" secondAttribute="bottom" constant="27" id="awi-31-XCa"/>
@@ -358,6 +372,7 @@ SENSOR</string>
                             <constraint firstItem="sq8-qA-9sZ" firstAttribute="trailing" secondItem="TKZ-50-aAo" secondAttribute="trailing" constant="16" id="qnD-Ws-0mQ"/>
                             <constraint firstItem="QJn-dF-3EQ" firstAttribute="width" secondItem="tQT-Vc-gGK" secondAttribute="width" id="tKM-bC-h1A"/>
                             <constraint firstItem="sq8-qA-9sZ" firstAttribute="bottom" secondItem="QJn-dF-3EQ" secondAttribute="bottom" constant="101" id="trp-Am-ymW"/>
+                            <constraint firstItem="1Ii-ip-rzR" firstAttribute="centerX" secondItem="qeG-nt-Ow3" secondAttribute="centerX" id="wtf-Vo-0Zk"/>
                             <constraint firstAttribute="trailingMargin" secondItem="K9p-rK-CsH" secondAttribute="trailing" constant="14" id="x3w-3o-OIz"/>
                             <constraint firstItem="QJn-dF-3EQ" firstAttribute="height" secondItem="qeG-nt-Ow3" secondAttribute="height" id="ySO-hz-PPw"/>
                             <constraint firstItem="QJn-dF-3EQ" firstAttribute="centerY" secondItem="tQT-Vc-gGK" secondAttribute="centerY" id="yuq-2C-uTm"/>
@@ -379,6 +394,7 @@ SENSOR</string>
                         <outlet property="songListBottomLayoutConstraint" destination="ESO-Kr-YQ0" id="9XM-ry-vhg"/>
                         <outlet property="songListView" destination="ZVW-OY-ljc" id="rIr-Hz-8TH"/>
                         <outlet property="songNameLabel" destination="yDh-T4-4gI" id="QSs-oA-d6C"/>
+                        <outlet property="targetLabel" destination="1Ii-ip-rzR" id="UiJ-yo-7cO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="51M-Jy-04m" userLabel="First Responder" sceneMemberID="firstResponder"/>

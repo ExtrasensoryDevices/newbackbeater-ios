@@ -40,6 +40,7 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
     
     weak var delegate: DisplayViewControllerDelegate?
     
+    @IBOutlet weak var targetLabel: UILabel!
     
     private var songList:[SongTempo]? {
         didSet {
@@ -151,6 +152,7 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
     func updateSensorState(sensorDetected:Bool) {
         getSensorView.isHidden = sensorDetected
         setTempoView.isHidden = !sensorDetected
+        targetLabel.isHidden = !sensorDetected
     }
     
     
@@ -232,6 +234,15 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
     
     // MARK: - CentralRingDelegate
     func centralRingFoundTap(bpm: Float64) {
+        if bpm > 12.0 {
+            if targetLabel.alpha == 0 {
+                UIView.animate(withDuration: 1.2, animations: {
+                    self.targetLabel.alpha = 1
+                }) { (comp) in
+                    self.targetLabel.alpha = 0
+                }
+            }
+        }
         delegate?.foundTap(bpm: bpm)
     }
     

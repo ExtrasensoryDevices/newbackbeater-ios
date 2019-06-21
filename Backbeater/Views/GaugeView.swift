@@ -57,6 +57,7 @@ class GaugeView: UIView {
     
     let range = Tempo.max - Tempo.min
     var offsetY: CGFloat = 0
+    var needleAngle: CGFloat = 0
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -70,19 +71,33 @@ class GaugeView: UIView {
     
     var bpm: Float = 0 {
         didSet {
+            //figure out where the needle is, between 0 and 1
             var v = bpm
             if bpm < 0 { v = 0 }
             else if bpm > 1 { v = 1 }
-            //figure out where the needle is, between 0 and 1
-            let needlePosition = CGFloat(v)
-            
-            // create a lerp from teh start angle (rotation) through to the end angle (rotation + totalAngle)
-            let lerpFrom = rotation
-            let lerpTo = rotation + totalAngle
             
             //lerp from the start to end position, based on the needle's position
-            let needleRotation = lerpFrom + (lerpTo - lerpFrom) * needlePosition
-            needle.transform = CGAffineTransform(rotationAngle: deg2rad(needleRotation))
+            let needleRotation = rotation + totalAngle * CGFloat(v)
+            let angle = self.deg2rad(needleRotation)
+            
+            if needleAngle != needleRotation {
+//                print("needle = \(needleAngle), current = \(needleRotation)")
+                if needleAngle == 90.0 && needleRotation == -90.0 {
+                    UIView.animate(withDuration: 0.15, animations: {
+                        self.needle.transform = CGAffineTransform(rotationAngle: 0)
+                    }) { (comp) in
+                        UIView.animate(withDuration: 0.15, animations: {
+                            self.needle.transform = CGAffineTransform(rotationAngle: angle)
+                        })
+                    }
+                }
+                else {
+                    UIView.animate(withDuration: 0.3, animations: {
+                        self.needle.transform = CGAffineTransform(rotationAngle: angle)
+                    })
+                }
+                needleAngle = needleRotation
+            }
         }
     }
     

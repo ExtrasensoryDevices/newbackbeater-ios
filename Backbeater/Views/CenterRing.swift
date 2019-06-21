@@ -281,7 +281,7 @@ class CenterRing: NibDesignable {
             else if bpm < 0.9 {
                 pos = -1
             }
-            print("bpm = \(bpm)")
+//            print("bpm = \(bpm)")
             //gaugeView.bpm = Float(pos + 4) / 8
             
             let figertapBPM = 60.0 / timeElapsedInSec
