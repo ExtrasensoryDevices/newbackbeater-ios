@@ -445,10 +445,26 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
 }
 
 extension SongListViewController: TableViewReorderDelegate {
+    func tableView(_ tableView: UITableView, canReorderRowAt indexPath: IndexPath) -> Bool {
+        if indexPath.row < newSongList.count {
+            return true
+        }
+        return false
+    }
+    
+    func tableViewDidFinishReordering(_ tableView: UITableView, from initialSourceIndexPath: IndexPath, to finalDestinationIndexPath: IndexPath) {
+        if initialSourceIndexPath.row < newSongList.count && finalDestinationIndexPath.row < oldSongList.count {
+            newSongList.swapAt(initialSourceIndexPath.row, finalDestinationIndexPath.row)
+            oldSongList.swapAt(initialSourceIndexPath.row, finalDestinationIndexPath.row)
+            saveTempoList()
+        }
+        else {
+            tableView.reloadData()
+        }
+    }
+    
     func tableView(_ tableView: UITableView, reorderRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         // Update data model
-        newSongList.swapAt(sourceIndexPath.row, destinationIndexPath.row)
-        oldSongList.swapAt(sourceIndexPath.row, destinationIndexPath.row)
-        saveTempoList()
+        
     }
 }
