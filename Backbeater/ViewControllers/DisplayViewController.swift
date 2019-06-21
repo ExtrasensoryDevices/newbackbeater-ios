@@ -42,6 +42,8 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
     
     @IBOutlet weak var targetLabel: UILabel!
     
+    private var targetWorkItem: DispatchWorkItem! = nil
+    
     private var songList:[SongTempo]? {
         didSet {
             let doShow = (songList?.count ?? 0) > 0
@@ -151,12 +153,25 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
         }
 //        centralRing.handleMetronomeState(metronomeState)
         centerRing.handleMetronomeState(metronomeState)
+        if var songList = songList, songList.count > 0 {
+            if var song = songList[safe: selectedSongIndex] {
+                if song.tempoValue != metronomeState.tempo {
+                    song.tempoValue = metronomeState.tempo
+                    songList[selectedSongIndex] = song
+                    
+                    if let data = songList.serialize() {
+                        UserDefaults.set(data: data, for: .songList)
+                    }
+                }
+            }
+        }
+        centerRing.setTempo(metronomeState.tempo)
     }
     
     func updateSensorState(sensorDetected:Bool) {
         getSensorView.isHidden = sensorDetected
         setTempoView.isHidden = !sensorDetected
-        targetLabel.isHidden = !sensorDetected
+//        targetLabel.isHidden = !sensorDetected
     }
     
     
@@ -165,13 +180,30 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
         centerRing.setSound(url: url)
     }
     
-    func display(cpt:Int, timeSignature: Int, metronomeState:MetronomeState) {
+    func display(cpt:Int, timeSignature: Int, metronomeState:MetronomeState, bpm: Float) {
 //        centralRing.display(cpt: cpt, timeSignature: timeSignature, metronomeState: metronomeState)
+        if bpm > 13.0 {
+            self.targetLabel.alpha = 1
+            if targetWorkItem != nil {
+                targetWorkItem.cancel()
+            }
+            
+            targetWorkItem = DispatchWorkItem {
+                UIView.animate(withDuration: 0.1, animations: {
+                    self.targetLabel.alpha = 0
+                })
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5.0, execute: targetWorkItem)
+        }
+        else {
+            self.targetLabel.alpha = 0
+        }
         centerRing.display(cpt: cpt, timeSignature: timeSignature, metronomeState: metronomeState)
     }
 
     func handleFirstStrike() {
 //        centralRing.runPulseAnimation()
+        centerRing.runPulseAnimation()
     }
     
     func showMicrophonePermissionAlert() {
@@ -229,22 +261,7 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
     
     private func reportMetronomeState(isOn: Bool, tempo: Int) {
         let newState:MetronomeState  =  isOn ? .on(tempo: tempo) : .off(tempo: tempo)
-        
-        if var songList = songList, songList.count > 0 {
-            if var song = songList[safe: selectedSongIndex] {
-                if song.tempoValue != tempo {
-                    song.tempoValue = tempo
-                    songList[selectedSongIndex] = song
-                    
-                    if let data = songList.serialize() {
-                        UserDefaults.set(data: data, for: .songList)
-                    }
-                }
-            }
-        }
-        
         delegate?.metronomeStateChanged(newState)
-        centerRing.setTempo(tempo)
     }
 
     
@@ -252,15 +269,6 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
     
     // MARK: - CentralRingDelegate
     func centralRingFoundTap(bpm: Float64) {
-        if bpm > 12.0 {
-            if targetLabel.alpha == 0 {
-                UIView.animate(withDuration: 1.2, animations: {
-                    self.targetLabel.alpha = 1
-                }) { (comp) in
-                    self.targetLabel.alpha = 0
-                }
-            }
-        }
         delegate?.foundTap(bpm: bpm)
     }
     

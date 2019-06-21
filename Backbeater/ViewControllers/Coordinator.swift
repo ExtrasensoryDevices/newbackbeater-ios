@@ -47,7 +47,7 @@ protocol CoordinatorDelegate: class {
     func updateMetronomeState(metronomeState: MetronomeState)
     func updateSensorState(sensorDetected:Bool)
     func setSound(url:URL)
-    func display(cpt:Int, timeSignature: Int, metronomeState:MetronomeState)
+    func display(cpt:Int, timeSignature: Int, metronomeState:MetronomeState, bpm: Float)
     func handleFirstStrike()
     func showMicrophonePermissionAlert()
 }
@@ -237,7 +237,7 @@ class Coordinator {
         
         currentTempo = strikesWindowQueue.enqueue(instantTempo).average
         
-        output?.display(cpt: currentTempo, timeSignature: timeSignature, metronomeState: metronomeState)
+        output?.display(cpt: currentTempo, timeSignature: timeSignature, metronomeState: metronomeState, bpm: Float(bpm))
         
         if !metronomeState.isOn {
             delay(Constants.idleTimeout, callback: { [weak self] () -> () in

@@ -255,35 +255,6 @@ class CenterRing: NibDesignable {
             tapCount = 0;
             delegate?.centralRingDidDetectFirstTap()
         } else {
-            let bpm = 6.0 / timeElapsedInSec
-            var pos = 0
-            if bpm > 4 {
-                pos = 4
-            }
-            else if bpm > 3.2 {
-                pos = 3
-            }
-            else if bpm > 2.2 {
-                pos = 2
-            }
-            else if bpm > 1.2 {
-                pos = 1
-            }
-            else if bpm < 0.3 {
-                pos = -4
-            }
-            else if bpm < 0.5 {
-                pos = -3
-            }
-            else if bpm < 0.7 {
-                pos = -2
-            }
-            else if bpm < 0.9 {
-                pos = -1
-            }
-//            print("bpm = \(bpm)")
-            //gaugeView.bpm = Float(pos + 4) / 8
-            
             let figertapBPM = 60.0 / timeElapsedInSec
             self.foundFigertapBPM(figertapBPM)
         }
