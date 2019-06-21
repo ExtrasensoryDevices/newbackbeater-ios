@@ -49,7 +49,9 @@ class CalibrationViewController: UIViewController, UITextFieldDelegate, SoundPro
         
     }
     
-    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
     
     func setupKeyboardAceessory() {
         // create toolbar with "DONE" button

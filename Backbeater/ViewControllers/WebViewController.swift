@@ -48,6 +48,9 @@ class WebViewController: UIViewController, WKNavigationDelegate {
         self.webView = webView
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
     
     @IBAction func didTapClose() {
         self.dismiss(animated: true, completion: nil)

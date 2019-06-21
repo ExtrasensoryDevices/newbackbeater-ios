@@ -119,7 +119,11 @@ class GaugeView: UIView {
             radius = 540
             outerRect = outerRect.insetBy(dx: (rect.width - 540)/2, dy: (rect.height-540)/2)
         }
-        
+        if UIScreen.main.bounds.width <= 375 {
+            outerBezelWidth = 4
+            radius -= 16
+            outerRect = outerRect.insetBy(dx: (rect.width - radius)/2, dy: (rect.height-radius)/2)
+        }
         outerBezelColor.set()
         ctx.fillEllipse(in: outerRect)
         
@@ -180,6 +184,9 @@ class GaugeView: UIView {
         if radius > 540 {
             radius = 540
         }
+        if UIScreen.main.bounds.width <= 375 {
+            radius -= 16
+        }
         //5: Calculate how wide the segment arcs shouls be
         let segmentRadius = (((radius - segmentWidth) / 2) - outerBezelWidth) - innerBezelWidth
         
@@ -212,6 +219,13 @@ class GaugeView: UIView {
         var radius = rect.width
         if radius > 540 {
             radius = 540
+        }
+        if UIScreen.main.bounds.width <= 375 {
+            radius -= 16
+            majorTickLength = 26
+            if UIScreen.main.bounds.width == 320 {
+                majorTickLength = 24
+            }
         }
         let segmentRadius = (((radius - segmentWidth) / 2) - outerBezelWidth) - innerBezelWidth
         
@@ -283,8 +297,11 @@ class GaugeView: UIView {
         let winSize = UIScreen.main.bounds.size
         if (winSize.height / winSize.width) < 2 {
             offsetY = 40
-            if winSize.width >= 768 {
+            if winSize.width <= 320 || winSize.width >= 768 {
                 offsetY = 80
+            }
+            else if winSize.width <= 375 {
+                offsetY = 60
             }
         }
         DispatchQueue.main.async {

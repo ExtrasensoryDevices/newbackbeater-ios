@@ -57,9 +57,9 @@ class CenterRing: NibDesignable {
         
         var fontSize:CGFloat
         switch ScreenUtil.screenSizeClass {
-            case .xsmall: fontSize = 140
-            case .small:  fontSize = 165
-            case .medium: fontSize = 200
+            case .xsmall: fontSize = 120
+            case .small:  fontSize = 120
+            case .medium: fontSize = 170
             case .large:  fontSize = 200
             case .xlarge: fontSize = 240
         }

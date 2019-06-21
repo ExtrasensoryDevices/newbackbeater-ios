@@ -76,6 +76,10 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
         
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     private func updateEmptyState() {
         empyView?.isHidden = !newSongList.isEmpty
     }

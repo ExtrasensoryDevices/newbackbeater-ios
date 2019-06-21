@@ -34,6 +34,10 @@ class MainViewController: UIViewController, WebPagePresenter {
         displayVC.delegate = coordinator
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     private func setupDisplayViewController() {
         guard let displayVC = storyboard?.instantiateViewController(withIdentifier: "DisplayViewController") as? DisplayViewController else {
             fatalError("DisplayViewController not found")
