@@ -134,7 +134,7 @@ class Sidebar: NibDesignable {
         controller.preferredContentSize = CGSize(width: 288, height: 144)
         
         let label = UILabel(frame: CGRect(x: 20, y: 4, width: 288-32, height: 144-8))
-        label.text = "This is how many beats are averaged to show your current tempo. \nA lower setting is more accurate, a higher setting is more foregiving."
+        label.text = "This is how many beats are averaged to show your current tempo. \nA lower setting is more accurate, a higher setting is more forgiving."
         label.numberOfLines = 0
         
         controller.view.addSubview(label)

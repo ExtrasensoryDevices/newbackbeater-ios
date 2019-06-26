@@ -171,7 +171,7 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
     func updateSensorState(sensorDetected:Bool) {
         getSensorView.isHidden = sensorDetected
         setTempoView.isHidden = !sensorDetected
-//        targetLabel.isHidden = !sensorDetected
+        targetLabel.isHidden = !sensorDetected
     }
     
     
@@ -236,7 +236,8 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
     //MARK: - User interaction
     
     @IBAction func didTapGetSensorButton(_ sender: AnyObject) {
-        UIApplication.shared.open(URL(string: BUY_SENSOR_URL)!, options: [:], completionHandler: nil)
+//        UIApplication.shared.open(URL(string: BUY_SENSOR_URL)!, options: [:], completionHandler: nil)
+        self.performSegue(withIdentifier: "showWeb", sender: self)
     }
     
     @objc func didTapSetTempoButton() {

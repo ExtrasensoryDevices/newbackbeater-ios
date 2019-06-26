@@ -124,7 +124,7 @@
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AVERAGING WINDOW" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kL1-CA-mOY">
-                    <rect key="frame" x="8" y="248" width="607" height="21"/>
+                    <rect key="frame" x="8" y="256" width="607" height="21"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="HiS-bn-qYr"/>
                     </constraints>
@@ -133,7 +133,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BEAT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1mw-Bo-w6h">
-                    <rect key="frame" x="8" y="369" width="607" height="21"/>
+                    <rect key="frame" x="8" y="381" width="607" height="21"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="zLN-Hb-KxB"/>
                     </constraints>
@@ -142,7 +142,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J23-eY-XOo" userLabel="Beat Segmented Control" customClass="SegmentedControl" customModule="Backbeater" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="414" width="623" height="44"/>
+                    <rect key="frame" x="0.0" y="422" width="623" height="44"/>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="0Ru-d6-8Nh"/>
@@ -152,7 +152,7 @@
                     </connections>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LQS-dh-hCe" userLabel="Window Segmented Control" customClass="SegmentedControl" customModule="Backbeater" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="293" width="623" height="44"/>
+                    <rect key="frame" x="0.0" y="297" width="623" height="44"/>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="1lT-qz-F6E"/>
@@ -162,10 +162,10 @@
                     </connections>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FhN-1K-bu1">
-                    <rect key="frame" x="562" y="240" width="37" height="37"/>
+                    <rect key="frame" x="577" y="255.5" width="22" height="22"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="30" id="3zU-K1-kOp"/>
-                        <constraint firstAttribute="width" constant="30" id="wSq-mk-bf9"/>
+                        <constraint firstAttribute="height" constant="23" id="3zU-K1-kOp"/>
+                        <constraint firstAttribute="width" constant="23" id="wSq-mk-bf9"/>
                     </constraints>
                     <state key="normal" image="help">
                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -199,10 +199,10 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="edf-DX-fbF">
-                    <rect key="frame" x="562" y="361" width="37" height="37"/>
+                    <rect key="frame" x="577" y="380.5" width="22" height="22"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="30" id="RAs-XW-Dtx"/>
-                        <constraint firstAttribute="width" constant="30" id="tRK-Kg-QRP"/>
+                        <constraint firstAttribute="height" constant="23" id="RAs-XW-Dtx"/>
+                        <constraint firstAttribute="width" constant="23" id="tRK-Kg-QRP"/>
                     </constraints>
                     <state key="normal" image="help">
                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -238,8 +238,8 @@
                 <constraint firstItem="XED-ML-FH5" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="XSd-92-sbO"/>
                 <constraint firstAttribute="centerX" secondItem="cX9-Tu-Ylt" secondAttribute="centerX" id="aU5-wn-vT2"/>
                 <constraint firstAttribute="trailing" secondItem="Ngt-p1-cqv" secondAttribute="trailing" constant="8" id="c8z-bQ-15S"/>
-                <constraint firstItem="LQS-dh-hCe" firstAttribute="top" secondItem="kL1-CA-mOY" secondAttribute="bottom" constant="30" id="cMz-XJ-Z3n"/>
-                <constraint firstItem="J23-eY-XOo" firstAttribute="top" secondItem="1mw-Bo-w6h" secondAttribute="bottom" constant="30" id="cta-on-fBa"/>
+                <constraint firstItem="LQS-dh-hCe" firstAttribute="top" secondItem="kL1-CA-mOY" secondAttribute="bottom" constant="18" id="cMz-XJ-Z3n"/>
+                <constraint firstItem="J23-eY-XOo" firstAttribute="top" secondItem="1mw-Bo-w6h" secondAttribute="bottom" constant="14" id="cta-on-fBa"/>
                 <constraint firstItem="XED-ML-FH5" firstAttribute="top" secondItem="cX9-Tu-Ylt" secondAttribute="bottom" constant="3" id="dS9-Wa-Zxx"/>
                 <constraint firstItem="FhN-1K-bu1" firstAttribute="centerY" secondItem="kL1-CA-mOY" secondAttribute="centerY" id="djc-BY-zJs"/>
                 <constraint firstItem="1mw-Bo-w6h" firstAttribute="top" secondItem="LQS-dh-hCe" secondAttribute="bottom" constant="40" id="gAK-Cc-Wdz"/>

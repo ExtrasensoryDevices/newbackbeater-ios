@@ -395,6 +395,7 @@ SENSOR</string>
                         <outlet property="songListView" destination="ZVW-OY-ljc" id="rIr-Hz-8TH"/>
                         <outlet property="songNameLabel" destination="yDh-T4-4gI" id="QSs-oA-d6C"/>
                         <outlet property="targetLabel" destination="1Ii-ip-rzR" id="UiJ-yo-7cO"/>
+                        <segue destination="dH9-CO-D53" kind="presentation" identifier="showWeb" id="YTC-0W-eBu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="51M-Jy-04m" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -433,16 +434,42 @@ SENSOR</string>
                                     <action selector="didTapClose" destination="dH9-CO-D53" eventType="touchUpInside" id="cp1-Gg-1Wg"/>
                                 </connections>
                             </button>
+                            <toolbar hidden="YES" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bpd-oT-eby">
+                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <items>
+                                    <barButtonItem title="←" id="hqb-FH-zJ6">
+                                        <connections>
+                                            <action selector="onTappedGoBack:" destination="dH9-CO-D53" id="UrI-x1-9Hr"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="mLK-SE-RYA">
+                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </barButtonItem>
+                                    <barButtonItem title="→" id="j6W-GQ-ejw">
+                                        <connections>
+                                            <action selector="onTappedGoForward:" destination="dH9-CO-D53" id="0io-7I-32D"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                                <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" red="0.14901960784313725" green="0.14901960784313725" blue="0.14901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="Bpd-oT-eby" firstAttribute="width" secondItem="661-oL-OY7" secondAttribute="width" id="2de-Je-vDe"/>
+                            <constraint firstItem="Bpd-oT-eby" firstAttribute="centerX" secondItem="uae-79-P1Z" secondAttribute="centerX" id="HGf-6N-pTf"/>
                             <constraint firstItem="Cgc-be-cKy" firstAttribute="leading" secondItem="uae-79-P1Z" secondAttribute="leading" constant="16" id="UKf-WN-pe5"/>
                             <constraint firstItem="Cgc-be-cKy" firstAttribute="top" secondItem="uae-79-P1Z" secondAttribute="top" constant="8" id="kOk-WM-RiC"/>
+                            <constraint firstItem="uae-79-P1Z" firstAttribute="bottom" secondItem="Bpd-oT-eby" secondAttribute="bottom" id="s4M-7f-dVT"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="uae-79-P1Z"/>
                     </view>
                     <connections>
                         <outlet property="closeButton" destination="Cgc-be-cKy" id="57B-mJ-CXh"/>
+                        <outlet property="goBackButton" destination="hqb-FH-zJ6" id="Ard-f7-V5L"/>
+                        <outlet property="goForwardButton" destination="j6W-GQ-ejw" id="KJ3-6c-0c5"/>
+                        <outlet property="toolbar" destination="Bpd-oT-eby" id="fc3-G2-duo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DoW-kb-FEM" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -32,7 +32,7 @@ class GaugeView: UIView {
                          ColorPalette.black.color,
                          ColorPalette.black.color]
 
-    var dotStrings = [-4, -3, -2, -1, 0, 1, 2, 3, 4]
+    var dotStrings = [4, 3, 2, 1, 0, 1, 2, 3, 4]
     
     var totalAngle: CGFloat = 180
     var rotation: CGFloat = -90
@@ -339,17 +339,19 @@ class GaugeView: UIView {
 //                label.isHidden = true
                 
                 if tag < 4 {
-                    label.text = "\(num)"
+                    label.text = "–\(num)"
                     if tag == 0 {
-                        label.text = " slow"
+                        label.text = "slow"
                     }
+                    label.textAlignment = .right
                     label.textColor = ColorPalette.red.color
                 }
                 else if tag > 4 {
                     label.text = "+\(num)"
                     if tag == 8 {
-                        label.text = "fast "
+                        label.text = "  fast"
                     }
+                    label.textAlignment = .left
                     label.textColor = ColorPalette.green.color
                 }
                 else {
@@ -363,9 +365,14 @@ class GaugeView: UIView {
                 let minDotCenter = CGPoint(x: CGFloat(segmentRadius * cos(startAngle)) + center.x,
                                            y: center.y + CGFloat(segmentRadius * sin(startAngle)))
                 if tag != 4 && tag != 0 && tag != 8 {
-                    label.frame = CGRect(x: minDotCenter.x - 13, y: minDotCenter.y - 12, width: 26, height: 20)
+                    if tag < 4 {
+                        label.frame = CGRect(x: minDotCenter.x - 17, y: minDotCenter.y - 12, width: 26, height: 20)
+                    }
+                    else {
+                        label.frame = CGRect(x: minDotCenter.x - 12, y: minDotCenter.y - 12, width: 26, height: 20)
+                    }
                 } else {
-                    label.frame = CGRect(x: minDotCenter.x - 27, y: minDotCenter.y - 12, width: 54, height: 24)
+                    label.frame = CGRect(x: minDotCenter.x - 24, y: minDotCenter.y - 12, width: 48, height: 24)
                 }
                 
                 self.addSubview(label)

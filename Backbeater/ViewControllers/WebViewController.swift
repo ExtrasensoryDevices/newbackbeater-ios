@@ -12,11 +12,16 @@ import WebKit
 class WebViewController: UIViewController, WKNavigationDelegate {
 
     weak var webView: WKWebView?
+    @IBOutlet weak var toolbar: UIToolbar!
+    @IBOutlet weak var goBackButton: UIBarButtonItem!
+    @IBOutlet weak var goForwardButton: UIBarButtonItem!
     
     var url = HELP_URL
     
     @IBOutlet weak var closeButton: UIButton!
     var spinner: UIActivityIndicatorView?
+    
+    var isFirst: Bool = true
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -29,6 +34,7 @@ class WebViewController: UIViewController, WKNavigationDelegate {
         
         let webView = WKWebView(frame: .zero, configuration: WKWebViewConfiguration())
         webView.navigationDelegate = self
+        webView.uiDelegate = self
         webView.backgroundColor = ColorPalette.black.color
         webView.isOpaque = false
 
@@ -56,14 +62,27 @@ class WebViewController: UIViewController, WKNavigationDelegate {
         self.dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func onTappedGoBack(_ sender: Any) {
+        self.webView!.goBack()
+    }
+
+    @IBAction func onTappedGoForward(_ sender: Any) {
+        self.webView!.goForward()
+    }
 
     // MARK: - UIWebViewDelegate
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
-        showSpinner()
+        if isFirst {
+            isFirst = false
+            showSpinner()
+        }
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         webView.isHidden = false
+        toolbar.isHidden = false
+        goBackButton.isEnabled = webView.canGoBack
+        goForwardButton.isEnabled = webView.canGoForward
         hideSpinner()
     }
     
@@ -76,18 +95,18 @@ class WebViewController: UIViewController, WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         
-        if navigationAction.navigationType == .linkActivated {
-            if let url = navigationAction.request.url {
-               if url.absoluteString.contains("apphelp") {
-                    decisionHandler(.allow)
-                    return
-                }
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            }
-            decisionHandler(.cancel)
-        } else {
+//        if navigationAction.navigationType == .linkActivated {
+//            if let url = navigationAction.request.url {
+////               if url.absoluteString.contains("apphelp") {
+//                    decisionHandler(.allow)
+//                    return
+////                }
+////                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+//            }
+//            decisionHandler(.cancel)
+//        } else {
             decisionHandler(.allow)
-        }
+//        }
     }
     
     private func processError(_ error: Error) {
@@ -112,5 +131,14 @@ class WebViewController: UIViewController, WKNavigationDelegate {
     private func hideSpinner() {
         spinner?.removeFromSuperview()
         spinner = nil
+    }
+}
+
+extension WebViewController: WKUIDelegate {
+    func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
+        if navigationAction.targetFrame == nil {
+            webView.load(navigationAction.request)
+        }
+        return nil
     }
 }
