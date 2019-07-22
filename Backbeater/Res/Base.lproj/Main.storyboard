@@ -341,7 +341,7 @@ SENSOR</string>
                                     <segue destination="eYN-Vg-k7V" kind="presentation" id="jIg-gd-Yy3"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="set to new target" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="1Ii-ip-rzR">
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="set metronome" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="1Ii-ip-rzR">
                                 <rect key="frame" x="4.5" y="465" width="96" height="26"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="26" id="BSA-xi-HJH"/>

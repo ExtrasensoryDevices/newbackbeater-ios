@@ -80,8 +80,9 @@ class CenterRing: NibDesignable {
     
     func setSound(url:URL) {
         do {
-            try AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .default)
+            try AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .spokenAudio, options: .defaultToSpeaker)
             try AVAudioSession.sharedInstance().setActive(true)
+            
             player = try AVAudioPlayer(contentsOf: url)
             player?.prepareToPlay()
         } catch  {
@@ -149,14 +150,16 @@ class CenterRing: NibDesignable {
                 metronomeTimer?.cancel()
                 metronomeTimer = nil
             
-                let timer = DispatchSource.makeTimerSource()
-                timer.schedule(wallDeadline: .now(), repeating:newDuration, leeway: .nanoseconds(5))
-                
-                timer.setEventHandler{ [weak self] in
-                    self?.playSound()
+                DispatchQueue.main.async {
+                    let timer = DispatchSource.makeTimerSource()
+                    timer.schedule(wallDeadline: .now(), repeating:newDuration, leeway: .nanoseconds(0))
+                    
+                    timer.setEventHandler{ [weak self] in
+                        self?.playSound()
+                    }
+                    timer.resume()
+                    self.metronomeTimer = timer
                 }
-                timer.resume()
-                metronomeTimer = timer
             }
             
         case .off:

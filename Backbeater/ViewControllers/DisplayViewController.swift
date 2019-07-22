@@ -199,6 +199,9 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
             self.targetLabel.alpha = 0
         }
         centerRing.display(cpt: cpt, timeSignature: timeSignature, metronomeState: metronomeState)
+        if !metronomeState.isOn {
+            reportMetronomeState(isOn: false, tempo: cpt)
+        }
     }
 
     func handleFirstStrike() {

@@ -232,8 +232,7 @@ class Coordinator {
     
     private func processBPM(_ bpm: Float64){
         let timeSignature = self.timeSignature
-        let multiplier = metronomeState.isOn ? 1 :  Float64(timeSignature)
-        let instantTempo:Float64 = bpm * multiplier
+        let instantTempo:Float64 = bpm * Float64(timeSignature)
         
         currentTempo = strikesWindowQueue.enqueue(instantTempo).average
         
