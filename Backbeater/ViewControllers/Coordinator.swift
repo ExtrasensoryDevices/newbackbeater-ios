@@ -25,7 +25,7 @@ struct Tempo {
 struct Sensitivity {
     static let min:Int       =   0
     static let max:Int       = 100
-    static let `default`:Int = 100
+    static let `default`:Int = 50
     
     static func normalized(value: Int) -> Int {
         return value.normalized(min: Sensitivity.min, max: Sensitivity.max)

@@ -180,23 +180,34 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
         centerRing.setSound(url: url)
     }
     
+    var sensorTapCount = 0
     func display(cpt:Int, timeSignature: Int, metronomeState:MetronomeState, bpm: Float) {
 //        centralRing.display(cpt: cpt, timeSignature: timeSignature, metronomeState: metronomeState)
-        if bpm > 13.0 {
-            self.targetLabel.alpha = 1
-            if targetWorkItem != nil {
-                targetWorkItem.cancel()
+        if !self.targetLabel.isHidden {
+            if bpm > 13.0 {
+                if sensorTapCount < 5 {
+                    sensorTapCount += 1
+                }
+                else {
+                    self.targetLabel.alpha = 1
+                    if targetWorkItem != nil {
+                        targetWorkItem.cancel()
+                    }
+                    
+                    targetWorkItem = DispatchWorkItem {
+                        UIView.animate(withDuration: 0.1, animations: {
+                            self.targetLabel.alpha = 0
+                        })
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 5.0, execute: targetWorkItem)
+                }
             }
-            
-            targetWorkItem = DispatchWorkItem {
-                UIView.animate(withDuration: 0.1, animations: {
-                    self.targetLabel.alpha = 0
-                })
+            else {
+                self.targetLabel.alpha = 0
             }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 5.0, execute: targetWorkItem)
         }
         else {
-            self.targetLabel.alpha = 0
+            sensorTapCount = 0
         }
         centerRing.display(cpt: cpt, timeSignature: timeSignature, metronomeState: metronomeState)
         if !metronomeState.isOn {
@@ -244,7 +255,9 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
     }
     
     @objc func didTapSetTempoButton() {
-        delegate?.startMetronomeWithCurrentTempo()
+        if targetLabel.isHidden || sensorTapCount == 5 {
+            delegate?.startMetronomeWithCurrentTempo()
+        }
     }
     
     @IBAction func didTapSongName(_ sender: AnyObject) {

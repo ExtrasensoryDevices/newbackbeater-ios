@@ -126,7 +126,7 @@ class CenterRing: NibDesignable {
         }
     }
     
-    
+    var playMetronomeTime: Int = 0
     func handleMetronomeState(_ metronomeState:MetronomeState) {
         
 //        metronomeTimer?.cancel()
@@ -140,26 +140,35 @@ class CenterRing: NibDesignable {
             
             // restart metronome if needed
             if metronomeTimer == nil || tempoChanged || !cptAnimationIsRunning {
-                
+                let oldDuration = cptAnimation.duration
                 // reset animation
                 cptSublayer?.removeAllAnimations()
                 cptAnimation?.duration = newDuration
                 cptSublayer?.add(cptAnimation, forKey: AnimationKey.cpt)
                 
+                var delayTime = 0.0
+                if metronomeTimer != nil {
                 // reset timer
                 metronomeTimer?.cancel()
                 metronomeTimer = nil
             
-                DispatchQueue.main.async {
+                    let delay = Int (Date().timeIntervalSince1970 * 1000) - self.playMetronomeTime
+                    
+                    delayTime = oldDuration - Double(delay) / 1000.0
+                    print("delayTime = \(delayTime)")
+                }
+            
+                DispatchQueue.main.asyncAfter(deadline: .now() + delayTime, execute: {
                     let timer = DispatchSource.makeTimerSource()
                     timer.schedule(wallDeadline: .now(), repeating:newDuration, leeway: .nanoseconds(0))
                     
                     timer.setEventHandler{ [weak self] in
+                        self?.playMetronomeTime = Int (Date().timeIntervalSince1970 * 1000)
                         self?.playSound()
                     }
                     timer.resume()
                     self.metronomeTimer = timer
-                }
+                })
             }
             
         case .off:
