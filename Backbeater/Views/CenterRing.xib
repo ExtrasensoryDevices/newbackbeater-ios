@@ -32,7 +32,7 @@
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="140" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dC7-h9-cZm">
                             <rect key="frame" x="0.0" y="234" width="390" height="156"/>
-                            <fontDescription key="fontDescription" name="SteelfishRg-Regular" family="Steelfish" pointSize="120"/>
+                            <fontDescription key="fontDescription" name="SteelfishRg-Regular" family="Steelfish" pointSize="125"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>

@@ -45,6 +45,7 @@ class SensitivitySlider: UIControlNibDesignable{
         thumbView.layer.cornerRadius = thumbView.frame.size.height / 2 // - BORDER_WIDTH * 1.5
         thumbView.layer.borderWidth = BORDER_WIDTH_THIN
         thumbView.layer.borderColor = UIColor.white.cgColor
+        thumbView.layer.backgroundColor = UIColor.white.cgColor
         thumbLabel.font = thumbLabel.font.withSize(10)
         updateThumbPosition(false)
         
@@ -82,7 +83,7 @@ class SensitivitySlider: UIControlNibDesignable{
     
     
     private func updateThumbPosition(_ animated: Bool) {
-        thumbLabel.text = String(value)
+//        thumbLabel.text = String(value)
         setThumbOffset(thumbOffsetForValue(self.value), animated: animated)
     }
     
@@ -141,7 +142,7 @@ class SensitivitySlider: UIControlNibDesignable{
                 thumbLeadingConstraint.constant += point.x
                 // updateLabel
                 if let val = valueForThumbCenterPointX(newCenterX) , val != value {
-                    thumbLabel.text = String(val)
+//                    thumbLabel.text = String(val)
                 }
             }
         case .ended :

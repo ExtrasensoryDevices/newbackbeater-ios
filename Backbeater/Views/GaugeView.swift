@@ -104,7 +104,7 @@ class GaugeView: UIView {
     var tempo: Int = 0 {
         didSet {
             if let label = self.viewWithTag(10 + dotStrings.count/2) as? UILabel {
-                label.text = "\(tempo)"
+//                label.text = "\(tempo)"
             }
         }
     }
@@ -307,20 +307,17 @@ class GaugeView: UIView {
         DispatchQueue.main.async {
             var fontSize:CGFloat
             switch ScreenUtil.screenSizeClass {
-                case .xsmall: fontSize = 12
-                case .small:  fontSize = 14
-                case .medium: fontSize = 18
-                case .large:  fontSize = 20
-                case .xlarge: fontSize = 22
+                case .xsmall: fontSize = 8
+                case .small:  fontSize = 10
+                case .medium: fontSize = 14
+                case .large:  fontSize = 16
+                case .xlarge: fontSize = 18
             }
             
-            let font10 = Font.FuturaBook.get(fontSize)
-            let font16 = Font.FuturaDemi.get(fontSize + 4)
-            var tag = 0
+            let font10 = Font.FuturaDemi.get(fontSize)
             
             let rect = self.bounds
             let center = CGPoint(x: rect.midX, y: rect.midY + self.offsetY)
-            let segmentAngle = self.deg2rad(self.totalAngle / CGFloat(self.segmentColors.count))
             
             var radius = rect.width
             if radius > 540 {
@@ -328,56 +325,28 @@ class GaugeView: UIView {
             }
             
             let segmentRadius = (((radius - self.segmentWidth) / 2) - self.outerBezelWidth) - self.innerBezelWidth - self.segmentWidth - 16
-            let rotFrom = self.deg2rad(self.rotation) - (.pi / 2)
-            for num in self.dotStrings {
-                let label = UILabel()
-                label.backgroundColor = UIColor.clear
-                label.textAlignment = .center
-                label.font = font10
-                
-                label.tag = tag + 10
-//                label.isHidden = true
-                
-                if tag < 4 {
-                    label.text = "–\(num)"
-                    if tag == 0 {
-                        label.text = "slow"
-                    }
-                    label.textAlignment = .right
-                    label.textColor = ColorPalette.red.color
-                }
-                else if tag > 4 {
-                    label.text = "+\(num)"
-                    if tag == 8 {
-                        label.text = "  fast"
-                    }
-                    label.textAlignment = .left
-                    label.textColor = ColorPalette.green.color
-                }
-                else {
-                    label.font = font16
-                    label.textColor = UIColor.white
-                    label.text = "\(self.tempo)"
-                }
-                
-                let startAngle = rotFrom + CGFloat(tag) * segmentAngle
-                
-                let minDotCenter = CGPoint(x: CGFloat(segmentRadius * cos(startAngle)) + center.x,
-                                           y: center.y + CGFloat(segmentRadius * sin(startAngle)))
-                if tag != 4 && tag != 0 && tag != 8 {
-                    if tag < 4 {
-                        label.frame = CGRect(x: minDotCenter.x - 17, y: minDotCenter.y - 12, width: 26, height: 20)
-                    }
-                    else {
-                        label.frame = CGRect(x: minDotCenter.x - 12, y: minDotCenter.y - 12, width: 26, height: 20)
-                    }
-                } else {
-                    label.frame = CGRect(x: minDotCenter.x - 24, y: minDotCenter.y - 12, width: 48, height: 24)
-                }
-                
-                self.addSubview(label)
-                tag += 1
-            }
+            
+            let slowLabel = UILabel()
+            slowLabel.backgroundColor = UIColor.clear
+            slowLabel.font = font10
+            slowLabel.tag = 0 + 10
+            slowLabel.text =  "SLOW"
+            slowLabel.textAlignment = .right
+            slowLabel.textColor = .white
+            slowLabel.frame = CGRect(x: center.x - segmentRadius - 22, y: center.y - 12, width: 50, height: 24)
+            
+            self.addSubview(slowLabel)
+            
+            let fastLabel = UILabel()
+            fastLabel.backgroundColor = UIColor.clear
+            fastLabel.font = font10
+            fastLabel.tag = 8 + 10
+            fastLabel.text =  "FAST"
+            fastLabel.textAlignment = .left
+            fastLabel.textColor = .white
+            fastLabel.frame = CGRect(x: center.x + segmentRadius - 22, y: center.y - 12, width: 50, height: 24)
+            
+            self.addSubview(fastLabel)
             
             let needle = self.needle
             needle.backgroundColor = self.needColor

@@ -20,6 +20,7 @@
                 <outlet property="beatSegmentedControl" destination="J23-eY-XOo" id="AGS-YH-ozC"/>
                 <outlet property="helpButton" destination="cX9-Tu-Ylt" id="Ht6-iL-JqR"/>
                 <outlet property="metronomeButton" destination="tgE-Fo-Hcs" id="qLd-bv-EkJ"/>
+                <outlet property="sensitivityLabel" destination="iCw-V6-XWq" id="oeI-FE-2fU"/>
                 <outlet property="sensitivitySlider" destination="Ngt-p1-cqv" id="8BR-yG-j17"/>
                 <outlet property="sideStickButton" destination="yLu-PE-aXK" id="CQV-v3-ohu"/>
                 <outlet property="stickButton" destination="nvU-mV-gsJ" id="S2A-Wi-Jl7"/>
@@ -43,8 +44,18 @@
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iCw-V6-XWq">
+                    <rect key="frame" x="8" y="69" width="607" height="32"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="32" id="7iE-zC-Rk7"/>
+                    </constraints>
+                    <viewLayoutGuide key="safeArea" id="Fn6-RJ-beW"/>
+                    <fontDescription key="fontDescription" name="FuturaRound-Demi" family="Futura Round Demi" pointSize="26"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ngt-p1-cqv" customClass="SensitivitySlider" customModule="Backbeater" customModuleProvider="target">
-                    <rect key="frame" x="8" y="73" width="607" height="37"/>
+                    <rect key="frame" x="8" y="107" width="607" height="37"/>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="37" id="OZs-zU-CHU"/>
@@ -54,7 +65,7 @@
                     </connections>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="METRONOME SOUND" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2pf-lL-cEf">
-                    <rect key="frame" x="8" y="142" width="607" height="16"/>
+                    <rect key="frame" x="8" y="176" width="607" height="16"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="ZLy-Az-BdH"/>
                     </constraints>
@@ -68,7 +79,7 @@
                     </variation>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yLu-PE-aXK" userLabel="SideStickSound">
-                    <rect key="frame" x="82.5" y="182" width="42.5" height="35"/>
+                    <rect key="frame" x="82.5" y="216" width="42.5" height="35"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="35" id="Lig-YY-5nj"/>
                         <constraint firstAttribute="width" secondItem="yLu-PE-aXK" secondAttribute="height" multiplier="45:37" id="UcI-Er-A9H"/>
@@ -82,7 +93,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nvU-mV-gsJ" userLabel="SticksSound">
-                    <rect key="frame" x="227.5" y="182" width="29.5" height="34"/>
+                    <rect key="frame" x="227.5" y="216" width="29.5" height="34"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="34" id="MbF-sN-Jmv"/>
                         <constraint firstAttribute="width" secondItem="nvU-mV-gsJ" secondAttribute="height" multiplier="32:37" id="MzZ-Or-aod"/>
@@ -96,7 +107,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tgE-Fo-Hcs" userLabel="MetronomeSound">
-                    <rect key="frame" x="366.5" y="182" width="28.5" height="34"/>
+                    <rect key="frame" x="366.5" y="216" width="28.5" height="34"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="34" id="Cmw-GV-sOD"/>
                         <constraint firstAttribute="width" secondItem="tgE-Fo-Hcs" secondAttribute="height" multiplier="31:37" id="gb7-vB-pLW"/>
@@ -110,7 +121,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2V4-JI-dUS" userLabel="SurpriseSound">
-                    <rect key="frame" x="493" y="182" width="52.5" height="34"/>
+                    <rect key="frame" x="493" y="216" width="52.5" height="34"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="2V4-JI-dUS" secondAttribute="height" multiplier="57:37" id="Abk-e9-Zzp"/>
                         <constraint firstAttribute="height" constant="34" id="gxw-SE-WBZ"/>
@@ -124,7 +135,7 @@
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AVERAGING WINDOW" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kL1-CA-mOY">
-                    <rect key="frame" x="8" y="256" width="607" height="21"/>
+                    <rect key="frame" x="8" y="290" width="607" height="21"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="HiS-bn-qYr"/>
                     </constraints>
@@ -133,7 +144,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BEAT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1mw-Bo-w6h">
-                    <rect key="frame" x="8" y="381" width="607" height="21"/>
+                    <rect key="frame" x="8" y="413" width="607" height="21"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="zLN-Hb-KxB"/>
                     </constraints>
@@ -142,7 +153,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J23-eY-XOo" userLabel="Beat Segmented Control" customClass="SegmentedControl" customModule="Backbeater" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="422" width="623" height="44"/>
+                    <rect key="frame" x="0.0" y="448" width="623" height="44"/>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="0Ru-d6-8Nh"/>
@@ -152,7 +163,7 @@
                     </connections>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LQS-dh-hCe" userLabel="Window Segmented Control" customClass="SegmentedControl" customModule="Backbeater" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="297" width="623" height="44"/>
+                    <rect key="frame" x="0.0" y="329" width="623" height="44"/>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="1lT-qz-F6E"/>
@@ -162,7 +173,7 @@
                     </connections>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FhN-1K-bu1">
-                    <rect key="frame" x="577" y="255.5" width="22" height="22"/>
+                    <rect key="frame" x="576" y="289" width="23" height="23"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="23" id="3zU-K1-kOp"/>
                         <constraint firstAttribute="width" constant="23" id="wSq-mk-bf9"/>
@@ -199,7 +210,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="edf-DX-fbF">
-                    <rect key="frame" x="577" y="380.5" width="22" height="22"/>
+                    <rect key="frame" x="576" y="412" width="23" height="23"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="23" id="RAs-XW-Dtx"/>
                         <constraint firstAttribute="width" constant="23" id="tRK-Kg-QRP"/>
@@ -224,10 +235,12 @@
                 <constraint firstAttribute="centerX" secondItem="yLu-PE-aXK" secondAttribute="centerX" multiplier="9:3" id="BbV-eV-6Zs"/>
                 <constraint firstAttribute="trailing" secondItem="1mw-Bo-w6h" secondAttribute="trailing" constant="8" id="Byn-LL-hYN"/>
                 <constraint firstAttribute="trailing" secondItem="XED-ML-FH5" secondAttribute="trailing" id="C5J-P1-5iF"/>
+                <constraint firstItem="iCw-V6-XWq" firstAttribute="top" secondItem="FZR-9P-Sk9" secondAttribute="bottom" constant="20" id="DCf-M0-iwQ"/>
                 <constraint firstAttribute="centerX" secondItem="nvU-mV-gsJ" secondAttribute="centerX" multiplier="9:7" id="E6e-j7-jTA"/>
                 <constraint firstAttribute="bottom" secondItem="XED-ML-FH5" secondAttribute="bottom" constant="8" id="EmV-3e-e72"/>
                 <constraint firstItem="1mw-Bo-w6h" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="FCp-Sa-IT7"/>
                 <constraint firstItem="b6x-UN-U5j" firstAttribute="trailing" secondItem="edf-DX-fbF" secondAttribute="trailing" constant="24" id="FZd-pI-Wjj"/>
+                <constraint firstItem="iCw-V6-XWq" firstAttribute="centerX" secondItem="FZR-9P-Sk9" secondAttribute="centerX" id="G9F-5f-Bjc"/>
                 <constraint firstItem="2pf-lL-cEf" firstAttribute="top" secondItem="Ngt-p1-cqv" secondAttribute="bottom" constant="32" id="LPV-E7-d4L"/>
                 <constraint firstAttribute="trailing" secondItem="kL1-CA-mOY" secondAttribute="trailing" constant="8" id="MZY-op-Jxe"/>
                 <constraint firstItem="edf-DX-fbF" firstAttribute="centerY" secondItem="1mw-Bo-w6h" secondAttribute="centerY" id="NZi-BK-7M8"/>
@@ -246,13 +259,14 @@
                 <constraint firstItem="nvU-mV-gsJ" firstAttribute="top" secondItem="tgE-Fo-Hcs" secondAttribute="top" id="hqG-R8-W7z"/>
                 <constraint firstItem="b6x-UN-U5j" firstAttribute="trailing" secondItem="FhN-1K-bu1" secondAttribute="trailing" constant="24" id="o02-Mx-Gd1"/>
                 <constraint firstAttribute="trailing" secondItem="2pf-lL-cEf" secondAttribute="trailing" constant="8" id="oZN-t5-LpT"/>
-                <constraint firstItem="Ngt-p1-cqv" firstAttribute="top" secondItem="FZR-9P-Sk9" secondAttribute="bottom" constant="24" id="oqy-24-TXJ"/>
                 <constraint firstAttribute="centerX" secondItem="2V4-JI-dUS" secondAttribute="centerX" multiplier="9:15" id="pSi-Fp-87W"/>
                 <constraint firstAttribute="trailing" secondItem="LQS-dh-hCe" secondAttribute="trailing" id="pYh-EG-0Uy"/>
                 <constraint firstItem="nvU-mV-gsJ" firstAttribute="top" secondItem="yLu-PE-aXK" secondAttribute="top" id="ptx-3c-0he"/>
                 <constraint firstItem="kL1-CA-mOY" firstAttribute="top" secondItem="tgE-Fo-Hcs" secondAttribute="bottom" constant="40" id="vaS-mJ-OWY"/>
+                <constraint firstItem="Ngt-p1-cqv" firstAttribute="top" secondItem="iCw-V6-XWq" secondAttribute="bottom" constant="6" id="x1D-bS-fxD"/>
                 <constraint firstAttribute="trailing" secondItem="FZR-9P-Sk9" secondAttribute="trailing" constant="8" id="xb8-lc-dBc"/>
                 <constraint firstItem="LQS-dh-hCe" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="xj2-Jg-jNb"/>
+                <constraint firstItem="iCw-V6-XWq" firstAttribute="width" secondItem="FZR-9P-Sk9" secondAttribute="width" id="yvu-C4-elI"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="b6x-UN-U5j"/>

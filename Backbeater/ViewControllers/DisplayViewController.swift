@@ -200,7 +200,7 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
         }
         centerRing.display(cpt: cpt, timeSignature: timeSignature, metronomeState: metronomeState)
         if !metronomeState.isOn {
-            reportMetronomeState(isOn: false, tempo: cpt)
+            //reportMetronomeState(isOn: false, tempo: cpt)
         }
     }
 

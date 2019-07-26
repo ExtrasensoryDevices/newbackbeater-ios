@@ -90,6 +90,7 @@ class SongListViewController: UIViewController, UITableViewDataSource, UITableVi
         if oldSongList.isEmpty && !newSongList.isEmpty {
             Flurry.logEvent(.tempoListCreated)
         }
+        inputTextField?.resignFirstResponder()
         let listToReturn:[SongTempo]? = newSongList.isEmpty ? nil : newSongList
         delegate?.songListViewControllerDidReturnSongList(listToReturn, updated: isUpdated())
         self.dismiss(animated: true, completion: nil)

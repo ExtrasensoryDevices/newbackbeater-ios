@@ -31,6 +31,7 @@ class Sidebar: NibDesignable {
     }
 
     @IBOutlet weak var sensitivitySlider: SensitivitySlider!
+    @IBOutlet weak var sensitivityLabel: UILabel!
     @IBOutlet weak var windowSegmentedControl: SegmentedControl!
     @IBOutlet weak var beatSegmentedControl: SegmentedControl!
     
@@ -78,7 +79,7 @@ class Sidebar: NibDesignable {
                                       strikesWindowIdx:  Int,
                                       timeSignatureIdx:  Int) {
         sensitivitySlider.value = sensitivity
-        
+        sensitivityLabel.text = "\(sensitivity)"
         for (index, button) in soundButtonCollection.enumerated() {
             button.isSelected = (index == metronomeSoundIdx)
         }
@@ -114,6 +115,7 @@ class Sidebar: NibDesignable {
     
     @IBAction func sensitivityValueChanged(_ sender: SensitivitySlider) {
         delegate?.sensitivityChanged(newValue: sender.value)
+        sensitivityLabel.text = "\(sender.value)"
     }
     
     @IBAction func windowValueChanged(_ sender: SegmentedControl) {
