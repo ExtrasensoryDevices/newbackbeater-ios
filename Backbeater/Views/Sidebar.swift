@@ -49,6 +49,14 @@ class Sidebar: NibDesignable {
     
     private var initialized = false
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
     override func setup() {
         super.setup()
         self.backgroundColor = ColorPalette.pink.color
@@ -79,6 +87,8 @@ class Sidebar: NibDesignable {
                                       strikesWindowIdx:  Int,
                                       timeSignatureIdx:  Int) {
         sensitivitySlider.value = sensitivity
+        
+        print("\(sensitivityLabel.font.pointSize)")
         sensitivityLabel.text = "\(sensitivity)"
         for (index, button) in soundButtonCollection.enumerated() {
             button.isSelected = (index == metronomeSoundIdx)
@@ -110,8 +120,12 @@ class Sidebar: NibDesignable {
     override func didMoveToWindow() {
         super.didMoveToWindow()
         versionLabel.font = Font.FuturaDemi.get(10)
+        sensitivityLabel.font = Font.FuturaDemi.get(24)
     }
     
+    @IBAction func sensitivityEditingChanged(_ sender: SensitivitySlider) {
+        sensitivityLabel.text = "\(sender.value)"
+    }
     
     @IBAction func sensitivityValueChanged(_ sender: SensitivitySlider) {
         delegate?.sensitivityChanged(newValue: sender.value)

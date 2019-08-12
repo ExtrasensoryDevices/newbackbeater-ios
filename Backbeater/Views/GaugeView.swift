@@ -101,14 +101,15 @@ class GaugeView: UIView {
         }
     }
     
-    var tempo: Int = 0 {
+    var tempo: Int = 0
+    /*{
         didSet {
             if let label = self.viewWithTag(10 + dotStrings.count/2) as? UILabel {
 //                label.text = "\(tempo)"
             }
         }
     }
-    
+    */
     func drawBackground(in rect: CGRect, context ctx: CGContext){
         ctx.saveGState()
         //draw the outer bezel as the largest circle

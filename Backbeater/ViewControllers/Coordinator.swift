@@ -15,7 +15,7 @@ import Flurry_iOS_SDK
 struct Tempo {
     static let min:Int       =  20
     static let max:Int       = 200
-    static let `default`:Int = 120
+    static let `default`:Int = 80
 
     static func normalized(value: Int) -> Int {
         return value.normalized(min: Tempo.min, max: Tempo.max)
@@ -25,7 +25,7 @@ struct Tempo {
 struct Sensitivity {
     static let min:Int       =   0
     static let max:Int       = 100
-    static let `default`:Int = 50
+    static let `default`:Int = 100
     
     static func normalized(value: Int) -> Int {
         return value.normalized(min: Sensitivity.min, max: Sensitivity.max)
@@ -44,8 +44,8 @@ protocol CoordinatorDelegate: class {
     func setupView(lastPlayedTempo: Int, metronomeTempo: Int, sensitivity: Int, sensorDetected: Bool, sound: URL)
     func stopMetronome()
     func stopAnimation()
-    func updateMetronomeState(metronomeState: MetronomeState)
-    func updateSensorState(sensorDetected:Bool)
+    func updateMetronomeState(_ metronomeState: MetronomeState)
+    func updateSensorState(_ sensorDetected: Bool)
     func setSound(url:URL)
     func display(cpt:Int, timeSignature: Int, metronomeState:MetronomeState, bpm: Float)
     func handleFirstStrike()
@@ -284,7 +284,7 @@ class Coordinator {
     private func startAudioSession() {
         // after permission granted
         sensorDetected = true
-        output?.updateSensorState(sensorDetected: true)
+        output?.updateSensorState(true)
         try? soundProcessor.start(sensitivity)
     }
     
@@ -309,13 +309,15 @@ extension Coordinator: DisplayViewControllerDelegate {
         processBPM(bpm)
     }
     
-    func metronomeStateChanged(_ newValue: MetronomeState) {
+    func metronomeStateChanged(_ newValue: MetronomeState, updated: Bool = true) {
         let newTempo = newValue.tempo
         guard (Tempo.min...Tempo.max).contains(newTempo) else {
             return
         }
         metronomeState = newValue
-        output?.updateMetronomeState(metronomeState: metronomeState)
+        if updated {
+            output?.updateMetronomeState(metronomeState)
+        }
     }
     
     func startMetronomeWithCurrentTempo() {
@@ -323,7 +325,7 @@ extension Coordinator: DisplayViewControllerDelegate {
             // do nothing
         } else {
             metronomeState = .on(tempo: currentTempo)
-            output?.updateMetronomeState(metronomeState: metronomeState)
+            output?.updateMetronomeState(metronomeState)
         }
         
     }
@@ -345,7 +347,7 @@ extension Coordinator: SoundProcessorDelegate {
             checkMicrophonePermission()
         } else {
             sensorDetected = false
-            output?.updateSensorState(sensorDetected: false)
+            output?.updateSensorState(false)
             try? soundProcessor.stop()
         }
     }

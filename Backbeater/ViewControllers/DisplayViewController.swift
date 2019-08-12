@@ -12,7 +12,7 @@ protocol DisplayViewControllerDelegate:class {
     func readyToRender()
     func foundTap(bpm:Float64)
     func didDetectFirstTap()
-    func metronomeStateChanged(_ newValue:MetronomeState)
+    func metronomeStateChanged(_ newValue:MetronomeState, updated: Bool)
     func startMetronomeWithCurrentTempo()
 }
 
@@ -123,7 +123,7 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
         metronomeTempoView.value = metronomeTempo
         metronomeTempoView.isOn = false
         
-        updateSensorState(sensorDetected: sensorDetected)
+        updateSensorState(sensorDetected)
         
         songList = SongTempo.deserialize(data: UserDefaults.data(for: .songList) as? Data)
         if let count = songList?.count, count > 0 {
@@ -142,7 +142,7 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
     }
     
     
-    func updateMetronomeState(metronomeState: MetronomeState) {
+    func updateMetronomeState(_ metronomeState: MetronomeState) {
         switch metronomeState {
         case .on(let tempo):
             metronomeTempoView.value = tempo
@@ -168,7 +168,7 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
         centerRing.setTempo(metronomeState.tempo)
     }
     
-    func updateSensorState(sensorDetected:Bool) {
+    func updateSensorState(_ sensorDetected: Bool) {
         getSensorView.isHidden = sensorDetected
         setTempoView.isHidden = !sensorDetected
         targetLabel.isHidden = !sensorDetected
@@ -211,7 +211,7 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
         }
         centerRing.display(cpt: cpt, timeSignature: timeSignature, metronomeState: metronomeState)
         if !metronomeState.isOn {
-            //reportMetronomeState(isOn: false, tempo: cpt)
+            updateMetronomeTempo(cpt)
         }
     }
 
@@ -278,10 +278,13 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
     
     private func reportMetronomeState(isOn: Bool, tempo: Int) {
         let newState:MetronomeState  =  isOn ? .on(tempo: tempo) : .off(tempo: tempo)
-        delegate?.metronomeStateChanged(newState)
+        delegate?.metronomeStateChanged(newState, updated: true)
     }
 
-    
+    private func updateMetronomeTempo(_ tempo: Int) {
+        let newState:MetronomeState  = .off(tempo: tempo)
+        delegate?.metronomeStateChanged(newState, updated: false)
+    }
     
     
     // MARK: - CentralRingDelegate
