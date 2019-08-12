@@ -76,8 +76,8 @@ class CentralRing: NibDesignable {
     
     func setSound(url:URL) {
         do {
-            try AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .default)
-            try AVAudioSession.sharedInstance().setActive(true)
+//            try AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .default)
+//            try AVAudioSession.sharedInstance().setActive(true)
             player = try AVAudioPlayer(contentsOf: url)
             player?.prepareToPlay()
         } catch  {

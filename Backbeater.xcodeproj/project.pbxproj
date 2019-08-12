@@ -11,6 +11,7 @@
 		0462A8EF22A84D7F0083BFA9 /* GaugeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0462A8EE22A84D7E0083BFA9 /* GaugeView.swift */; };
 		0462A8F222A85FA00083BFA9 /* CenterRing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0462A8F022A85FA00083BFA9 /* CenterRing.swift */; };
 		0462A8F322A85FA00083BFA9 /* CenterRing.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0462A8F122A85FA00083BFA9 /* CenterRing.xib */; };
+		04E876C622F40AB9000B9F06 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E876C522F40AB9000B9F06 /* CoreBluetooth.framework */; };
 		2EF398B6B639ED6E2F9264E6 /* Pods_Backbeater.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB08732C83FA9803F0056756 /* Pods_Backbeater.framework */; };
 		C766572C21DDDD9700D703C8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C766572B21DDDD9700D703C8 /* Constants.swift */; };
 		C766574B21DDE18D00D703C8 /* ScreenUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = C766574421DDE18C00D703C8 /* ScreenUtil.swift */; };
@@ -77,6 +78,7 @@
 		0462A8EE22A84D7E0083BFA9 /* GaugeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GaugeView.swift; sourceTree = "<group>"; };
 		0462A8F022A85FA00083BFA9 /* CenterRing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenterRing.swift; sourceTree = "<group>"; };
 		0462A8F122A85FA00083BFA9 /* CenterRing.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CenterRing.xib; sourceTree = "<group>"; };
+		04E876C522F40AB9000B9F06 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		C7237C2CFC0F2285281BB463 /* Pods-Backbeater.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Backbeater.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Backbeater/Pods-Backbeater.debug.xcconfig"; sourceTree = "<group>"; };
 		C766572B21DDDD9700D703C8 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		C766574421DDE18C00D703C8 /* ScreenUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenUtil.swift; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04E876C622F40AB9000B9F06 /* CoreBluetooth.framework in Frameworks */,
 				C78C3DA42210B7F000780725 /* AVFoundation.framework in Frameworks */,
 				C766590E21E46A7700D703C8 /* Foundation.framework in Frameworks */,
 				C7E929C121DCA0B600E950AA /* QuartzCore.framework in Frameworks */,
@@ -364,6 +367,7 @@
 		F4123DC9FC7BFEEEEA0DD7F2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				04E876C522F40AB9000B9F06 /* CoreBluetooth.framework */,
 				C766590D21E46A7700D703C8 /* Foundation.framework */,
 				C7E929C021DCA0B500E950AA /* QuartzCore.framework */,
 				C7E929BE21DCA0A000E950AA /* AudioToolbox.framework */,

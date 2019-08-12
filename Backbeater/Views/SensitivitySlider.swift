@@ -143,6 +143,8 @@ class SensitivitySlider: UIControlNibDesignable{
                 // updateLabel
                 if let val = valueForThumbCenterPointX(newCenterX) , val != value {
 //                    thumbLabel.text = String(val)
+                    value = val
+                    self.sendActions(for: .editingChanged)
                 }
             }
         case .ended :

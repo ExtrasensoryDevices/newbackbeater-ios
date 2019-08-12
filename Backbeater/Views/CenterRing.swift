@@ -80,15 +80,24 @@ class CenterRing: NibDesignable {
     
     func setSound(url:URL) {
         do {
-            try AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .spokenAudio, options: .defaultToSpeaker)
-            try AVAudioSession.sharedInstance().setActive(true)
-            
+//            try AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .default)
+//            try AVAudioSession.sharedInstance().setCategory(.playAndRecord, options: [.allowBluetoothA2DP, .allowAirPlay, .mixWithOthers])
+//            try AVAudioSession.sharedInstance().setActive(true)
+
             player = try AVAudioPlayer(contentsOf: url)
             player?.prepareToPlay()
+//
+//            let routes = AVAudioSession.sharedInstance().availableInputs ?? []
+//            for route in routes {
+//                print("route : \(route.portName) - \(route.portType)")
+//            }
+//            
+//            try AVAudioSession.sharedInstance().overrideOutputAudioPort(AVAudioSession.PortOverride.speaker)
         } catch  {
             print(error)
         }
     }
+    
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         
@@ -148,10 +157,10 @@ class CenterRing: NibDesignable {
                 
                 var delayTime = 0.0
                 if metronomeTimer != nil {
-                // reset timer
-                metronomeTimer?.cancel()
-                metronomeTimer = nil
-            
+                    // reset timer
+                    metronomeTimer?.cancel()
+                    metronomeTimer = nil
+                    
                     let delay = Int (Date().timeIntervalSince1970 * 1000) - self.playMetronomeTime
                     
                     delayTime = oldDuration - Double(delay) / 1000.0

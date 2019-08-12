@@ -9,6 +9,7 @@
 import UIKit
 import Gifu
 import Flurry_iOS_SDK
+import AVFoundation
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -27,6 +28,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             imageView.animate(withGIFNamed: "bblogoanimation5.gif")
         }
         
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.record, mode: .default, options: [.defaultToSpeaker, .allowAirPlay, .allowBluetoothA2DP])
+//            try AVAudioSession.sharedInstance().setCategory(.record, options: [.interruptSpokenAudioAndMixWithOthers])
+            try AVAudioSession.sharedInstance().setActive(true)
+        } catch {
+            print(error)
+        }
         // replace root VC
         let mainVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainViewController")
         self.delay(2.0, callback: { [unowned self] () -> () in
@@ -93,6 +101,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
+        do {
+            let routes = AVAudioSession.sharedInstance().availableInputs ?? []
+            var array = [AVAudioSessionPortDescription]()
+            
+            var portDesp: AVAudioSessionPortDescription! = nil
+            for route in routes {
+                print("route : \(route.portName) - \(route.portType)")
+                if route.portType != .builtInMic && route.portType != .builtInSpeaker {
+                    array.append(route)
+                }
+                else {
+                    if route.portType != .builtInSpeaker {
+                        portDesp = route
+                    }
+                }
+            }
+            
+            if array.count > 0 {
+                //try AVAudioSession.sharedInstance().setPreferredInput(array[0])
+            }
+            else {
+                if portDesp != nil {
+//                    try AVAudioSession.sharedInstance().setPreferredInput(portDesp)
+                }
+                else {
+                    //try AVAudioSession.sharedInstance().overrideOutputAudioPort(AVAudioSession.PortOverride.speaker)
+                }
+            }
+        } catch {
+            print(error)
+        }
+        
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         Flurry.logEvent(.appOpened)
         lastOpenTime = Date()
