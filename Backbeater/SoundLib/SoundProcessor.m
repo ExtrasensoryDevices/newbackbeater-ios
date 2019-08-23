@@ -10,7 +10,7 @@
 #import "EnergyFunctionQueue.h"
 #import "PublicUtilityWrapper.h"
 #import <UIKit/UIKit.h>
-
+#import "Backbeater-Swift.h"
 
 
 //#define kStartThreshold 0.15
@@ -26,7 +26,8 @@
 
 @implementation SoundProcessor
 
-ATSoundSessionIO *_soundSessionIO;
+AudioInput* audioInput;
+//ATSoundSessionIO *_soundSessionIO;
 EnergyFunctionQueue *_energyFunctionQueue;
 
 Float32 _testMaxEnergy;
@@ -72,12 +73,17 @@ BOOL _strikeState;
         
         _energyFunctionQueue = [[EnergyFunctionQueue alloc] init];
         
-        _soundSessionIO = [[ATSoundSessionIO alloc] init];
+//        _soundSessionIO = [[ATSoundSessionIO alloc] init];
+//        __block SoundProcessor *blocksafeSelf = self;
+//        _soundSessionIO.inBlock = ^OSStatus(Float32* left, Float32*right, UInt32 inNumberFrames){
+//            [blocksafeSelf processData:left right:right numFrames:inNumberFrames];
+//            return noErr;
+//        };
+        
         __block SoundProcessor *blocksafeSelf = self;
-        _soundSessionIO.inBlock = ^OSStatus(Float32* left, Float32*right, UInt32 inNumberFrames){
-            [blocksafeSelf processData:left right:right numFrames:inNumberFrames];
-            return noErr;
-        };
+        audioInput = [[AudioInput alloc] initWithAudioInputCallback:^(double timestamp, NSInteger numbers, NSArray<NSNumber *> * samples) {
+           [blocksafeSelf processData:samples numFrames:numbers];
+        } sampleRate:3000.0 numberOfChannels:1];
         
         [self addObservers];
         
@@ -89,7 +95,7 @@ BOOL _strikeState;
 - (void)dealloc
 {
     [self removeObservers];
-    [_soundSessionIO disposeSoundProcessingGraph:nil];
+//    [_soundSessionIO disposeSoundProcessingGraph:nil];
 
 }
 
@@ -103,9 +109,9 @@ BOOL _strikeState;
 UInt64 _strikeStartTime = 0;
 UInt64 _strikeEndTime = 0;
 BOOL _insideTimeout = false;
--(void) processData:(Float32*)left right:(Float32*)right numFrames:(UInt32) numFrames
+//-(void) processData:(Float32*)left right:(Float32*)right numFrames:(UInt32) numFrames
+-(void) processData:(NSArray<NSNumber *>*) data numFrames:(NSInteger) numFrames
 {
-    Float32 *data = left;
     int i;
     for (i=0; i<numFrames; i++) {
         
@@ -113,7 +119,7 @@ BOOL _insideTimeout = false;
         Float32 __endTh = self.testing ? _testEndThreshold : _endThreshold;
         Float32 __timeout = self.testing ? _testTimeout : _timeout;
         
-        Float32 energyLevel = [_energyFunctionQueue push:data[i]];
+        Float32 energyLevel = [_energyFunctionQueue push:data[i].floatValue];
         UInt64 newTime = [PublicUtilityWrapper CAHostTimeBase_GetCurrentTime];
         UInt64 timeElapsedNs = [PublicUtilityWrapper CAHostTimeBase_AbsoluteHostDeltaToNanos:newTime oldTapTime:_strikeEndTime];
         
@@ -164,17 +170,20 @@ BOOL _insideTimeout = false;
     _strikeCount = 0;
     [_energyFunctionQueue clear];
     
-    [_soundSessionIO prepareSoundProcessingGraph:nil];
-    [_soundSessionIO startSoundProcessing:error];
+//    [_soundSessionIO prepareSoundProcessingGraph:nil];
+//    [_soundSessionIO startSoundProcessing:error];
+    [audioInput startRecording];
     
     return error == nil;
 }
 
 -(BOOL)stop:(NSError**)error
 {
-    if (_soundSessionIO.isProcessingSound) {
-        [_soundSessionIO stopSoundProcessing:error];
-    }
+//    if (_soundSessionIO.isProcessingSound) {
+//        [_soundSessionIO stopSoundProcessing:error];
+//    }
+    [audioInput stopRecording];
+    
     _strikeState = NO;
     _strikeCount = 0;
     [_energyFunctionQueue clear];
@@ -297,7 +306,8 @@ UInt64 _tapCount = 0;
             [self stop:nil];
         case AVAudioSessionInterruptionTypeEnded:
             // Make session active, update user interface
-            [_soundSessionIO prepareSoundProcessingGraph:nil];
+//            [_soundSessionIO prepareSoundProcessingGraph:nil];
+                break;
         }
     };
 }

@@ -11,6 +11,7 @@
 		0462A8EF22A84D7F0083BFA9 /* GaugeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0462A8EE22A84D7E0083BFA9 /* GaugeView.swift */; };
 		0462A8F222A85FA00083BFA9 /* CenterRing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0462A8F022A85FA00083BFA9 /* CenterRing.swift */; };
 		0462A8F322A85FA00083BFA9 /* CenterRing.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0462A8F122A85FA00083BFA9 /* CenterRing.xib */; };
+		04D8EEEA230291D600D595F6 /* AudioInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D8EEE9230291D600D595F6 /* AudioInput.swift */; };
 		04E876C622F40AB9000B9F06 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E876C522F40AB9000B9F06 /* CoreBluetooth.framework */; };
 		2EF398B6B639ED6E2F9264E6 /* Pods_Backbeater.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB08732C83FA9803F0056756 /* Pods_Backbeater.framework */; };
 		C766572C21DDDD9700D703C8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C766572B21DDDD9700D703C8 /* Constants.swift */; };
@@ -78,6 +79,7 @@
 		0462A8EE22A84D7E0083BFA9 /* GaugeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GaugeView.swift; sourceTree = "<group>"; };
 		0462A8F022A85FA00083BFA9 /* CenterRing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenterRing.swift; sourceTree = "<group>"; };
 		0462A8F122A85FA00083BFA9 /* CenterRing.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CenterRing.xib; sourceTree = "<group>"; };
+		04D8EEE9230291D600D595F6 /* AudioInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioInput.swift; sourceTree = "<group>"; };
 		04E876C522F40AB9000B9F06 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		C7237C2CFC0F2285281BB463 /* Pods-Backbeater.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Backbeater.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Backbeater/Pods-Backbeater.debug.xcconfig"; sourceTree = "<group>"; };
 		C766572B21DDDD9700D703C8 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -290,6 +292,7 @@
 				C76657AB21DDE52300D703C8 /* NibDesignable.swift */,
 				C76657AA21DDE52300D703C8 /* UIControlNibDesignable.swift */,
 				042081FF22B21E0700D6D2A8 /* AlwaysPresentAsPopover.swift */,
+				04D8EEE9230291D600D595F6 /* AudioInput.swift */,
 			);
 			path = ThirdPartyLibs;
 			sourceTree = "<group>";
@@ -539,6 +542,7 @@
 				0462A8F222A85FA00083BFA9 /* CenterRing.swift in Sources */,
 				C766574E21DDE18D00D703C8 /* NSObjectExtension.swift in Sources */,
 				C76657AD21DDE52300D703C8 /* NibDesignable.swift in Sources */,
+				04D8EEEA230291D600D595F6 /* AudioInput.swift in Sources */,
 				C76657AC21DDE52300D703C8 /* UIControlNibDesignable.swift in Sources */,
 				C76657A521DDE4F100D703C8 /* MainViewController.swift in Sources */,
 				C766579521DDE4CB00D703C8 /* SongListCell.swift in Sources */,
@@ -721,6 +725,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 52RQYE3ZLS;
 				INFOPLIST_FILE = Backbeater/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -747,6 +752,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 52RQYE3ZLS;
 				INFOPLIST_FILE = Backbeater/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

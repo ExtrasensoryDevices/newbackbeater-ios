@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         do {
-            try AVAudioSession.sharedInstance().setCategory(.record, mode: .default, options: [.defaultToSpeaker, .allowAirPlay, .allowBluetoothA2DP])
+            try AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .default, options: [.mixWithOthers, .allowAirPlay, .allowBluetoothA2DP])
 //            try AVAudioSession.sharedInstance().setCategory(.record, options: [.interruptSpokenAudioAndMixWithOthers])
             try AVAudioSession.sharedInstance().setActive(true)
         } catch {
@@ -119,14 +119,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             
             if array.count > 0 {
-                //try AVAudioSession.sharedInstance().setPreferredInput(array[0])
+                try AVAudioSession.sharedInstance().setPreferredInput(array[0])
             }
             else {
                 if portDesp != nil {
-//                    try AVAudioSession.sharedInstance().setPreferredInput(portDesp)
+                    try AVAudioSession.sharedInstance().setPreferredInput(portDesp)
                 }
                 else {
-                    //try AVAudioSession.sharedInstance().overrideOutputAudioPort(AVAudioSession.PortOverride.speaker)
+                    try AVAudioSession.sharedInstance().overrideOutputAudioPort(AVAudioSession.PortOverride.speaker)
                 }
             }
         } catch {
