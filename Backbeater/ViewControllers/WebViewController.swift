@@ -43,10 +43,18 @@ class WebViewController: UIViewController, WKNavigationDelegate {
         self.view.insertSubview(webView, belowSubview: closeButton)
 //        self.view.autoresizesSubviews = true
         
+        let winSize = UIScreen.main.bounds.size
+        
+        if winSize.height/winSize.width > 2 {
+            webView.frame = CGRect(x: 0, y: 0, width: winSize.width, height: winSize.height-80)
+        }
+        else {
+            webView.frame = CGRect(x: 0, y: 0, width: winSize.width, height: winSize.height-44)
+        }
 
         webView.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[webView]|", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: ["webView":webView]))
-        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[webView]|", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: ["webView":webView]))
+//        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[webView]|", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: ["webView":webView]))
+//        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[webView]|", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: ["webView":webView]))
 
         _ = webView.load(URLRequest(url: URL(string: url)!))
 
