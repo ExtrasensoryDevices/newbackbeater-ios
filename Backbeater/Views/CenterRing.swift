@@ -32,6 +32,8 @@ class CenterRing: NibDesignable {
     private var strikeAnimation:CAKeyframeAnimation!
     private var pulseAnimation:CABasicAnimation!
     private let pulseDuration:Double = floor(60.0 / Double(Tempo.max) * 10) / 10 / 5  /// FIXME: *10/10 ???
+    private var isPlaying = false
+    private var playingWorkItem: DispatchWorkItem! = nil
     
     private var drumAnimationImagesLeft:[UIImage] = []
     private var drumAnimationImagesRight:[UIImage] = []
@@ -116,6 +118,17 @@ class CenterRing: NibDesignable {
         }
         gaugeView.bpm = Float(pos + 4) / 8
         
+        if metronomeState.isOn {
+            isPlaying = true
+            if playingWorkItem != nil {
+                playingWorkItem.cancel()
+            }
+            
+            playingWorkItem = DispatchWorkItem {
+                self.isPlaying = false
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: playingWorkItem)
+        }
         if pos == 0 {
             self.screenFlash()
         }
@@ -155,7 +168,7 @@ class CenterRing: NibDesignable {
                 cptAnimation?.duration = newDuration
                 cptSublayer?.add(cptAnimation, forKey: AnimationKey.cpt)
                 
-                var delayTime = 0.0
+                var delayTime = 0.1
                 if metronomeTimer != nil {
                     // reset timer
                     metronomeTimer?.cancel()
@@ -169,7 +182,11 @@ class CenterRing: NibDesignable {
             
                 DispatchQueue.main.asyncAfter(deadline: .now() + delayTime, execute: {
                     let timer = DispatchSource.makeTimerSource()
-                    timer.schedule(wallDeadline: .now(), repeating:newDuration, leeway: .nanoseconds(0))
+                    
+                    self.playMetronomeTime = Int (Date().timeIntervalSince1970 * 1000)
+                    self.playSound()
+                    
+                    timer.schedule(wallDeadline: .now() + newDuration, repeating:newDuration)
                     
                     timer.setEventHandler{ [weak self] in
                         self?.playMetronomeTime = Int (Date().timeIntervalSince1970 * 1000)
@@ -182,6 +199,8 @@ class CenterRing: NibDesignable {
             
         case .off:
             // stop metronome
+            metronomeTimer?.setEventHandler(handler: {
+            })
             metronomeTimer?.cancel()
             metronomeTimer = nil
             cptSublayer?.removeAllAnimations()
@@ -229,6 +248,11 @@ class CenterRing: NibDesignable {
                 player.currentTime = 0.0
             }
             player.play()
+            if !isPlaying {
+                DispatchQueue.main.async {
+                    self.runPulseAnimation()
+                }
+            }
         } else {
             print("Player not found")
         }

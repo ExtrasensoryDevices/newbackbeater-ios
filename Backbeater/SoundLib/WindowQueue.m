@@ -35,6 +35,9 @@ Float64 _sum;
 {
     [self clear];
     _capacity = capacity;
+    if (_capacity == 2) {
+        _capacity = 1;
+    }
 }
 
 
