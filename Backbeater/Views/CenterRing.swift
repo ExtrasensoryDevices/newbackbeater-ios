@@ -106,10 +106,10 @@ class CenterRing: NibDesignable {
         resetSublayers()
     }
 
-    func display(cpt:Int, timeSignature: Int, metronomeState:MetronomeState) {
+    func display(cpt:Int, timeSignature: Int, metronomeState:MetronomeState, bpm: Int) {
         // display numbers
         setDisplayTempo(cpt)
-        var pos = cpt - metronomeState.tempo
+        var pos = bpm - metronomeState.tempo
         if pos > 4 {
             pos = 4
         }

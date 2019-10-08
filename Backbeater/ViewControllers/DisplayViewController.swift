@@ -209,7 +209,7 @@ class DisplayViewController: UIViewController, SongListViewControllerDelegate, C
         else {
             sensorTapCount = 0
         }
-        centerRing.display(cpt: cpt, timeSignature: timeSignature, metronomeState: metronomeState)
+        centerRing.display(cpt: cpt, timeSignature: timeSignature, metronomeState: metronomeState, bpm: Int(bpm))
         if !metronomeState.isOn {
             updateMetronomeTempo(cpt)
         }
