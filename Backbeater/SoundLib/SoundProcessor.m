@@ -64,21 +64,11 @@ BOOL _strikeState;
         // init test data
         _testStartThreshold = _startThreshold;
         _testEndThreshold = _endThreshold;
-        _testTimeout = _timeout  ;
-        
-        
+        _testTimeout = _timeout;
 
-        
         _strikeState = NO;
         
         _energyFunctionQueue = [[EnergyFunctionQueue alloc] init];
-        
-//        _soundSessionIO = [[ATSoundSessionIO alloc] init];
-//        __block SoundProcessor *blocksafeSelf = self;
-//        _soundSessionIO.inBlock = ^OSStatus(Float32* left, Float32*right, UInt32 inNumberFrames){
-//            [blocksafeSelf processData:left right:right numFrames:inNumberFrames];
-//            return noErr;
-//        };
         
         __block SoundProcessor *blocksafeSelf = self;
         audioInput = [[AudioInput alloc] initWithAudioInputCallback:^(double timestamp, NSInteger numbers, NSArray<NSNumber *> * samples) {
@@ -95,8 +85,6 @@ BOOL _strikeState;
 - (void)dealloc
 {
     [self removeObservers];
-//    [_soundSessionIO disposeSoundProcessingGraph:nil];
-
 }
 
 

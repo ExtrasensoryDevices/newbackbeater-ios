@@ -80,36 +80,30 @@ class GaugeView: UIView {
             let needleRotation = rotation + totalAngle * CGFloat(v)
             let angle = self.deg2rad(needleRotation)
             
-            if needleAngle != needleRotation {
-//                print("needle = \(needleAngle), current = \(needleRotation)")
-                if needleAngle == 90.0 && needleRotation == -90.0 {
+            if needleAngle == needleRotation {
+                return
+            }
+            
+            if needleAngle == 90.0 && needleRotation == -90.0 {
+                UIView.animate(withDuration: 0.15, animations: {
+                    self.needle.transform = CGAffineTransform(rotationAngle: 0)
+                }) { (comp) in
                     UIView.animate(withDuration: 0.15, animations: {
-                        self.needle.transform = CGAffineTransform(rotationAngle: 0)
-                    }) { (comp) in
-                        UIView.animate(withDuration: 0.15, animations: {
-                            self.needle.transform = CGAffineTransform(rotationAngle: angle)
-                        })
-                    }
-                }
-                else {
-                    UIView.animate(withDuration: 0.3, animations: {
                         self.needle.transform = CGAffineTransform(rotationAngle: angle)
                     })
                 }
-                needleAngle = needleRotation
             }
+            else {
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.needle.transform = CGAffineTransform(rotationAngle: angle)
+                })
+            }
+            needleAngle = needleRotation
         }
     }
     
     var tempo: Int = 0
-    /*{
-        didSet {
-            if let label = self.viewWithTag(10 + dotStrings.count/2) as? UILabel {
-//                label.text = "\(tempo)"
-            }
-        }
-    }
-    */
+
     func drawBackground(in rect: CGRect, context ctx: CGContext){
         ctx.saveGState()
         //draw the outer bezel as the largest circle

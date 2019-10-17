@@ -110,12 +110,34 @@ class CenterRing: NibDesignable {
         // display numbers
         setDisplayTempo(cpt)
         var pos = bpm - metronomeState.tempo
-        if pos > 4 {
+        if pos <= 2 && pos >= -2 {
+            pos = 0
+        }
+        else if pos <= 5 && pos > 2 {
+            pos = 1
+        }
+        else if pos >= -5 && pos < -2 {
+            pos = -1
+        }
+        else if pos <= 8 && pos > 5 {
+            pos = 2
+        }
+        else if pos >= -8 && pos < -5  {
+            pos = -2
+        }
+        else if pos <= 11 && pos > 8  {
+            pos = 3
+        }
+        else if pos >= -11 && pos < -8 {
+            pos = -3
+        }
+        else if pos > 11 {
             pos = 4
         }
-        else if pos < -4 {
+        else {
             pos = -4
         }
+        
         gaugeView.bpm = Float(pos + 4) / 8
         
         if metronomeState.isOn {
